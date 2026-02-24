@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PVE NoteBuddy</title>
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="layout">
+      <section class="panel panel-form">
+        <h1>🗒️ PVE NoteBuddy</h1>
+        <p class="subtitle">Generate Proxmox Notes using HTML-safe blocks with per-row layout and formatting controls.</p>
+
+        <form id="noteForm">
+          <fieldset class="group" data-row-key="icon">
+            <legend>Icon</legend>
+
+            <div class="icon-top-controls">
+              <div class="tool-set">
+                <span class="tool-title">Align</span>
+                <div class="tool-group">
+                  <label class="tool-chip" title="LEFT alignment"><input type="radio" name="iconAlign" value="left" /><span>L</span></label>
+                  <label class="tool-chip" title="CENTER alignment"><input type="radio" name="iconAlign" value="center" checked /><span>C</span></label>
+                  <label class="tool-chip" title="RIGHT alignment"><input type="radio" name="iconAlign" value="right" /><span>R</span></label>
+                </div>
+              </div>
+              <div class="row-reorder">
+                <button type="button" class="row-move" data-row-key="icon" data-direction="up" title="Move up">↑</button>
+                <button type="button" class="row-move" data-row-key="icon" data-direction="down" title="Move down">↓</button>
+              </div>
+            </div>
+
+            <label>
+              <select id="iconMode">
+                <option value="external">External link</option>
+                <option value="upload">File upload (SVG only)</option>
+                <option value="none">No image</option>
+              </select>
+            </label>
+
+            <label id="iconUrlWrap">
+              <input id="iconUrl" type="url" value="https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/termix.svg" placeholder="EXTERNAL IMAGE URL"/>
+            </label>
+
+
+
+            <label id="iconUploadWrap" class="hidden">
+              <input id="iconUpload" type="file" accept=".svg,image/svg+xml" />
+            </label>
+
+            <div id="iconEmbedWrap" class="scale-row">
+              <label width="50px" class="inline-check" title="Embed SVG to enable scaling">
+                <input id="iconEmbedSvg" type="checkbox" checked />
+                Embed SVG <div class="icon-help">
+              <span class="info-wrap" aria-label="Icon format details">
+                <span class="info-icon">i</span>
+                <span class="tooltip">Only embedded SVG can be scaled. PNG/JPG/WEBP must already be the correct size on the CDN.</span>
+              </span>
+            </div>
+              </label>
+              
+                          <span><div class="icon-help" id="iconSelfhstWrap">
+              <a href="https://selfh.st/icons/" target="_blank" rel="noopener noreferrer">Browse selfh.st icons</a>
+            </div></span>
+            </div>
+
+            <div style="text-align:center;"><span id="iconScaleValue" class="scale-value">100 px</span></div>
+            <input id="iconScale" type="range" min="32" max="320" step="2" value="110" />
+
+
+
+            <p id="iconStatus" class="status"></p>
+          </fieldset>
+
+          <fieldset class="group" data-row-key="title">
+            <legend>Name</legend>
+            <div class="row-grid row-controls">
+              <label class="icon-field">
+                EMOJI
+                <span class="icon-input-wrap">
+                  <input id="titleEmoji" type="text" value="" maxlength="8" />
+                  <button type="button" class="icon-clear" data-target="titleEmoji" title="Clear icon">X</button>
+                </span>
+              </label>
+              <div class="style-tools" data-prefix="title"></div>
+              <div class="row-reorder">
+                <button type="button" class="row-move" data-row-key="title" data-direction="up" title="Move up">↑</button>
+                <button type="button" class="row-move" data-row-key="title" data-direction="down" title="Move down">↓</button>
+              </div>
+            </div>
+            <div class="row-grid row-fields">
+              <label><input id="titleText" type="text" value="TERMIX LXC" placeholder="NAME" /></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="group" data-row-key="fqdn">
+            <legend>Host</legend>
+            <div class="row-grid row-controls">
+              <label class="icon-field">
+                EMOJI
+                <span class="icon-input-wrap">
+                  <input id="fqdnEmoji" type="text" value="🌐" maxlength="8" />
+                  <button type="button" class="icon-clear" data-target="fqdnEmoji" title="Clear icon">X</button>
+                </span>
+              </label>
+              <div class="style-tools" data-prefix="fqdn"></div>
+              <div class="row-reorder">
+                <button type="button" class="row-move" data-row-key="fqdn" data-direction="up" title="Move up">↑</button>
+                <button type="button" class="row-move" data-row-key="fqdn" data-direction="down" title="Move down">↓</button>
+              </div>
+            </div>
+            <div class="row-grid row-fields">
+              <label><input id="fqdnLabel" type="text" value="termix.homel4b.local" placeholder="HOST" /></label>
+              <label><input id="fqdnUrl" type="url" value="https://termix.site/" placeholder="HOST URL" /></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="group" data-row-key="network">
+            <legend>Network</legend>
+            <div class="row-grid row-controls">
+              <label class="icon-field">
+                EMOJI
+                <span class="icon-input-wrap">
+                  <input id="networkEmoji" type="text" value="🖥️" maxlength="8" />
+                  <button type="button" class="icon-clear" data-target="networkEmoji" title="Clear icon">X</button>
+                </span>
+              </label>
+              <div class="style-tools" data-prefix="network"></div>
+              <div class="row-reorder">
+                <button type="button" class="row-move" data-row-key="network" data-direction="up" title="Move up">↑</button>
+                <button type="button" class="row-move" data-row-key="network" data-direction="down" title="Move down">↓</button>
+              </div>
+            </div>
+            <div class="row-grid row-fields">
+              <label><input id="networkText" type="text" value="10.10.20.80:8443" placeholder="NETWORK ADDRESS" /></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="group" data-row-key="config">
+            <legend>Config File Location</legend>
+            <div class="row-grid row-controls">
+              <label class="icon-field">
+                EMOJI
+                <span class="icon-input-wrap">
+                  <input id="configEmoji" type="text" value="📁" maxlength="8" />
+                  <button type="button" class="icon-clear" data-target="configEmoji" title="Clear icon">X</button>
+                </span>
+              </label>
+              <div class="style-tools" data-prefix="config"></div>
+              <div class="row-reorder">
+                <button type="button" class="row-move" data-row-key="config" data-direction="up" title="Move up">↑</button>
+                <button type="button" class="row-move" data-row-key="config" data-direction="down" title="Move down">↓</button>
+              </div>
+            </div>
+            <div id="configLocations" class="stack"></div>
+            <button id="addConfigBtn" type="button" class="ghost">+ ADD</button>
+          </fieldset>
+
+          <fieldset class="group" data-row-key="custom">
+            <legend>Additional Notes</legend>
+            <div class="row-grid row-controls no-icon">
+              <div class="style-tools" data-prefix="custom"></div>
+              <div class="row-reorder">
+                <button type="button" class="row-move" data-row-key="custom" data-direction="up" title="Move up">↑</button>
+                <button type="button" class="row-move" data-row-key="custom" data-direction="down" title="Move down">↓</button>
+              </div>
+            </div>
+            <div class="row-grid row-fields">
+              <textarea id="customText" class="span-2" rows="4" placeholder="Any additional note...">https://community-scripts.github.io/ProxmoxVE/scripts?id=termix</textarea>
+            </div>
+          </fieldset>
+        </form>
+      </section>
+
+      <section class="panel panel-preview">
+        <div class="preview-wrap">
+          <div class="preview-head">
+            <h2>Preview</h2>
+            <div class="mode-toggle" role="group" aria-label="Preview theme">
+              <button id="themeDarkBtn" type="button" class="toggle active">Dark</button>
+              <button id="themeLightBtn" type="button" class="toggle">Light</button>
+            </div>
+          </div>
+
+          <div id="previewShell" class="preview-shell dark">
+            <div class="preview-title">Notes</div>
+            <div class="preview-body">
+              <div id="previewCard" class="preview-card"></div>
+            </div>
+          </div>
+
+          <div class="output-meta">
+            <span id="charCount">0 / 8192</span>
+            <span id="charWarning" class="warning"></span>
+          </div>
+
+          <div class="actions">
+            <button id="copyBtn" type="button">Copy HTML</button>
+          </div>
+
+          <label>
+            Output
+            <textarea id="output" rows="16" readonly></textarea>
+          </label>
+        </div>
+      </section>
+    </main>
+
+    <script src="./app.js" defer></script>
+  </body>
+</html>

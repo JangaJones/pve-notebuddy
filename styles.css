@@ -56,6 +56,26 @@ h2 {
   color: var(--muted);
 }
 
+.panel-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.panel-actions {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.panel-action {
+  background: #111a2a;
+  color: #b6c9e6;
+  border: 1px solid #2f405e;
+  padding: 0.35rem 0.62rem;
+  font-weight: 600;
+}
+
 #noteForm {
   display: grid;
   gap: 0.8rem;

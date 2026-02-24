@@ -10,6 +10,10 @@ const charWarningEl = document.getElementById("charWarning");
 const previewShell = document.getElementById("previewShell");
 const themeDarkBtn = document.getElementById("themeDarkBtn");
 const themeLightBtn = document.getElementById("themeLightBtn");
+const clearBtn = document.getElementById("clearBtn");
+const importBtn = document.getElementById("importBtn");
+const exportBtn = document.getElementById("exportBtn");
+const importFileEl = document.getElementById("importFile");
 
 const iconModeEl = document.getElementById("iconMode");
 const iconUrlWrap = document.getElementById("iconUrlWrap");
@@ -39,9 +43,30 @@ const rowConfigs = [
   { prefix: "config", defaultAlign: "center", defaultTag: "h3", bold: false, italic: false, strong: false, code: true },
   { prefix: "custom", defaultAlign: "left", defaultTag: "none", bold: false, italic: false, strong: false, code: false },
 ];
+const ROW_KEYS = ["icon", "title", "fqdn", "network", "config", "custom"];
 
 function getEl(id) {
   return document.getElementById(id);
+}
+
+function getSelectedRadioValue(name, fallback = "") {
+  const checked = form.querySelector(`input[name="${name}"]:checked`);
+  return checked ? checked.value : fallback;
+}
+
+function setSelectedRadioValue(name, value) {
+  const radios = form.querySelectorAll(`input[name="${name}"]`);
+  let didSet = false;
+  for (const radio of radios) {
+    const shouldCheck = radio.value === value;
+    radio.checked = shouldCheck;
+    if (shouldCheck) {
+      didSet = true;
+    }
+  }
+  if (!didSet && radios.length > 0) {
+    radios[0].checked = true;
+  }
 }
 
 function escapeHtml(value) {
@@ -140,8 +165,7 @@ function setIconStatus(text, isError = false) {
 }
 
 function getIconAlign() {
-  const checkedAlign = form.querySelector('input[name="iconAlign"]:checked');
-  return checkedAlign ? checkedAlign.value : "center";
+  return getSelectedRadioValue("iconAlign", "center");
 }
 
 function styleToolbarHtml(prefix, defaults) {
@@ -270,6 +294,14 @@ function textToHtml(value, keepLineBreaks = false) {
   return escaped.replaceAll("\n", "<br />");
 }
 
+function rawTextToHtml(value, keepLineBreaks = false) {
+  const raw = String(value);
+  if (!keepLineBreaks) {
+    return raw;
+  }
+  return raw.replaceAll("\n", "<br />");
+}
+
 function wrapTextForHeading(textHtml, format) {
   let value = textHtml;
   if (format.code) {
@@ -322,6 +354,19 @@ function getOrderedRowKeys() {
   return Array.from(form.querySelectorAll("fieldset[data-row-key]"))
     .map((fieldset) => fieldset.getAttribute("data-row-key"))
     .filter(Boolean);
+}
+
+function reorderFieldsets(rowOrder) {
+  const map = new Map(
+    Array.from(form.querySelectorAll("fieldset[data-row-key]")).map((fieldset) => [fieldset.getAttribute("data-row-key"), fieldset])
+  );
+  for (const key of rowOrder) {
+    const fieldset = map.get(key);
+    if (!fieldset) {
+      continue;
+    }
+    form.appendChild(fieldset);
+  }
 }
 
 function moveRow(rowKey, direction) {
@@ -393,7 +438,7 @@ function buildNoteHtml() {
   const customText = getEl("customText").value.trim();
   if (customText) {
     const format = getFormat("custom");
-    byKey.custom = [buildTextRow({ align: format.align, icon: "", textHtml: textToHtml(customText, true), format })];
+    byKey.custom = [buildTextRow({ align: format.align, icon: "", textHtml: rawTextToHtml(customText, true), format })];
   }
 
   for (const key of getOrderedRowKeys()) {
@@ -418,6 +463,177 @@ function updateLengthState(noteHtml) {
   } else {
     charWarningEl.textContent = "";
     copyBtn.disabled = len === 0;
+  }
+}
+
+function clearTextFields() {
+  iconUrlEl.value = "";
+  getEl("titleText").value = "";
+  getEl("fqdnLabel").value = "";
+  getEl("fqdnUrl").value = "";
+  getEl("networkText").value = "";
+  getEl("customText").value = "";
+
+  const configInputs = configLocationsEl.querySelectorAll('input[data-config-location="1"]');
+  for (const input of configInputs) {
+    input.value = "";
+  }
+
+  prepareIcon();
+}
+
+function collectRowState(prefix) {
+  const emojiEl = getEl(`${prefix}Emoji`);
+  return {
+    emoji: emojiEl ? emojiEl.value : "",
+    align: getSelectedRadioValue(`${prefix}Align`, "center"),
+    heading: getSelectedRadioValue(`${prefix}Heading`, ""),
+    bold: Boolean(getEl(`${prefix}Bold`)?.checked),
+    italic: Boolean(getEl(`${prefix}Italic`)?.checked),
+    strong: Boolean(getEl(`${prefix}Strong`)?.checked),
+    code: Boolean(getEl(`${prefix}Code`)?.checked),
+  };
+}
+
+function collectSettings() {
+  const rows = {};
+  for (const { prefix } of rowConfigs) {
+    rows[prefix] = collectRowState(prefix);
+  }
+
+  return {
+    version: 1,
+    rowOrder: getOrderedRowKeys(),
+    theme: activeTheme,
+    icon: {
+      align: getSelectedRadioValue("iconAlign", "center"),
+      mode: iconModeEl.value,
+      url: iconUrlEl.value,
+      embedSvg: iconEmbedSvgEl.checked,
+      scale: iconScaleEl.value,
+      uploadSvgText,
+    },
+    fields: {
+      titleText: getEl("titleText").value,
+      fqdnLabel: getEl("fqdnLabel").value,
+      fqdnUrl: getEl("fqdnUrl").value,
+      networkText: getEl("networkText").value,
+      configLocations: getConfigLocationValues(),
+      customText: getEl("customText").value,
+    },
+    rows,
+  };
+}
+
+function applyRowState(prefix, rowState = {}) {
+  const emojiEl = getEl(`${prefix}Emoji`);
+  if (emojiEl && typeof rowState.emoji === "string") {
+    emojiEl.value = rowState.emoji;
+  }
+
+  if (typeof rowState.align === "string") {
+    setSelectedRadioValue(`${prefix}Align`, rowState.align);
+  }
+
+  const headingValue = typeof rowState.heading === "string" ? rowState.heading : "";
+  const headingToggles = form.querySelectorAll(`input[name="${prefix}Heading"]`);
+  for (const toggle of headingToggles) {
+    toggle.checked = headingValue ? toggle.value === headingValue : false;
+  }
+
+  const bold = getEl(`${prefix}Bold`);
+  const italic = getEl(`${prefix}Italic`);
+  const strong = getEl(`${prefix}Strong`);
+  const code = getEl(`${prefix}Code`);
+
+  if (bold) bold.checked = Boolean(rowState.bold);
+  if (italic) italic.checked = Boolean(rowState.italic);
+  if (strong) strong.checked = Boolean(rowState.strong);
+  if (code) code.checked = Boolean(rowState.code);
+}
+
+async function applySettings(settings) {
+  if (!settings || typeof settings !== "object") {
+    throw new Error("Invalid settings format.");
+  }
+
+  const requestedOrder = Array.isArray(settings.rowOrder) ? settings.rowOrder.filter((k) => ROW_KEYS.includes(k)) : [];
+  const ordered = requestedOrder.length > 0 ? requestedOrder : ROW_KEYS;
+  reorderFieldsets(ordered);
+
+  if (settings.theme === "light" || settings.theme === "dark") {
+    setTheme(settings.theme);
+  }
+
+  if (settings.icon && typeof settings.icon === "object") {
+    if (typeof settings.icon.align === "string") {
+      setSelectedRadioValue("iconAlign", settings.icon.align);
+    }
+    if (typeof settings.icon.mode === "string") {
+      iconModeEl.value = settings.icon.mode;
+    }
+    if (typeof settings.icon.url === "string") {
+      iconUrlEl.value = settings.icon.url;
+    }
+    if (typeof settings.icon.embedSvg === "boolean") {
+      iconEmbedSvgEl.checked = settings.icon.embedSvg;
+    }
+    if (typeof settings.icon.scale === "string" || typeof settings.icon.scale === "number") {
+      iconScaleEl.value = String(settings.icon.scale);
+    }
+    uploadSvgText = typeof settings.icon.uploadSvgText === "string" ? settings.icon.uploadSvgText : "";
+  }
+
+  if (settings.fields && typeof settings.fields === "object") {
+    if (typeof settings.fields.titleText === "string") getEl("titleText").value = settings.fields.titleText;
+    if (typeof settings.fields.fqdnLabel === "string") getEl("fqdnLabel").value = settings.fields.fqdnLabel;
+    if (typeof settings.fields.fqdnUrl === "string") getEl("fqdnUrl").value = settings.fields.fqdnUrl;
+    if (typeof settings.fields.networkText === "string") getEl("networkText").value = settings.fields.networkText;
+    if (typeof settings.fields.customText === "string") getEl("customText").value = settings.fields.customText;
+
+    if (Array.isArray(settings.fields.configLocations)) {
+      configLocationsEl.innerHTML = "";
+      const values = settings.fields.configLocations.length > 0 ? settings.fields.configLocations : [""];
+      for (const value of values) {
+        configLocationsEl.append(createConfigLocationInput(String(value)));
+      }
+    }
+  }
+
+  if (settings.rows && typeof settings.rows === "object") {
+    for (const { prefix } of rowConfigs) {
+      applyRowState(prefix, settings.rows[prefix] || {});
+    }
+  }
+
+  await prepareIcon();
+}
+
+function exportSettings() {
+  const payload = JSON.stringify(collectSettings(), null, 2);
+  const blob = new Blob([payload], { type: "application/json;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "pve-notebuddy-settings.json";
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+async function importSettingsFromFile(event) {
+  const [file] = event.target.files || [];
+  if (!file) {
+    return;
+  }
+
+  try {
+    const text = await file.text();
+    const parsed = JSON.parse(text);
+    await applySettings(parsed);
+  } catch {
+    setIconStatus("Import failed: invalid JSON file.", true);
+  } finally {
+    importFileEl.value = "";
   }
 }
 
@@ -678,6 +894,11 @@ function bootstrap() {
       renderOutput();
     }
   });
+
+  clearBtn.addEventListener("click", clearTextFields);
+  exportBtn.addEventListener("click", exportSettings);
+  importBtn.addEventListener("click", () => importFileEl.click());
+  importFileEl.addEventListener("change", importSettingsFromFile);
 
   iconModeEl.addEventListener("change", prepareIcon);
   iconUrlEl.addEventListener("input", prepareIcon);

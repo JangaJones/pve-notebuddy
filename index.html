@@ -16,7 +16,15 @@
   <body>
     <main class="layout">
       <section class="panel panel-form">
-        <h1>🗒️ PVE NoteBuddy</h1>
+        <div class="panel-head">
+          <h1>🗒️ PVE NoteBuddy</h1>
+          <div class="panel-actions">
+            <button id="clearBtn" type="button" class="panel-action">CLEAR</button>
+            <button id="importBtn" type="button" class="panel-action">IMPORT</button>
+            <button id="exportBtn" type="button" class="panel-action">EXPORT</button>
+            <input id="importFile" type="file" accept="application/json,.json" class="hidden" />
+          </div>
+        </div>
         <p class="subtitle">Generate Proxmox Notes using HTML-safe blocks with per-row layout and formatting controls.</p>
 
         <form id="noteForm">

@@ -90,7 +90,33 @@ body {
 
 .topbar-actions {
   display: flex;
+  align-items: center;
+  flex-wrap: wrap;
   gap: 0.4rem;
+}
+
+.preset-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.preset-title {
+  font-size: var(--ui-size-sm);
+  color: #9cb1d1;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.preset-buttons {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.preset-btn {
+  min-width: 34px;
+  padding: 0.4rem 0.55rem;
 }
 
 .topbar-widgets {
@@ -337,7 +363,8 @@ textarea:focus {
 }
 
 .icon-input-wrap input {
-  width: 40px;
+  width: 42px;
+  text-align: center;
 }
 
 .icon-clear {
@@ -980,7 +1007,7 @@ button:disabled {
   }
 
   .topbar-actions {
-    justify-content: space-between;
+    justify-content: flex-start;
   }
 
   .topbar-widgets {

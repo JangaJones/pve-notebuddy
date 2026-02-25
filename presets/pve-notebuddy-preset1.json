@@ -1,0 +1,76 @@
+{
+  "version": 1,
+  "rowOrder": [
+    "title",
+    "icon",
+    "fqdn",
+    "network",
+    "config",
+    "custom"
+  ],
+  "theme": "dark",
+  "icon": {
+    "align": "center",
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/proxmox.svg",
+    "embedSvg": true,
+    "scale": "160",
+    "colorVariant": "original",
+    "uploadSvgText": ""
+  },
+  "fields": {
+    "titleText": "CONTAINER/VM TITLE",
+    "fqdnLabel": "www.proxmox.com",
+    "fqdnUrl": "https://www.proxmox.com/",
+    "networkText": "",
+    "configLocations": [],
+    "customText": ""
+  },
+  "rows": {
+    "title": {
+      "emoji": "",
+      "align": "center",
+      "heading": "h2",
+      "bold": false,
+      "italic": false,
+      "strong": false,
+      "code": false
+    },
+    "fqdn": {
+      "emoji": "🔗",
+      "align": "center",
+      "heading": "h2",
+      "bold": false,
+      "italic": false,
+      "strong": false,
+      "code": false
+    },
+    "network": {
+      "emoji": "🖥️",
+      "align": "center",
+      "heading": "h3",
+      "bold": false,
+      "italic": false,
+      "strong": false,
+      "code": false
+    },
+    "config": {
+      "emoji": "",
+      "align": "center",
+      "heading": "",
+      "bold": false,
+      "italic": true,
+      "strong": true,
+      "code": true
+    },
+    "custom": {
+      "emoji": "",
+      "align": "left",
+      "heading": "",
+      "bold": false,
+      "italic": false,
+      "strong": false,
+      "code": false
+    }
+  }
+}

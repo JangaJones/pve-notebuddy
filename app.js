@@ -15,6 +15,7 @@ const clearBtn = document.getElementById("clearBtn");
 const importBtn = document.getElementById("importBtn");
 const exportBtn = document.getElementById("exportBtn");
 const importFileEl = document.getElementById("importFile");
+const presetBtnEls = document.querySelectorAll("button[data-preset]");
 
 const iconModeRadios = form.querySelectorAll('input[name="iconMode"]');
 const iconUrlWrap = document.getElementById("iconUrlWrap");
@@ -942,6 +943,25 @@ async function importSettingsFromFile(event) {
   }
 }
 
+async function loadPresetByNumber(number) {
+  const preset = Number.parseInt(String(number), 10);
+  if (!Number.isFinite(preset) || preset < 1 || preset > 5) {
+    return;
+  }
+
+  try {
+    const res = await fetch(`./presets/pve-notebuddy-preset${preset}.json`, { cache: "no-store" });
+    if (!res.ok) {
+      throw new Error(`HTTP ${res.status}`);
+    }
+    const parsed = await res.json();
+    await applySettings(parsed);
+    setIconStatus(`Preset ${preset} loaded.`);
+  } catch {
+    setIconStatus(`Could not load preset ${preset}.`, true);
+  }
+}
+
 function renderOutput() {
   iconScaleValueEl.textContent = `${iconScaleEl.value} px`;
   const noteHtml = buildNoteHtml();
@@ -1276,6 +1296,11 @@ function bootstrap() {
   exportBtn.addEventListener("click", exportSettings);
   importBtn.addEventListener("click", () => importFileEl.click());
   importFileEl.addEventListener("change", importSettingsFromFile);
+  for (const presetBtn of presetBtnEls) {
+    presetBtn.addEventListener("click", () => {
+      loadPresetByNumber(presetBtn.getAttribute("data-preset"));
+    });
+  }
 
   for (const radio of iconModeRadios) {
     radio.addEventListener("change", prepareIcon);

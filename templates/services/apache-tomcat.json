@@ -1,0 +1,16 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/apache-tomcat.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Apache Tomcat",
+    "fqdnLabel": "tomcat.apache.org",
+    "fqdnUrl": "https://tomcat.apache.org/",
+    "networkText": "Default Port: 8080",
+    "configLocations": []
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/influxdb.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "InfluxDB",
+    "fqdnLabel": "www.influxdata.com",
+    "fqdnUrl": "https://www.influxdata.com/",
+    "networkText": "Default Port: 8086",
+    "configLocations": []
+  }
+}

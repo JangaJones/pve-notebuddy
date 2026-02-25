@@ -1,0 +1,16 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/bentopdf.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "BentoPDF",
+    "fqdnLabel": "www.bentopdf.com",
+    "fqdnUrl": "https://www.bentopdf.com",
+    "networkText": "Default Port: 8080",
+    "configLocations": []
+  }
+}

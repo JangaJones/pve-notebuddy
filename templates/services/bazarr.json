@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/bazarr.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Bazarr",
+    "fqdnLabel": "www.bazarr.media",
+    "fqdnUrl": "https://www.bazarr.media/",
+    "networkText": "Default Port: 6767",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/bazarr/data/config/config.yaml"
+      }
+    ]
+  }
+}

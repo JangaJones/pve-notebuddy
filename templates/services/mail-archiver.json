@@ -1,0 +1,25 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/mail-archiver.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Mail-Archiver",
+    "fqdnLabel": "github.com/s1t5/mail-archiver",
+    "fqdnUrl": "https://github.com/s1t5/mail-archiver",
+    "networkText": "Default Port: 5000",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/mail-archiver/.env"
+      },
+      {
+        "icon": "📁",
+        "value": "/opt/mail-archiver/appsettings.json"
+      }
+    ]
+  }
+}

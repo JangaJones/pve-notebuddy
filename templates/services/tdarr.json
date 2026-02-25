@@ -1,0 +1,14 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/tdarr.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "Tdarr",
+    "fqdnLabel": "tdarr.io",
+    "fqdnUrl": "https://tdarr.io/",
+    "networkText": "Default Port: 8265",
+    "configLocations": []
+  }
+}

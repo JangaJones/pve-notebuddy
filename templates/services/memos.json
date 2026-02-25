@@ -1,0 +1,14 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/memos.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "Memos",
+    "fqdnLabel": "www.usememos.com",
+    "fqdnUrl": "https://www.usememos.com/",
+    "networkText": "Default Port: 9030",
+    "configLocations": []
+  }
+}

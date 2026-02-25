@@ -1,0 +1,14 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/upsnap.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "UpSnap",
+    "fqdnLabel": "github.com/seriousm4x/UpSnap",
+    "fqdnUrl": "https://github.com/seriousm4x/UpSnap",
+    "networkText": "Default Port: 8090",
+    "configLocations": []
+  }
+}

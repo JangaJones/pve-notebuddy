@@ -1,0 +1,19 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/kima-hub.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "Kima-Hub",
+    "fqdnLabel": "github.com/Chevron7Locked/kima-hub",
+    "fqdnUrl": "https://github.com/Chevron7Locked/kima-hub",
+    "networkText": "Default Port: 3030",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/kima-hub/backend/.env"
+      }
+    ]
+  }
+}

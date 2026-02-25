@@ -1,0 +1,19 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/smokeping.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "SmokePing",
+    "fqdnLabel": "oss.oetiker.ch/smokeping",
+    "fqdnUrl": "https://oss.oetiker.ch/smokeping/",
+    "networkText": "",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/etc/smokeping/config.d/Targets"
+      }
+    ]
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/yunohost.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "YunoHost",
+    "fqdnLabel": "yunohost.org",
+    "fqdnUrl": "https://yunohost.org/",
+    "networkText": "Default Port: 80",
+    "configLocations": []
+  }
+}

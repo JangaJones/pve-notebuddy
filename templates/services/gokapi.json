@@ -1,0 +1,19 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/gokapi.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "Gokapi",
+    "fqdnLabel": "github.com/Forceu/Gokapi",
+    "fqdnUrl": "https://github.com/Forceu/Gokapi",
+    "networkText": "Default Port: 53842",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/gokapi/config"
+      }
+    ]
+  }
+}

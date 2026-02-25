@@ -1,0 +1,19 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/baikal.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "Baïkal",
+    "fqdnLabel": "sabre.io/baikal",
+    "fqdnUrl": "https://sabre.io/baikal/",
+    "networkText": "Default Port: 80",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/baikal/config/baikal.yaml"
+      }
+    ]
+  }
+}

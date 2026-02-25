@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/slskd.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Slskd",
+    "fqdnLabel": "github.com/slskd/slskd",
+    "fqdnUrl": "https://github.com/slskd/slskd",
+    "networkText": "Default Port: 5030",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/slskd/config/slskd.yml"
+      }
+    ]
+  }
+}

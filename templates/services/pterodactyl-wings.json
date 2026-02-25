@@ -1,0 +1,19 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/pterodactyl.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "Pterodactyl Wings",
+    "fqdnLabel": "pterodactyl.io",
+    "fqdnUrl": "https://pterodactyl.io",
+    "networkText": "",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/etc/pterodactyl/config.yml"
+      }
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/convertx.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "ConvertX",
+    "fqdnLabel": "github.com/C4illin/ConvertX",
+    "fqdnUrl": "https://github.com/C4illin/ConvertX",
+    "networkText": "Default Port: 3000",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/convertx/.env"
+      }
+    ]
+  }
+}

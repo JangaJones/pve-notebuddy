@@ -1,0 +1,19 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/uhf.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "UHF Server",
+    "fqdnLabel": "www.uhfapp.com",
+    "fqdnUrl": "https://www.uhfapp.com/",
+    "networkText": "Default Port: 7568",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/etc/uhf-server/"
+      }
+    ]
+  }
+}

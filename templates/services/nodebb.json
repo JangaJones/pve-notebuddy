@@ -1,0 +1,16 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/nodebb.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "NodeBB",
+    "fqdnLabel": "nodebb.org",
+    "fqdnUrl": "https://nodebb.org/",
+    "networkText": "Default Port: 4567",
+    "configLocations": []
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/opnsense.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "OPNsense",
+    "fqdnLabel": "opnsense.org",
+    "fqdnUrl": "https://opnsense.org/",
+    "networkText": "Default Port: 443",
+    "configLocations": []
+  }
+}

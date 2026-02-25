@@ -1,0 +1,64 @@
+{
+  "version": 1,
+  "rowOrder": {
+    "icon": "0",
+    "title": "1",
+    "fqdn": "1",
+    "network": "1",
+    "config": "1",
+    "custom": "1"
+  },
+  "theme": "dark",
+  "icon": {
+  },
+  "fields": {
+    "customText": "<br>this is just a demonstrative note<p>you can also use <code>HTML</code> tags in here - <a href=\"https://www.markdownguide.org/basic-syntax/\" target=\"_blank\" rel=\"noopener noreferrer\">look here</a></p>Go ahead and make the notes in your homelab pretty already! 🚀"
+  },
+  "rows": {
+    "title": {
+      "emoji": "",
+      "align": "left",
+      "heading": "h2",
+      "bold": false,
+      "italic": false,
+      "strong": false,
+      "code": false
+    },
+    "fqdn": {
+      "emoji": "🔗",
+      "align": "left",
+      "heading": "h3",
+      "bold": false,
+      "italic": false,
+      "strong": false,
+      "code": false
+    },
+    "network": {
+      "emoji": "🖥️",
+      "align": "left",
+      "heading": "h3",
+      "bold": false,
+      "italic": false,
+      "strong": false,
+      "code": false
+    },
+    "config": {
+      "emoji": "",
+      "align": "left",
+      "heading": "",
+      "bold": false,
+      "italic": true,
+      "strong": true,
+      "code": true
+    },
+    "custom": {
+      "emoji": "",
+      "align": "left",
+      "heading": "",
+      "bold": false,
+      "italic": false,
+      "strong": false,
+      "code": false
+    }
+  }
+}

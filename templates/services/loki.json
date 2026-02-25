@@ -1,0 +1,25 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/loki.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Loki",
+    "fqdnLabel": "github.com/grafana/loki",
+    "fqdnUrl": "https://github.com/grafana/loki",
+    "networkText": "Default Port: 3100",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "Debian: /etc/loki/config.yml"
+      },
+      {
+        "icon": "📁",
+        "value": "Alpine: /etc/loki/loki-local-config.yaml"
+      }
+    ]
+  }
+}

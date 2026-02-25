@@ -1,0 +1,19 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/shinobi.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "Shinobi NVR",
+    "fqdnLabel": "shinobi.video",
+    "fqdnUrl": "https://shinobi.video/",
+    "networkText": "Default Port: 8080",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/Shinobi/conf.json"
+      }
+    ]
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/tracktor.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Tracktor",
+    "fqdnLabel": "github.com/javedh-dev/tracktor",
+    "fqdnUrl": "https://github.com/javedh-dev/tracktor",
+    "networkText": "Default Port: 3000",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/tracktor.env"
+      }
+    ]
+  }
+}

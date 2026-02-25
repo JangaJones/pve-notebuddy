@@ -1,0 +1,19 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/cmintey-wishlist.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "Wishlist",
+    "fqdnLabel": "github.com/cmintey/wishlist",
+    "fqdnUrl": "https://github.com/cmintey/wishlist",
+    "networkText": "Default Port: 3280",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/wishlist/.env"
+      }
+    ]
+  }
+}

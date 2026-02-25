@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/dawarich.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Dawarich",
+    "fqdnLabel": "dawarich.app",
+    "fqdnUrl": "https://dawarich.app/",
+    "networkText": "Default Port: 3000",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/dawarich/.env"
+      }
+    ]
+  }
+}

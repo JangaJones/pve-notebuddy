@@ -1,0 +1,14 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/hyperion.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "Hyperion",
+    "fqdnLabel": "hyperion-project.org/forum",
+    "fqdnUrl": "https://hyperion-project.org/forum/",
+    "networkText": "Default Port: 8090",
+    "configLocations": []
+  }
+}

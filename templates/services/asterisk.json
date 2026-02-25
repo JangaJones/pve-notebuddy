@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/asterisk.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Asterisk",
+    "fqdnLabel": "asterisk.org",
+    "fqdnUrl": "https://asterisk.org/",
+    "networkText": "",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/etc/asterisk"
+      }
+    ]
+  }
+}

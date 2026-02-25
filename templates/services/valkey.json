@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/valkey.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Valkey",
+    "fqdnLabel": "valkey.io",
+    "fqdnUrl": "https://valkey.io/",
+    "networkText": "Default Port: 6379",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/etc/valkey/valkey.conf"
+      }
+    ]
+  }
+}

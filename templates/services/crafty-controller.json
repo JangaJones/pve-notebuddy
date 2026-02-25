@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/crafty-controller.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Crafty Controller",
+    "fqdnLabel": "craftycontrol.com",
+    "fqdnUrl": "https://craftycontrol.com/",
+    "networkText": "Default Port: 8443",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/crafty-controller/crafty/crafty-4/app/config/config.json"
+      }
+    ]
+  }
+}

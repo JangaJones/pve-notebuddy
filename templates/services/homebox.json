@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/homebox.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "HomeBox",
+    "fqdnLabel": "homebox.software/en",
+    "fqdnUrl": "https://homebox.software/en/",
+    "networkText": "Default Port: 7745",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/homebox/.env"
+      }
+    ]
+  }
+}

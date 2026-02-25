@@ -1,0 +1,19 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/kutt.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "Kutt",
+    "fqdnLabel": "kutt.it",
+    "fqdnUrl": "https://kutt.it",
+    "networkText": "Default Port: 443",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/kutt/.env"
+      }
+    ]
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/mongodb.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "MongoDB",
+    "fqdnLabel": "www.mongodb.com",
+    "fqdnUrl": "https://www.mongodb.com/",
+    "networkText": "Default Port: 27017",
+    "configLocations": []
+  }
+}

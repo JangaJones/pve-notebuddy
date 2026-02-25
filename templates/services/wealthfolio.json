@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/wealthfolio.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Wealthfolio",
+    "fqdnLabel": "wealthfolio.app",
+    "fqdnUrl": "https://wealthfolio.app/",
+    "networkText": "Default Port: 8080",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/wealthfolio/.env"
+      }
+    ]
+  }
+}

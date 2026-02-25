@@ -1,0 +1,16 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/debian.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Debian 13",
+    "fqdnLabel": "www.debian.org",
+    "fqdnUrl": "https://www.debian.org/",
+    "networkText": "",
+    "configLocations": []
+  }
+}

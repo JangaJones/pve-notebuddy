@@ -1,0 +1,19 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/lazylibrarian.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "LazyLibrarian",
+    "fqdnLabel": "gitlab.com/LazyLibrarian/LazyLibrarian",
+    "fqdnUrl": "https://gitlab.com/LazyLibrarian/LazyLibrarian",
+    "networkText": "Default Port: 5299",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/LazyLibrarian/config.ini"
+      }
+    ]
+  }
+}

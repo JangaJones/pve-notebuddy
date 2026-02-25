@@ -1,0 +1,16 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/proxmox.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Proxmox Mail Gateway (PMG)",
+    "fqdnLabel": "www.proxmox.com/en/products/proxmox-mail-gateway/overview",
+    "fqdnUrl": "https://www.proxmox.com/en/products/proxmox-mail-gateway/overview",
+    "networkText": "Default Port: 8006",
+    "configLocations": []
+  }
+}

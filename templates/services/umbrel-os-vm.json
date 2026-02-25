@@ -1,0 +1,16 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/umbrelos.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Umbrel OS",
+    "fqdnLabel": "umbrel.com",
+    "fqdnUrl": "https://umbrel.com/",
+    "networkText": "Default Port: 80",
+    "configLocations": []
+  }
+}

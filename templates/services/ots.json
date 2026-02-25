@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/ots.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "OTS",
+    "fqdnLabel": "github.com/Luzifer/ots",
+    "fqdnUrl": "https://github.com/Luzifer/ots",
+    "networkText": "Default Port: 443",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/ots/.env"
+      }
+    ]
+  }
+}

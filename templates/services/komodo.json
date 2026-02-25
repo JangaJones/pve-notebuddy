@@ -1,0 +1,19 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/komodo.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "Komodo",
+    "fqdnLabel": "komo.do",
+    "fqdnUrl": "https://komo.do",
+    "networkText": "Default Port: 9120",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/komodo/compose.env"
+      }
+    ]
+  }
+}

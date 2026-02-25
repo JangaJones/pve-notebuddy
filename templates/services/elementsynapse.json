@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/element.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Element Synapse",
+    "fqdnLabel": "element.io",
+    "fqdnUrl": "https://element.io/",
+    "networkText": "Default Port: 8008",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/etc/matrix-synapse/homeserver.yaml"
+      }
+    ]
+  }
+}

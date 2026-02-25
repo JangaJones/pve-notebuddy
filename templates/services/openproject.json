@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/openproject.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "OpenProject",
+    "fqdnLabel": "www.openproject.org",
+    "fqdnUrl": "https://www.openproject.org",
+    "networkText": "Default Port: 80",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/etc/openproject/conf.d/env"
+      }
+    ]
+  }
+}

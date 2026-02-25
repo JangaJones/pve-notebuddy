@@ -1,0 +1,14 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/seaweedfs.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "SeaweedFS",
+    "fqdnLabel": "seaweedfs.com",
+    "fqdnUrl": "https://seaweedfs.com/",
+    "networkText": "Default Port: 9333",
+    "configLocations": []
+  }
+}

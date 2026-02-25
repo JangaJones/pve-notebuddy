@@ -1,0 +1,19 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/manyfold.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "Manyfold",
+    "fqdnLabel": "manyfold.app",
+    "fqdnUrl": "https://manyfold.app/",
+    "networkText": "Default Port: 80",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/manyfold/.env"
+      }
+    ]
+  }
+}

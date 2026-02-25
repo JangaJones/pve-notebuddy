@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/graylog.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Graylog",
+    "fqdnLabel": "graylog.org",
+    "fqdnUrl": "https://graylog.org/",
+    "networkText": "Default Port: 9000",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/etc/graylog/server/server.conf"
+      }
+    ]
+  }
+}

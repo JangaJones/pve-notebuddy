@@ -1,0 +1,19 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/ebusd.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "ebusd",
+    "fqdnLabel": "github.com/john30/ebusd",
+    "fqdnUrl": "https://github.com/john30/ebusd",
+    "networkText": "",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/etc/default/ebusd"
+      }
+    ]
+  }
+}

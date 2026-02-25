@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/redlib.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Redlib",
+    "fqdnLabel": "github.com/redlib-org/redlib",
+    "fqdnUrl": "https://github.com/redlib-org/redlib",
+    "networkText": "Default Port: 5252",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/redlib/redlib.conf"
+      }
+    ]
+  }
+}

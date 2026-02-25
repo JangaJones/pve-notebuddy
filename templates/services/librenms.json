@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/librenms.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "LibreNMS",
+    "fqdnLabel": "librenms.org",
+    "fqdnUrl": "https://librenms.org/",
+    "networkText": "Default Port: 80",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/librenms/config.php and /opt/librenms/.env"
+      }
+    ]
+  }
+}

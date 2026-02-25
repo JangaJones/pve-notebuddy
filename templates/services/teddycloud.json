@@ -1,0 +1,14 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/teddycloud.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "TeddyCloud",
+    "fqdnLabel": "tonies-wiki.revvox.de/docs/tools/teddycloud",
+    "fqdnUrl": "https://tonies-wiki.revvox.de/docs/tools/teddycloud/",
+    "networkText": "Default Port: 80",
+    "configLocations": []
+  }
+}

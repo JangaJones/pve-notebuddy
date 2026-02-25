@@ -1,0 +1,16 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/kavita.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Kavita",
+    "fqdnLabel": "www.kavitareader.com",
+    "fqdnUrl": "https://www.kavitareader.com/",
+    "networkText": "Default Port: 5000",
+    "configLocations": []
+  }
+}

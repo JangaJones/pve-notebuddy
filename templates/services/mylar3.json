@@ -1,0 +1,14 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/mylar3.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "Mylar3",
+    "fqdnLabel": "mylarcomics.com",
+    "fqdnUrl": "https://mylarcomics.com/",
+    "networkText": "Default Port: 8090",
+    "configLocations": []
+  }
+}

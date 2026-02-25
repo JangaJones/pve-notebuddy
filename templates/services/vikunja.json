@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/vikunja.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Vikunja",
+    "fqdnLabel": "vikunja.io",
+    "fqdnUrl": "https://vikunja.io/",
+    "networkText": "Default Port: 3456",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/etc/vikunja/config.yml"
+      }
+    ]
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/ghostfolio.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Ghostfolio",
+    "fqdnLabel": "ghostfol.io",
+    "fqdnUrl": "https://ghostfol.io/",
+    "networkText": "Default Port: 3333",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/ghostfolio/.env"
+      }
+    ]
+  }
+}

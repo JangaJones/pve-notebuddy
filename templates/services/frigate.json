@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/frigate-light.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Frigate",
+    "fqdnLabel": "frigate.video",
+    "fqdnUrl": "https://frigate.video/",
+    "networkText": "Default Port: 5000",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/config/config.yml"
+      }
+    ]
+  }
+}

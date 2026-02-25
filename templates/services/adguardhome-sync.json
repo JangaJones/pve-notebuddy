@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/adguardhome-sync.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "AdGuardHome-Sync",
+    "fqdnLabel": "github.com/bakito/adguardhome-sync",
+    "fqdnUrl": "https://github.com/bakito/adguardhome-sync",
+    "networkText": "Default Port: 8080",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/adguardhome-sync/adguardhome-sync.yaml"
+      }
+    ]
+  }
+}

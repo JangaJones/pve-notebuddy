@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/ntfy.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "ntfy",
+    "fqdnLabel": "ntfy.sh",
+    "fqdnUrl": "https://ntfy.sh/",
+    "networkText": "Default Port: 80",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/etc/ntfy/server.yml"
+      }
+    ]
+  }
+}

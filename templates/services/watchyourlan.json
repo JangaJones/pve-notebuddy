@@ -1,0 +1,19 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/watchyourlan.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "WatchYourLAN",
+    "fqdnLabel": "github.com/aceberg/WatchYourLAN",
+    "fqdnUrl": "https://github.com/aceberg/WatchYourLAN",
+    "networkText": "Default Port: 8840",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/data/config.yaml"
+      }
+    ]
+  }
+}

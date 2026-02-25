@@ -1,0 +1,19 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/trip.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "TRIP",
+    "fqdnLabel": "github.com/itskovacs/TRIP",
+    "fqdnUrl": "https://github.com/itskovacs/TRIP",
+    "networkText": "Default Port: 8000",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/trip.env"
+      }
+    ]
+  }
+}

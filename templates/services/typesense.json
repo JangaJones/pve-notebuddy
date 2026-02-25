@@ -1,0 +1,19 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/typesense.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "TypeSense",
+    "fqdnLabel": "typesense.org",
+    "fqdnUrl": "https://typesense.org/",
+    "networkText": "",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/etc/typesense/typesense-server.ini"
+      }
+    ]
+  }
+}

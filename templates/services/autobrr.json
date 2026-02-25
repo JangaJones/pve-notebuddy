@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/autobrr.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Autobrr",
+    "fqdnLabel": "autobrr.com",
+    "fqdnUrl": "https://autobrr.com/",
+    "networkText": "Default Port: 7474",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/root/.config/autobrr/config.toml"
+      }
+    ]
+  }
+}

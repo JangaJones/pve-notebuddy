@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/cross-seed.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "cross-seed",
+    "fqdnLabel": "www.cross-seed.org",
+    "fqdnUrl": "https://www.cross-seed.org/",
+    "networkText": "Default Port: 2468",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "~/.cross-seed/config.js"
+      }
+    ]
+  }
+}

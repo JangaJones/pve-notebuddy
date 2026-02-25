@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/pi-alert.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Pi.Alert",
+    "fqdnLabel": "github.com/leiweibau/Pi.Alert",
+    "fqdnUrl": "https://github.com/leiweibau/Pi.Alert/",
+    "networkText": "",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/pialert/config/pialert.conf"
+      }
+    ]
+  }
+}

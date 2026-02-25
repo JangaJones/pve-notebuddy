@@ -1,0 +1,19 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://github.com/orhun/rustypaste/raw/master/img/rustypaste_logo.png",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "RustyPaste",
+    "fqdnLabel": "github.com/orhun/rustypaste",
+    "fqdnUrl": "https://github.com/orhun/rustypaste",
+    "networkText": "Default Port: 8000",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/rustypaste/config.toml"
+      }
+    ]
+  }
+}

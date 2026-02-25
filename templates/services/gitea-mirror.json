@@ -1,0 +1,19 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/gitea-mirror.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "Gitea-Mirror",
+    "fqdnLabel": "github.com/RayLabsHQ/gitea-mirror",
+    "fqdnUrl": "https://github.com/RayLabsHQ/gitea-mirror/",
+    "networkText": "Default Port: 4321",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/etc/systemd/system/gitea-mirror.service"
+      }
+    ]
+  }
+}

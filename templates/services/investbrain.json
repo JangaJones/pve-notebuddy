@@ -1,0 +1,19 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/investbrain.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "Investbrain",
+    "fqdnLabel": "investbra.in",
+    "fqdnUrl": "https://investbra.in",
+    "networkText": "Default Port: 8000",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/investbrain/.env"
+      }
+    ]
+  }
+}

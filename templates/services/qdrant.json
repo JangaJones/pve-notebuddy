@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/qdrant.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Qdrant",
+    "fqdnLabel": "qdrant.tech",
+    "fqdnUrl": "https://qdrant.tech/",
+    "networkText": "Default Port: 6333",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/etc/qdrant/config.yaml"
+      }
+    ]
+  }
+}

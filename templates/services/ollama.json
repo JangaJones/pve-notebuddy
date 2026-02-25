@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/ollama.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Ollama",
+    "fqdnLabel": "ollama.com",
+    "fqdnUrl": "https://ollama.com/",
+    "networkText": "Default Port: 11434",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/usr/local/lib/ollama"
+      }
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/manage-my-damn-life.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "Manage My Damn Life",
+    "fqdnLabel": "github.com/intri-in/manage-my-damn-life-nextjs",
+    "fqdnUrl": "https://github.com/intri-in/manage-my-damn-life-nextjs",
+    "networkText": "Default Port: 3000",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/mmdl/.env"
+      }
+    ]
+  }
+}

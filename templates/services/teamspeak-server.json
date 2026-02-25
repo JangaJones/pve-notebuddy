@@ -1,0 +1,16 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/teamspeak-light.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Teamspeak-Server",
+    "fqdnLabel": "teamspeak.com",
+    "fqdnUrl": "https://teamspeak.com/",
+    "networkText": "Default Port: 9987",
+    "configLocations": []
+  }
+}

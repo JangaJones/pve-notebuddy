@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/photoprism.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "PhotoPrism",
+    "fqdnLabel": "photoprism.app",
+    "fqdnUrl": "https://photoprism.app/",
+    "networkText": "Default Port: 2342",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/photoprism/config/.env"
+      }
+    ]
+  }
+}

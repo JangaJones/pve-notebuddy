@@ -1,0 +1,16 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/draw-io.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Draw.IO",
+    "fqdnLabel": "www.drawio.com",
+    "fqdnUrl": "https://www.drawio.com/",
+    "networkText": "Default Port: 8080",
+    "configLocations": []
+  }
+}

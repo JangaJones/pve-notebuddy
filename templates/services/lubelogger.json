@@ -1,0 +1,19 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/lubelogger.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "LubeLogger",
+    "fqdnLabel": "lubelogger.com",
+    "fqdnUrl": "https://lubelogger.com/",
+    "networkText": "Default Port: 5000",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/lubelogger/appsettings.json"
+      }
+    ]
+  }
+}

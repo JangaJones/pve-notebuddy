@@ -1,0 +1,16 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/flaresolverr.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "FlareSolverr",
+    "fqdnLabel": "github.com/FlareSolverr/FlareSolverr",
+    "fqdnUrl": "https://github.com/FlareSolverr/FlareSolverr",
+    "networkText": "Default Port: 8191",
+    "configLocations": []
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/gatus.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "gatus",
+    "fqdnLabel": "gatus.io",
+    "fqdnUrl": "https://gatus.io/",
+    "networkText": "Default Port: 8080",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/gatus/config/config.yaml"
+      }
+    ]
+  }
+}

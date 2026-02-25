@@ -1,0 +1,19 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/gwn-manager.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "GWN Manager",
+    "fqdnLabel": "www.grandstream.com/products/networking-solutions/wi-fi-management/product/gwn-manager",
+    "fqdnUrl": "https://www.grandstream.com/products/networking-solutions/wi-fi-management/product/gwn-manager",
+    "networkText": "Default Port: 8443",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/gwn/conf/gwn.conf"
+      }
+    ]
+  }
+}

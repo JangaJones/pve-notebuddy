@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/neo4j.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Neo4j",
+    "fqdnLabel": "neo4j.com/product/neo4j-graph-database",
+    "fqdnUrl": "https://neo4j.com/product/neo4j-graph-database/",
+    "networkText": "Default Port: 7474",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/etc/neo4j/neo4j.conf"
+      }
+    ]
+  }
+}

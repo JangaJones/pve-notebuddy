@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/sftpgo.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "SFTPGo",
+    "fqdnLabel": "github.com/drakkan/sftpgo",
+    "fqdnUrl": "https://github.com/drakkan/sftpgo",
+    "networkText": "Default Port: 8080",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/etc/sftpgo/sftpgo.json"
+      }
+    ]
+  }
+}

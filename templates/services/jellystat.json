@@ -1,0 +1,19 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/jellystat.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "Jellystat",
+    "fqdnLabel": "github.com/CyferShepard/Jellystat",
+    "fqdnUrl": "https://github.com/CyferShepard/Jellystat",
+    "networkText": "Default Port: 3000",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/jellystat/.env"
+      }
+    ]
+  }
+}

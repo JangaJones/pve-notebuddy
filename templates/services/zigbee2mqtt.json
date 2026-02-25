@@ -1,0 +1,25 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/zigbee2mqtt.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Zigbee2MQTT",
+    "fqdnLabel": "www.zigbee2mqtt.io",
+    "fqdnUrl": "https://www.zigbee2mqtt.io/",
+    "networkText": "Default Port: 9442",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "debian: /opt/zigbee2mqtt/data/configuration.yaml"
+      },
+      {
+        "icon": "📁",
+        "value": "alpine: /var/lib/zigbee2mqtt/configuration.yaml"
+      }
+    ]
+  }
+}

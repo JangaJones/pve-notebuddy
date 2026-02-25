@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/immich-public-proxy.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Immich Public Proxy",
+    "fqdnLabel": "github.com/alangrainger/immich-public-proxy",
+    "fqdnUrl": "https://github.com/alangrainger/immich-public-proxy",
+    "networkText": "Default Port: 3000",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/immich-proxy/app/.env"
+      }
+    ]
+  }
+}

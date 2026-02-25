@@ -1,0 +1,19 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/blocky.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "Blocky",
+    "fqdnLabel": "0xerr0r.github.io/blocky",
+    "fqdnUrl": "https://0xerr0r.github.io/blocky/",
+    "networkText": "Default Port: 4000",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/blocky/config.yml"
+      }
+    ]
+  }
+}

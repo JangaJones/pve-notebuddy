@@ -1,0 +1,19 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/cleanuparr.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "Cleanuparr",
+    "fqdnLabel": "github.com/Cleanuparr/Cleanuparr",
+    "fqdnUrl": "https://github.com/Cleanuparr/Cleanuparr",
+    "networkText": "Default Port: 11011",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/cleanuparr/config"
+      }
+    ]
+  }
+}

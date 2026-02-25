@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/kimai.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Kimai",
+    "fqdnLabel": "www.kimai.org",
+    "fqdnUrl": "https://www.kimai.org/",
+    "networkText": "",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/kimai/.env"
+      }
+    ]
+  }
+}

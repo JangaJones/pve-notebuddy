@@ -1,0 +1,14 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/jenkins.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "Jenkins",
+    "fqdnLabel": "www.jenkins.io",
+    "fqdnUrl": "https://www.jenkins.io/",
+    "networkText": "Default Port: 8080",
+    "configLocations": []
+  }
+}

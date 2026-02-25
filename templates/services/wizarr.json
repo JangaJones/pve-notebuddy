@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/wizarr.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Wizarr",
+    "fqdnLabel": "docs.wizarr.dev",
+    "fqdnUrl": "https://docs.wizarr.dev/",
+    "networkText": "Default Port: 5690",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/wizarr/.env"
+      }
+    ]
+  }
+}

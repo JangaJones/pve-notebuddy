@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/nzbget.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "NZBGet",
+    "fqdnLabel": "nzbget.com",
+    "fqdnUrl": "https://nzbget.com/",
+    "networkText": "Default Port: 6789",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/usr/share/nzbget/nzbget.conf"
+      }
+    ]
+  }
+}

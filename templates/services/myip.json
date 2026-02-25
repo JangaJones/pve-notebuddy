@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/myip.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "MyIP",
+    "fqdnLabel": "ipcheck.ing",
+    "fqdnUrl": "https://ipcheck.ing/",
+    "networkText": "Default Port: 18966",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/myip/.env"
+      }
+    ]
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/watcharr.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "Watcharr",
+    "fqdnLabel": "watcharr.app",
+    "fqdnUrl": "https://watcharr.app/",
+    "networkText": "Default Port: 3080",
+    "configLocations": []
+  }
+}

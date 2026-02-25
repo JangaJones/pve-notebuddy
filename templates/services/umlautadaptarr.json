@@ -1,0 +1,19 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://raw.githubusercontent.com/community-scripts/ProxmoxVE/refs/heads/main/misc/images/logo.png",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "UmlautAdaptarr",
+    "fqdnLabel": "github.com/PCJones/UmlautAdaptarr",
+    "fqdnUrl": "https://github.com/PCJones/UmlautAdaptarr",
+    "networkText": "Default Port: 5005",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/UmlautAdaptarr/appsettings.json"
+      }
+    ]
+  }
+}

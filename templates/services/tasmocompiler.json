@@ -1,0 +1,14 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/tasmocompiler.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "TasmoCompiler",
+    "fqdnLabel": "github.com/benzino77/tasmocompiler",
+    "fqdnUrl": "https://github.com/benzino77/tasmocompiler",
+    "networkText": "Default Port: 3000",
+    "configLocations": []
+  }
+}

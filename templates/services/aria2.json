@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/aria2.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Aria2",
+    "fqdnLabel": "aria2.github.io",
+    "fqdnUrl": "https://aria2.github.io/",
+    "networkText": "Default Port: 6880",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/root/aria2.daemon"
+      }
+    ]
+  }
+}

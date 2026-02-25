@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/lidarr.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Lidarr",
+    "fqdnLabel": "lidarr.audio",
+    "fqdnUrl": "https://lidarr.audio/",
+    "networkText": "Default Port: 8686",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/var/lib/lidarr/config.xml"
+      }
+    ]
+  }
+}

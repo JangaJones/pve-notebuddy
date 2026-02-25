@@ -1,0 +1,19 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/wiki-js.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "Wiki.js",
+    "fqdnLabel": "js.wiki",
+    "fqdnUrl": "https://js.wiki/",
+    "networkText": "Default Port: 3000",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/wikijs/config.yml"
+      }
+    ]
+  }
+}

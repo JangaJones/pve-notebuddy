@@ -1,0 +1,19 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/telegraf.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "Telegraf",
+    "fqdnLabel": "github.com/influxdata/telegraf",
+    "fqdnUrl": "https://github.com/influxdata/telegraf",
+    "networkText": "",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/etc/telegraf/telegraf.conf"
+      }
+    ]
+  }
+}

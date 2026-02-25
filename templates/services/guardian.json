@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/guardian-plex.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Guardian",
+    "fqdnLabel": "github.com/HydroshieldMKII/Guardian",
+    "fqdnUrl": "https://github.com/HydroshieldMKII/Guardian",
+    "networkText": "Default Port: 3000",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/guardian/.env"
+      }
+    ]
+  }
+}

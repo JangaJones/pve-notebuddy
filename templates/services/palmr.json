@@ -1,0 +1,25 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/palmr.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Palmr",
+    "fqdnLabel": "palmr.kyantech.com.br",
+    "fqdnUrl": "https://palmr.kyantech.com.br/",
+    "networkText": "Default Port: 3000",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/palmr/apps/server/.env"
+      },
+      {
+        "icon": "📁",
+        "value": "/opt/palmr/apps/web/.env"
+      }
+    ]
+  }
+}

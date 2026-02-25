@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/real-debrid.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Real-Debrid Torrent Client",
+    "fqdnLabel": "github.com/rogerfar/rdt-client",
+    "fqdnUrl": "https://github.com/rogerfar/rdt-client",
+    "networkText": "Default Port: 6500",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/rdtc/appsettings.json"
+      }
+    ]
+  }
+}

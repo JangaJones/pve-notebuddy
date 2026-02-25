@@ -1,0 +1,14 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/myspeed.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "MySpeed",
+    "fqdnLabel": "myspeed.dev",
+    "fqdnUrl": "https://myspeed.dev/",
+    "networkText": "Default Port: 5216",
+    "configLocations": []
+  }
+}

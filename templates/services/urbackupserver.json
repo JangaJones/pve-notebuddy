@@ -1,0 +1,14 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/urbackup.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "UrBackup Server",
+    "fqdnLabel": "www.urbackup.org",
+    "fqdnUrl": "https://www.urbackup.org/",
+    "networkText": "Default Port: 55414",
+    "configLocations": []
+  }
+}

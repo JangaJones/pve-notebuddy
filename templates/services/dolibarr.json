@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/dolibarr.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Dolibarr",
+    "fqdnLabel": "www.dolibarr.org",
+    "fqdnUrl": "https://www.dolibarr.org/",
+    "networkText": "Default Port: 80",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/usr/share/dolibarr/htdocs/conf/conf.php.example"
+      }
+    ]
+  }
+}

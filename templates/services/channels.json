@@ -1,0 +1,16 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/channels-dvr.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Channels DVR Server",
+    "fqdnLabel": "getchannels.com/dvr-server",
+    "fqdnUrl": "https://getchannels.com/dvr-server/",
+    "networkText": "Default Port: 8089",
+    "configLocations": []
+  }
+}

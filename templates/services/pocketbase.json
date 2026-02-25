@@ -1,0 +1,16 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/pocketbase.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Pocketbase",
+    "fqdnLabel": "pocketbase.io",
+    "fqdnUrl": "https://pocketbase.io/",
+    "networkText": "",
+    "configLocations": []
+  }
+}

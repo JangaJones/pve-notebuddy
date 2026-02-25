@@ -1,0 +1,25 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/scanopy.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Scanopy",
+    "fqdnLabel": "scanopy.net",
+    "fqdnUrl": "https://scanopy.net",
+    "networkText": "Default Port: 60072",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/scanopy/.env"
+      },
+      {
+        "icon": "📁",
+        "value": "OIDC: /opt/scanopy/oidc.toml"
+      }
+    ]
+  }
+}

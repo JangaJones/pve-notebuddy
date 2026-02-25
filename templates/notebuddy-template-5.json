@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "rowOrder": {
+    "icon": "1",
+    "title": "1",
+    "fqdn": "1",
+    "network": "1",
+    "config": "1",
+    "custom": "0"
+  },
+  "theme": "dark",
+  "icon": {
+    "align": "center",
+    "scale": "100"
+  },
+  "fields": {
+  },
+  "rows": {
+    "title": {
+      "emoji": "",
+      "align": "center",
+      "heading": "h2",
+      "bold": false,
+      "italic": false,
+      "strong": false,
+      "code": false
+    },
+    "fqdn": {
+      "emoji": "🔗",
+      "align": "center",
+      "heading": "h3",
+      "bold": false,
+      "italic": false,
+      "strong": false,
+      "code": false
+    },
+    "network": {
+      "emoji": "🖥️",
+      "align": "center",
+      "heading": "h3",
+      "bold": false,
+      "italic": false,
+      "strong": false,
+      "code": false
+    },
+    "config": {
+      "emoji": "",
+      "align": "center",
+      "heading": "",
+      "bold": false,
+      "italic": true,
+      "strong": true,
+      "code": true
+    },
+    "custom": {
+      "emoji": "",
+      "align": "left",
+      "heading": "",
+      "bold": false,
+      "italic": false,
+      "strong": false,
+      "code": false
+    }
+  }
+}

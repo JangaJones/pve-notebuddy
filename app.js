@@ -1,3 +1,4 @@
+// ===== App State & DOM References =====
 const MAX_OUTPUT_LENGTH = 8192;
 
 const form = document.getElementById("noteForm");
@@ -16,6 +17,12 @@ const importBtn = document.getElementById("importBtn");
 const exportBtn = document.getElementById("exportBtn");
 const importFileEl = document.getElementById("importFile");
 const presetBtnEls = document.querySelectorAll("button[data-preset]");
+const templateSearchInputEl = document.getElementById("templateSearch");
+const templateSearchWrapEl = document.getElementById("templateSearchWrap");
+const templateSearchClearEl = document.getElementById("templateSearchClear");
+const templateSuggestEl = document.getElementById("templateSuggest");
+const supportMenuBtn = document.getElementById("supportMenuBtn");
+const supportMenuList = document.getElementById("supportMenuList");
 
 const iconModeRadios = form.querySelectorAll('input[name="iconMode"]');
 const iconUrlWrap = document.getElementById("iconUrlWrap");
@@ -23,7 +30,10 @@ const iconUploadWrap = document.getElementById("iconUploadWrap");
 const iconEmbedWrap = document.getElementById("iconEmbedWrap");
 const iconSelfhstWrap = document.getElementById("iconSelfhstWrap");
 const iconUrlEl = document.getElementById("iconUrl");
+const iconUrlRowEl = iconUrlEl?.closest(".icon-url-row") || null;
+const iconCdnVariantsEl = document.getElementById("iconCdnVariants");
 const iconEmbedSvgEl = document.getElementById("iconEmbedSvg");
+const iconResizeWsrvEl = document.getElementById("iconResizeWsrv");
 const iconUploadEl = document.getElementById("iconUpload");
 const iconScaleEl = document.getElementById("iconScale");
 const iconScaleValueEl = document.getElementById("iconScaleValue");
@@ -39,8 +49,13 @@ let activeTheme = "dark";
 let iconResolvedSrc = "";
 let uploadSvgText = "";
 const externalSvgCache = new Map();
+const selfhstVariantExistsCache = new Map();
 let prepareToken = 0;
+let selfhstVariantUiToken = 0;
+let selfhstVariantRefreshTimer = null;
 const svgColorCanvasCtx = document.createElement("canvas").getContext("2d");
+let publicTemplateCatalog = [];
+const presetLoadFlashTimers = new WeakMap();
 
 const rowConfigs = [
   { prefix: "title", defaultAlign: "center", defaultTag: "h2", bold: false, italic: false, strong: false, code: false },
@@ -51,6 +66,7 @@ const rowConfigs = [
 ];
 const ROW_KEYS = ["icon", "title", "fqdn", "network", "config", "custom"];
 
+// ===== Generic DOM / Value Helpers =====
 function getEl(id) {
   return document.getElementById(id);
 }
@@ -91,6 +107,7 @@ function isRasterUrl(url) {
   return /\.(png|jpe?g|webp)($|[?#])/i.test(url);
 }
 
+// ===== SVG Processing Helpers =====
 function readTextFile(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -445,6 +462,7 @@ async function getExternalSvgText(url) {
   return text;
 }
 
+// ===== Icon Status / Style Toolbar UI =====
 function setIconStatus(text, isError = false) {
   iconStatusEl.textContent = text;
   iconStatusEl.classList.toggle("error", isError);
@@ -462,6 +480,123 @@ function setIconMode(value) {
   setSelectedRadioValue("iconMode", value);
 }
 
+function isWsrvResizeEnabled() {
+  return Boolean(iconResizeWsrvEl?.checked);
+}
+
+function buildWsrvUrl(url, width) {
+  return `https://wsrv.nl/?url=${encodeURIComponent(String(url || "").trim())}&w=${encodeURIComponent(String(width || ""))}`;
+}
+
+function isSelfhstCdnUrl(url) {
+  return /^https:\/\/cdn\.jsdelivr\.net\/gh\/selfhst\/icons@main\//i.test(String(url || "").trim());
+}
+
+function parseSelfhstVariantUrls(inputUrl) {
+  if (!isSelfhstCdnUrl(inputUrl)) {
+    return null;
+  }
+  let parsed;
+  try {
+    parsed = new URL(String(inputUrl || "").trim());
+  } catch {
+    return null;
+  }
+  const slashIndex = parsed.pathname.lastIndexOf("/");
+  if (slashIndex < 0) {
+    return null;
+  }
+  const dir = parsed.pathname.slice(0, slashIndex + 1);
+  const file = parsed.pathname.slice(slashIndex + 1);
+  const match = file.match(/^(.*?)(?:-(light|dark))?(\.[^.\/]+)$/i);
+  if (!match) {
+    return null;
+  }
+  const baseName = match[1];
+  const ext = match[3];
+  const currentVariant = (match[2] || "orig").toLowerCase();
+  const suffix = `${parsed.search}${parsed.hash}`;
+  const make = (name) => `${parsed.origin}${dir}${name}${suffix}`;
+
+  return {
+    currentVariant,
+    orig: make(`${baseName}${ext}`),
+    light: make(`${baseName}-light${ext}`),
+    dark: make(`${baseName}-dark${ext}`),
+  };
+}
+
+async function checkUrlExists(url) {
+  if (selfhstVariantExistsCache.has(url)) {
+    return selfhstVariantExistsCache.get(url);
+  }
+  try {
+    const res = await fetch(url, { method: "HEAD" });
+    const ok = res.ok;
+    selfhstVariantExistsCache.set(url, ok);
+    return ok;
+  } catch {
+    selfhstVariantExistsCache.set(url, false);
+    return false;
+  }
+}
+
+async function refreshSelfhstVariantButtons() {
+  if (!iconCdnVariantsEl) {
+    return;
+  }
+  const token = ++selfhstVariantUiToken;
+  const url = iconUrlEl.value.trim();
+  const variants = parseSelfhstVariantUrls(url);
+  if (!variants) {
+    iconCdnVariantsEl.innerHTML = "";
+    iconCdnVariantsEl.classList.add("hidden");
+    iconUrlRowEl?.classList.remove("has-variants");
+    return;
+  }
+
+  const [hasOrig, hasLight, hasDark] = await Promise.all([
+    checkUrlExists(variants.orig),
+    checkUrlExists(variants.light),
+    checkUrlExists(variants.dark),
+  ]);
+  if (token !== selfhstVariantUiToken) {
+    return;
+  }
+
+  const available = [];
+  if (hasOrig) available.push({ key: "orig", label: "ORIG", url: variants.orig });
+  if (hasLight) available.push({ key: "light", label: "LIGHT", url: variants.light });
+  if (hasDark) available.push({ key: "dark", label: "DARK", url: variants.dark });
+
+  const hasAlternatives = available.length > 1 || (available.length === 1 && available[0].url !== url);
+  if (!hasAlternatives) {
+    iconCdnVariantsEl.innerHTML = "";
+    iconCdnVariantsEl.classList.add("hidden");
+    iconUrlRowEl?.classList.remove("has-variants");
+    return;
+  }
+
+  iconCdnVariantsEl.innerHTML = available
+    .map((item) => {
+      const activeClass = item.key === variants.currentVariant ? " is-active" : "";
+      return `<button type="button" class="tool-chip icon-cdn-variant-btn${activeClass}" data-variant-url="${escapeHtml(item.url)}">${item.label}</button>`;
+    })
+    .join("");
+  iconCdnVariantsEl.classList.remove("hidden");
+  iconUrlRowEl?.classList.add("has-variants");
+}
+
+function scheduleSelfhstVariantButtonsRefresh() {
+  if (selfhstVariantRefreshTimer) {
+    window.clearTimeout(selfhstVariantRefreshTimer);
+  }
+  selfhstVariantRefreshTimer = window.setTimeout(() => {
+    refreshSelfhstVariantButtons();
+  }, 180);
+}
+
+// Build row toolbar controls dynamically from config defaults.
 function styleToolbarHtml(prefix, defaults) {
   const headingOptions = ["h1", "h2", "h3", "h4", "h5"];
   const alignOptions = ["left", "center", "right"];
@@ -515,6 +650,7 @@ function mountStyleToolbars() {
   }
 }
 
+// Keep conflicting style toggles mutually exclusive.
 function bindStyleConflicts() {
   for (const { prefix } of rowConfigs) {
     const bold = getEl(`${prefix}Bold`);
@@ -565,6 +701,7 @@ function bindStyleConflicts() {
   }
 }
 
+// ===== Output Composition =====
 function getFormat(prefix) {
   const checkedAlign = form.querySelector(`input[name="${prefix}Align"]:checked`);
   const checkedHeading = form.querySelector(`input[name="${prefix}Heading"]:checked`);
@@ -642,6 +779,7 @@ function buildTextRow({ align, icon, textHtml, format }) {
   return buildRowDiv({ align, contentHtml: `${iconHtml}${textOnly}` });
 }
 
+// ===== Row Ordering & Visibility =====
 function getOrderedRowKeys() {
   return Array.from(form.querySelectorAll("fieldset[data-row-key]"))
     .map((fieldset) => fieldset.getAttribute("data-row-key"))
@@ -649,6 +787,7 @@ function getOrderedRowKeys() {
 }
 
 function reorderFieldsets(rowOrder) {
+  const seen = new Set();
   const map = new Map(
     Array.from(form.querySelectorAll("fieldset[data-row-key]")).map((fieldset) => [fieldset.getAttribute("data-row-key"), fieldset])
   );
@@ -657,7 +796,80 @@ function reorderFieldsets(rowOrder) {
     if (!fieldset) {
       continue;
     }
+    seen.add(key);
     form.appendChild(fieldset);
+  }
+  for (const [key, fieldset] of map.entries()) {
+    if (!seen.has(key)) {
+      form.appendChild(fieldset);
+    }
+  }
+}
+
+function getRowFieldset(rowKey) {
+  return form.querySelector(`fieldset[data-row-key="${rowKey}"]`);
+}
+
+function isRowVisible(rowKey) {
+  const fieldset = getRowFieldset(rowKey);
+  if (!fieldset) {
+    return true;
+  }
+  return fieldset.getAttribute("data-row-visible") !== "0";
+}
+
+function updateRowVisibilityUi(rowKey) {
+  const fieldset = getRowFieldset(rowKey);
+  if (!fieldset) {
+    return;
+  }
+  const visible = isRowVisible(rowKey);
+  const toggleBtn = fieldset.querySelector(".row-visibility");
+  if (toggleBtn instanceof HTMLButtonElement) {
+    toggleBtn.textContent = visible ? "◉" : "○";
+    toggleBtn.title = visible ? "Hide row" : "Show row";
+    toggleBtn.setAttribute("aria-label", visible ? "Hide row" : "Show row");
+    toggleBtn.setAttribute("aria-pressed", visible ? "false" : "true");
+  }
+  fieldset.classList.toggle("row-hidden", !visible);
+
+  // Hidden rows keep values but should behave like disabled sections.
+  const controls = fieldset.querySelectorAll("input, select, textarea, button");
+  for (const control of controls) {
+    if (!(control instanceof HTMLInputElement || control instanceof HTMLSelectElement || control instanceof HTMLTextAreaElement || control instanceof HTMLButtonElement)) {
+      continue;
+    }
+    if (control.classList.contains("row-move") || control.classList.contains("row-visibility")) {
+      control.disabled = false;
+      continue;
+    }
+    control.disabled = !visible;
+  }
+}
+
+function setRowVisibility(rowKey, visible) {
+  const fieldset = getRowFieldset(rowKey);
+  if (!fieldset) {
+    return;
+  }
+  fieldset.setAttribute("data-row-visible", visible ? "1" : "0");
+  updateRowVisibilityUi(rowKey);
+}
+
+function toggleRowVisibility(rowKey) {
+  setRowVisibility(rowKey, !isRowVisible(rowKey));
+}
+
+function initializeRowVisibility() {
+  for (const key of ROW_KEYS) {
+    const fieldset = getRowFieldset(key);
+    if (!fieldset) {
+      continue;
+    }
+    if (!fieldset.hasAttribute("data-row-visible")) {
+      fieldset.setAttribute("data-row-visible", "1");
+    }
+    updateRowVisibilityUi(key);
   }
 }
 
@@ -741,6 +953,9 @@ function buildNoteHtml() {
   }
 
   for (const key of getOrderedRowKeys()) {
+    if (!isRowVisible(key)) {
+      continue;
+    }
     const section = byKey[key];
     if (!section) {
       continue;
@@ -793,21 +1008,28 @@ function collectRowState(prefix) {
   };
 }
 
+// ===== Settings Import / Export =====
 function collectSettings() {
   const rows = {};
   for (const { prefix } of rowConfigs) {
     rows[prefix] = collectRowState(prefix);
   }
 
+  const rowOrder = {};
+  for (const key of getOrderedRowKeys()) {
+    rowOrder[key] = isRowVisible(key) ? "1" : "0";
+  }
+
   return {
     version: 1,
-    rowOrder: getOrderedRowKeys(),
+    rowOrder,
     theme: activeTheme,
     icon: {
       align: getSelectedRadioValue("iconAlign", "center"),
       mode: getIconMode(),
       url: iconUrlEl.value,
       embedSvg: iconEmbedSvgEl.checked,
+      resizeWithWsrv: isWsrvResizeEnabled(),
       scale: iconScaleEl.value,
       colorVariant: getIconColorVariant(),
       uploadSvgText,
@@ -851,14 +1073,27 @@ function applyRowState(prefix, rowState = {}) {
   if (code) code.checked = Boolean(rowState.code);
 }
 
+// Non-destructive apply: omitted properties are intentionally left untouched.
 async function applySettings(settings) {
   if (!settings || typeof settings !== "object") {
     throw new Error("Invalid settings format.");
   }
 
-  const requestedOrder = Array.isArray(settings.rowOrder) ? settings.rowOrder.filter((k) => ROW_KEYS.includes(k)) : [];
-  const ordered = requestedOrder.length > 0 ? requestedOrder : ROW_KEYS;
-  reorderFieldsets(ordered);
+  if (Array.isArray(settings.rowOrder)) {
+    const requestedOrder = settings.rowOrder.filter((k) => ROW_KEYS.includes(k));
+    if (requestedOrder.length > 0) {
+      reorderFieldsets(requestedOrder);
+    }
+  } else if (settings.rowOrder && typeof settings.rowOrder === "object") {
+    const entries = Object.entries(settings.rowOrder).filter(([key]) => ROW_KEYS.includes(key));
+    if (entries.length > 0) {
+      reorderFieldsets(entries.map(([key]) => key));
+      for (const [key, rawVisible] of entries) {
+        const visible = !(rawVisible === "0" || rawVisible === 0 || rawVisible === false);
+        setRowVisibility(key, visible);
+      }
+    }
+  }
 
   if (settings.theme === "light" || settings.theme === "dark") {
     setTheme(settings.theme);
@@ -877,13 +1112,18 @@ async function applySettings(settings) {
     if (typeof settings.icon.embedSvg === "boolean") {
       iconEmbedSvgEl.checked = settings.icon.embedSvg;
     }
+    if (typeof settings.icon.resizeWithWsrv === "boolean" && iconResizeWsrvEl) {
+      iconResizeWsrvEl.checked = settings.icon.resizeWithWsrv;
+    }
     if (typeof settings.icon.scale === "string" || typeof settings.icon.scale === "number") {
       iconScaleEl.value = String(settings.icon.scale);
     }
     if (typeof settings.icon.colorVariant === "string") {
       setSelectedRadioValue("iconColorVariant", settings.icon.colorVariant);
     }
-    uploadSvgText = typeof settings.icon.uploadSvgText === "string" ? settings.icon.uploadSvgText : "";
+    if (typeof settings.icon.uploadSvgText === "string") {
+      uploadSvgText = settings.icon.uploadSvgText;
+    }
   }
 
   if (settings.fields && typeof settings.fields === "object") {
@@ -908,13 +1148,16 @@ async function applySettings(settings) {
 
   if (settings.rows && typeof settings.rows === "object") {
     for (const { prefix } of rowConfigs) {
-      applyRowState(prefix, settings.rows[prefix] || {});
+      if (settings.rows[prefix] && typeof settings.rows[prefix] === "object") {
+        applyRowState(prefix, settings.rows[prefix]);
+      }
     }
   }
 
   await prepareIcon();
 }
 
+// ===== Template Catalog / Search =====
 function exportSettings() {
   const payload = JSON.stringify(collectSettings(), null, 2);
   const blob = new Blob([payload], { type: "application/json;charset=utf-8" });
@@ -937,7 +1180,7 @@ async function importSettingsFromFile(event) {
     const parsed = JSON.parse(text);
     await applySettings(parsed);
   } catch {
-    setIconStatus("Import failed: invalid JSON file.", true);
+    console.error("Import failed: invalid JSON file.");
   } finally {
     importFileEl.value = "";
   }
@@ -946,28 +1189,217 @@ async function importSettingsFromFile(event) {
 async function loadPresetByNumber(number) {
   const preset = Number.parseInt(String(number), 10);
   if (!Number.isFinite(preset) || preset < 1 || preset > 5) {
-    return;
+    return false;
   }
 
   try {
-    const res = await fetch(`./presets/pve-notebuddy-preset${preset}.json`, { cache: "no-store" });
+    const res = await fetch(`./templates/notebuddy-template-${preset}.json`, { cache: "no-store" });
     if (!res.ok) {
       throw new Error(`HTTP ${res.status}`);
     }
     const parsed = await res.json();
     await applySettings(parsed);
-    setIconStatus(`Preset ${preset} loaded.`);
+    return true;
   } catch {
-    setIconStatus(`Could not load preset ${preset}.`, true);
+    console.error(`Could not load template ${preset}.`);
+    return false;
   }
 }
 
+function flashLoadedPresetButton(buttonEl) {
+  if (!(buttonEl instanceof HTMLButtonElement)) {
+    return;
+  }
+
+  const existing = presetLoadFlashTimers.get(buttonEl);
+  if (existing) {
+    window.clearTimeout(existing);
+  }
+
+  buttonEl.classList.remove("template-loaded");
+  window.requestAnimationFrame(() => {
+    buttonEl.classList.add("template-loaded");
+    const timer = window.setTimeout(() => {
+      buttonEl.classList.remove("template-loaded");
+      presetLoadFlashTimers.delete(buttonEl);
+    }, 900);
+    presetLoadFlashTimers.set(buttonEl, timer);
+  });
+}
+
+function normalizeTemplateCatalog(payload) {
+  const rows = Array.isArray(payload)
+    ? payload
+    : payload && Array.isArray(payload.templates)
+      ? payload.templates
+      : [];
+
+  const map = new Map();
+  for (const row of rows) {
+    if (typeof row === "string") {
+      const file = row.replace(/^\.?\/*public\//i, "").trim();
+      if (!file) {
+        continue;
+      }
+      const name = file.replace(/\.json$/i, "").replace(/[-_]+/g, " ").trim() || file;
+      map.set(file.toLowerCase(), { name, file });
+      continue;
+    }
+
+    if (row && typeof row === "object") {
+      const fileRaw = typeof row.file === "string" ? row.file : "";
+      const file = fileRaw.replace(/^\.?\/*public\//i, "").trim();
+      if (!file) {
+        continue;
+      }
+      const fallbackName = file.replace(/\.json$/i, "").replace(/[-_]+/g, " ").trim() || file;
+      const name = typeof row.name === "string" && row.name.trim() ? row.name.trim() : fallbackName;
+      map.set(file.toLowerCase(), { name, file });
+    }
+  }
+
+  return Array.from(map.values()).sort((a, b) => a.name.localeCompare(b.name));
+}
+
+// Load template index with compatibility fallbacks for old folder layouts.
+async function loadPublicTemplateCatalog() {
+  try {
+    const indexCandidates = [
+      "./templates/services/_index.json",
+      "./templates/services/index.json",
+      "./public/_index.json",
+      "./public/index.json",
+    ];
+    for (const indexPath of indexCandidates) {
+      const res = await fetch(indexPath, { cache: "no-store" });
+      if (!res.ok) {
+        continue;
+      }
+      const payload = await res.json();
+      publicTemplateCatalog = normalizeTemplateCatalog(payload);
+      return;
+    }
+    publicTemplateCatalog = [];
+  } catch {
+    publicTemplateCatalog = [];
+  }
+}
+
+function closeTemplateSuggest() {
+  if (!templateSuggestEl) {
+    return;
+  }
+  templateSuggestEl.classList.add("hidden");
+}
+
+function setTemplateSearchClearVisibility() {
+  if (!templateSearchInputEl || !templateSearchClearEl) {
+    return;
+  }
+  templateSearchClearEl.disabled = !templateSearchInputEl.value.trim();
+}
+
+function getRandomTemplates(maxItems = 10) {
+  const pool = [...publicTemplateCatalog];
+  for (let i = pool.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [pool[i], pool[j]] = [pool[j], pool[i]];
+  }
+  return pool.slice(0, maxItems);
+}
+
+function renderTemplateSuggest(items) {
+  if (!templateSuggestEl) {
+    return;
+  }
+  if (items.length === 0) {
+    templateSuggestEl.innerHTML = '<div class="template-suggest-empty">No matching templates</div>';
+    templateSuggestEl.classList.remove("hidden");
+    return;
+  }
+
+  templateSuggestEl.innerHTML = items
+    .slice(0, 10)
+    .map(
+      (item) =>
+        `<button type="button" class="template-suggest-item" data-template-file="${escapeHtml(item.file)}" data-template-name="${escapeHtml(item.name)}">${escapeHtml(item.name)}</button>`
+    )
+    .join("");
+  templateSuggestEl.classList.remove("hidden");
+}
+
+function updateTemplateSuggest(showRandomWhenEmpty = false) {
+  if (!templateSearchInputEl) {
+    return;
+  }
+  const query = templateSearchInputEl.value.trim().toLowerCase();
+  setTemplateSearchClearVisibility();
+  if (!query) {
+    if (showRandomWhenEmpty && publicTemplateCatalog.length > 0) {
+      renderTemplateSuggest(getRandomTemplates(10));
+    } else {
+      closeTemplateSuggest();
+    }
+    return;
+  }
+
+  const matches = publicTemplateCatalog.filter((item) => {
+    const name = item.name.toLowerCase();
+    const file = item.file.toLowerCase();
+    return name.includes(query) || file.includes(query);
+  });
+  renderTemplateSuggest(matches);
+}
+
+function toPublicTemplatePath(file) {
+  const clean = String(file || "")
+    .replace(/^\.?\/*(templates\/services|public)\//i, "")
+    .trim();
+  return clean ? `./templates/services/${clean}` : "";
+}
+
+// Load and apply a selected service template JSON from the catalog.
+async function loadPublicTemplateFile(file, displayName = "") {
+  const path = toPublicTemplatePath(file);
+  if (!path) {
+    return;
+  }
+  try {
+    const res = await fetch(path, { cache: "no-store" });
+    if (!res.ok) {
+      throw new Error(`HTTP ${res.status}`);
+    }
+    const parsed = await res.json();
+    await applySettings(parsed);
+  } catch {
+    console.error("Could not load selected public template.");
+  }
+}
+
+// ===== Preview / Icon Rendering =====
 function renderOutput() {
   iconScaleValueEl.textContent = `${iconScaleEl.value} px`;
   const noteHtml = buildNoteHtml();
   outputEl.value = noteHtml;
   previewCard.innerHTML = noteHtml;
   updateLengthState(noteHtml);
+}
+
+function closeSupportMenu() {
+  if (!supportMenuBtn || !supportMenuList) {
+    return;
+  }
+  supportMenuBtn.setAttribute("aria-expanded", "false");
+  supportMenuList.classList.add("hidden");
+}
+
+function toggleSupportMenu() {
+  if (!supportMenuBtn || !supportMenuList) {
+    return;
+  }
+  const nextExpanded = supportMenuBtn.getAttribute("aria-expanded") !== "true";
+  supportMenuBtn.setAttribute("aria-expanded", nextExpanded ? "true" : "false");
+  supportMenuList.classList.toggle("hidden", !nextExpanded);
 }
 
 function iconCanUseScale() {
@@ -978,9 +1410,24 @@ function iconCanUseScale() {
 
   if (mode === "external") {
     const url = iconUrlEl.value.trim();
-    return isSvgUrl(url) && iconEmbedSvgEl.checked;
+    if (!url) {
+      return false;
+    }
+    return isWsrvResizeEnabled() || (isSvgUrl(url) && iconEmbedSvgEl.checked);
   }
 
+  return false;
+}
+
+function iconCanTransformColors() {
+  const mode = getIconMode();
+  if (mode === "upload") {
+    return Boolean(uploadSvgText);
+  }
+  if (mode === "external") {
+    const url = iconUrlEl.value.trim();
+    return isSvgUrl(url) && iconEmbedSvgEl.checked && !isWsrvResizeEnabled();
+  }
   return false;
 }
 
@@ -990,11 +1437,14 @@ function updateIconControls() {
   iconSelfhstWrap.classList.toggle("hidden", mode !== "external");
   iconEmbedWrap.classList.toggle("hidden", mode !== "external");
   iconUploadWrap.classList.toggle("hidden", mode !== "upload");
+  if (isWsrvResizeEnabled()) {
+    iconEmbedSvgEl.checked = false;
+  }
 
   const url = iconUrlEl.value.trim();
   const rasterLink = mode === "external" && isRasterUrl(url);
   const externalSvg = mode === "external" && isSvgUrl(url);
-  const showVariantControls = mode === "upload" || externalSvg;
+  const showVariantControls = mode === "upload" || (externalSvg && iconEmbedSvgEl.checked && !isWsrvResizeEnabled());
   if (iconVariantWrapEl) {
     iconVariantWrapEl.classList.toggle("hidden", !showVariantControls);
   }
@@ -1008,16 +1458,21 @@ function updateIconControls() {
   } else {
     iconEmbedSvgEl.disabled = false;
   }
+  if (iconResizeWsrvEl) {
+    iconResizeWsrvEl.disabled = mode !== "external";
+  }
 
   iconScaleEl.disabled = !iconCanUseScale();
-  const disableColor = !iconCanUseScale();
+  const disableColor = !iconCanTransformColors();
   for (const radio of iconColorVariantEls) {
     radio.disabled = disableColor;
   }
 }
 
+// Prepare current icon source (external/upload/none) and refresh preview output.
 async function prepareIcon() {
   const token = ++prepareToken;
+  scheduleSelfhstVariantButtonsRefresh();
   updateIconControls();
 
   const mode = getIconMode();
@@ -1059,6 +1514,14 @@ async function prepareIcon() {
   if (!url) {
     iconResolvedSrc = "";
     setIconStatus("Add an external image URL.");
+    renderOutput();
+    return;
+  }
+
+  if (isWsrvResizeEnabled()) {
+    iconResolvedSrc = buildWsrvUrl(url, iconScaleEl.value);
+    setIconStatus(`wsrv.nl resize enabled at ${iconScaleEl.value}px width.`);
+    updateIconControls();
     renderOutput();
     return;
   }
@@ -1112,6 +1575,7 @@ async function prepareIcon() {
   }
 }
 
+// ===== Misc UI Actions =====
 function setTheme(theme) {
   activeTheme = theme === "light" ? "light" : "dark";
   previewShell.classList.toggle("dark", activeTheme === "dark");
@@ -1223,6 +1687,7 @@ async function copyOutput() {
   }
 }
 
+// Fetch live repo stars for top bar widget; silently degrades on API failure.
 async function loadGithubStarCount() {
   if (!githubStarCountEl) {
     return;
@@ -1248,9 +1713,11 @@ async function loadGithubStarCount() {
   }
 }
 
+// ===== App Bootstrap =====
 function bootstrap() {
   mountStyleToolbars();
   bindStyleConflicts();
+  initializeRowVisibility();
 
   configLocationsEl.append(createConfigLocationInput("/etc/app/config.yml"));
 
@@ -1279,6 +1746,16 @@ function bootstrap() {
       return;
     }
 
+    const visibilityBtn = target.closest(".row-visibility");
+    if (visibilityBtn instanceof HTMLElement) {
+      const rowKey = visibilityBtn.getAttribute("data-row-key");
+      if (rowKey) {
+        toggleRowVisibility(rowKey);
+        renderOutput();
+      }
+      return;
+    }
+
     const clearBtn = target.closest(".icon-clear");
     if (!clearBtn) {
       return;
@@ -1297,8 +1774,11 @@ function bootstrap() {
   importBtn.addEventListener("click", () => importFileEl.click());
   importFileEl.addEventListener("change", importSettingsFromFile);
   for (const presetBtn of presetBtnEls) {
-    presetBtn.addEventListener("click", () => {
-      loadPresetByNumber(presetBtn.getAttribute("data-preset"));
+    presetBtn.addEventListener("click", async () => {
+      const didLoad = await loadPresetByNumber(presetBtn.getAttribute("data-preset"));
+      if (didLoad) {
+        flashLoadedPresetButton(presetBtn);
+      }
     });
   }
 
@@ -1306,11 +1786,42 @@ function bootstrap() {
     radio.addEventListener("change", prepareIcon);
   }
   iconUrlEl.addEventListener("input", prepareIcon);
-  iconEmbedSvgEl.addEventListener("change", prepareIcon);
+  iconEmbedSvgEl.addEventListener("change", () => {
+    if (iconEmbedSvgEl.checked && iconResizeWsrvEl) {
+      iconResizeWsrvEl.checked = false;
+    }
+    prepareIcon();
+  });
+  if (iconResizeWsrvEl) {
+    iconResizeWsrvEl.addEventListener("change", () => {
+      if (iconResizeWsrvEl.checked) {
+        iconEmbedSvgEl.checked = false;
+      }
+      prepareIcon();
+    });
+  }
   iconScaleEl.addEventListener("input", prepareIcon);
   iconUploadEl.addEventListener("change", onIconUploadChange);
   for (const radio of iconColorVariantEls) {
     radio.addEventListener("change", prepareIcon);
+  }
+  if (iconCdnVariantsEl) {
+    iconCdnVariantsEl.addEventListener("click", (event) => {
+      const target = event.target;
+      if (!(target instanceof HTMLElement)) {
+        return;
+      }
+      const btn = target.closest(".icon-cdn-variant-btn");
+      if (!(btn instanceof HTMLButtonElement)) {
+        return;
+      }
+      const nextUrl = btn.getAttribute("data-variant-url");
+      if (!nextUrl) {
+        return;
+      }
+      iconUrlEl.value = nextUrl;
+      prepareIcon();
+    });
   }
 
   themeToggleBtn.addEventListener("click", () => {
@@ -1318,6 +1829,96 @@ function bootstrap() {
   });
 
   copyBtn.addEventListener("click", copyOutput);
+  if (templateSearchInputEl && templateSuggestEl) {
+    loadPublicTemplateCatalog().then(() => {
+      if (document.activeElement === templateSearchInputEl && !templateSearchInputEl.value.trim()) {
+        updateTemplateSuggest(true);
+      }
+    });
+    setTemplateSearchClearVisibility();
+
+    templateSearchInputEl.addEventListener("input", () => updateTemplateSuggest(true));
+    templateSearchInputEl.addEventListener("focus", () => updateTemplateSuggest(true));
+    templateSearchInputEl.addEventListener("keydown", async (event) => {
+      if (event.key === "Escape") {
+        closeTemplateSuggest();
+        return;
+      }
+      if (event.key !== "Enter") {
+        return;
+      }
+      event.preventDefault();
+      const first = templateSuggestEl.querySelector(".template-suggest-item");
+      if (!(first instanceof HTMLElement)) {
+        return;
+      }
+      const file = first.getAttribute("data-template-file");
+      const name = first.getAttribute("data-template-name") || "";
+      if (!file) {
+        return;
+      }
+      await loadPublicTemplateFile(file, name);
+      closeTemplateSuggest();
+    });
+
+    templateSuggestEl.addEventListener("click", async (event) => {
+      const target = event.target;
+      if (!(target instanceof HTMLElement)) {
+        return;
+      }
+      const btn = target.closest(".template-suggest-item");
+      if (!(btn instanceof HTMLElement)) {
+        return;
+      }
+      const file = btn.getAttribute("data-template-file");
+      const name = btn.getAttribute("data-template-name") || "";
+      if (!file) {
+        return;
+      }
+      templateSearchInputEl.value = name;
+      setTemplateSearchClearVisibility();
+      await loadPublicTemplateFile(file, name);
+      closeTemplateSuggest();
+    });
+
+    if (templateSearchClearEl) {
+      templateSearchClearEl.addEventListener("click", () => {
+        templateSearchInputEl.value = "";
+        setTemplateSearchClearVisibility();
+        templateSearchInputEl.focus();
+        updateTemplateSuggest(true);
+      });
+    }
+  }
+  if (supportMenuBtn && supportMenuList) {
+    supportMenuBtn.addEventListener("click", (event) => {
+      event.stopPropagation();
+      toggleSupportMenu();
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!(event.target instanceof Node)) {
+        return;
+      }
+      if (
+        templateSearchWrapEl &&
+        templateSuggestEl &&
+        !templateSuggestEl.contains(event.target) &&
+        !templateSearchWrapEl.contains(event.target)
+      ) {
+        closeTemplateSuggest();
+      }
+      if (!supportMenuList.contains(event.target) && !supportMenuBtn.contains(event.target)) {
+        closeSupportMenu();
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        closeSupportMenu();
+      }
+    });
+  }
 
   setTheme("dark");
   prepareIcon();

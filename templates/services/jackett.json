@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/jackett.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Jackett",
+    "fqdnLabel": "github.com/Jackett/Jackett",
+    "fqdnUrl": "https://github.com/Jackett/Jackett",
+    "networkText": "Default Port: 9117",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/.env"
+      }
+    ]
+  }
+}

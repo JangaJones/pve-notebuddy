@@ -1,0 +1,19 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/plant-it.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "Plant-it",
+    "fqdnLabel": "plant-it.org",
+    "fqdnUrl": "https://plant-it.org/",
+    "networkText": "Default Port: 3000",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/plant-it/backend/server.env"
+      }
+    ]
+  }
+}

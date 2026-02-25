@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/heimdall.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Heimdall Dashboard",
+    "fqdnLabel": "heimdall.site",
+    "fqdnUrl": "https://heimdall.site/",
+    "networkText": "Default Port: 7990",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/Heimdall/.env"
+      }
+    ]
+  }
+}

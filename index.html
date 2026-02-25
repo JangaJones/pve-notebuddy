@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PVE NoteBuddy</title>
-    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="./resources/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -17,13 +17,13 @@
     <div class="app-shell">
       <header class="topbar">
         <div class="topbar-brand">
-          <img src="./favicon.svg" alt="PVE NoteBuddy logo" class="topbar-logo" />
+          <img src="./resources/favicon.svg" alt="PVE NoteBuddy logo" class="topbar-logo" />
           <span class="topbar-title">PVE NoteBuddy</span>
         </div>
         <div class="topbar-tools">
           <div class="topbar-actions">
             <div class="preset-group">
-              <span class="preset-title">Presets</span>
+              <span class="preset-title">templates</span>
               <div class="preset-buttons">
                 <button type="button" class="panel-action preset-btn" data-preset="1">1</button>
                 <button type="button" class="panel-action preset-btn" data-preset="2">2</button>
@@ -33,6 +33,18 @@
               </div>
             </div>
             <button id="clearBtn" type="button" class="panel-action">CLEAR</button>
+            <div id="templateSearchWrap" class="template-search">
+              <input
+                id="templateSearch"
+                class="template-search-input"
+                type="text"
+                placeholder="Search for services..."
+                autocomplete="off"
+                spellcheck="false"
+              />
+              <button id="templateSearchClear" class="template-search-clear" type="button" aria-label="Clear search">X</button>
+              <div id="templateSuggest" class="template-suggest hidden" role="listbox" aria-label="Template suggestions"></div>
+            </div>
             <button id="importBtn" type="button" class="panel-action">IMPORT</button>
             <button id="exportBtn" type="button" class="panel-action">EXPORT</button>
             <input id="importFile" type="file" accept="application/json,.json" class="hidden" />
@@ -49,16 +61,23 @@
               <span class="widget-label">Star on GitHub</span>
               <span id="githubStarCount" class="widget-count" aria-label="GitHub star count">--</span>
             </a>
-            <a
-              class="support-widget coffee-widget"
-              href="https://buymeacoffee.com/jangajones"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Buy Me A Coffee"
-            >
-              <span class="widget-icon" aria-hidden="true">☕</span>
-              <span class="widget-label">Buy me a coffee</span>
-            </a>
+            <div class="support-menu">
+              <button
+                id="supportMenuBtn"
+                type="button"
+                class="support-widget coffee-widget support-menu-btn"
+                aria-haspopup="menu"
+                aria-expanded="false"
+                aria-label="Support options"
+              >
+                <span class="widget-icon" aria-hidden="true">☕</span>
+                <span class="widget-label">Buy me a coffee</span>
+              </button>
+              <div id="supportMenuList" class="support-menu-list hidden" role="menu" aria-label="Support links">
+                <a href="https://buymeacoffee.com/jangajones" target="_blank" rel="noopener noreferrer" role="menuitem">buymeacoffee.com</a>
+                <a href="https://ko-fi.com/jangajones" target="_blank" rel="noopener noreferrer" role="menuitem">ko-fi.com</a>
+              </div>
+            </div>
           </div>
         </div>
       </header>
@@ -82,20 +101,24 @@
                 </div>
                 <div class="tool-set">
                   <div class="tool-group">
-                    <label class="tool-chip" title="External link source"><input type="radio" name="iconMode" value="external" checked /><span>LINK</span></label>
-                    <label class="tool-chip" title="Local file source"><input type="radio" name="iconMode" value="upload" /><span>FILE</span></label>
-                    <label class="tool-chip" title="Disable app icon"><input type="radio" name="iconMode" value="none" /><span>NONE</span></label>
+                    <label class="tool-chip" title="External link"><input type="radio" name="iconMode" value="external" checked /><span>LINK</span></label>
+                    <label class="tool-chip" title="Local SVG"><input type="radio" name="iconMode" value="upload" /><span>FILE</span></label>
+                    <label class="tool-chip" title="Disable icon"><input type="radio" name="iconMode" value="none" /><span>NONE</span></label>
                   </div>
                 </div>
               </div>
               <div class="row-reorder">
+                <button type="button" class="row-visibility" data-row-key="icon" title="Hide row" aria-label="Hide row" aria-pressed="false">◉</button>
                 <button type="button" class="row-move" data-row-key="icon" data-direction="up" title="Move up">↑</button>
                 <button type="button" class="row-move" data-row-key="icon" data-direction="down" title="Move down">↓</button>
               </div>
             </div>
 
             <label id="iconUrlWrap">
-              <input id="iconUrl" type="url" value="https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/proxmox.svg" placeholder="EXTERNAL IMAGE URL"/>
+              <span class="icon-url-row">
+                <input id="iconUrl" type="url" value="https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/proxmox.svg" placeholder="EXTERNAL IMAGE URL"/>
+                <span id="iconCdnVariants" class="icon-cdn-variants hidden" aria-label="selfh.st icon variants"></span>
+              </span>
             </label>
 
 
@@ -105,16 +128,33 @@
             </label>
 
             <div id="iconEmbedWrap" class="scale-row">
-              <label width="50px" class="inline-check">
-                <input id="iconEmbedSvg" type="checkbox" checked />
-                Embed SVG <div class="icon-help">
-              <span class="info-wrap" aria-label="Icon format details">
-                <span class="info-icon">i</span>
-                <span class="tooltip">Only embedded SVG can be scaled. PNG/JPG/WEBP must already be the correct size on the CDN.</span>
-              </span>
-            </div>
-              </label>
+              <div>
+                <label width="50px" class="inline-check">
+                  <input id="iconEmbedSvg" type="checkbox" checked />
+                  Embed SVG
+                  <div class="icon-help">
+                    <span class="info-wrap" aria-label="Icon format details">
+                      <span class="info-icon">i</span>
+                      <span class="tooltip">Embeds the SVG directly into the HTML output. Can possibly trigger character limits, but the icon is always offline available.</span>
+                    </span>
+                  </div>
+                </label>
+                <label width="50px" class="inline-check">
+                  <input id="iconResizeWsrv" type="checkbox" />
+                  Resize with <a href="https://wsrv.nl/" target="_blank" rel="noopener noreferrer">wsrv.nl</a>
+                  <div class="icon-help">
+                    <span class="info-wrap" aria-label="wsrv resize details">
+                      <span class="info-icon">i</span>
+                      <span class="tooltip">Uses wsrv.nl (Open Source + worldwide CDN via Cloudflare) to resize the linked image via their cache & resize service.</span>
+                    </span>
+                  </div>
+                </label>
+              </div>
               <span><div class="icon-help" id="iconSelfhstWrap">
+              <span class="info-wrap tooltip-left" aria-label="selfh.st link details">
+                <span class="info-icon">i</span>
+                <span class="tooltip">Available icon variants on selfh.st will be fetched automatically.</span>
+              </span>
               <a href="https://selfh.st/icons/" target="_blank" rel="noopener noreferrer">Browse selfh.st/icons</a>
             </div></span>
             </div>
@@ -147,6 +187,7 @@
             <div class="row-grid row-controls">
               <div class="style-tools" data-prefix="title"></div>
               <div class="row-reorder">
+                <button type="button" class="row-visibility" data-row-key="title" title="Hide row" aria-label="Hide row" aria-pressed="false">●</button>
                 <button type="button" class="row-move" data-row-key="title" data-direction="up" title="Move up">↑</button>
                 <button type="button" class="row-move" data-row-key="title" data-direction="down" title="Move down">↓</button>
               </div>
@@ -169,6 +210,7 @@
             <div class="row-grid row-controls">
               <div class="style-tools" data-prefix="fqdn"></div>
               <div class="row-reorder">
+                <button type="button" class="row-visibility" data-row-key="fqdn" title="Hide row" aria-label="Hide row" aria-pressed="false">●</button>
                 <button type="button" class="row-move" data-row-key="fqdn" data-direction="up" title="Move up">↑</button>
                 <button type="button" class="row-move" data-row-key="fqdn" data-direction="down" title="Move down">↓</button>
               </div>
@@ -192,6 +234,7 @@
             <div class="row-grid row-controls">
               <div class="style-tools" data-prefix="network"></div>
               <div class="row-reorder">
+                <button type="button" class="row-visibility" data-row-key="network" title="Hide row" aria-label="Hide row" aria-pressed="false">●</button>
                 <button type="button" class="row-move" data-row-key="network" data-direction="up" title="Move up">↑</button>
                 <button type="button" class="row-move" data-row-key="network" data-direction="down" title="Move down">↓</button>
               </div>
@@ -214,6 +257,7 @@
             <div class="row-grid row-controls">
               <div class="style-tools" data-prefix="config"></div>
               <div class="row-reorder">
+                <button type="button" class="row-visibility" data-row-key="config" title="Hide row" aria-label="Hide row" aria-pressed="false">●</button>
                 <button type="button" class="row-move" data-row-key="config" data-direction="up" title="Move up">↑</button>
                 <button type="button" class="row-move" data-row-key="config" data-direction="down" title="Move down">↓</button>
               </div>
@@ -231,6 +275,7 @@
             <div class="row-grid row-controls no-icon">
               <div class="style-tools" data-prefix="custom"></div>
               <div class="row-reorder">
+                <button type="button" class="row-visibility" data-row-key="custom" title="Hide row" aria-label="Hide row" aria-pressed="false">●</button>
                 <button type="button" class="row-move" data-row-key="custom" data-direction="up" title="Move up">↑</button>
                 <button type="button" class="row-move" data-row-key="custom" data-direction="down" title="Move down">↓</button>
               </div>

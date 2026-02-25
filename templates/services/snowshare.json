@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/snowshare.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "SnowShare",
+    "fqdnLabel": "github.com/TuroYT/snowshare",
+    "fqdnUrl": "https://github.com/TuroYT/snowshare",
+    "networkText": "Default Port: 3000",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/snowshare.env"
+      }
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/tunarr.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "Tunarr",
+    "fqdnLabel": "tunarr.com",
+    "fqdnUrl": "https://tunarr.com/",
+    "networkText": "Default Port: 8000",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/tunarr/.env"
+      }
+    ]
+  }
+}

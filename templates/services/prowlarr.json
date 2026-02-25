@@ -1,0 +1,19 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/prowlarr.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "Prowlarr",
+    "fqdnLabel": "github.com/Prowlarr/Prowlarr",
+    "fqdnUrl": "https://github.com/Prowlarr/Prowlarr",
+    "networkText": "Default Port: 9696",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/var/lib/prowlarr/"
+      }
+    ]
+  }
+}

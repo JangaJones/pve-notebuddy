@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/cloudreve.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Cloudreve",
+    "fqdnLabel": "cloudreve.org",
+    "fqdnUrl": "https://cloudreve.org/",
+    "networkText": "Default Port: 5212",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/cloudreve/data/conf.ini"
+      }
+    ]
+  }
+}

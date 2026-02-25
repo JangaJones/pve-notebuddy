@@ -1,0 +1,19 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/checkmate.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "Checkmate",
+    "fqdnLabel": "github.com/bluewave-labs/Checkmate",
+    "fqdnUrl": "https://github.com/bluewave-labs/Checkmate",
+    "networkText": "Default Port: 5173",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/checkmate/server/.env"
+      }
+    ]
+  }
+}

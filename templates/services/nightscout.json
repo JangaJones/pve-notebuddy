@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/nightscout.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Nightscout",
+    "fqdnLabel": "www.nightscout.info",
+    "fqdnUrl": "http://www.nightscout.info/",
+    "networkText": "Default Port: 1337",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/nightscout/my.env"
+      }
+    ]
+  }
+}

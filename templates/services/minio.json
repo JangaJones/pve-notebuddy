@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/minio.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "MinIO",
+    "fqdnLabel": "min.io",
+    "fqdnUrl": "https://min.io/",
+    "networkText": "Default Port: 9001",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/etc/default/minio"
+      }
+    ]
+  }
+}

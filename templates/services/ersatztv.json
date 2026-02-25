@@ -1,0 +1,16 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/ersatztv.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "ErsatzTV",
+    "fqdnLabel": "ersatztv.org",
+    "fqdnUrl": "https://ersatztv.org/",
+    "networkText": "Default Port: 8409",
+    "configLocations": []
+  }
+}

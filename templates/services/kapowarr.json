@@ -1,0 +1,14 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/kapowarr.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "Kapowarr",
+    "fqdnLabel": "casvt.github.io/Kapowarr",
+    "fqdnUrl": "https://casvt.github.io/Kapowarr/",
+    "networkText": "Default Port: 5656",
+    "configLocations": []
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/apache-tika.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "Apache Tika",
+    "fqdnLabel": "tika.apache.org",
+    "fqdnUrl": "https://tika.apache.org/",
+    "networkText": "Default Port: 9998",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/apache-tika/tika-config.xml"
+      }
+    ]
+  }
+}

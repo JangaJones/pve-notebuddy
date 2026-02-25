@@ -1,0 +1,16 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/truenas-core.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "TrueNAS Community Edition",
+    "fqdnLabel": "www.truenas.com/truenas-community-edition",
+    "fqdnUrl": "https://www.truenas.com/truenas-community-edition/",
+    "networkText": "",
+    "configLocations": []
+  }
+}

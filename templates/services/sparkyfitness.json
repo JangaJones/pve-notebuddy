@@ -1,0 +1,19 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/sparkyfitness.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "SparkyFitness",
+    "fqdnLabel": "github.com/CodeWithCJ/SparkyFitness",
+    "fqdnUrl": "https://github.com/CodeWithCJ/SparkyFitness",
+    "networkText": "Default Port: 80",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/etc/sparkyfitness/.env"
+      }
+    ]
+  }
+}

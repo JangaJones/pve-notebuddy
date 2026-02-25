@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/tautulli.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Tautulli",
+    "fqdnLabel": "tautulli.com",
+    "fqdnUrl": "https://tautulli.com/",
+    "networkText": "Default Port: 8181",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/Tautulli/config.ini"
+      }
+    ]
+  }
+}

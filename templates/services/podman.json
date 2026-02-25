@@ -1,0 +1,14 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/podman.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "Podman",
+    "fqdnLabel": "podman.io",
+    "fqdnUrl": "https://podman.io/",
+    "networkText": "",
+    "configLocations": []
+  }
+}

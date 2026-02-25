@@ -1,0 +1,16 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/splunk-light.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Splunk Enterprise",
+    "fqdnLabel": "www.splunk.com/en_us/download/splunk-enterprise.html",
+    "fqdnUrl": "https://www.splunk.com/en_us/download/splunk-enterprise.html",
+    "networkText": "Default Port: 8000",
+    "configLocations": []
+  }
+}

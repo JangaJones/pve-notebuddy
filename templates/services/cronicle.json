@@ -1,0 +1,19 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/chronicle.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "Cronicle Primary",
+    "fqdnLabel": "github.com/jhuckaby/Cronicle",
+    "fqdnUrl": "https://github.com/jhuckaby/Cronicle",
+    "networkText": "Default Port: 3012",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/cronicle/conf/config.json"
+      }
+    ]
+  }
+}

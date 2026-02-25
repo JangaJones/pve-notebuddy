@@ -1,0 +1,14 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/py-medusa.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "Medusa",
+    "fqdnLabel": "pymedusa.com",
+    "fqdnUrl": "https://pymedusa.com/",
+    "networkText": "Default Port: 8081",
+    "configLocations": []
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/zot-registry.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Zot Registry",
+    "fqdnLabel": "zotregistry.dev",
+    "fqdnUrl": "https://zotregistry.dev/",
+    "networkText": "Default Port: 8080",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/etc/zot/config.json"
+      }
+    ]
+  }
+}

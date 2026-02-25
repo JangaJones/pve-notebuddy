@@ -1,0 +1,14 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/upgopher.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "Upgopher",
+    "fqdnLabel": "github.com/wanetty/upgopher",
+    "fqdnUrl": "https://github.com/wanetty/upgopher",
+    "networkText": "Default Port: 9090",
+    "configLocations": []
+  }
+}

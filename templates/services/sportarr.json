@@ -1,0 +1,23 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/sportarr.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "Sportarr",
+    "fqdnLabel": "sportarr.net",
+    "fqdnUrl": "https://sportarr.net/",
+    "networkText": "Default Port: 1867",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/sportarr/.env"
+      },
+      {
+        "icon": "📁",
+        "value": "/opt/sportarr-data/config/config.xml"
+      }
+    ]
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/proxmox.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Prometheus Proxmox VE Exporter",
+    "fqdnLabel": "github.com/prometheus-pve/prometheus-pve-exporter",
+    "fqdnUrl": "https://github.com/prometheus-pve/prometheus-pve-exporter",
+    "networkText": "Default Port: 9221",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/prometheus-pve-exporter/pve.yml"
+      }
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/zipline.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "Zipline",
+    "fqdnLabel": "zipline.diced.sh",
+    "fqdnUrl": "https://zipline.diced.sh/",
+    "networkText": "Default Port: 3000",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/zipline/.env"
+      }
+    ]
+  }
+}

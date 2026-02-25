@@ -1,0 +1,25 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/grafana.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Grafana",
+    "fqdnLabel": "grafana.com",
+    "fqdnUrl": "https://grafana.com/",
+    "networkText": "Default Port: 3000",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "Debian: /etc/grafana/grafana.ini"
+      },
+      {
+        "icon": "📁",
+        "value": "Alpine: /etc/grafana.ini"
+      }
+    ]
+  }
+}

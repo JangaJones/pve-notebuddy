@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/actual-budget.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Actual Budget",
+    "fqdnLabel": "actualbudget.org",
+    "fqdnUrl": "https://actualbudget.org/",
+    "networkText": "Default Port: 5006",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/actualbudget-data/config.json"
+      }
+    ]
+  }
+}

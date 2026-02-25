@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/netdata.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "PVE Netdata",
+    "fqdnLabel": "www.netdata.cloud",
+    "fqdnUrl": "https://www.netdata.cloud/",
+    "networkText": "Default Port: 19999",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/etc/netdata/netdata.conf"
+      }
+    ]
+  }
+}

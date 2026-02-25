@@ -1,0 +1,19 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/reitti.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "Reitti",
+    "fqdnLabel": "www.dedicatedcode.com/projects/reitti",
+    "fqdnUrl": "https://www.dedicatedcode.com/projects/reitti/",
+    "networkText": "Default Port: 8080",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/reitti/.env"
+      }
+    ]
+  }
+}

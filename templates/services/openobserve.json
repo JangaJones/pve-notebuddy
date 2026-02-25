@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/openobserve.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "OpenObserve",
+    "fqdnLabel": "openobserve.ai",
+    "fqdnUrl": "https://openobserve.ai/",
+    "networkText": "Default Port: 5080",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/openobserve/data/.env"
+      }
+    ]
+  }
+}

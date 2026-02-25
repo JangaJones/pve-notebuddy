@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/deluge.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Deluge",
+    "fqdnLabel": "www.deluge-torrent.org",
+    "fqdnUrl": "https://www.deluge-torrent.org/",
+    "networkText": "Default Port: 8112",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "~/.config/deluge"
+      }
+    ]
+  }
+}

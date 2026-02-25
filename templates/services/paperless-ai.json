@@ -1,0 +1,19 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/paperless-ai.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "PaperlessAI",
+    "fqdnLabel": "github.com/clusterzx/paperless-ai",
+    "fqdnUrl": "https://github.com/clusterzx/paperless-ai",
+    "networkText": "Default Port: 3000",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/paperless-ai/data/.env"
+      }
+    ]
+  }
+}

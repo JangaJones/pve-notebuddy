@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/speedtest-tracker.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Speedtest-Tracker",
+    "fqdnLabel": "github.com/alexjustesen/speedtest-tracker",
+    "fqdnUrl": "https://github.com/alexjustesen/speedtest-tracker",
+    "networkText": "Default Port: 80",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/speedtest-tracker/.env"
+      }
+    ]
+  }
+}

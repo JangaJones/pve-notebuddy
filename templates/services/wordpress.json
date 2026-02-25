@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/wordpress.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Wordpress",
+    "fqdnLabel": "wordpress.org",
+    "fqdnUrl": "https://wordpress.org/",
+    "networkText": "Default Port: 80",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/var/www/html/wordpress/wp-config.php"
+      }
+    ]
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/crowdsec.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "CrowdSec",
+    "fqdnLabel": "crowdsec.net",
+    "fqdnUrl": "https://crowdsec.net/",
+    "networkText": "",
+    "configLocations": []
+  }
+}

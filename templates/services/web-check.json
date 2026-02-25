@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/web-check.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Web-Check",
+    "fqdnLabel": "github.com/lissy93/web-check",
+    "fqdnUrl": "https://github.com/lissy93/web-check",
+    "networkText": "Default Port: 3000",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/web-check/.env"
+      }
+    ]
+  }
+}

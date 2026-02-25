@@ -1,0 +1,19 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/bitmagnet.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "Bitmagnet",
+    "fqdnLabel": "bitmagnet.io",
+    "fqdnUrl": "https://bitmagnet.io/",
+    "networkText": "Default Port: 3333",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "`/opt/bitmagnet/config.yml` or `/opt/bitmagnet/.env`"
+      }
+    ]
+  }
+}

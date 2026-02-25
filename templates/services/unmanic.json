@@ -1,0 +1,14 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/unmanic.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "Unmanic",
+    "fqdnLabel": "docs.unmanic.app",
+    "fqdnUrl": "https://docs.unmanic.app/",
+    "networkText": "Default Port: 8888",
+    "configLocations": []
+  }
+}

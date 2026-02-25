@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons/svg/domain-monitor.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Domain Monitor",
+    "fqdnLabel": "github.com/Hosteroid/domain-monitor",
+    "fqdnUrl": "https://github.com/Hosteroid/domain-monitor",
+    "networkText": "Default Port: 80",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/domain-monitor/.env"
+      }
+    ]
+  }
+}

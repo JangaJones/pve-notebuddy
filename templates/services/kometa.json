@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/kometa.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Kometa",
+    "fqdnLabel": "github.com/Kometa-Team/Kometa",
+    "fqdnUrl": "https://github.com/Kometa-Team/Kometa",
+    "networkText": "",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/kometa/config/config.yml"
+      }
+    ]
+  }
+}

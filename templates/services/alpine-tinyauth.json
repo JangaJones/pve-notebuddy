@@ -1,0 +1,19 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/tinyauth.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "Alpine-Tinyauth",
+    "fqdnLabel": "tinyauth.app",
+    "fqdnUrl": "https://tinyauth.app",
+    "networkText": "Default Port: 3000",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/tinyauth/.env"
+      }
+    ]
+  }
+}

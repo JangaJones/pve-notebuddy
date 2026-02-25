@@ -1,0 +1,19 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/bichon.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "Bichon",
+    "fqdnLabel": "github.com/rustmailer/bichon",
+    "fqdnUrl": "https://github.com/rustmailer/bichon",
+    "networkText": "Default Port: 15630",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/bichon/bichon.env"
+      }
+    ]
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/donetick.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Donetick",
+    "fqdnLabel": "donetick.com",
+    "fqdnUrl": "https://donetick.com",
+    "networkText": "Default Port: 2021",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/donetick/config/selfhosted.yaml"
+      }
+    ]
+  }
+}

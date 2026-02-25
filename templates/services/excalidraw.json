@@ -1,0 +1,16 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/excalidraw.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Excalidraw",
+    "fqdnLabel": "excalidraw.com",
+    "fqdnUrl": "https://excalidraw.com/",
+    "networkText": "Default Port: 3000",
+    "configLocations": []
+  }
+}

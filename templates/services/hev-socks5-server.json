@@ -1,0 +1,19 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/hev.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "hev-socks5-server",
+    "fqdnLabel": "github.com/heiher/hev-socks5-server",
+    "fqdnUrl": "https://github.com/heiher/hev-socks5-server",
+    "networkText": "Default Port: 1080",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/hivemq/conf/config.xml"
+      }
+    ]
+  }
+}

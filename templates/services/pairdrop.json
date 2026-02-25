@@ -1,0 +1,16 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/pairdrop.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "PairDrop",
+    "fqdnLabel": "github.com/schlagmichdoch/PairDrop",
+    "fqdnUrl": "https://github.com/schlagmichdoch/PairDrop",
+    "networkText": "Default Port: 3000",
+    "configLocations": []
+  }
+}

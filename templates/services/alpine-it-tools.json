@@ -1,0 +1,16 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/it-tools.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Alpine-IT-Tools",
+    "fqdnLabel": "sharevb-it-tools.vercel.app",
+    "fqdnUrl": "https://sharevb-it-tools.vercel.app/",
+    "networkText": "Default Port: 80",
+    "configLocations": []
+  }
+}

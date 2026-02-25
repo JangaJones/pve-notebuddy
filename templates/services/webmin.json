@@ -1,0 +1,14 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/webmin.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "Webmin System Administration",
+    "fqdnLabel": "webmin.com",
+    "fqdnUrl": "https://webmin.com/",
+    "networkText": "Default Port: 10000",
+    "configLocations": []
+  }
+}

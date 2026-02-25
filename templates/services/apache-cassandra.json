@@ -1,0 +1,19 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/apache-cassandra.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "Apache-Cassandra",
+    "fqdnLabel": "cassandra.apache.org",
+    "fqdnUrl": "https://cassandra.apache.org/",
+    "networkText": "",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/etc/cassandra/cassandra.yaml"
+      }
+    ]
+  }
+}

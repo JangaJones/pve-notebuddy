@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/nginx-ui.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Nginx UI",
+    "fqdnLabel": "nginxui.com",
+    "fqdnUrl": "https://nginxui.com",
+    "networkText": "Default Port: 9000",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/usr/local/etc/nginx-ui/app.ini"
+      }
+    ]
+  }
+}

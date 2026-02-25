@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/navidrome.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Navidrome",
+    "fqdnLabel": "www.navidrome.org",
+    "fqdnUrl": "https://www.navidrome.org/",
+    "networkText": "Default Port: 4533",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/etc/navidrome/navidrome.toml"
+      }
+    ]
+  }
+}

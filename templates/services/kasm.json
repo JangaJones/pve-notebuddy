@@ -1,0 +1,16 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/kasm-workspaces.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Kasm",
+    "fqdnLabel": "www.kasmweb.com",
+    "fqdnUrl": "https://www.kasmweb.com/",
+    "networkText": "Default Port: 443",
+    "configLocations": []
+  }
+}

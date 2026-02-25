@@ -1,0 +1,19 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://raw.githubusercontent.com/community-scripts/ProxmoxVE-Local/refs/heads/main/.github/logo.png",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "PVEScriptsLocal",
+    "fqdnLabel": "community-scripts.github.io/ProxmoxVE",
+    "fqdnUrl": "https://community-scripts.github.io/ProxmoxVE",
+    "networkText": "Default Port: 3000",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/PVEScripts-Local/.env"
+      }
+    ]
+  }
+}

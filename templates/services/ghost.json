@@ -1,0 +1,14 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/ghost.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "Ghost",
+    "fqdnLabel": "ghost.org",
+    "fqdnUrl": "https://ghost.org",
+    "networkText": "Default Port: 2368",
+    "configLocations": []
+  }
+}

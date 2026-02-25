@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/plex.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Plex Media Server",
+    "fqdnLabel": "www.plex.tv",
+    "fqdnUrl": "https://www.plex.tv/",
+    "networkText": "Default Port: 32400",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Preferences.xml"
+      }
+    ]
+  }
+}

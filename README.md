@@ -1,4 +1,4 @@
-# 🗒️ PVE NoteBuddy
+# PVE NoteBuddy
 
 Live: https://jangajones.github.io/pve-notebuddy/
 

@@ -62,11 +62,20 @@
             <legend>Icon</legend>
 
             <div class="icon-top-controls">
-              <div class="tool-set">
-                <div class="tool-group">
-                  <label class="tool-chip align-chip" title="LEFT alignment"><input type="radio" name="iconAlign" value="left" /><span class="align-glyph align-left" aria-hidden="true"><span></span><span></span><span></span></span><span class="sr-only">LEFT</span></label>
-                  <label class="tool-chip align-chip" title="CENTER alignment"><input type="radio" name="iconAlign" value="center" checked /><span class="align-glyph align-center" aria-hidden="true"><span></span><span></span><span></span></span><span class="sr-only">CENTER</span></label>
-                  <label class="tool-chip align-chip" title="RIGHT alignment"><input type="radio" name="iconAlign" value="right" /><span class="align-glyph align-right" aria-hidden="true"><span></span><span></span><span></span></span><span class="sr-only">RIGHT</span></label>
+              <div class="style-tools icon-mode-tools">
+                <div class="tool-set">
+                  <div class="tool-group">
+                    <label class="tool-chip align-chip" title="LEFT alignment"><input type="radio" name="iconAlign" value="left" /><span class="align-glyph align-left" aria-hidden="true"><span></span><span></span><span></span></span><span class="sr-only">LEFT</span></label>
+                    <label class="tool-chip align-chip" title="CENTER alignment"><input type="radio" name="iconAlign" value="center" checked /><span class="align-glyph align-center" aria-hidden="true"><span></span><span></span><span></span></span><span class="sr-only">CENTER</span></label>
+                    <label class="tool-chip align-chip" title="RIGHT alignment"><input type="radio" name="iconAlign" value="right" /><span class="align-glyph align-right" aria-hidden="true"><span></span><span></span><span></span></span><span class="sr-only">RIGHT</span></label>
+                  </div>
+                </div>
+                <div class="tool-set">
+                  <div class="tool-group">
+                    <label class="tool-chip" title="External link source"><input type="radio" name="iconMode" value="external" checked /><span>LINK</span></label>
+                    <label class="tool-chip" title="Local file source"><input type="radio" name="iconMode" value="upload" /><span>FILE</span></label>
+                    <label class="tool-chip" title="Disable app icon"><input type="radio" name="iconMode" value="none" /><span>NONE</span></label>
+                  </div>
                 </div>
               </div>
               <div class="row-reorder">
@@ -74,14 +83,6 @@
                 <button type="button" class="row-move" data-row-key="icon" data-direction="down" title="Move down">↓</button>
               </div>
             </div>
-
-            <label>
-              <select id="iconMode">
-                <option value="external">External Link</option>
-                <option value="upload">Local File (SVG only)</option>
-                <option value="none">No App-Icon</option>
-              </select>
-            </label>
 
             <label id="iconUrlWrap">
               <input id="iconUrl" type="url" value="https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/proxmox.svg" placeholder="EXTERNAL IMAGE URL"/>
@@ -103,18 +104,32 @@
               </span>
             </div>
               </label>
-              
-                          <span><div class="icon-help" id="iconSelfhstWrap">
+              <span><div class="icon-help" id="iconSelfhstWrap">
               <a href="https://selfh.st/icons/" target="_blank" rel="noopener noreferrer">Browse selfh.st/icons</a>
             </div></span>
             </div>
 
-            <div style="text-align:center;"><span id="iconScaleValue" class="scale-value">100 px</span></div>
-            <input id="iconScale" type="range" min="32" max="320" step="2" value="100" />
-
-
+            <div id="iconScaleWrap">
+              <div style="text-align:center;"><span id="iconScaleValue" class="scale-value">100 px</span></div>
+              <input id="iconScale" type="range" min="32" max="320" step="2" value="100" />
+            </div>
 
             <p id="iconStatus" class="status"></p>
+
+            <div class="svg-variant-wrap">
+              <div class="icon-help svg-variant-head">
+                <span class="experimental-tag">SVG Color Transformation (Experimental)</span>
+                <span class="info-wrap" aria-label="Icon format details">
+                  <span class="info-icon">i</span>
+                  <span class="tooltip">Basic transformations of solid colors, while respecting gradients. Results may vary a lot depending on the SVG itself.</span>
+                </span>
+              </div>
+              <div class="tool-group">
+                <label class="tool-chip" title="Keep original colors"><input type="radio" name="iconColorVariant" value="original" checked /><span>ORIG</span></label>
+                <label class="tool-chip" title="Dark variant"><input type="radio" name="iconColorVariant" value="dark" /><span>DARK</span></label>
+                <label class="tool-chip" title="Light variant"><input type="radio" name="iconColorVariant" value="light" /><span>LIGHT</span></label>
+              </div>
+            </div>
           </fieldset>
 
           <fieldset class="group" data-row-key="title">
@@ -155,7 +170,7 @@
                   <button type="button" class="icon-clear" data-target="fqdnEmoji" title="Clear icon">X</button>
                 </span>
               </label>
-              <div class="field-stack">
+              <div class="field-stack host-fields">
                 <label><input id="fqdnLabel" type="text" value="www.proxmox.com" placeholder="HOST" /></label>
                 <label><input id="fqdnUrl" type="url" value="https://www.proxmox.com/" placeholder="HOST URL" /></label>
               </div>
@@ -193,14 +208,8 @@
                 <button type="button" class="row-move" data-row-key="config" data-direction="down" title="Move down">↓</button>
               </div>
             </div>
-            <div class="row-grid row-fields with-icon">
-              <label class="icon-field">
-                <span class="icon-input-wrap">
-                  <input id="configEmoji" type="text" value="📁" maxlength="8" />
-                  <button type="button" class="icon-clear" data-target="configEmoji" title="Clear icon">X</button>
-                </span>
-              </label>
-              <div class="field-stack">
+            <div class="row-grid row-fields">
+              <div class="field-stack span-2">
                 <div id="configLocations" class="stack"></div>
                 <button id="addConfigBtn" type="button" class="panel-action ghost">ADD</button>
               </div>

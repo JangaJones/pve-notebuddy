@@ -309,12 +309,20 @@ textarea:focus {
   gap: 0.55rem;
 }
 
+.host-fields {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
 .icon-top-controls {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 84px;
   gap: 0.7rem;
   align-items: start;
   margin-bottom: 0.6rem;
+}
+
+.icon-mode-tools {
+  margin-top: 0;
 }
 
 .icon-field {
@@ -394,7 +402,6 @@ textarea:focus {
 }
 
 .style-tools {
-  margin-top: 0.6rem;
   display: grid;
   grid-template-columns: 150px minmax(0, 1fr);
   gap: 0.7rem;
@@ -522,10 +529,6 @@ textarea:focus {
   gap: 0.7rem;
 }
 
-#iconMode {
-  margin-bottom: 0.55rem;
-}
-
 #iconUrlWrap,
 #iconUploadWrap {
   margin-bottom: 0.55rem;
@@ -534,6 +537,23 @@ textarea:focus {
 .scale-value {
   font-size: var(--ui-size);
   color: #c1d8f5;
+}
+
+.svg-variant-wrap {
+  margin-top: 0.65rem;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.experimental-tag {
+  font-size: var(--ui-size-sm);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #91a4c2;
+}
+
+.svg-variant-head {
+  justify-content: flex-start;
 }
 
 .scale-label {
@@ -552,8 +572,9 @@ textarea:focus {
 
 .stack-row {
   display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 0.5rem;
+  grid-template-columns: 90px minmax(0, 1fr) auto;
+  gap: 0.7rem;
+  align-items: start;
 }
 
 button {
@@ -964,6 +985,14 @@ button:disabled {
 
   .topbar-widgets {
     justify-content: space-between;
+  }
+
+  .host-fields {
+    grid-template-columns: 1fr;
+  }
+
+  .svg-variant-wrap {
+    gap: 0.5rem;
   }
 
   .preview-wrap {

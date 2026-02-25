@@ -16,7 +16,7 @@ const importBtn = document.getElementById("importBtn");
 const exportBtn = document.getElementById("exportBtn");
 const importFileEl = document.getElementById("importFile");
 
-const iconModeEl = document.getElementById("iconMode");
+const iconModeRadios = form.querySelectorAll('input[name="iconMode"]');
 const iconUrlWrap = document.getElementById("iconUrlWrap");
 const iconUploadWrap = document.getElementById("iconUploadWrap");
 const iconEmbedWrap = document.getElementById("iconEmbedWrap");
@@ -26,7 +26,10 @@ const iconEmbedSvgEl = document.getElementById("iconEmbedSvg");
 const iconUploadEl = document.getElementById("iconUpload");
 const iconScaleEl = document.getElementById("iconScale");
 const iconScaleValueEl = document.getElementById("iconScaleValue");
+const iconScaleWrapEl = document.getElementById("iconScaleWrap");
 const iconStatusEl = document.getElementById("iconStatus");
+const iconColorVariantEls = form.querySelectorAll('input[name="iconColorVariant"]');
+const iconVariantWrapEl = document.querySelector(".svg-variant-wrap");
 
 const configLocationsEl = document.getElementById("configLocations");
 const addConfigBtn = document.getElementById("addConfigBtn");
@@ -36,6 +39,7 @@ let iconResolvedSrc = "";
 let uploadSvgText = "";
 const externalSvgCache = new Map();
 let prepareToken = 0;
+const svgColorCanvasCtx = document.createElement("canvas").getContext("2d");
 
 const rowConfigs = [
   { prefix: "title", defaultAlign: "center", defaultTag: "h2", bold: false, italic: false, strong: false, code: false },
@@ -145,6 +149,286 @@ function resizeSvg(svgText, targetWidth) {
   return new XMLSerializer().serializeToString(doc);
 }
 
+function parseCssColorToRgb(value) {
+  if (!svgColorCanvasCtx) {
+    return null;
+  }
+
+  const input = String(value || "").trim();
+  if (!input || input === "none" || /^url\(/i.test(input)) {
+    return null;
+  }
+
+  const cssColorProbe = new Option().style;
+  cssColorProbe.color = "";
+  cssColorProbe.color = input;
+  if (!cssColorProbe.color) {
+    return null;
+  }
+
+  svgColorCanvasCtx.fillStyle = "#010203";
+  svgColorCanvasCtx.fillStyle = cssColorProbe.color;
+  const normalized = String(svgColorCanvasCtx.fillStyle || "").trim().toLowerCase();
+  if (!normalized || normalized === "transparent" || normalized === "#010203") {
+    return null;
+  }
+
+  if (normalized.startsWith("#")) {
+    const hex = normalized.slice(1);
+    if (hex.length === 3) {
+      return {
+        r: Number.parseInt(hex[0] + hex[0], 16),
+        g: Number.parseInt(hex[1] + hex[1], 16),
+        b: Number.parseInt(hex[2] + hex[2], 16),
+      };
+    }
+    if (hex.length >= 6) {
+      return {
+        r: Number.parseInt(hex.slice(0, 2), 16),
+        g: Number.parseInt(hex.slice(2, 4), 16),
+        b: Number.parseInt(hex.slice(4, 6), 16),
+      };
+    }
+    return null;
+  }
+
+  const rgbaMatch = normalized.match(/^rgba?\(\s*([0-9.]+)\s*,\s*([0-9.]+)\s*,\s*([0-9.]+)(?:\s*,\s*([0-9.]+))?\s*\)$/);
+  if (!rgbaMatch) {
+    return null;
+  }
+
+  if (rgbaMatch[4] && Number.parseFloat(rgbaMatch[4]) === 0) {
+    return null;
+  }
+
+  return {
+    r: Number.parseFloat(rgbaMatch[1]),
+    g: Number.parseFloat(rgbaMatch[2]),
+    b: Number.parseFloat(rgbaMatch[3]),
+  };
+}
+
+function getMonoTargetColor(variant) {
+  return variant === "light" ? "#ffffff" : "#000000";
+}
+
+function mapColorToMonochrome(value, variant) {
+  const target = getMonoTargetColor(variant);
+  const raw = String(value || "").trim();
+  if (!raw) {
+    return value;
+  }
+
+  if (raw === "none" || /^url\(/i.test(raw)) {
+    return raw;
+  }
+  if (raw.toLowerCase() === "currentcolor") {
+    return target;
+  }
+
+  const rgb = parseCssColorToRgb(raw);
+  if (!rgb) {
+    return value;
+  }
+
+  return target;
+}
+
+function rewriteStyleColors(styleValue, variant) {
+  const colorProps = new Set(["fill", "stroke", "stop-color", "flood-color", "lighting-color", "color"]);
+  return styleValue
+    .split(";")
+    .map((declaration) => {
+      const idx = declaration.indexOf(":");
+      if (idx < 0) {
+        return declaration;
+      }
+      const prop = declaration.slice(0, idx).trim().toLowerCase();
+      if (!colorProps.has(prop)) {
+        return declaration;
+      }
+      const rawValue = declaration.slice(idx + 1).trim();
+      return `${prop}:${mapColorToMonochrome(rawValue, variant)}`;
+    })
+    .join(";");
+}
+
+function getIconColorVariant() {
+  return getSelectedRadioValue("iconColorVariant", "original");
+}
+
+function hasStyleProp(styleValue, propName) {
+  return styleValue
+    .split(";")
+    .some((declaration) => {
+      const idx = declaration.indexOf(":");
+      if (idx < 0) {
+        return false;
+      }
+      return declaration.slice(0, idx).trim().toLowerCase() === propName;
+    });
+}
+
+function parseOffset01(stopEl, fallback) {
+  const raw = String(stopEl.getAttribute("offset") || "").trim();
+  if (!raw) {
+    return fallback;
+  }
+  if (raw.endsWith("%")) {
+    const n = Number.parseFloat(raw.slice(0, -1));
+    if (Number.isFinite(n)) {
+      return Math.min(1, Math.max(0, n / 100));
+    }
+  }
+  const n = Number.parseFloat(raw);
+  if (!Number.isFinite(n)) {
+    return fallback;
+  }
+  return Math.min(1, Math.max(0, n));
+}
+
+function getStopColorValue(stopEl) {
+  const attr = stopEl.getAttribute("stop-color");
+  if (attr) {
+    return attr;
+  }
+  const style = stopEl.getAttribute("style");
+  if (!style) {
+    return "";
+  }
+
+  for (const declaration of style.split(";")) {
+    const idx = declaration.indexOf(":");
+    if (idx < 0) {
+      continue;
+    }
+    const prop = declaration.slice(0, idx).trim().toLowerCase();
+    if (prop === "stop-color") {
+      return declaration.slice(idx + 1).trim();
+    }
+  }
+  return "";
+}
+
+function setStopColorValue(stopEl, value) {
+  stopEl.setAttribute("stop-color", value);
+  const style = stopEl.getAttribute("style");
+  if (!style) {
+    return;
+  }
+
+  const next = style
+    .split(";")
+    .map((declaration) => {
+      const idx = declaration.indexOf(":");
+      if (idx < 0) {
+        return declaration;
+      }
+      const prop = declaration.slice(0, idx).trim().toLowerCase();
+      if (prop !== "stop-color") {
+        return declaration;
+      }
+      return `stop-color:${value}`;
+    })
+    .join(";");
+  stopEl.setAttribute("style", next);
+}
+
+function rewriteGradientStops(gradientEl, effectiveVariant) {
+  const stops = Array.from(gradientEl.querySelectorAll("stop"));
+  if (stops.length === 0) {
+    return;
+  }
+
+  const measured = stops.map((stop, index) => {
+    const fallbackOffset = stops.length > 1 ? index / (stops.length - 1) : 0;
+    const offset = parseOffset01(stop, fallbackOffset);
+    const color = parseCssColorToRgb(getStopColorValue(stop));
+    const lum = color ? (0.2126 * color.r + 0.7152 * color.g + 0.0722 * color.b) / 255 : null;
+    return { stop, offset, lum };
+  });
+
+  const knownLums = measured.map((item) => item.lum).filter((lum) => lum !== null);
+  const lumMin = knownLums.length > 0 ? Math.min(...knownLums) : 0;
+  const lumMax = knownLums.length > 0 ? Math.max(...knownLums) : 1;
+  const lumRange = lumMax - lumMin;
+
+  for (const item of measured) {
+    const normalized = item.lum === null || lumRange < 0.0001 ? item.offset : (item.lum - lumMin) / lumRange;
+    // Keep gradients flatter while preserving subtle depth.
+    const targetLum =
+      effectiveVariant === "light"
+        ? 0.72 + normalized * 0.24
+        : 0.06 + normalized * 0.24;
+    const g = Math.max(0, Math.min(255, Math.round(targetLum * 255)));
+    setStopColorValue(item.stop, `rgb(${g}, ${g}, ${g})`);
+  }
+}
+
+function transformSvgColors(svgText, variant) {
+  if (variant === "original") {
+    return svgText;
+  }
+
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(svgText, "image/svg+xml");
+  const svg = doc.documentElement;
+  if (!svg || svg.nodeName.toLowerCase() !== "svg") {
+    throw new Error("Not a valid SVG.");
+  }
+
+  const effectiveVariant = variant;
+
+  const gradients = doc.querySelectorAll("linearGradient, radialGradient");
+  for (const gradient of gradients) {
+    rewriteGradientStops(gradient, effectiveVariant);
+  }
+
+  const colorAttrs = ["fill", "stroke", "flood-color", "lighting-color", "color"];
+  const paintTags = new Set(["path", "rect", "circle", "ellipse", "polygon", "polyline", "text", "use"]);
+  const target = getMonoTargetColor(effectiveVariant);
+  const all = doc.querySelectorAll("*");
+  for (const el of all) {
+    const tag = el.tagName.toLowerCase();
+    if (tag === "lineargradient" || tag === "radialgradient" || tag === "stop") {
+      continue;
+    }
+
+    for (const attr of colorAttrs) {
+      const value = el.getAttribute(attr);
+      if (!value) {
+        continue;
+      }
+      el.setAttribute(attr, mapColorToMonochrome(value, effectiveVariant));
+    }
+
+    const style = el.getAttribute("style");
+    if (style) {
+      el.setAttribute("style", rewriteStyleColors(style, effectiveVariant));
+    }
+
+    // If no explicit paint is defined, SVG defaults fill to black.
+    // Enforce monochrome target so "Light" also affects implicit black fills.
+    if (!paintTags.has(tag)) {
+      continue;
+    }
+
+    const fillAttr = (el.getAttribute("fill") || "").trim().toLowerCase();
+    const strokeAttr = (el.getAttribute("stroke") || "").trim().toLowerCase();
+    const styleNow = (el.getAttribute("style") || "").trim().toLowerCase();
+    const hasFillStyle = styleNow ? hasStyleProp(styleNow, "fill") : false;
+    const hasStrokeStyle = styleNow ? hasStyleProp(styleNow, "stroke") : false;
+
+    const noExplicitFill = !fillAttr && !hasFillStyle;
+    const noExplicitStroke = !strokeAttr && !hasStrokeStyle;
+    if (noExplicitFill && noExplicitStroke) {
+      el.setAttribute("fill", target);
+    }
+  }
+
+  return new XMLSerializer().serializeToString(doc);
+}
+
 async function getExternalSvgText(url) {
   if (externalSvgCache.has(url)) {
     return externalSvgCache.get(url);
@@ -167,6 +451,14 @@ function setIconStatus(text, isError = false) {
 
 function getIconAlign() {
   return getSelectedRadioValue("iconAlign", "center");
+}
+
+function getIconMode() {
+  return getSelectedRadioValue("iconMode", "external");
+}
+
+function setIconMode(value) {
+  setSelectedRadioValue("iconMode", value);
 }
 
 function styleToolbarHtml(prefix, defaults) {
@@ -389,10 +681,17 @@ function moveRow(rowKey, direction) {
   }
 }
 
-function getConfigLocationValues() {
-  return Array.from(configLocationsEl.querySelectorAll("input[data-config-location]"))
-    .map((input) => input.value.trim())
-    .filter(Boolean);
+function getConfigLocationEntries() {
+  return Array.from(configLocationsEl.querySelectorAll(".config-location-row"))
+    .map((row) => {
+      const iconInput = row.querySelector('input[data-config-icon="1"]');
+      const pathInput = row.querySelector('input[data-config-location="1"]');
+      return {
+        icon: iconInput ? iconInput.value : "",
+        value: pathInput ? pathInput.value.trim() : "",
+      };
+    })
+    .filter((entry) => entry.value);
 }
 
 function buildNoteHtml() {
@@ -426,11 +725,11 @@ function buildNoteHtml() {
     byKey.network = [buildTextRow({ align: format.align, icon: getEl("networkEmoji").value, textHtml: textToHtml(networkText), format })];
   }
 
-  const configLocations = getConfigLocationValues();
+  const configLocations = getConfigLocationEntries();
   if (configLocations.length > 0) {
     const format = getFormat("config");
     byKey.config = configLocations.map((location) =>
-      buildTextRow({ align: format.align, icon: getEl("configEmoji").value, textHtml: textToHtml(location), format })
+      buildTextRow({ align: format.align, icon: location.icon, textHtml: textToHtml(location.value), format })
     );
   }
 
@@ -505,10 +804,11 @@ function collectSettings() {
     theme: activeTheme,
     icon: {
       align: getSelectedRadioValue("iconAlign", "center"),
-      mode: iconModeEl.value,
+      mode: getIconMode(),
       url: iconUrlEl.value,
       embedSvg: iconEmbedSvgEl.checked,
       scale: iconScaleEl.value,
+      colorVariant: getIconColorVariant(),
       uploadSvgText,
     },
     fields: {
@@ -516,7 +816,7 @@ function collectSettings() {
       fqdnLabel: getEl("fqdnLabel").value,
       fqdnUrl: getEl("fqdnUrl").value,
       networkText: getEl("networkText").value,
-      configLocations: getConfigLocationValues(),
+      configLocations: getConfigLocationEntries(),
       customText: getEl("customText").value,
     },
     rows,
@@ -568,7 +868,7 @@ async function applySettings(settings) {
       setSelectedRadioValue("iconAlign", settings.icon.align);
     }
     if (typeof settings.icon.mode === "string") {
-      iconModeEl.value = settings.icon.mode;
+      setIconMode(settings.icon.mode);
     }
     if (typeof settings.icon.url === "string") {
       iconUrlEl.value = settings.icon.url;
@@ -578,6 +878,9 @@ async function applySettings(settings) {
     }
     if (typeof settings.icon.scale === "string" || typeof settings.icon.scale === "number") {
       iconScaleEl.value = String(settings.icon.scale);
+    }
+    if (typeof settings.icon.colorVariant === "string") {
+      setSelectedRadioValue("iconColorVariant", settings.icon.colorVariant);
     }
     uploadSvgText = typeof settings.icon.uploadSvgText === "string" ? settings.icon.uploadSvgText : "";
   }
@@ -591,9 +894,13 @@ async function applySettings(settings) {
 
     if (Array.isArray(settings.fields.configLocations)) {
       configLocationsEl.innerHTML = "";
-      const values = settings.fields.configLocations.length > 0 ? settings.fields.configLocations : [""];
+      const values = settings.fields.configLocations.length > 0 ? settings.fields.configLocations : [{ icon: "📁", value: "" }];
       for (const value of values) {
-        configLocationsEl.append(createConfigLocationInput(String(value)));
+        if (value && typeof value === "object") {
+          configLocationsEl.append(createConfigLocationInput(String(value.value || ""), String(value.icon || "📁")));
+        } else {
+          configLocationsEl.append(createConfigLocationInput(String(value), "📁"));
+        }
       }
     }
   }
@@ -644,11 +951,12 @@ function renderOutput() {
 }
 
 function iconCanUseScale() {
-  if (iconModeEl.value === "upload") {
+  const mode = getIconMode();
+  if (mode === "upload") {
     return Boolean(uploadSvgText);
   }
 
-  if (iconModeEl.value === "external") {
+  if (mode === "external") {
     const url = iconUrlEl.value.trim();
     return isSvgUrl(url) && iconEmbedSvgEl.checked;
   }
@@ -657,7 +965,7 @@ function iconCanUseScale() {
 }
 
 function updateIconControls() {
-  const mode = iconModeEl.value;
+  const mode = getIconMode();
   iconUrlWrap.classList.toggle("hidden", mode !== "external");
   iconSelfhstWrap.classList.toggle("hidden", mode !== "external");
   iconEmbedWrap.classList.toggle("hidden", mode !== "external");
@@ -665,6 +973,14 @@ function updateIconControls() {
 
   const url = iconUrlEl.value.trim();
   const rasterLink = mode === "external" && isRasterUrl(url);
+  const externalSvg = mode === "external" && isSvgUrl(url);
+  const showVariantControls = mode === "upload" || externalSvg;
+  if (iconVariantWrapEl) {
+    iconVariantWrapEl.classList.toggle("hidden", !showVariantControls);
+  }
+  if (iconScaleWrapEl) {
+    iconScaleWrapEl.classList.toggle("hidden", mode === "none");
+  }
 
   if (rasterLink) {
     iconEmbedSvgEl.checked = false;
@@ -674,16 +990,20 @@ function updateIconControls() {
   }
 
   iconScaleEl.disabled = !iconCanUseScale();
+  const disableColor = !iconCanUseScale();
+  for (const radio of iconColorVariantEls) {
+    radio.disabled = disableColor;
+  }
 }
 
 async function prepareIcon() {
   const token = ++prepareToken;
   updateIconControls();
 
-  const mode = iconModeEl.value;
+  const mode = getIconMode();
   if (mode === "none") {
     iconResolvedSrc = "";
-    setIconStatus("");
+    setIconStatus("App-Icon disabled. Select a source to enable it again.");
     renderOutput();
     return;
   }
@@ -698,10 +1018,11 @@ async function prepareIcon() {
 
     try {
       const resized = resizeSvg(uploadSvgText, iconScaleEl.value);
+      const colorized = transformSvgColors(resized, getIconColorVariant());
       if (token !== prepareToken) {
         return;
       }
-      iconResolvedSrc = encodeSvgDataUrl(resized);
+      iconResolvedSrc = encodeSvgDataUrl(colorized);
       setIconStatus(`Uploaded SVG embedded at ${iconScaleEl.value}px width.`);
       updateIconControls();
       renderOutput();
@@ -750,11 +1071,12 @@ async function prepareIcon() {
   try {
     const svgText = await getExternalSvgText(url);
     const resized = resizeSvg(svgText, iconScaleEl.value);
+    const colorized = transformSvgColors(resized, getIconColorVariant());
     if (token !== prepareToken) {
       return;
     }
 
-    iconResolvedSrc = encodeSvgDataUrl(resized);
+    iconResolvedSrc = encodeSvgDataUrl(colorized);
     setIconStatus(`External SVG embedded at ${iconScaleEl.value}px width.`);
     updateIconControls();
     renderOutput();
@@ -783,9 +1105,35 @@ function setTheme(theme) {
   }
 }
 
-function createConfigLocationInput(initialValue = "") {
+function createConfigLocationInput(initialValue = "", initialIcon = "📁") {
   const row = document.createElement("div");
-  row.className = "stack-row";
+  row.className = "stack-row config-location-row";
+
+  const iconField = document.createElement("label");
+  iconField.className = "icon-field";
+  iconField.textContent = "";
+
+  const iconWrap = document.createElement("span");
+  iconWrap.className = "icon-input-wrap";
+
+  const iconInput = document.createElement("input");
+  iconInput.type = "text";
+  iconInput.maxLength = 8;
+  iconInput.value = initialIcon;
+  iconInput.setAttribute("data-config-icon", "1");
+
+  const iconClear = document.createElement("button");
+  iconClear.type = "button";
+  iconClear.className = "icon-clear";
+  iconClear.textContent = "X";
+  iconClear.title = "Clear icon";
+  iconClear.addEventListener("click", () => {
+    iconInput.value = "";
+    renderOutput();
+  });
+
+  iconWrap.append(iconInput, iconClear);
+  iconField.append(iconWrap);
 
   const input = document.createElement("input");
   input.type = "text";
@@ -802,7 +1150,8 @@ function createConfigLocationInput(initialValue = "") {
     renderOutput();
   });
 
-  row.append(input, remove);
+  row.append(iconField, input, remove);
+  iconInput.addEventListener("input", renderOutput);
   input.addEventListener("input", renderOutput);
   return row;
 }
@@ -928,11 +1277,16 @@ function bootstrap() {
   importBtn.addEventListener("click", () => importFileEl.click());
   importFileEl.addEventListener("change", importSettingsFromFile);
 
-  iconModeEl.addEventListener("change", prepareIcon);
+  for (const radio of iconModeRadios) {
+    radio.addEventListener("change", prepareIcon);
+  }
   iconUrlEl.addEventListener("input", prepareIcon);
   iconEmbedSvgEl.addEventListener("change", prepareIcon);
   iconScaleEl.addEventListener("input", prepareIcon);
   iconUploadEl.addEventListener("change", onIconUploadChange);
+  for (const radio of iconColorVariantEls) {
+    radio.addEventListener("change", prepareIcon);
+  }
 
   themeToggleBtn.addEventListener("click", () => {
     setTheme(activeTheme === "dark" ? "light" : "dark");

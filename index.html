@@ -14,18 +14,48 @@
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <main class="layout">
-      <section class="panel panel-form">
-        <div class="panel-head">
-          <h1>🗒️ PVE NoteBuddy</h1>
-          <div class="panel-actions">
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="topbar-brand">
+          <img src="./favicon.svg" alt="PVE NoteBuddy logo" class="topbar-logo" />
+          <span class="topbar-title">PVE NoteBuddy</span>
+        </div>
+        <div class="topbar-tools">
+          <div class="topbar-actions">
             <button id="clearBtn" type="button" class="panel-action">CLEAR</button>
             <button id="importBtn" type="button" class="panel-action">IMPORT</button>
             <button id="exportBtn" type="button" class="panel-action">EXPORT</button>
             <input id="importFile" type="file" accept="application/json,.json" class="hidden" />
           </div>
+          <div class="topbar-widgets">
+            <a
+              class="support-widget github-widget"
+              href="https://github.com/JangaJones/pve-notebuddy"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Star on GitHub"
+            >
+              <span class="widget-icon" aria-hidden="true">★</span>
+              <span class="widget-label">Star on GitHub</span>
+              <span id="githubStarCount" class="widget-count" aria-label="GitHub star count">--</span>
+            </a>
+            <a
+              class="support-widget coffee-widget"
+              href="https://buymeacoffee.com/jangajones"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Buy Me A Coffee"
+            >
+              <span class="widget-icon" aria-hidden="true">☕</span>
+              <span class="widget-label">Buy me a coffee</span>
+            </a>
+          </div>
         </div>
-        <p class="subtitle">Generate Proxmox Notes using HTML-safe blocks with per-row layout and formatting controls.</p>
+      </header>
+
+      <main class="layout">
+        <section class="panel panel-form">
+        <p class="subtitle">Generate Proxmox Notes using HTML blocks with per-row layout and formatting controls.</p>
 
         <form id="noteForm">
           <fieldset class="group" data-row-key="icon">
@@ -33,11 +63,10 @@
 
             <div class="icon-top-controls">
               <div class="tool-set">
-                <span class="tool-title">Align</span>
                 <div class="tool-group">
-                  <label class="tool-chip" title="LEFT alignment"><input type="radio" name="iconAlign" value="left" /><span>L</span></label>
-                  <label class="tool-chip" title="CENTER alignment"><input type="radio" name="iconAlign" value="center" checked /><span>C</span></label>
-                  <label class="tool-chip" title="RIGHT alignment"><input type="radio" name="iconAlign" value="right" /><span>R</span></label>
+                  <label class="tool-chip align-chip" title="LEFT alignment"><input type="radio" name="iconAlign" value="left" /><span class="align-glyph align-left" aria-hidden="true"><span></span><span></span><span></span></span><span class="sr-only">LEFT</span></label>
+                  <label class="tool-chip align-chip" title="CENTER alignment"><input type="radio" name="iconAlign" value="center" checked /><span class="align-glyph align-center" aria-hidden="true"><span></span><span></span><span></span></span><span class="sr-only">CENTER</span></label>
+                  <label class="tool-chip align-chip" title="RIGHT alignment"><input type="radio" name="iconAlign" value="right" /><span class="align-glyph align-right" aria-hidden="true"><span></span><span></span><span></span></span><span class="sr-only">RIGHT</span></label>
                 </div>
               </div>
               <div class="row-reorder">
@@ -48,14 +77,14 @@
 
             <label>
               <select id="iconMode">
-                <option value="external">External link</option>
-                <option value="upload">File upload (SVG only)</option>
-                <option value="none">No image</option>
+                <option value="external">External Link</option>
+                <option value="upload">Local File (SVG only)</option>
+                <option value="none">No App-Icon</option>
               </select>
             </label>
 
             <label id="iconUrlWrap">
-              <input id="iconUrl" type="url" value="https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/termix.svg" placeholder="EXTERNAL IMAGE URL"/>
+              <input id="iconUrl" type="url" value="https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/proxmox.svg" placeholder="EXTERNAL IMAGE URL"/>
             </label>
 
 
@@ -65,7 +94,7 @@
             </label>
 
             <div id="iconEmbedWrap" class="scale-row">
-              <label width="50px" class="inline-check" title="Embed SVG to enable scaling">
+              <label width="50px" class="inline-check">
                 <input id="iconEmbedSvg" type="checkbox" checked />
                 Embed SVG <div class="icon-help">
               <span class="info-wrap" aria-label="Icon format details">
@@ -76,12 +105,12 @@
               </label>
               
                           <span><div class="icon-help" id="iconSelfhstWrap">
-              <a href="https://selfh.st/icons/" target="_blank" rel="noopener noreferrer">Browse selfh.st icons</a>
+              <a href="https://selfh.st/icons/" target="_blank" rel="noopener noreferrer">Browse selfh.st/icons</a>
             </div></span>
             </div>
 
             <div style="text-align:center;"><span id="iconScaleValue" class="scale-value">100 px</span></div>
-            <input id="iconScale" type="range" min="32" max="320" step="2" value="110" />
+            <input id="iconScale" type="range" min="32" max="320" step="2" value="100" />
 
 
 
@@ -91,89 +120,95 @@
           <fieldset class="group" data-row-key="title">
             <legend>Name</legend>
             <div class="row-grid row-controls">
-              <label class="icon-field">
-                EMOJI
-                <span class="icon-input-wrap">
-                  <input id="titleEmoji" type="text" value="" maxlength="8" />
-                  <button type="button" class="icon-clear" data-target="titleEmoji" title="Clear icon">X</button>
-                </span>
-              </label>
               <div class="style-tools" data-prefix="title"></div>
               <div class="row-reorder">
                 <button type="button" class="row-move" data-row-key="title" data-direction="up" title="Move up">↑</button>
                 <button type="button" class="row-move" data-row-key="title" data-direction="down" title="Move down">↓</button>
               </div>
             </div>
-            <div class="row-grid row-fields">
-              <label><input id="titleText" type="text" value="TERMIX LXC" placeholder="NAME" /></label>
+            <div class="row-grid row-fields with-icon">
+              <label class="icon-field">
+                <span class="icon-input-wrap">
+                  <input id="titleEmoji" type="text" value="" maxlength="8" />
+                  <button type="button" class="icon-clear" data-target="titleEmoji" title="Clear icon">X</button>
+                </span>
+              </label>
+              <div class="field-stack">
+                <label><input id="titleText" type="text" value="CONTAINER/VM TITLE" placeholder="NAME" /></label>
+              </div>
             </div>
           </fieldset>
 
           <fieldset class="group" data-row-key="fqdn">
             <legend>Host</legend>
             <div class="row-grid row-controls">
-              <label class="icon-field">
-                EMOJI
-                <span class="icon-input-wrap">
-                  <input id="fqdnEmoji" type="text" value="🌐" maxlength="8" />
-                  <button type="button" class="icon-clear" data-target="fqdnEmoji" title="Clear icon">X</button>
-                </span>
-              </label>
               <div class="style-tools" data-prefix="fqdn"></div>
               <div class="row-reorder">
                 <button type="button" class="row-move" data-row-key="fqdn" data-direction="up" title="Move up">↑</button>
                 <button type="button" class="row-move" data-row-key="fqdn" data-direction="down" title="Move down">↓</button>
               </div>
             </div>
-            <div class="row-grid row-fields">
-              <label><input id="fqdnLabel" type="text" value="termix.homel4b.local" placeholder="HOST" /></label>
-              <label><input id="fqdnUrl" type="url" value="https://termix.site/" placeholder="HOST URL" /></label>
+            <div class="row-grid row-fields with-icon">
+              <label class="icon-field">
+                <span class="icon-input-wrap">
+                  <input id="fqdnEmoji" type="text" value="🔗" maxlength="8" />
+                  <button type="button" class="icon-clear" data-target="fqdnEmoji" title="Clear icon">X</button>
+                </span>
+              </label>
+              <div class="field-stack">
+                <label><input id="fqdnLabel" type="text" value="www.proxmox.com" placeholder="HOST" /></label>
+                <label><input id="fqdnUrl" type="url" value="https://www.proxmox.com/" placeholder="HOST URL" /></label>
+              </div>
             </div>
           </fieldset>
 
           <fieldset class="group" data-row-key="network">
             <legend>Network</legend>
             <div class="row-grid row-controls">
-              <label class="icon-field">
-                EMOJI
-                <span class="icon-input-wrap">
-                  <input id="networkEmoji" type="text" value="🖥️" maxlength="8" />
-                  <button type="button" class="icon-clear" data-target="networkEmoji" title="Clear icon">X</button>
-                </span>
-              </label>
               <div class="style-tools" data-prefix="network"></div>
               <div class="row-reorder">
                 <button type="button" class="row-move" data-row-key="network" data-direction="up" title="Move up">↑</button>
                 <button type="button" class="row-move" data-row-key="network" data-direction="down" title="Move down">↓</button>
               </div>
             </div>
-            <div class="row-grid row-fields">
-              <label><input id="networkText" type="text" value="10.10.20.80:8443" placeholder="NETWORK ADDRESS" /></label>
+            <div class="row-grid row-fields with-icon">
+              <label class="icon-field">
+                <span class="icon-input-wrap">
+                  <input id="networkEmoji" type="text" value="🖥️" maxlength="8" />
+                  <button type="button" class="icon-clear" data-target="networkEmoji" title="Clear icon">X</button>
+                </span>
+              </label>
+              <div class="field-stack">
+                <label><input id="networkText" type="text" value="10.2.0.40:8443" placeholder="NETWORK ADDRESS" /></label>
+              </div>
             </div>
           </fieldset>
 
           <fieldset class="group" data-row-key="config">
             <legend>Config File Location</legend>
             <div class="row-grid row-controls">
-              <label class="icon-field">
-                EMOJI
-                <span class="icon-input-wrap">
-                  <input id="configEmoji" type="text" value="📁" maxlength="8" />
-                  <button type="button" class="icon-clear" data-target="configEmoji" title="Clear icon">X</button>
-                </span>
-              </label>
               <div class="style-tools" data-prefix="config"></div>
               <div class="row-reorder">
                 <button type="button" class="row-move" data-row-key="config" data-direction="up" title="Move up">↑</button>
                 <button type="button" class="row-move" data-row-key="config" data-direction="down" title="Move down">↓</button>
               </div>
             </div>
-            <div id="configLocations" class="stack"></div>
-            <button id="addConfigBtn" type="button" class="ghost">+ ADD</button>
+            <div class="row-grid row-fields with-icon">
+              <label class="icon-field">
+                <span class="icon-input-wrap">
+                  <input id="configEmoji" type="text" value="📁" maxlength="8" />
+                  <button type="button" class="icon-clear" data-target="configEmoji" title="Clear icon">X</button>
+                </span>
+              </label>
+              <div class="field-stack">
+                <div id="configLocations" class="stack"></div>
+                <button id="addConfigBtn" type="button" class="panel-action ghost">ADD</button>
+              </div>
+            </div>
           </fieldset>
 
           <fieldset class="group" data-row-key="custom">
-            <legend>Additional Notes</legend>
+            <legend>Custom Notes</legend>
             <div class="row-grid row-controls no-icon">
               <div class="style-tools" data-prefix="custom"></div>
               <div class="row-reorder">
@@ -182,24 +217,22 @@
               </div>
             </div>
             <div class="row-grid row-fields">
-              <textarea id="customText" class="span-2" rows="4" placeholder="Any additional note...">https://community-scripts.github.io/ProxmoxVE/scripts?id=termix</textarea>
+              <textarea id="customText" class="span-2" rows="4" placeholder="Any additional note..."></textarea>
             </div>
           </fieldset>
         </form>
       </section>
 
-      <section class="panel panel-preview">
+        <section class="panel panel-preview">
         <div class="preview-wrap">
-          <div class="preview-head">
-            <h2>Preview</h2>
-            <div class="mode-toggle" role="group" aria-label="Preview theme">
-              <button id="themeDarkBtn" type="button" class="toggle active">Dark</button>
-              <button id="themeLightBtn" type="button" class="toggle">Light</button>
-            </div>
-          </div>
 
           <div id="previewShell" class="preview-shell dark">
-            <div class="preview-title">Notes</div>
+            <div class="preview-title">
+              <span>Notes</span>
+              <button id="themeToggleBtn" type="button" class="theme-toggle" aria-label="Toggle preview theme" title="Toggle preview theme">
+                <span id="themeIcon" class="theme-icon">🌙</span>
+              </button>
+            </div>
             <div class="preview-body">
               <div id="previewCard" class="preview-card"></div>
             </div>
@@ -210,17 +243,14 @@
             <span id="charWarning" class="warning"></span>
           </div>
 
-          <div class="actions">
-            <button id="copyBtn" type="button">Copy HTML</button>
-          </div>
-
-          <label>
-            Output
+          <div class="output-wrap">
+            <button id="copyBtn" type="button" class="copy-inline">Copy HTML</button>
             <textarea id="output" rows="16" readonly></textarea>
-          </label>
+          </div>
         </div>
-      </section>
-    </main>
+        </section>
+      </main>
+    </div>
 
     <script src="./app.js" defer></script>
   </body>

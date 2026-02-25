@@ -8,8 +8,9 @@ const charCountEl = document.getElementById("charCount");
 const charWarningEl = document.getElementById("charWarning");
 
 const previewShell = document.getElementById("previewShell");
-const themeDarkBtn = document.getElementById("themeDarkBtn");
-const themeLightBtn = document.getElementById("themeLightBtn");
+const themeToggleBtn = document.getElementById("themeToggleBtn");
+const themeIconEl = document.getElementById("themeIcon");
+const githubStarCountEl = document.getElementById("githubStarCount");
 const clearBtn = document.getElementById("clearBtn");
 const importBtn = document.getElementById("importBtn");
 const exportBtn = document.getElementById("exportBtn");
@@ -40,7 +41,7 @@ const rowConfigs = [
   { prefix: "title", defaultAlign: "center", defaultTag: "h2", bold: false, italic: false, strong: false, code: false },
   { prefix: "fqdn", defaultAlign: "center", defaultTag: "h3", bold: false, italic: false, strong: false, code: false },
   { prefix: "network", defaultAlign: "center", defaultTag: "h3", bold: false, italic: false, strong: false, code: false },
-  { prefix: "config", defaultAlign: "center", defaultTag: "h3", bold: false, italic: false, strong: false, code: true },
+  { prefix: "config", defaultAlign: "center", defaultTag: "none", bold: false, italic: true, strong: true, code: true },
   { prefix: "custom", defaultAlign: "left", defaultTag: "none", bold: false, italic: false, strong: false, code: false },
 ];
 const ROW_KEYS = ["icon", "title", "fqdn", "network", "config", "custom"];
@@ -174,9 +175,9 @@ function styleToolbarHtml(prefix, defaults) {
 
   const align = alignOptions
     .map((value) => {
-      const short = value === "left" ? "L" : value === "center" ? "C" : "R";
+      const title = value.toUpperCase();
       const checked = defaults.defaultAlign === value ? "checked" : "";
-      return `<label class="tool-chip" title="${value.toUpperCase()} alignment"><input type="radio" name="${prefix}Align" value="${value}" ${checked} /><span>${short}</span></label>`;
+      return `<label class="tool-chip align-chip" title="${title} alignment"><input type="radio" name="${prefix}Align" value="${value}" ${checked} /><span class="align-glyph align-${value}" aria-hidden="true"><span></span><span></span><span></span></span><span class="sr-only">${title}</span></label>`;
     })
     .join("");
 
@@ -203,11 +204,9 @@ function styleToolbarHtml(prefix, defaults) {
 
   return `
     <div class="tool-set">
-      <span class="tool-title">Align</span>
       <div class="tool-group">${align}</div>
     </div>
     <div class="tool-set">
-      <span class="tool-title">Text Style</span>
       <div class="tool-group">${heading}${toggles}</div>
     </div>
   `;
@@ -336,7 +335,7 @@ function wrapTextForPlain(textHtml, format) {
 
 function buildRowDiv({ align, contentHtml }) {
   const safeAlign = ["left", "center", "right"].includes(align) ? align : "center";
-  return `  <div align="${safeAlign}">${contentHtml}</div>`;
+  return `<div align="${safeAlign}">${contentHtml}</div>`;
 }
 
 function buildTextRow({ align, icon, textHtml, format }) {
@@ -398,7 +397,7 @@ function getConfigLocationValues() {
 
 function buildNoteHtml() {
   const byKey = {};
-  const lines = ["<div>"];
+  const lines = [];
 
   if (iconResolvedSrc) {
     byKey.icon = [buildRowDiv({ align: getIconAlign(), contentHtml: `<img src="${escapeHtml(iconResolvedSrc)}" alt="App icon" />` })];
@@ -449,7 +448,6 @@ function buildNoteHtml() {
     lines.push(...section);
   }
 
-  lines.push("</div>");
   return lines.join("\n");
 }
 
@@ -776,8 +774,13 @@ function setTheme(theme) {
   activeTheme = theme === "light" ? "light" : "dark";
   previewShell.classList.toggle("dark", activeTheme === "dark");
   previewShell.classList.toggle("light", activeTheme === "light");
-  themeDarkBtn.classList.toggle("active", activeTheme === "dark");
-  themeLightBtn.classList.toggle("active", activeTheme === "light");
+  if (themeToggleBtn) {
+    themeToggleBtn.setAttribute("aria-pressed", activeTheme === "light" ? "true" : "false");
+    themeToggleBtn.setAttribute("title", activeTheme === "dark" ? "Switch to light mode" : "Switch to dark mode");
+  }
+  if (themeIconEl) {
+    themeIconEl.textContent = activeTheme === "dark" ? "🌙" : "☀️";
+  }
 }
 
 function createConfigLocationInput(initialValue = "") {
@@ -792,8 +795,8 @@ function createConfigLocationInput(initialValue = "") {
 
   const remove = document.createElement("button");
   remove.type = "button";
-  remove.className = "ghost";
-  remove.textContent = "Remove";
+  remove.className = "panel-action ghost";
+  remove.textContent = "X";
   remove.addEventListener("click", () => {
     row.remove();
     renderOutput();
@@ -851,11 +854,36 @@ async function copyOutput() {
   }
 }
 
+async function loadGithubStarCount() {
+  if (!githubStarCountEl) {
+    return;
+  }
+
+  githubStarCountEl.textContent = "--";
+
+  try {
+    const res = await fetch("https://api.github.com/repos/JangaJones/pve-notebuddy");
+    if (!res.ok) {
+      return;
+    }
+
+    const data = await res.json();
+    const stars = Number.parseInt(String(data?.stargazers_count ?? ""), 10);
+    if (!Number.isFinite(stars)) {
+      return;
+    }
+
+    githubStarCountEl.textContent = new Intl.NumberFormat("en-US").format(stars);
+  } catch {
+    // Keep fallback display when API is unavailable or rate-limited.
+  }
+}
+
 function bootstrap() {
   mountStyleToolbars();
   bindStyleConflicts();
 
-  configLocationsEl.append(createConfigLocationInput("/etc/termix"));
+  configLocationsEl.append(createConfigLocationInput("/etc/app/config.yml"));
 
   addConfigBtn.addEventListener("click", () => {
     configLocationsEl.append(createConfigLocationInput(""));
@@ -906,13 +934,15 @@ function bootstrap() {
   iconScaleEl.addEventListener("input", prepareIcon);
   iconUploadEl.addEventListener("change", onIconUploadChange);
 
-  themeDarkBtn.addEventListener("click", () => setTheme("dark"));
-  themeLightBtn.addEventListener("click", () => setTheme("light"));
+  themeToggleBtn.addEventListener("click", () => {
+    setTheme(activeTheme === "dark" ? "light" : "dark");
+  });
 
   copyBtn.addEventListener("click", copyOutput);
 
   setTheme("dark");
   prepareIcon();
+  loadGithubStarCount();
 }
 
 bootstrap();

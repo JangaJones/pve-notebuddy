@@ -13,7 +13,7 @@ const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = path.resolve(SCRIPT_DIR, "..");
 const SERVICES_DIR = path.join(ROOT_DIR, "templates", "services");
 const CRAWL_TEMP_DIR = path.join(SCRIPT_DIR, "crawl-temp");
-const INDEX_PATH = path.join(SERVICES_DIR, "_index.json");
+const INDEX_PATH = path.join(SERVICES_DIR, "index.json");
 const REPORT_PATH = path.join(CRAWL_TEMP_DIR, "generate-report.json");
 
 // Entries that are not actual container service templates.

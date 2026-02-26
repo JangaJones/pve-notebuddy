@@ -1261,13 +1261,11 @@ function normalizeTemplateCatalog(payload) {
   return Array.from(map.values()).sort((a, b) => a.name.localeCompare(b.name));
 }
 
-// Load template index with compatibility fallbacks for old folder layouts.
+// Load template index from the canonical index.json location.
 async function loadPublicTemplateCatalog() {
   try {
     const indexCandidates = [
-      "./templates/services/_index.json",
       "./templates/services/index.json",
-      "./public/_index.json",
       "./public/index.json",
     ];
     for (const indexPath of indexCandidates) {

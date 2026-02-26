@@ -1,0 +1,2284 @@
+{
+  "templates": [
+    {
+      "name": "2FAuth",
+      "file": "2fauth.json",
+      "source": "frontend/public/json/2fauth.json"
+    },
+    {
+      "name": "Actual Budget",
+      "file": "actualbudget.json",
+      "source": "frontend/public/json/actualbudget.json"
+    },
+    {
+      "name": "AdGuard Home",
+      "file": "adguard.json",
+      "source": "frontend/public/json/adguard.json"
+    },
+    {
+      "name": "AdGuardHome-Sync",
+      "file": "adguardhome-sync.json",
+      "source": "frontend/public/json/adguardhome-sync.json"
+    },
+    {
+      "name": "AdventureLog",
+      "file": "adventurelog.json",
+      "source": "frontend/public/json/adventurelog.json"
+    },
+    {
+      "name": "AgentDVR",
+      "file": "agentdvr.json",
+      "source": "frontend/public/json/agentdvr.json"
+    },
+    {
+      "name": "Alpine",
+      "file": "alpine.json",
+      "source": "frontend/public/json/alpine.json"
+    },
+    {
+      "name": "Alpine-IT-Tools",
+      "file": "alpine-it-tools.json",
+      "source": "frontend/public/json/alpine-it-tools.json"
+    },
+    {
+      "name": "Alpine-Tinyauth",
+      "file": "alpine-tinyauth.json",
+      "source": "frontend/public/json/alpine-tinyauth.json"
+    },
+    {
+      "name": "Ampache",
+      "file": "ampache.json",
+      "source": "frontend/public/json/ampache.json"
+    },
+    {
+      "name": "Apache CouchDB",
+      "file": "apache-couchdb.json",
+      "source": "frontend/public/json/apache-couchdb.json"
+    },
+    {
+      "name": "Apache Guacamole",
+      "file": "apache-guacamole.json",
+      "source": "frontend/public/json/apache-guacamole.json"
+    },
+    {
+      "name": "Apache Tika",
+      "file": "apache-tika.json",
+      "source": "frontend/public/json/apache-tika.json"
+    },
+    {
+      "name": "Apache Tomcat",
+      "file": "apache-tomcat.json",
+      "source": "frontend/public/json/apache-tomcat.json"
+    },
+    {
+      "name": "Apache-Cassandra",
+      "file": "apache-cassandra.json",
+      "source": "frontend/public/json/apache-cassandra.json"
+    },
+    {
+      "name": "Apt-Cacher-NG",
+      "file": "apt-cacher-ng.json",
+      "source": "frontend/public/json/apt-cacher-ng.json"
+    },
+    {
+      "name": "Arcane",
+      "file": "arcane.json",
+      "source": "frontend/public/json/arcane.json"
+    },
+    {
+      "name": "Arch Linux",
+      "file": "archlinux-vm.json",
+      "source": "frontend/public/json/archlinux-vm.json"
+    },
+    {
+      "name": "ArchiveBox",
+      "file": "archivebox.json",
+      "source": "frontend/public/json/archivebox.json"
+    },
+    {
+      "name": "Argus",
+      "file": "argus.json",
+      "source": "frontend/public/json/argus.json"
+    },
+    {
+      "name": "Aria2",
+      "file": "aria2.json",
+      "source": "frontend/public/json/aria2.json"
+    },
+    {
+      "name": "Asterisk",
+      "file": "asterisk.json",
+      "source": "frontend/public/json/asterisk.json"
+    },
+    {
+      "name": "Audiobookshelf",
+      "file": "audiobookshelf.json",
+      "source": "frontend/public/json/audiobookshelf.json"
+    },
+    {
+      "name": "Authelia",
+      "file": "authelia.json",
+      "source": "frontend/public/json/authelia.json"
+    },
+    {
+      "name": "Autobrr",
+      "file": "autobrr.json",
+      "source": "frontend/public/json/autobrr.json"
+    },
+    {
+      "name": "Autocaliweb",
+      "file": "autocaliweb.json",
+      "source": "frontend/public/json/autocaliweb.json"
+    },
+    {
+      "name": "Baby Buddy",
+      "file": "babybuddy.json",
+      "source": "frontend/public/json/babybuddy.json"
+    },
+    {
+      "name": "Backrest",
+      "file": "backrest.json",
+      "source": "frontend/public/json/backrest.json"
+    },
+    {
+      "name": "Baïkal",
+      "file": "baikal.json",
+      "source": "frontend/public/json/baikal.json"
+    },
+    {
+      "name": "Bar-Assistant",
+      "file": "bar-assistant.json",
+      "source": "frontend/public/json/bar-assistant.json"
+    },
+    {
+      "name": "Bazarr",
+      "file": "bazarr.json",
+      "source": "frontend/public/json/bazarr.json"
+    },
+    {
+      "name": "BentoPDF",
+      "file": "bentopdf.json",
+      "source": "frontend/public/json/bentopdf.json"
+    },
+    {
+      "name": "Beszel",
+      "file": "beszel.json",
+      "source": "frontend/public/json/beszel.json"
+    },
+    {
+      "name": "Bichon",
+      "file": "bichon.json",
+      "source": "frontend/public/json/bichon.json"
+    },
+    {
+      "name": "Bitmagnet",
+      "file": "bitmagnet.json",
+      "source": "frontend/public/json/bitmagnet.json"
+    },
+    {
+      "name": "Blocky",
+      "file": "blocky.json",
+      "source": "frontend/public/json/blocky.json"
+    },
+    {
+      "name": "BookLore",
+      "file": "booklore.json",
+      "source": "frontend/public/json/booklore.json"
+    },
+    {
+      "name": "BookStack",
+      "file": "bookstack.json",
+      "source": "frontend/public/json/bookstack.json"
+    },
+    {
+      "name": "BunkerWeb",
+      "file": "bunkerweb.json",
+      "source": "frontend/public/json/bunkerweb.json"
+    },
+    {
+      "name": "Byparr",
+      "file": "byparr.json",
+      "source": "frontend/public/json/byparr.json"
+    },
+    {
+      "name": "ByteStash",
+      "file": "bytestash.json",
+      "source": "frontend/public/json/bytestash.json"
+    },
+    {
+      "name": "Caddy",
+      "file": "caddy.json",
+      "source": "frontend/public/json/caddy.json"
+    },
+    {
+      "name": "Calibre-Web",
+      "file": "calibre-web.json",
+      "source": "frontend/public/json/calibre-web.json"
+    },
+    {
+      "name": "CasaOS",
+      "file": "casaos.json",
+      "source": "frontend/public/json/casaos.json"
+    },
+    {
+      "name": "Change Detection",
+      "file": "changedetection.json",
+      "source": "frontend/public/json/changedetection.json"
+    },
+    {
+      "name": "Channels DVR Server",
+      "file": "channels.json",
+      "source": "frontend/public/json/channels.json"
+    },
+    {
+      "name": "Checkmate",
+      "file": "checkmate.json",
+      "source": "frontend/public/json/checkmate.json"
+    },
+    {
+      "name": "Checkmk",
+      "file": "checkmk.json",
+      "source": "frontend/public/json/checkmk.json"
+    },
+    {
+      "name": "Cleanuparr",
+      "file": "cleanuparr.json",
+      "source": "frontend/public/json/cleanuparr.json"
+    },
+    {
+      "name": "Cloudflare-DDNS",
+      "file": "cloudflare-ddns.json",
+      "source": "frontend/public/json/cloudflare-ddns.json"
+    },
+    {
+      "name": "Cloudflared",
+      "file": "cloudflared.json",
+      "source": "frontend/public/json/cloudflared.json"
+    },
+    {
+      "name": "Cloudreve",
+      "file": "cloudreve.json",
+      "source": "frontend/public/json/cloudreve.json"
+    },
+    {
+      "name": "Cockpit",
+      "file": "cockpit.json",
+      "source": "frontend/public/json/cockpit.json"
+    },
+    {
+      "name": "Coder Code Server",
+      "file": "coder-code-server.json",
+      "source": "frontend/public/json/coder-code-server.json"
+    },
+    {
+      "name": "ComfyUI",
+      "file": "comfyui.json",
+      "source": "frontend/public/json/comfyui.json"
+    },
+    {
+      "name": "CommaFeed",
+      "file": "commafeed.json",
+      "source": "frontend/public/json/commafeed.json"
+    },
+    {
+      "name": "Configarr",
+      "file": "configarr.json",
+      "source": "frontend/public/json/configarr.json"
+    },
+    {
+      "name": "ConvertX",
+      "file": "convertx.json",
+      "source": "frontend/public/json/convertx.json"
+    },
+    {
+      "name": "Coolify",
+      "file": "coolify.json",
+      "source": "frontend/public/json/coolify.json"
+    },
+    {
+      "name": "Copyparty",
+      "file": "copyparty.json",
+      "source": "frontend/public/json/copyparty.json"
+    },
+    {
+      "name": "Cosmos",
+      "file": "cosmos.json",
+      "source": "frontend/public/json/cosmos.json"
+    },
+    {
+      "name": "CR*NMASTER",
+      "file": "cronmaster.json",
+      "source": "frontend/public/json/cronmaster.json"
+    },
+    {
+      "name": "Crafty Controller",
+      "file": "crafty-controller.json",
+      "source": "frontend/public/json/crafty-controller.json"
+    },
+    {
+      "name": "Cronicle Primary",
+      "file": "cronicle.json",
+      "source": "frontend/public/json/cronicle.json"
+    },
+    {
+      "name": "cross-seed",
+      "file": "cross-seed.json",
+      "source": "frontend/public/json/cross-seed.json"
+    },
+    {
+      "name": "CrowdSec",
+      "file": "crowdsec.json",
+      "source": "frontend/public/json/crowdsec.json"
+    },
+    {
+      "name": "CryptPad",
+      "file": "cryptpad.json",
+      "source": "frontend/public/json/cryptpad.json"
+    },
+    {
+      "name": "Daemon Sync Server",
+      "file": "daemonsync.json",
+      "source": "frontend/public/json/daemonsync.json"
+    },
+    {
+      "name": "Databasus",
+      "file": "databasus.json",
+      "source": "frontend/public/json/databasus.json"
+    },
+    {
+      "name": "Dawarich",
+      "file": "dawarich.json",
+      "source": "frontend/public/json/dawarich.json"
+    },
+    {
+      "name": "Debian",
+      "file": "debian.json",
+      "source": "frontend/public/json/debian.json"
+    },
+    {
+      "name": "Debian 12",
+      "file": "debian-vm.json",
+      "source": "frontend/public/json/debian-vm.json"
+    },
+    {
+      "name": "Debian 13",
+      "file": "debian-13-vm.json",
+      "source": "frontend/public/json/debian-13-vm.json"
+    },
+    {
+      "name": "deCONZ",
+      "file": "deconz.json",
+      "source": "frontend/public/json/deconz.json"
+    },
+    {
+      "name": "Deluge",
+      "file": "deluge.json",
+      "source": "frontend/public/json/deluge.json"
+    },
+    {
+      "name": "DiscoPanel",
+      "file": "discopanel.json",
+      "source": "frontend/public/json/discopanel.json"
+    },
+    {
+      "name": "Dispatcharr",
+      "file": "dispatcharr.json",
+      "source": "frontend/public/json/dispatcharr.json"
+    },
+    {
+      "name": "Docker",
+      "file": "docker-vm.json",
+      "source": "frontend/public/json/docker-vm.json"
+    },
+    {
+      "name": "Docker",
+      "file": "docker.json",
+      "source": "frontend/public/json/docker.json"
+    },
+    {
+      "name": "Dockge",
+      "file": "dockge.json",
+      "source": "frontend/public/json/dockge.json"
+    },
+    {
+      "name": "Docmost",
+      "file": "docmost.json",
+      "source": "frontend/public/json/docmost.json"
+    },
+    {
+      "name": "Dokploy",
+      "file": "dokploy.json",
+      "source": "frontend/public/json/dokploy.json"
+    },
+    {
+      "name": "Dolibarr",
+      "file": "dolibarr.json",
+      "source": "frontend/public/json/dolibarr.json"
+    },
+    {
+      "name": "Domain Locker",
+      "file": "domain-locker.json",
+      "source": "frontend/public/json/domain-locker.json"
+    },
+    {
+      "name": "Domain Monitor",
+      "file": "domain-monitor.json",
+      "source": "frontend/public/json/domain-monitor.json"
+    },
+    {
+      "name": "Donetick",
+      "file": "donetick.json",
+      "source": "frontend/public/json/donetick.json"
+    },
+    {
+      "name": "Dotnet ASP Web API",
+      "file": "dotnetaspwebapi.json",
+      "source": "frontend/public/json/dotnetaspwebapi.json"
+    },
+    {
+      "name": "Draw.IO",
+      "file": "drawio.json",
+      "source": "frontend/public/json/drawio.json"
+    },
+    {
+      "name": "Duplicati",
+      "file": "duplicati.json",
+      "source": "frontend/public/json/duplicati.json"
+    },
+    {
+      "name": "ebusd",
+      "file": "ebusd.json",
+      "source": "frontend/public/json/ebusd.json"
+    },
+    {
+      "name": "Element Synapse",
+      "file": "elementsynapse.json",
+      "source": "frontend/public/json/elementsynapse.json"
+    },
+    {
+      "name": "Emby Media Server",
+      "file": "emby.json",
+      "source": "frontend/public/json/emby.json"
+    },
+    {
+      "name": "EMQX",
+      "file": "emqx.json",
+      "source": "frontend/public/json/emqx.json"
+    },
+    {
+      "name": "Endurain",
+      "file": "endurain.json",
+      "source": "frontend/public/json/endurain.json"
+    },
+    {
+      "name": "ErsatzTV",
+      "file": "ersatztv.json",
+      "source": "frontend/public/json/ersatztv.json"
+    },
+    {
+      "name": "ESPHome",
+      "file": "esphome.json",
+      "source": "frontend/public/json/esphome.json"
+    },
+    {
+      "name": "evcc",
+      "file": "evcc.json",
+      "source": "frontend/public/json/evcc.json"
+    },
+    {
+      "name": "Excalidraw",
+      "file": "excalidraw.json",
+      "source": "frontend/public/json/excalidraw.json"
+    },
+    {
+      "name": "FHEM",
+      "file": "fhem.json",
+      "source": "frontend/public/json/fhem.json"
+    },
+    {
+      "name": "File Browser",
+      "file": "filebrowser.json",
+      "source": "frontend/public/json/filebrowser.json"
+    },
+    {
+      "name": "FileBrowser Quantum",
+      "file": "filebrowser-quantum.json",
+      "source": "frontend/public/json/filebrowser-quantum.json"
+    },
+    {
+      "name": "FileFlows",
+      "file": "fileflows.json",
+      "source": "frontend/public/json/fileflows.json"
+    },
+    {
+      "name": "Firefly III",
+      "file": "firefly.json",
+      "source": "frontend/public/json/firefly.json"
+    },
+    {
+      "name": "Fladder",
+      "file": "fladder.json",
+      "source": "frontend/public/json/fladder.json"
+    },
+    {
+      "name": "FlareSolverr",
+      "file": "flaresolverr.json",
+      "source": "frontend/public/json/flaresolverr.json"
+    },
+    {
+      "name": "Flatnotes",
+      "file": "flatnotes.json",
+      "source": "frontend/public/json/flatnotes.json"
+    },
+    {
+      "name": "FlowiseAI",
+      "file": "flowiseai.json",
+      "source": "frontend/public/json/flowiseai.json"
+    },
+    {
+      "name": "Fluid-Calendar",
+      "file": "fluid-calendar.json",
+      "source": "frontend/public/json/fluid-calendar.json"
+    },
+    {
+      "name": "Forgejo",
+      "file": "forgejo.json",
+      "source": "frontend/public/json/forgejo.json"
+    },
+    {
+      "name": "FreePBX",
+      "file": "freepbx.json",
+      "source": "frontend/public/json/freepbx.json"
+    },
+    {
+      "name": "FreshRSS",
+      "file": "freshrss.json",
+      "source": "frontend/public/json/freshrss.json"
+    },
+    {
+      "name": "Frigate",
+      "file": "frigate.json",
+      "source": "frontend/public/json/frigate.json"
+    },
+    {
+      "name": "Fumadocs",
+      "file": "fumadocs.json",
+      "source": "frontend/public/json/fumadocs.json"
+    },
+    {
+      "name": "Garage",
+      "file": "garage.json",
+      "source": "frontend/public/json/garage.json"
+    },
+    {
+      "name": "gatus",
+      "file": "gatus.json",
+      "source": "frontend/public/json/gatus.json"
+    },
+    {
+      "name": "Ghost",
+      "file": "ghost.json",
+      "source": "frontend/public/json/ghost.json"
+    },
+    {
+      "name": "Ghostfolio",
+      "file": "ghostfolio.json",
+      "source": "frontend/public/json/ghostfolio.json"
+    },
+    {
+      "name": "Gitea",
+      "file": "gitea.json",
+      "source": "frontend/public/json/gitea.json"
+    },
+    {
+      "name": "Gitea-Mirror",
+      "file": "gitea-mirror.json",
+      "source": "frontend/public/json/gitea-mirror.json"
+    },
+    {
+      "name": "Glance",
+      "file": "glance.json",
+      "source": "frontend/public/json/glance.json"
+    },
+    {
+      "name": "Glances",
+      "file": "glances.json",
+      "source": "frontend/public/json/glances.json"
+    },
+    {
+      "name": "GlobaLeaks",
+      "file": "globaleaks.json",
+      "source": "frontend/public/json/globaleaks.json"
+    },
+    {
+      "name": "GLPI",
+      "file": "glpi.json",
+      "source": "frontend/public/json/glpi.json"
+    },
+    {
+      "name": "go2rtc",
+      "file": "go2rtc.json",
+      "source": "frontend/public/json/go2rtc.json"
+    },
+    {
+      "name": "Gokapi",
+      "file": "gokapi.json",
+      "source": "frontend/public/json/gokapi.json"
+    },
+    {
+      "name": "Gotify",
+      "file": "gotify.json",
+      "source": "frontend/public/json/gotify.json"
+    },
+    {
+      "name": "Grafana",
+      "file": "grafana.json",
+      "source": "frontend/public/json/grafana.json"
+    },
+    {
+      "name": "Gramps Web",
+      "file": "gramps-web.json",
+      "source": "frontend/public/json/gramps-web.json"
+    },
+    {
+      "name": "Graylog",
+      "file": "graylog.json",
+      "source": "frontend/public/json/graylog.json"
+    },
+    {
+      "name": "Grist",
+      "file": "grist.json",
+      "source": "frontend/public/json/grist.json"
+    },
+    {
+      "name": "grocy",
+      "file": "grocy.json",
+      "source": "frontend/public/json/grocy.json"
+    },
+    {
+      "name": "Guardian",
+      "file": "guardian.json",
+      "source": "frontend/public/json/guardian.json"
+    },
+    {
+      "name": "GWN Manager",
+      "file": "gwn-manager.json",
+      "source": "frontend/public/json/gwn-manager.json"
+    },
+    {
+      "name": "Headscale",
+      "file": "headscale.json",
+      "source": "frontend/public/json/headscale.json"
+    },
+    {
+      "name": "Healthchecks",
+      "file": "healthchecks.json",
+      "source": "frontend/public/json/healthchecks.json"
+    },
+    {
+      "name": "Heimdall Dashboard",
+      "file": "heimdall-dashboard.json",
+      "source": "frontend/public/json/heimdall-dashboard.json"
+    },
+    {
+      "name": "hev-socks5-server",
+      "file": "hev-socks5-server.json",
+      "source": "frontend/public/json/hev-socks5-server.json"
+    },
+    {
+      "name": "HiveMQ CE",
+      "file": "hivemq.json",
+      "source": "frontend/public/json/hivemq.json"
+    },
+    {
+      "name": "Homarr",
+      "file": "homarr.json",
+      "source": "frontend/public/json/homarr.json"
+    },
+    {
+      "name": "Home Assistant Container",
+      "file": "homeassistant.json",
+      "source": "frontend/public/json/homeassistant.json"
+    },
+    {
+      "name": "Home Assistant OS",
+      "file": "haos-vm.json",
+      "source": "frontend/public/json/haos-vm.json"
+    },
+    {
+      "name": "HomeBox",
+      "file": "homebox.json",
+      "source": "frontend/public/json/homebox.json"
+    },
+    {
+      "name": "Homebridge",
+      "file": "homebridge.json",
+      "source": "frontend/public/json/homebridge.json"
+    },
+    {
+      "name": "Homepage",
+      "file": "homepage.json",
+      "source": "frontend/public/json/homepage.json"
+    },
+    {
+      "name": "Homer",
+      "file": "homer.json",
+      "source": "frontend/public/json/homer.json"
+    },
+    {
+      "name": "HortusFox",
+      "file": "hortusfox.json",
+      "source": "frontend/public/json/hortusfox.json"
+    },
+    {
+      "name": "HyperHDR",
+      "file": "hyperhdr.json",
+      "source": "frontend/public/json/hyperhdr.json"
+    },
+    {
+      "name": "Hyperion",
+      "file": "hyperion.json",
+      "source": "frontend/public/json/hyperion.json"
+    },
+    {
+      "name": "Immich",
+      "file": "immich.json",
+      "source": "frontend/public/json/immich.json"
+    },
+    {
+      "name": "Immich Public Proxy",
+      "file": "immich-public-proxy.json",
+      "source": "frontend/public/json/immich-public-proxy.json"
+    },
+    {
+      "name": "Infisical",
+      "file": "infisical.json",
+      "source": "frontend/public/json/infisical.json"
+    },
+    {
+      "name": "InfluxDB",
+      "file": "influxdb.json",
+      "source": "frontend/public/json/influxdb.json"
+    },
+    {
+      "name": "InspIRCd 4",
+      "file": "inspircd.json",
+      "source": "frontend/public/json/inspircd.json"
+    },
+    {
+      "name": "InvenTree",
+      "file": "inventree.json",
+      "source": "frontend/public/json/inventree.json"
+    },
+    {
+      "name": "Investbrain",
+      "file": "investbrain.json",
+      "source": "frontend/public/json/investbrain.json"
+    },
+    {
+      "name": "InvoiceNinja",
+      "file": "invoiceninja.json",
+      "source": "frontend/public/json/invoiceninja.json"
+    },
+    {
+      "name": "ioBroker",
+      "file": "iobroker.json",
+      "source": "frontend/public/json/iobroker.json"
+    },
+    {
+      "name": "ITSM-NG",
+      "file": "itsm-ng.json",
+      "source": "frontend/public/json/itsm-ng.json"
+    },
+    {
+      "name": "Jackett",
+      "file": "jackett.json",
+      "source": "frontend/public/json/jackett.json"
+    },
+    {
+      "name": "Jeedom",
+      "file": "jeedom.json",
+      "source": "frontend/public/json/jeedom.json"
+    },
+    {
+      "name": "Jellyfin Media Server",
+      "file": "jellyfin.json",
+      "source": "frontend/public/json/jellyfin.json"
+    },
+    {
+      "name": "Jellystat",
+      "file": "jellystat.json",
+      "source": "frontend/public/json/jellystat.json"
+    },
+    {
+      "name": "Jenkins",
+      "file": "jenkins.json",
+      "source": "frontend/public/json/jenkins.json"
+    },
+    {
+      "name": "Joplin Server",
+      "file": "joplin-server.json",
+      "source": "frontend/public/json/joplin-server.json"
+    },
+    {
+      "name": "jotty",
+      "file": "jotty.json",
+      "source": "frontend/public/json/jotty.json"
+    },
+    {
+      "name": "Jupyter Notebook",
+      "file": "jupyternotebook.json",
+      "source": "frontend/public/json/jupyternotebook.json"
+    },
+    {
+      "name": "Kapowarr",
+      "file": "kapowarr.json",
+      "source": "frontend/public/json/kapowarr.json"
+    },
+    {
+      "name": "karakeep",
+      "file": "karakeep.json",
+      "source": "frontend/public/json/karakeep.json"
+    },
+    {
+      "name": "Kasm",
+      "file": "kasm.json",
+      "source": "frontend/public/json/kasm.json"
+    },
+    {
+      "name": "Kavita",
+      "file": "kavita.json",
+      "source": "frontend/public/json/kavita.json"
+    },
+    {
+      "name": "Keycloak",
+      "file": "keycloak.json",
+      "source": "frontend/public/json/keycloak.json"
+    },
+    {
+      "name": "Kima-Hub",
+      "file": "kima-hub.json",
+      "source": "frontend/public/json/kima-hub.json"
+    },
+    {
+      "name": "Kimai",
+      "file": "kimai.json",
+      "source": "frontend/public/json/kimai.json"
+    },
+    {
+      "name": "KitchenOwl",
+      "file": "kitchenowl.json",
+      "source": "frontend/public/json/kitchenowl.json"
+    },
+    {
+      "name": "Koel",
+      "file": "koel.json",
+      "source": "frontend/public/json/koel.json"
+    },
+    {
+      "name": "Koillection",
+      "file": "koillection.json",
+      "source": "frontend/public/json/koillection.json"
+    },
+    {
+      "name": "Kometa",
+      "file": "kometa.json",
+      "source": "frontend/public/json/kometa.json"
+    },
+    {
+      "name": "Komga",
+      "file": "komga.json",
+      "source": "frontend/public/json/komga.json"
+    },
+    {
+      "name": "Komodo",
+      "file": "komodo.json",
+      "source": "frontend/public/json/komodo.json"
+    },
+    {
+      "name": "Kubo",
+      "file": "kubo.json",
+      "source": "frontend/public/json/kubo.json"
+    },
+    {
+      "name": "Kutt",
+      "file": "kutt.json",
+      "source": "frontend/public/json/kutt.json"
+    },
+    {
+      "name": "LanguageTool",
+      "file": "languagetool.json",
+      "source": "frontend/public/json/languagetool.json"
+    },
+    {
+      "name": "LazyLibrarian",
+      "file": "lazylibrarian.json",
+      "source": "frontend/public/json/lazylibrarian.json"
+    },
+    {
+      "name": "Leantime",
+      "file": "leantime.json",
+      "source": "frontend/public/json/leantime.json"
+    },
+    {
+      "name": "LibreNMS",
+      "file": "librenms.json",
+      "source": "frontend/public/json/librenms.json"
+    },
+    {
+      "name": "Librespeed Rust",
+      "file": "librespeed-rust.json",
+      "source": "frontend/public/json/librespeed-rust.json"
+    },
+    {
+      "name": "LibreTranslate",
+      "file": "libretranslate.json",
+      "source": "frontend/public/json/libretranslate.json"
+    },
+    {
+      "name": "Lidarr",
+      "file": "lidarr.json",
+      "source": "frontend/public/json/lidarr.json"
+    },
+    {
+      "name": "LimeSurvey",
+      "file": "limesurvey.json",
+      "source": "frontend/public/json/limesurvey.json"
+    },
+    {
+      "name": "linkding",
+      "file": "linkding.json",
+      "source": "frontend/public/json/linkding.json"
+    },
+    {
+      "name": "LinkStack",
+      "file": "linkstack.json",
+      "source": "frontend/public/json/linkstack.json"
+    },
+    {
+      "name": "Linkwarden",
+      "file": "linkwarden.json",
+      "source": "frontend/public/json/linkwarden.json"
+    },
+    {
+      "name": "listmonk",
+      "file": "listmonk.json",
+      "source": "frontend/public/json/listmonk.json"
+    },
+    {
+      "name": "LiteLLM",
+      "file": "litellm.json",
+      "source": "frontend/public/json/litellm.json"
+    },
+    {
+      "name": "Livebook",
+      "file": "livebook.json",
+      "source": "frontend/public/json/livebook.json"
+    },
+    {
+      "name": "lldap",
+      "file": "lldap.json",
+      "source": "frontend/public/json/lldap.json"
+    },
+    {
+      "name": "Loki",
+      "file": "loki.json",
+      "source": "frontend/public/json/loki.json"
+    },
+    {
+      "name": "LubeLogger",
+      "file": "lubelogger.json",
+      "source": "frontend/public/json/lubelogger.json"
+    },
+    {
+      "name": "Lyrion Music Server",
+      "file": "lyrionmusicserver.json",
+      "source": "frontend/public/json/lyrionmusicserver.json"
+    },
+    {
+      "name": "Mafl",
+      "file": "mafl.json",
+      "source": "frontend/public/json/mafl.json"
+    },
+    {
+      "name": "MagicMirror Server",
+      "file": "magicmirror.json",
+      "source": "frontend/public/json/magicmirror.json"
+    },
+    {
+      "name": "Mail-Archiver",
+      "file": "mail-archiver.json",
+      "source": "frontend/public/json/mail-archiver.json"
+    },
+    {
+      "name": "Manage My Damn Life",
+      "file": "managemydamnlife.json",
+      "source": "frontend/public/json/managemydamnlife.json"
+    },
+    {
+      "name": "Manyfold",
+      "file": "manyfold.json",
+      "source": "frontend/public/json/manyfold.json"
+    },
+    {
+      "name": "Mariadb",
+      "file": "mariadb.json",
+      "source": "frontend/public/json/mariadb.json"
+    },
+    {
+      "name": "Matterbridge",
+      "file": "matterbridge.json",
+      "source": "frontend/public/json/matterbridge.json"
+    },
+    {
+      "name": "Mattermost",
+      "file": "mattermost.json",
+      "source": "frontend/public/json/mattermost.json"
+    },
+    {
+      "name": "Mealie",
+      "file": "mealie.json",
+      "source": "frontend/public/json/mealie.json"
+    },
+    {
+      "name": "MediaManager",
+      "file": "mediamanager.json",
+      "source": "frontend/public/json/mediamanager.json"
+    },
+    {
+      "name": "MediaMTX",
+      "file": "mediamtx.json",
+      "source": "frontend/public/json/mediamtx.json"
+    },
+    {
+      "name": "Medusa",
+      "file": "medusa.json",
+      "source": "frontend/public/json/medusa.json"
+    },
+    {
+      "name": "Meilisearch",
+      "file": "meilisearch.json",
+      "source": "frontend/public/json/meilisearch.json"
+    },
+    {
+      "name": "Memos",
+      "file": "memos.json",
+      "source": "frontend/public/json/memos.json"
+    },
+    {
+      "name": "MeshCentral",
+      "file": "meshcentral.json",
+      "source": "frontend/public/json/meshcentral.json"
+    },
+    {
+      "name": "Metabase",
+      "file": "metabase.json",
+      "source": "frontend/public/json/metabase.json"
+    },
+    {
+      "name": "MeTube",
+      "file": "metube.json",
+      "source": "frontend/public/json/metube.json"
+    },
+    {
+      "name": "Mikrotik RouterOS CHR",
+      "file": "mikrotik-routeros.json",
+      "source": "frontend/public/json/mikrotik-routeros.json"
+    },
+    {
+      "name": "Minarca",
+      "file": "minarca.json",
+      "source": "frontend/public/json/minarca.json"
+    },
+    {
+      "name": "Miniflux",
+      "file": "miniflux.json",
+      "source": "frontend/public/json/miniflux.json"
+    },
+    {
+      "name": "MinIO",
+      "file": "minio.json",
+      "source": "frontend/public/json/minio.json"
+    },
+    {
+      "name": "MongoDB",
+      "file": "mongodb.json",
+      "source": "frontend/public/json/mongodb.json"
+    },
+    {
+      "name": "Monica",
+      "file": "monica.json",
+      "source": "frontend/public/json/monica.json"
+    },
+    {
+      "name": "MotionEye NVR",
+      "file": "motioneye.json",
+      "source": "frontend/public/json/motioneye.json"
+    },
+    {
+      "name": "MQTT",
+      "file": "mqtt.json",
+      "source": "frontend/public/json/mqtt.json"
+    },
+    {
+      "name": "MyIP",
+      "file": "myip.json",
+      "source": "frontend/public/json/myip.json"
+    },
+    {
+      "name": "Mylar3",
+      "file": "mylar3.json",
+      "source": "frontend/public/json/mylar3.json"
+    },
+    {
+      "name": "MySpeed",
+      "file": "myspeed.json",
+      "source": "frontend/public/json/myspeed.json"
+    },
+    {
+      "name": "n8n",
+      "file": "n8n.json",
+      "source": "frontend/public/json/n8n.json"
+    },
+    {
+      "name": "Navidrome",
+      "file": "navidrome.json",
+      "source": "frontend/public/json/navidrome.json"
+    },
+    {
+      "name": "Neo4j",
+      "file": "neo4j.json",
+      "source": "frontend/public/json/neo4j.json"
+    },
+    {
+      "name": "NetBird",
+      "file": "add-netbird-lxc.json",
+      "source": "frontend/public/json/add-netbird-lxc.json"
+    },
+    {
+      "name": "NetBox",
+      "file": "netbox.json",
+      "source": "frontend/public/json/netbox.json"
+    },
+    {
+      "name": "Nextcloud",
+      "file": "nextcloud-vm.json",
+      "source": "frontend/public/json/nextcloud-vm.json"
+    },
+    {
+      "name": "Nextcloud Exporter",
+      "file": "nextcloud-exporter.json",
+      "source": "frontend/public/json/nextcloud-exporter.json"
+    },
+    {
+      "name": "NextcloudPi",
+      "file": "nextcloudpi.json",
+      "source": "frontend/public/json/nextcloudpi.json"
+    },
+    {
+      "name": "NextPVR",
+      "file": "nextpvr.json",
+      "source": "frontend/public/json/nextpvr.json"
+    },
+    {
+      "name": "Nginx Proxy Manager",
+      "file": "nginxproxymanager.json",
+      "source": "frontend/public/json/nginxproxymanager.json"
+    },
+    {
+      "name": "Nginx UI",
+      "file": "nginx-ui.json",
+      "source": "frontend/public/json/nginx-ui.json"
+    },
+    {
+      "name": "Nightscout",
+      "file": "nightscout.json",
+      "source": "frontend/public/json/nightscout.json"
+    },
+    {
+      "name": "NocoDB",
+      "file": "nocodb.json",
+      "source": "frontend/public/json/nocodb.json"
+    },
+    {
+      "name": "Node-Red",
+      "file": "node-red.json",
+      "source": "frontend/public/json/node-red.json"
+    },
+    {
+      "name": "NodeBB",
+      "file": "nodebb.json",
+      "source": "frontend/public/json/nodebb.json"
+    },
+    {
+      "name": "nodecast-tv",
+      "file": "nodecast-tv.json",
+      "source": "frontend/public/json/nodecast-tv.json"
+    },
+    {
+      "name": "Notifiarr",
+      "file": "notifiarr.json",
+      "source": "frontend/public/json/notifiarr.json"
+    },
+    {
+      "name": "NPMplus",
+      "file": "npmplus.json",
+      "source": "frontend/public/json/npmplus.json"
+    },
+    {
+      "name": "ntfy",
+      "file": "ntfy.json",
+      "source": "frontend/public/json/ntfy.json"
+    },
+    {
+      "name": "Nx Witness",
+      "file": "nxwitness.json",
+      "source": "frontend/public/json/nxwitness.json"
+    },
+    {
+      "name": "NZBGet",
+      "file": "nzbget.json",
+      "source": "frontend/public/json/nzbget.json"
+    },
+    {
+      "name": "OAuth2-Proxy",
+      "file": "oauth2-proxy.json",
+      "source": "frontend/public/json/oauth2-proxy.json"
+    },
+    {
+      "name": "OctoPrint",
+      "file": "octoprint.json",
+      "source": "frontend/public/json/octoprint.json"
+    },
+    {
+      "name": "Odoo",
+      "file": "odoo.json",
+      "source": "frontend/public/json/odoo.json"
+    },
+    {
+      "name": "OliveTin",
+      "file": "olivetin.json",
+      "source": "frontend/public/json/olivetin.json"
+    },
+    {
+      "name": "Ollama",
+      "file": "ollama.json",
+      "source": "frontend/public/json/ollama.json"
+    },
+    {
+      "name": "Omada Controller",
+      "file": "omada.json",
+      "source": "frontend/public/json/omada.json"
+    },
+    {
+      "name": "Ombi",
+      "file": "ombi.json",
+      "source": "frontend/public/json/ombi.json"
+    },
+    {
+      "name": "OneDev",
+      "file": "onedev.json",
+      "source": "frontend/public/json/onedev.json"
+    },
+    {
+      "name": "ONLYOFFICE Docs",
+      "file": "onlyoffice.json",
+      "source": "frontend/public/json/onlyoffice.json"
+    },
+    {
+      "name": "Open WebUI",
+      "file": "openwebui.json",
+      "source": "frontend/public/json/openwebui.json"
+    },
+    {
+      "name": "Open-Archiver",
+      "file": "open-archiver.json",
+      "source": "frontend/public/json/open-archiver.json"
+    },
+    {
+      "name": "OpenCloud",
+      "file": "opencloud.json",
+      "source": "frontend/public/json/opencloud.json"
+    },
+    {
+      "name": "Opengist",
+      "file": "opengist.json",
+      "source": "frontend/public/json/opengist.json"
+    },
+    {
+      "name": "openHAB",
+      "file": "openhab.json",
+      "source": "frontend/public/json/openhab.json"
+    },
+    {
+      "name": "OpenMediaVault",
+      "file": "omv.json",
+      "source": "frontend/public/json/omv.json"
+    },
+    {
+      "name": "OpenObserve",
+      "file": "openobserve.json",
+      "source": "frontend/public/json/openobserve.json"
+    },
+    {
+      "name": "OpenProject",
+      "file": "openproject.json",
+      "source": "frontend/public/json/openproject.json"
+    },
+    {
+      "name": "OpenWrt",
+      "file": "openwrt-vm.json",
+      "source": "frontend/public/json/openwrt-vm.json"
+    },
+    {
+      "name": "openziti-controller",
+      "file": "openziti-controller.json",
+      "source": "frontend/public/json/openziti-controller.json"
+    },
+    {
+      "name": "openziti-tunnel",
+      "file": "openziti-tunnel.json",
+      "source": "frontend/public/json/openziti-tunnel.json"
+    },
+    {
+      "name": "OPNsense",
+      "file": "opnsense-vm.json",
+      "source": "frontend/public/json/opnsense-vm.json"
+    },
+    {
+      "name": "OTS",
+      "file": "ots.json",
+      "source": "frontend/public/json/ots.json"
+    },
+    {
+      "name": "Outline",
+      "file": "outline.json",
+      "source": "frontend/public/json/outline.json"
+    },
+    {
+      "name": "Owncast",
+      "file": "owncast.json",
+      "source": "frontend/public/json/owncast.json"
+    },
+    {
+      "name": "ownCloud",
+      "file": "owncloud-vm.json",
+      "source": "frontend/public/json/owncloud-vm.json"
+    },
+    {
+      "name": "PairDrop",
+      "file": "pairdrop.json",
+      "source": "frontend/public/json/pairdrop.json"
+    },
+    {
+      "name": "Palmr",
+      "file": "palmr.json",
+      "source": "frontend/public/json/palmr.json"
+    },
+    {
+      "name": "Pangolin",
+      "file": "pangolin.json",
+      "source": "frontend/public/json/pangolin.json"
+    },
+    {
+      "name": "Paperless-GPT",
+      "file": "paperless-gpt.json",
+      "source": "frontend/public/json/paperless-gpt.json"
+    },
+    {
+      "name": "Paperless-ngx",
+      "file": "paperless-ngx.json",
+      "source": "frontend/public/json/paperless-ngx.json"
+    },
+    {
+      "name": "PaperlessAI",
+      "file": "paperless-ai.json",
+      "source": "frontend/public/json/paperless-ai.json"
+    },
+    {
+      "name": "Part-DB",
+      "file": "part-db.json",
+      "source": "frontend/public/json/part-db.json"
+    },
+    {
+      "name": "Passbolt",
+      "file": "passbolt.json",
+      "source": "frontend/public/json/passbolt.json"
+    },
+    {
+      "name": "PatchMon",
+      "file": "patchmon.json",
+      "source": "frontend/public/json/patchmon.json"
+    },
+    {
+      "name": "Paymenter",
+      "file": "paymenter.json",
+      "source": "frontend/public/json/paymenter.json"
+    },
+    {
+      "name": "PeaNUT",
+      "file": "peanut.json",
+      "source": "frontend/public/json/peanut.json"
+    },
+    {
+      "name": "Pelican Panel",
+      "file": "pelican-panel.json",
+      "source": "frontend/public/json/pelican-panel.json"
+    },
+    {
+      "name": "Pelican Wings",
+      "file": "pelican-wings.json",
+      "source": "frontend/public/json/pelican-wings.json"
+    },
+    {
+      "name": "Pf2eTools",
+      "file": "pf2etools.json",
+      "source": "frontend/public/json/pf2etools.json"
+    },
+    {
+      "name": "PhotoPrism",
+      "file": "photoprism.json",
+      "source": "frontend/public/json/photoprism.json"
+    },
+    {
+      "name": "PhpMyAdmin",
+      "file": "phpmyadmin.json",
+      "source": "frontend/public/json/phpmyadmin.json"
+    },
+    {
+      "name": "Pi-Hole",
+      "file": "pihole.json",
+      "source": "frontend/public/json/pihole.json"
+    },
+    {
+      "name": "Pi-Hole Exporter",
+      "file": "pihole-exporter.json",
+      "source": "frontend/public/json/pihole-exporter.json"
+    },
+    {
+      "name": "Pi.Alert",
+      "file": "pialert.json",
+      "source": "frontend/public/json/pialert.json"
+    },
+    {
+      "name": "PiMox HAOS",
+      "file": "pimox-haos-vm.json",
+      "source": "frontend/public/json/pimox-haos-vm.json"
+    },
+    {
+      "name": "PLANKA",
+      "file": "planka.json",
+      "source": "frontend/public/json/planka.json"
+    },
+    {
+      "name": "Plant-it",
+      "file": "plant-it.json",
+      "source": "frontend/public/json/plant-it.json"
+    },
+    {
+      "name": "Plex Media Server",
+      "file": "plex.json",
+      "source": "frontend/public/json/plex.json"
+    },
+    {
+      "name": "Pocket ID",
+      "file": "pocketid.json",
+      "source": "frontend/public/json/pocketid.json"
+    },
+    {
+      "name": "Pocketbase",
+      "file": "pocketbase.json",
+      "source": "frontend/public/json/pocketbase.json"
+    },
+    {
+      "name": "Podman",
+      "file": "podman.json",
+      "source": "frontend/public/json/podman.json"
+    },
+    {
+      "name": "Podman Home Assistant Container",
+      "file": "podman-homeassistant.json",
+      "source": "frontend/public/json/podman-homeassistant.json"
+    },
+    {
+      "name": "PostgreSQL",
+      "file": "postgresql.json",
+      "source": "frontend/public/json/postgresql.json"
+    },
+    {
+      "name": "PrivateBin",
+      "file": "privatebin.json",
+      "source": "frontend/public/json/privatebin.json"
+    },
+    {
+      "name": "ProjectSend",
+      "file": "projectsend.json",
+      "source": "frontend/public/json/projectsend.json"
+    },
+    {
+      "name": "Prometheus",
+      "file": "prometheus.json",
+      "source": "frontend/public/json/prometheus.json"
+    },
+    {
+      "name": "Prometheus Alertmanager",
+      "file": "prometheus-alertmanager.json",
+      "source": "frontend/public/json/prometheus-alertmanager.json"
+    },
+    {
+      "name": "Prometheus Blackbox Exporter",
+      "file": "prometheus-blackbox-exporter.json",
+      "source": "frontend/public/json/prometheus-blackbox-exporter.json"
+    },
+    {
+      "name": "Prometheus Paperless NGX Exporter",
+      "file": "prometheus-paperless-ngx-exporter.json",
+      "source": "frontend/public/json/prometheus-paperless-ngx-exporter.json"
+    },
+    {
+      "name": "Prometheus Proxmox VE Exporter",
+      "file": "prometheus-pve-exporter.json",
+      "source": "frontend/public/json/prometheus-pve-exporter.json"
+    },
+    {
+      "name": "Prowlarr",
+      "file": "prowlarr.json",
+      "source": "frontend/public/json/prowlarr.json"
+    },
+    {
+      "name": "Proxmox Backup Server (PBS)",
+      "file": "proxmox-backup-server.json",
+      "source": "frontend/public/json/proxmox-backup-server.json"
+    },
+    {
+      "name": "Proxmox Datacenter Manager (PDM)",
+      "file": "proxmox-datacenter-manager.json",
+      "source": "frontend/public/json/proxmox-datacenter-manager.json"
+    },
+    {
+      "name": "Proxmox Mail Gateway (PMG)",
+      "file": "proxmox-mail-gateway.json",
+      "source": "frontend/public/json/proxmox-mail-gateway.json"
+    },
+    {
+      "name": "PS5-MQTT",
+      "file": "ps5-mqtt.json",
+      "source": "frontend/public/json/ps5-mqtt.json"
+    },
+    {
+      "name": "Pterodactyl Panel",
+      "file": "pterodactyl-panel.json",
+      "source": "frontend/public/json/pterodactyl-panel.json"
+    },
+    {
+      "name": "Pterodactyl Wings",
+      "file": "pterodactyl-wings.json",
+      "source": "frontend/public/json/pterodactyl-wings.json"
+    },
+    {
+      "name": "Pulse",
+      "file": "pulse.json",
+      "source": "frontend/public/json/pulse.json"
+    },
+    {
+      "name": "PVE Netdata",
+      "file": "netdata.json",
+      "source": "frontend/public/json/netdata.json"
+    },
+    {
+      "name": "PVEScriptsLocal",
+      "file": "pve-scripts-local.json",
+      "source": "frontend/public/json/pve-scripts-local.json"
+    },
+    {
+      "name": "qBittorrent",
+      "file": "qbittorrent.json",
+      "source": "frontend/public/json/qbittorrent.json"
+    },
+    {
+      "name": "qbittorrent Exporter",
+      "file": "qbittorrent-exporter.json",
+      "source": "frontend/public/json/qbittorrent-exporter.json"
+    },
+    {
+      "name": "Qdrant",
+      "file": "qdrant.json",
+      "source": "frontend/public/json/qdrant.json"
+    },
+    {
+      "name": "Qui",
+      "file": "qui.json",
+      "source": "frontend/public/json/qui.json"
+    },
+    {
+      "name": "RabbitMQ",
+      "file": "rabbitmq.json",
+      "source": "frontend/public/json/rabbitmq.json"
+    },
+    {
+      "name": "Radarr",
+      "file": "radarr.json",
+      "source": "frontend/public/json/radarr.json"
+    },
+    {
+      "name": "Radicale",
+      "file": "radicale.json",
+      "source": "frontend/public/json/radicale.json"
+    },
+    {
+      "name": "Rclone",
+      "file": "rclone.json",
+      "source": "frontend/public/json/rclone.json"
+    },
+    {
+      "name": "Reactive Resume",
+      "file": "reactive-resume.json",
+      "source": "frontend/public/json/reactive-resume.json"
+    },
+    {
+      "name": "Readeck",
+      "file": "readeck.json",
+      "source": "frontend/public/json/readeck.json"
+    },
+    {
+      "name": "Real-Debrid Torrent Client",
+      "file": "rdtclient.json",
+      "source": "frontend/public/json/rdtclient.json"
+    },
+    {
+      "name": "Recyclarr",
+      "file": "recyclarr.json",
+      "source": "frontend/public/json/recyclarr.json"
+    },
+    {
+      "name": "Redis",
+      "file": "redis.json",
+      "source": "frontend/public/json/redis.json"
+    },
+    {
+      "name": "Redlib",
+      "file": "alpine-redlib.json",
+      "source": "frontend/public/json/redlib.json"
+    },
+    {
+      "name": "Reitti",
+      "file": "reitti.json",
+      "source": "frontend/public/json/reitti.json"
+    },
+    {
+      "name": "Resilio Sync",
+      "file": "resiliosync.json",
+      "source": "frontend/public/json/resiliosync.json"
+    },
+    {
+      "name": "RevealJS",
+      "file": "revealjs.json",
+      "source": "frontend/public/json/revealjs.json"
+    },
+    {
+      "name": "RomM",
+      "file": "romm.json",
+      "source": "frontend/public/json/romm.json"
+    },
+    {
+      "name": "Runtipi",
+      "file": "runtipi.json",
+      "source": "frontend/public/json/runtipi.json"
+    },
+    {
+      "name": "RustDesk Server",
+      "file": "rustdeskserver.json",
+      "source": "frontend/public/json/rustdeskserver.json"
+    },
+    {
+      "name": "RustyPaste",
+      "file": "rustypaste.json",
+      "source": "frontend/public/json/rustypaste.json"
+    },
+    {
+      "name": "SABnzbd",
+      "file": "sabnzbd.json",
+      "source": "frontend/public/json/sabnzbd.json"
+    },
+    {
+      "name": "Salt",
+      "file": "salt.json",
+      "source": "frontend/public/json/salt.json"
+    },
+    {
+      "name": "Scanopy",
+      "file": "scanopy.json",
+      "source": "frontend/public/json/scanopy.json"
+    },
+    {
+      "name": "Scraparr",
+      "file": "scraparr.json",
+      "source": "frontend/public/json/scraparr.json"
+    },
+    {
+      "name": "SearXNG",
+      "file": "searxng.json",
+      "source": "frontend/public/json/searxng.json"
+    },
+    {
+      "name": "SeaweedFS",
+      "file": "seaweedfs.json",
+      "source": "frontend/public/json/seaweedfs.json"
+    },
+    {
+      "name": "seelf",
+      "file": "seelf.json",
+      "source": "frontend/public/json/seelf.json"
+    },
+    {
+      "name": "Seerr",
+      "file": "seerr.json",
+      "source": "frontend/public/json/seerr.json"
+    },
+    {
+      "name": "Semaphore",
+      "file": "semaphore.json",
+      "source": "frontend/public/json/semaphore.json"
+    },
+    {
+      "name": "SFTPGo",
+      "file": "sftpgo.json",
+      "source": "frontend/public/json/sftpgo.json"
+    },
+    {
+      "name": "Shelfmark",
+      "file": "shelfmark.json",
+      "source": "frontend/public/json/shelfmark.json"
+    },
+    {
+      "name": "Shinobi NVR",
+      "file": "shinobi.json",
+      "source": "frontend/public/json/shinobi.json"
+    },
+    {
+      "name": "SigNoz",
+      "file": "signoz.json",
+      "source": "frontend/public/json/signoz.json"
+    },
+    {
+      "name": "Silverbullet",
+      "file": "silverbullet.json",
+      "source": "frontend/public/json/silverbullet.json"
+    },
+    {
+      "name": "Slskd",
+      "file": "slskd.json",
+      "source": "frontend/public/json/slskd.json"
+    },
+    {
+      "name": "SmokePing",
+      "file": "smokeping.json",
+      "source": "frontend/public/json/smokeping.json"
+    },
+    {
+      "name": "SnipeIT",
+      "file": "snipeit.json",
+      "source": "frontend/public/json/snipeit.json"
+    },
+    {
+      "name": "SnowShare",
+      "file": "snowshare.json",
+      "source": "frontend/public/json/snowshare.json"
+    },
+    {
+      "name": "sonarqube",
+      "file": "sonarqube.json",
+      "source": "frontend/public/json/sonarqube.json"
+    },
+    {
+      "name": "Sonarr",
+      "file": "sonarr.json",
+      "source": "frontend/public/json/sonarr.json"
+    },
+    {
+      "name": "Sonobarr",
+      "file": "sonobarr.json",
+      "source": "frontend/public/json/sonobarr.json"
+    },
+    {
+      "name": "SparkyFitness",
+      "file": "sparkyfitness.json",
+      "source": "frontend/public/json/sparkyfitness.json"
+    },
+    {
+      "name": "Speedtest-Tracker",
+      "file": "speedtest-tracker.json",
+      "source": "frontend/public/json/speedtest-tracker.json"
+    },
+    {
+      "name": "Splunk Enterprise",
+      "file": "splunk-enterprise.json",
+      "source": "frontend/public/json/splunk-enterprise.json"
+    },
+    {
+      "name": "Spoolman",
+      "file": "spoolman.json",
+      "source": "frontend/public/json/spoolman.json"
+    },
+    {
+      "name": "Sportarr",
+      "file": "sportarr.json",
+      "source": "frontend/public/json/sportarr.json"
+    },
+    {
+      "name": "SQL Server 2022",
+      "file": "sqlserver2022.json",
+      "source": "frontend/public/json/sqlserver2022.json"
+    },
+    {
+      "name": "SQL Server 2025",
+      "file": "sqlserver2025.json",
+      "source": "frontend/public/json/sqlserver2025.json"
+    },
+    {
+      "name": "Stirling-PDF",
+      "file": "stirling-pdf.json",
+      "source": "frontend/public/json/stirling-pdf.json"
+    },
+    {
+      "name": "Streamlink WebUI",
+      "file": "streamlink-webui.json",
+      "source": "frontend/public/json/streamlink-webui.json"
+    },
+    {
+      "name": "Stylus",
+      "file": "stylus.json",
+      "source": "frontend/public/json/stylus.json"
+    },
+    {
+      "name": "Sure",
+      "file": "sure.json",
+      "source": "frontend/public/json/sure.json"
+    },
+    {
+      "name": "Suwayomi-Server",
+      "file": "suwayomi-server.json",
+      "source": "frontend/public/json/suwayomi-server.json"
+    },
+    {
+      "name": "Swizzin",
+      "file": "swizzin.json",
+      "source": "frontend/public/json/swizzin.json"
+    },
+    {
+      "name": "Syncthing",
+      "file": "syncthing.json",
+      "source": "frontend/public/json/syncthing.json"
+    },
+    {
+      "name": "Tailscale",
+      "file": "add-tailscale-lxc.json",
+      "source": "frontend/public/json/add-tailscale-lxc.json"
+    },
+    {
+      "name": "Tandoor Recipes",
+      "file": "tandoor.json",
+      "source": "frontend/public/json/tandoor.json"
+    },
+    {
+      "name": "TasmoAdmin",
+      "file": "tasmoadmin.json",
+      "source": "frontend/public/json/tasmoadmin.json"
+    },
+    {
+      "name": "TasmoCompiler",
+      "file": "tasmocompiler.json",
+      "source": "frontend/public/json/tasmocompiler.json"
+    },
+    {
+      "name": "Tautulli",
+      "file": "tautulli.json",
+      "source": "frontend/public/json/tautulli.json"
+    },
+    {
+      "name": "Tdarr",
+      "file": "tdarr.json",
+      "source": "frontend/public/json/tdarr.json"
+    },
+    {
+      "name": "Teamspeak-Server",
+      "file": "teamspeak-server.json",
+      "source": "frontend/public/json/teamspeak-server.json"
+    },
+    {
+      "name": "Technitium DNS",
+      "file": "technitiumdns.json",
+      "source": "frontend/public/json/technitiumdns.json"
+    },
+    {
+      "name": "TeddyCloud",
+      "file": "teddycloud.json",
+      "source": "frontend/public/json/teddycloud.json"
+    },
+    {
+      "name": "Telegraf",
+      "file": "telegraf.json",
+      "source": "frontend/public/json/telegraf.json"
+    },
+    {
+      "name": "Termix",
+      "file": "termix.json",
+      "source": "frontend/public/json/termix.json"
+    },
+    {
+      "name": "The Lounge",
+      "file": "the-lounge.json",
+      "source": "frontend/public/json/the-lounge.json"
+    },
+    {
+      "name": "ThingsBoard",
+      "file": "thingsboard.json",
+      "source": "frontend/public/json/thingsboard.json"
+    },
+    {
+      "name": "Threadfin",
+      "file": "threadfin.json",
+      "source": "frontend/public/json/threadfin.json"
+    },
+    {
+      "name": "Tianji",
+      "file": "tianji.json",
+      "source": "frontend/public/json/tianji.json"
+    },
+    {
+      "name": "Traccar",
+      "file": "traccar.json",
+      "source": "frontend/public/json/traccar.json"
+    },
+    {
+      "name": "Tracearr",
+      "file": "tracearr.json",
+      "source": "frontend/public/json/tracearr.json"
+    },
+    {
+      "name": "Tracktor",
+      "file": "tracktor.json",
+      "source": "frontend/public/json/tracktor.json"
+    },
+    {
+      "name": "Traefik",
+      "file": "traefik.json",
+      "source": "frontend/public/json/traefik.json"
+    },
+    {
+      "name": "Transmission",
+      "file": "transmission.json",
+      "source": "frontend/public/json/transmission.json"
+    },
+    {
+      "name": "Trilium Notes",
+      "file": "trilium.json",
+      "source": "frontend/public/json/trilium.json"
+    },
+    {
+      "name": "TRIP",
+      "file": "trip.json",
+      "source": "frontend/public/json/trip.json"
+    },
+    {
+      "name": "TrueNAS Community Edition",
+      "file": "truenas-vm.json",
+      "source": "frontend/public/json/truenas-vm.json"
+    },
+    {
+      "name": "Tududi",
+      "file": "tududi.json",
+      "source": "frontend/public/json/tududi.json"
+    },
+    {
+      "name": "Tunarr",
+      "file": "tunarr.json",
+      "source": "frontend/public/json/tunarr.json"
+    },
+    {
+      "name": "TurnKey",
+      "file": "turnkey.json",
+      "source": "frontend/public/json/turnkey.json"
+    },
+    {
+      "name": "twingate-connector",
+      "file": "twingate-connector.json",
+      "source": "frontend/public/json/twingate-connector.json"
+    },
+    {
+      "name": "TypeSense",
+      "file": "typesense.json",
+      "source": "frontend/public/json/typesense.json"
+    },
+    {
+      "name": "Ubuntu",
+      "file": "ubuntu.json",
+      "source": "frontend/public/json/ubuntu.json"
+    },
+    {
+      "name": "Ubuntu 22.04",
+      "file": "ubuntu2204-vm.json",
+      "source": "frontend/public/json/ubuntu2204-vm.json"
+    },
+    {
+      "name": "Ubuntu 24.04",
+      "file": "ubuntu2404-vm.json",
+      "source": "frontend/public/json/ubuntu2404-vm.json"
+    },
+    {
+      "name": "Ubuntu 25.04",
+      "file": "ubuntu2504-vm.json",
+      "source": "frontend/public/json/ubuntu2504-vm.json"
+    },
+    {
+      "name": "UHF Server",
+      "file": "uhf.json",
+      "source": "frontend/public/json/uhf.json"
+    },
+    {
+      "name": "Umami",
+      "file": "umami.json",
+      "source": "frontend/public/json/umami.json"
+    },
+    {
+      "name": "Umbrel OS",
+      "file": "umbrel-os-vm.json",
+      "source": "frontend/public/json/umbrel-os-vm.json"
+    },
+    {
+      "name": "UmlautAdaptarr",
+      "file": "umlautadaptarr.json",
+      "source": "frontend/public/json/umlautadaptarr.json"
+    },
+    {
+      "name": "Unbound",
+      "file": "unbound.json",
+      "source": "frontend/public/json/unbound.json"
+    },
+    {
+      "name": "UniFi Network Server",
+      "file": "unifi.json",
+      "source": "frontend/public/json/unifi.json"
+    },
+    {
+      "name": "Unifi OS Server",
+      "file": "unifi-os-server.json",
+      "source": "frontend/public/json/unifi-os-server.json"
+    },
+    {
+      "name": "Unmanic",
+      "file": "unmanic.json",
+      "source": "frontend/public/json/unmanic.json"
+    },
+    {
+      "name": "Upgopher",
+      "file": "upgopher.json",
+      "source": "frontend/public/json/upgopher.json"
+    },
+    {
+      "name": "UpSnap",
+      "file": "upsnap.json",
+      "source": "frontend/public/json/upsnap.json"
+    },
+    {
+      "name": "Uptime Kuma",
+      "file": "uptimekuma.json",
+      "source": "frontend/public/json/uptimekuma.json"
+    },
+    {
+      "name": "UrBackup Server",
+      "file": "urbackupserver.json",
+      "source": "frontend/public/json/urbackupserver.json"
+    },
+    {
+      "name": "Valkey",
+      "file": "valkey.json",
+      "source": "frontend/public/json/valkey.json"
+    },
+    {
+      "name": "Vaultwarden",
+      "file": "vaultwarden.json",
+      "source": "frontend/public/json/vaultwarden.json"
+    },
+    {
+      "name": "Verdaccio",
+      "file": "verdaccio.json",
+      "source": "frontend/public/json/verdaccio.json"
+    },
+    {
+      "name": "VictoriaMetrics",
+      "file": "victoriametrics.json",
+      "source": "frontend/public/json/victoriametrics.json"
+    },
+    {
+      "name": "Vikunja",
+      "file": "vikunja.json",
+      "source": "frontend/public/json/vikunja.json"
+    },
+    {
+      "name": "Wallabag",
+      "file": "wallabag.json",
+      "source": "frontend/public/json/wallabag.json"
+    },
+    {
+      "name": "Wallos",
+      "file": "wallos.json",
+      "source": "frontend/public/json/wallos.json"
+    },
+    {
+      "name": "Wanderer",
+      "file": "wanderer.json",
+      "source": "frontend/public/json/wanderer.json"
+    },
+    {
+      "name": "Warracker",
+      "file": "warracker.json",
+      "source": "frontend/public/json/warracker.json"
+    },
+    {
+      "name": "Wastebin",
+      "file": "wastebin.json",
+      "source": "frontend/public/json/wastebin.json"
+    },
+    {
+      "name": "Watcharr",
+      "file": "watcharr.json",
+      "source": "frontend/public/json/watcharr.json"
+    },
+    {
+      "name": "WatchYourLAN",
+      "file": "watchyourlan.json",
+      "source": "frontend/public/json/watchyourlan.json"
+    },
+    {
+      "name": "Wavelog",
+      "file": "wavelog.json",
+      "source": "frontend/public/json/wavelog.json"
+    },
+    {
+      "name": "Wazuh",
+      "file": "wazuh.json",
+      "source": "frontend/public/json/wazuh.json"
+    },
+    {
+      "name": "Wealthfolio",
+      "file": "wealthfolio.json",
+      "source": "frontend/public/json/wealthfolio.json"
+    },
+    {
+      "name": "Web-Check",
+      "file": "web-check.json",
+      "source": "frontend/public/json/web-check.json"
+    },
+    {
+      "name": "Webmin System Administration",
+      "file": "webmin.json",
+      "source": "frontend/public/json/webmin.json"
+    },
+    {
+      "name": "wger",
+      "file": "wger.json",
+      "source": "frontend/public/json/wger.json"
+    },
+    {
+      "name": "Whisparr",
+      "file": "whisparr.json",
+      "source": "frontend/public/json/whisparr.json"
+    },
+    {
+      "name": "Wiki.js",
+      "file": "wikijs.json",
+      "source": "frontend/public/json/wikijs.json"
+    },
+    {
+      "name": "WireGuard",
+      "file": "wireguard.json",
+      "source": "frontend/public/json/wireguard.json"
+    },
+    {
+      "name": "Wishlist",
+      "file": "wishlist.json",
+      "source": "frontend/public/json/wishlist.json"
+    },
+    {
+      "name": "Wizarr",
+      "file": "wizarr.json",
+      "source": "frontend/public/json/wizarr.json"
+    },
+    {
+      "name": "Wordpress",
+      "file": "wordpress.json",
+      "source": "frontend/public/json/wordpress.json"
+    },
+    {
+      "name": "WriteFreely",
+      "file": "writefreely.json",
+      "source": "frontend/public/json/writefreely.json"
+    },
+    {
+      "name": "yt-dlp-webui",
+      "file": "yt-dlp-webui.json",
+      "source": "frontend/public/json/yt-dlp-webui.json"
+    },
+    {
+      "name": "Yubal",
+      "file": "yubal.json",
+      "source": "frontend/public/json/yubal.json"
+    },
+    {
+      "name": "YunoHost",
+      "file": "yunohost.json",
+      "source": "frontend/public/json/yunohost.json"
+    },
+    {
+      "name": "Z-Wave JS UI",
+      "file": "zwave-js-ui.json",
+      "source": "frontend/public/json/zwave-js-ui.json"
+    },
+    {
+      "name": "Zabbix",
+      "file": "zabbix.json",
+      "source": "frontend/public/json/zabbix.json"
+    },
+    {
+      "name": "Zammad",
+      "file": "zammad.json",
+      "source": "frontend/public/json/zammad.json"
+    },
+    {
+      "name": "Zerobyte",
+      "file": "zerobyte.json",
+      "source": "frontend/public/json/zerobyte.json"
+    },
+    {
+      "name": "Zerotier-One",
+      "file": "zerotier-one.json",
+      "source": "frontend/public/json/zerotier-one.json"
+    },
+    {
+      "name": "Zigbee2MQTT",
+      "file": "zigbee2mqtt.json",
+      "source": "frontend/public/json/zigbee2mqtt.json"
+    },
+    {
+      "name": "Zipline",
+      "file": "zipline.json",
+      "source": "frontend/public/json/zipline.json"
+    },
+    {
+      "name": "Zitadel",
+      "file": "zitadel.json",
+      "source": "frontend/public/json/zitadel.json"
+    },
+    {
+      "name": "Zoraxy",
+      "file": "zoraxy.json",
+      "source": "frontend/public/json/zoraxy.json"
+    },
+    {
+      "name": "Zot Registry",
+      "file": "zot.json",
+      "source": "frontend/public/json/zot-registry.json"
+    }
+  ]
+}

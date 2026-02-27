@@ -1,6 +1,5 @@
 <div align="center">
-  <img src="resources/favicon.svg" height="50px" alt="PVE NoteBuddy Logo" />
-  
+  <img src="resources/favicon.svg" height="80px" alt="PVE NoteBuddy Logo" />
   <h1>PVE NoteBuddy</h1>
   <p><em>Generate pretty Proxmox Guest Notes with a simple web based UI</em></p>
 

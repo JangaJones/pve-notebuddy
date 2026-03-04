@@ -127,3 +127,7 @@ Currently API & Automation (e.g. automatic publishing to Proxmox or fetching the
 
 _The recent problems that erupted in the community with vibe-coded apps, specifically regarding security issues are concerning. The app is fully client-sided, there is no backend, no usage telemetry tracking + it's hosted on GitHub Pages. I am definitely categorizing NoteBuddy as safe to visit & use. Still - I want to disclose, that I had assistance from an AI Agent to create & troubleshoot parts of the scripts inside this repository. I used it to write the parser for the the final HTML Output, the SVG embed feature, the scaling feature, the handling of JSON files for import/export as well as the script for template creation. The .html, .css, as well as a portion of the app.js still includes a lot of handwritten code that took many hours and a lot of coffee. The code has been thouroughly reviewed and tested by myself. Be aware, since I am a hobbyist-coder my skills and knowledge are limited, but my decade long non-pro experience with HTML and JS is still not neglegible._
 
+## Thanks
+
+Special thanks to @kenrmayfield for thoughtful feedback, feature ideas, and for helping spread the word about the project.
+NoteBuddy is heading in the right direction with all feedback I am currently receiving.

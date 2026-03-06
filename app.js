@@ -4,6 +4,8 @@ const MAX_IMPORT_FILE_BYTES = 1024 * 1024;
 const MAX_UPLOAD_SVG_BYTES = 1024 * 1024;
 const MAX_UPLOAD_RASTER_BYTES = 6 * 1024;
 const MAX_FETCHED_SVG_BYTES = 1024 * 1024;
+const GITHUB_STARS_CACHE_TTL_MS = 30 * 60 * 1000;
+const GITHUB_RELEASE_CACHE_TTL_MS = 30 * 60 * 1000;
 
 const form = document.getElementById("noteForm");
 const outputEl = document.getElementById("output");
@@ -308,6 +310,59 @@ function fetchWithPrivacy(url, options = {}) {
     referrerPolicy: "no-referrer",
     ...options,
   });
+}
+
+function readCacheEntry(key) {
+  try {
+    const raw = localStorage.getItem(key);
+    if (!raw) {
+      return null;
+    }
+    const parsed = JSON.parse(raw);
+    if (!parsed || typeof parsed !== "object" || typeof parsed.fetchedAt !== "number" || !("data" in parsed)) {
+      return null;
+    }
+    return parsed;
+  } catch {
+    return null;
+  }
+}
+
+function writeCacheEntry(key, data) {
+  try {
+    localStorage.setItem(
+      key,
+      JSON.stringify({
+        fetchedAt: Date.now(),
+        data,
+      })
+    );
+  } catch {
+    // Ignore storage errors (private mode/quota).
+  }
+}
+
+async function fetchJsonWithCache({ url, cacheKey, ttlMs }) {
+  const now = Date.now();
+  const cached = readCacheEntry(cacheKey);
+  if (cached && now - cached.fetchedAt <= ttlMs) {
+    return cached.data;
+  }
+
+  try {
+    const res = await fetchWithPrivacy(url);
+    if (!res.ok) {
+      throw new Error(`HTTP ${res.status}`);
+    }
+    const data = await res.json();
+    writeCacheEntry(cacheKey, data);
+    return data;
+  } catch {
+    if (cached) {
+      return cached.data;
+    }
+    throw new Error("Cache miss and fetch failed.");
+  }
 }
 
 function parseAbsoluteHttpUrl(value) {
@@ -2698,12 +2753,11 @@ async function loadGithubStarCount() {
   githubStarCountEl.textContent = "--";
 
   try {
-    const res = await fetchWithPrivacy("https://api.github.com/repos/JangaJones/pve-notebuddy");
-    if (!res.ok) {
-      return;
-    }
-
-    const data = await res.json();
+    const data = await fetchJsonWithCache({
+      url: "https://api.github.com/repos/JangaJones/pve-notebuddy",
+      cacheKey: "pve-notebuddy:github:repo",
+      ttlMs: GITHUB_STARS_CACHE_TTL_MS,
+    });
     const stars = Number.parseInt(String(data?.stargazers_count ?? ""), 10);
     if (!Number.isFinite(stars)) {
       return;
@@ -2722,12 +2776,11 @@ async function loadReleaseVersionStatus() {
   setVersionStatus("Checking latest release...", "pending");
 
   try {
-    const res = await fetchWithPrivacy("https://api.github.com/repos/JangaJones/pve-notebuddy/releases/latest");
-    if (!res.ok) {
-      throw new Error(`HTTP ${res.status}`);
-    }
-
-    const data = await res.json();
+    const data = await fetchJsonWithCache({
+      url: "https://api.github.com/repos/JangaJones/pve-notebuddy/releases/latest",
+      cacheKey: "pve-notebuddy:github:latest-release",
+      ttlMs: GITHUB_RELEASE_CACHE_TTL_MS,
+    });
     const latestTag = normalizeVersion(data?.tag_name);
     const releaseUrl = typeof data?.html_url === "string" && data.html_url ? data.html_url : "";
 

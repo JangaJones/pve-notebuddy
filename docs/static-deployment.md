@@ -1,3 +1,7 @@
+## Static Deployment
+
+PVE NoteBuddy is Static & Client-Side. For Static Use, run the `main` Branch to Deploy the Contents to run on a Static WEB Server.
+
 ### $\color{Blue}\large{\textsf{Deploy to a Static WEB Server}}$
 
 Clone the Repository and Serve the Project Directory with your preferred Static Hosting Solution.

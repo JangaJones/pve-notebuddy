@@ -317,6 +317,25 @@
       </div>
     </footer>
 
+    <aside id="emojiRail" class="emoji-rail" aria-label="Emoji copy bar">
+      <button id="emojiRailToggle" type="button" class="emoji-rail-toggle" aria-expanded="true" aria-controls="emojiRailPanel">
+        <span class="emoji-rail-toggle-close" aria-hidden="true">✕</span>
+        <img
+          class="emoji-rail-toggle-open-icon hidden"
+          src="./resources/icons/add_reaction_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"
+          alt=""
+          aria-hidden="true"
+        />
+      </button>
+      <div id="emojiRailPanel" class="emoji-rail-panel">
+        <div class="emoji-rail-head">
+          <strong>Emoji Sidebar</strong>
+          <span id="emojiRailStatus" class="emoji-rail-status" aria-live="polite"></span>
+        </div>
+        <div id="emojiRailList" class="emoji-rail-list"></div>
+      </div>
+    </aside>
+
     <script src="./resources/vendor/purify.min.js" defer></script>
     <script src="./app.js" defer></script>
   </body>

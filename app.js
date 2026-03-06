@@ -29,6 +29,12 @@ const templateSearchInputEl = document.getElementById("templateSearch");
 const templateSearchWrapEl = document.getElementById("templateSearchWrap");
 const templateSearchClearEl = document.getElementById("templateSearchClear");
 const templateSuggestEl = document.getElementById("templateSuggest");
+const emojiRailEl = document.getElementById("emojiRail");
+const emojiRailToggleEl = document.getElementById("emojiRailToggle");
+const emojiRailToggleCloseEl = emojiRailToggleEl?.querySelector(".emoji-rail-toggle-close") || null;
+const emojiRailToggleOpenIconEl = emojiRailToggleEl?.querySelector(".emoji-rail-toggle-open-icon") || null;
+const emojiRailListEl = document.getElementById("emojiRailList");
+const emojiRailStatusEl = document.getElementById("emojiRailStatus");
 const supportMenuBtn = document.getElementById("supportMenuBtn");
 const supportMenuList = document.getElementById("supportMenuList");
 
@@ -82,6 +88,21 @@ const customRowDefaults = { prefix: "custom", defaultAlign: "left", defaultTag: 
 const STATIC_ROW_KEYS = ["icon", "title", "fqdn", "network", "config"];
 const CUSTOM_ROW_KEY_RE = /^custom[1-9][0-9]*$/;
 const APP_VERSION = document.querySelector('meta[name="app-version"]')?.getAttribute("content")?.trim() || "dev";
+const EMOJI_RAIL_STORAGE_KEY = "pve-notebuddy:emoji-rail-collapsed";
+const PROXMOX_NOTE_EMOJIS = [
+  // Infrastructure / location
+  "🏠", "🌍", "🌎", "🌏", "🔗", "🌐", "🛰️", "✈️", "🚀",
+  // Devices / hardware
+  "📱", "💻", "🖥️", "⌨️", "🖨️", "🖱️", "🕹️", "💽", "💾", "🧲",
+  // Services / media
+  "🎧", "🎵", "🎹", "🎮", "📷", "📸", "🌄", "🎬", "📽️", "📺", "🎞️",
+  // Files / organization
+  "✉️", "🏷️", "📊", "🗃️", "📁", "📂", "🗂️", "📋", "📎", "🖇️", "📌", "📍",
+  // Security / diagnostics
+  "🔐", "🔓", "🔍", "🔎", "🛠️", "⚡️", "💥", "🚨", "🛑", "🧩", "🚧",
+  // Status / indicators
+  "✅", "☑️", "❎", "⭕️", "❌", "🚫", "❗️", "❇️", "✳️", "💠", "🔘", "🔹", "🔸", "➡️", "⭐️", "🌟", "💎",
+];
 
 // ===== Generic DOM / Value Helpers =====
 function getEl(id) {
@@ -1628,13 +1649,20 @@ function isLegacySettingsV1(value) {
   return raw === "1" || raw === "v1";
 }
 
-function isCurrentSettingsVersion(value) {
-  const raw = String(value || "").trim().toLowerCase();
-  const current = String(APP_VERSION || "").trim().toLowerCase();
-  if (!current) {
-    return false;
+function getSettingsSchemaMode(settings) {
+  if (!isPlainObject(settings)) {
+    return "modern";
   }
-  return raw === current || raw === `v${current}`;
+  if (isLegacySettingsV1(settings.version)) {
+    return "legacy";
+  }
+  if (settings.version === undefined && isPlainObject(settings.fields)) {
+    const legacyFieldKeys = ["fqdnLabel", "fqdnUrl", "networkText", "customText"];
+    if (legacyFieldKeys.some((key) => key in settings.fields)) {
+      return "legacy";
+    }
+  }
+  return "modern";
 }
 
 function validateSettingsSchema(settings, source = "settings") {
@@ -1649,9 +1677,10 @@ function validateSettingsSchema(settings, source = "settings") {
     }
   }
 
-  if (settings.version !== undefined && !isLegacySettingsV1(settings.version) && !isCurrentSettingsVersion(settings.version)) {
-    throw new Error(`${source} version must be v1 or ${APP_VERSION}.`);
+  if (settings.version !== undefined && typeof settings.version !== "string" && typeof settings.version !== "number") {
+    throw new Error(`${source} version must be a string or number.`);
   }
+  const schemaMode = getSettingsSchemaMode(settings);
 
   if (settings.rowOrder !== undefined) {
     if (Array.isArray(settings.rowOrder)) {
@@ -1710,17 +1739,10 @@ function validateSettingsSchema(settings, source = "settings") {
     if (!isPlainObject(settings.fields)) {
       throw new Error(`${source} fields must be an object.`);
     }
-    const fieldAllowed = new Set([
-      "titleText",
-      "fqdnLabel",
-      "fqdnUrl",
-      "networkText",
-      "hostEntries",
-      "networkEntries",
-      "configLocations",
-      "customRows",
-      "customText",
-    ]);
+    const fieldAllowed =
+      schemaMode === "legacy"
+        ? new Set(["titleText", "fqdnLabel", "fqdnUrl", "networkText", "configLocations", "customText"])
+        : new Set(["titleText", "hostEntries", "networkEntries", "configLocations", "customRows"]);
     for (const key of Object.keys(settings.fields)) {
       if (!fieldAllowed.has(key)) {
         throw new Error(`${source} fields contains unsupported key "${key}".`);
@@ -1728,11 +1750,13 @@ function validateSettingsSchema(settings, source = "settings") {
     }
 
     if (settings.fields.titleText !== undefined) assertMaxTextBytes(settings.fields.titleText, 2048, `${source} fields.titleText`);
-    if (settings.fields.fqdnLabel !== undefined) assertMaxTextBytes(settings.fields.fqdnLabel, 2048, `${source} fields.fqdnLabel`);
-    if (settings.fields.fqdnUrl !== undefined) assertMaxTextBytes(settings.fields.fqdnUrl, 4096, `${source} fields.fqdnUrl`);
-    if (settings.fields.networkText !== undefined) assertMaxTextBytes(settings.fields.networkText, 4096, `${source} fields.networkText`);
-    if (settings.fields.customText !== undefined) assertMaxTextBytes(settings.fields.customText, MAX_IMPORT_FILE_BYTES, `${source} fields.customText`);
-    if (settings.fields.customRows !== undefined) {
+    if (schemaMode === "legacy") {
+      if (settings.fields.fqdnLabel !== undefined) assertMaxTextBytes(settings.fields.fqdnLabel, 2048, `${source} fields.fqdnLabel`);
+      if (settings.fields.fqdnUrl !== undefined) assertMaxTextBytes(settings.fields.fqdnUrl, 4096, `${source} fields.fqdnUrl`);
+      if (settings.fields.networkText !== undefined) assertMaxTextBytes(settings.fields.networkText, 4096, `${source} fields.networkText`);
+      if (settings.fields.customText !== undefined) assertMaxTextBytes(settings.fields.customText, MAX_IMPORT_FILE_BYTES, `${source} fields.customText`);
+    }
+    if (schemaMode !== "legacy" && settings.fields.customRows !== undefined) {
       if (!Array.isArray(settings.fields.customRows)) {
         throw new Error(`${source} fields.customRows must be an array.`);
       }
@@ -1759,7 +1783,7 @@ function validateSettingsSchema(settings, source = "settings") {
       }
     }
 
-    if (settings.fields.hostEntries !== undefined) {
+    if (schemaMode !== "legacy" && settings.fields.hostEntries !== undefined) {
       if (!Array.isArray(settings.fields.hostEntries)) {
         throw new Error(`${source} fields.hostEntries must be an array.`);
       }
@@ -1782,7 +1806,7 @@ function validateSettingsSchema(settings, source = "settings") {
       }
     }
 
-    if (settings.fields.networkEntries !== undefined) {
+    if (schemaMode !== "legacy" && settings.fields.networkEntries !== undefined) {
       if (!Array.isArray(settings.fields.networkEntries)) {
         throw new Error(`${source} fields.networkEntries must be an array.`);
       }
@@ -2319,6 +2343,86 @@ function toggleSupportMenu() {
   supportMenuList.classList.toggle("hidden", !nextExpanded);
 }
 
+function setEmojiRailCollapsed(collapsed) {
+  if (!emojiRailEl || !emojiRailToggleEl) {
+    return;
+  }
+  emojiRailEl.classList.toggle("collapsed", collapsed);
+  emojiRailToggleEl.setAttribute("aria-expanded", collapsed ? "false" : "true");
+  if (emojiRailToggleCloseEl) {
+    emojiRailToggleCloseEl.classList.toggle("hidden", collapsed);
+  }
+  if (emojiRailToggleOpenIconEl) {
+    emojiRailToggleOpenIconEl.classList.toggle("hidden", !collapsed);
+  }
+  try {
+    localStorage.setItem(EMOJI_RAIL_STORAGE_KEY, collapsed ? "1" : "0");
+  } catch {
+    // Ignore storage errors.
+  }
+}
+
+function loadEmojiRailCollapsed() {
+  try {
+    return localStorage.getItem(EMOJI_RAIL_STORAGE_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+
+function setEmojiRailStatus(text) {
+  if (!emojiRailStatusEl) {
+    return;
+  }
+  emojiRailStatusEl.textContent = text;
+  if (!text) {
+    return;
+  }
+  window.setTimeout(() => {
+    if (emojiRailStatusEl.textContent === text) {
+      emojiRailStatusEl.textContent = "";
+    }
+  }, 1200);
+}
+
+function initEmojiRail() {
+  if (!emojiRailEl || !emojiRailToggleEl || !emojiRailListEl) {
+    return;
+  }
+
+  emojiRailListEl.innerHTML = PROXMOX_NOTE_EMOJIS.map(
+    (emoji) => `<button type="button" class="emoji-chip" data-emoji="${escapeHtml(emoji)}" title="Copy ${escapeHtml(emoji)}">${escapeHtml(emoji)}</button>`
+  ).join("");
+
+  setEmojiRailCollapsed(loadEmojiRailCollapsed());
+
+  emojiRailToggleEl.addEventListener("click", () => {
+    const isCollapsed = emojiRailEl.classList.contains("collapsed");
+    setEmojiRailCollapsed(!isCollapsed);
+  });
+
+  emojiRailListEl.addEventListener("click", async (event) => {
+    const target = event.target;
+    if (!(target instanceof HTMLElement)) {
+      return;
+    }
+    const button = target.closest(".emoji-chip");
+    if (!(button instanceof HTMLButtonElement)) {
+      return;
+    }
+    const emoji = button.getAttribute("data-emoji") || button.textContent || "";
+    if (!emoji) {
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(emoji);
+      setEmojiRailStatus("Copied");
+    } catch {
+      setEmojiRailStatus("Clipboard blocked");
+    }
+  });
+}
+
 function iconCanUseScale() {
   const mode = getIconMode();
   if (mode === "upload") {
@@ -2820,6 +2924,7 @@ function bootstrap() {
   configLocationsEl.append(createConfigLocationInput("/etc/app/config.yml"));
   addCustomRow();
   initializeRowVisibility();
+  initEmojiRail();
 
   addHostBtn.addEventListener("click", () => {
     hostEntriesEl.append(createHostEntryInput("", "", "🔗"));

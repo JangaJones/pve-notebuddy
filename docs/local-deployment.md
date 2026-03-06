@@ -19,7 +19,7 @@ Do **Not** Open the `index.html` File directly via `file:///(Drive:)`. NoteBuddy
 
 NoteBuddy loads Template JSON Files Dynamically, and Modern Browsers Block those Local `fetch()` requests when JavaScript sends a request for a File that is not inline with the `index.html` File. This results in Blocking the Template from Loading caused by Browser CORs(Cross Origin Request) Security Restrictions. Use a Local or Self-Hosted Static WEB Server instead.
 
-### $\color{Blue}\large{\textsf{Option 1: Run on a Local WEB Server}}$
+### $\color{Blue}\large{\textsf{Run on a Local WEB Server}}$
 
 <!-- Start of Alpine NODEJS Simple HTTP WEB Server Install -->
 <details>

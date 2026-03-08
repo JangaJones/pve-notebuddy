@@ -188,8 +188,8 @@ There will be Prompts to Enter Information; you can fill out the Information or 
 <!-- ############################################ Start of CADDY HTTP Configuration File ########################################### -->
 
 <details>
-<summary><b>CADDY HTTP</b></summary>
-<br>
+<summary><b>CADDY HTTP</b></summary><br>                                                                                             
+
 1. Copy and Save Caddy Configuration File as notebuddyconfig: `/etc/caddy/notebuddyconfig`
     
 ```

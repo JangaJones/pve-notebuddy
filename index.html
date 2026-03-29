@@ -7,22 +7,128 @@
       http-equiv="Content-Security-Policy"
       content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob: https: http:; connect-src 'self' https: http:; form-action 'self';"
     />
-    <meta name="app-version" content="1.4.1" />
+    <meta name="app-version" content="1.5.0" />
     <title>PVE NoteBuddy</title>
     <link rel="icon" type="image/svg+xml" href="./resources/favicon.svg" />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <div class="app-shell">
-      <header class="topbar">
-        <div class="topbar-brand">
-          <img src="./resources/favicon.svg" alt="PVE NoteBuddy logo" class="topbar-logo" />
-          <span class="topbar-title">PVE NoteBuddy</span>
+    <header class="topbar topbar-global">
+      <div class="topbar-brand">
+        <img src="./resources/favicon.svg" alt="PVE NoteBuddy logo" class="topbar-logo" />
+        <span class="topbar-title">PVE NoteBuddy</span>
+      </div>
+      <div class="topbar-tools">
+        <div class="topbar-actions">
+          <button id="clearBtn" type="button" class="panel-action">CLEAR</button>
+          <div id="templateSearchWrap" class="template-search">
+            <input
+              id="templateSearch"
+              class="template-search-input"
+              type="text"
+              placeholder="Search for services..."
+              autocomplete="off"
+              spellcheck="false"
+            />
+            <button id="templateSearchClear" class="template-search-clear" type="button" aria-label="Clear search">✕</button>
+            <div id="templateSuggest" class="template-suggest hidden" role="listbox" aria-label="Template suggestions"></div>
+          </div>
+          <button id="importBtn" type="button" class="panel-action">IMPORT</button>
+          <button id="exportBtn" type="button" class="panel-action">EXPORT</button>
+          <input id="importFile" type="file" accept="application/json,.json" class="hidden" />
         </div>
-        <div class="topbar-tools">
-          <div class="topbar-actions">
-            <div class="preset-group">
-              <span class="preset-title">templates</span>
+        <div class="topbar-widgets">
+          <a
+            class="support-widget github-widget"
+            href="https://github.com/JangaJones/pve-notebuddy"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Star on GitHub"
+          >
+            <span class="widget-icon" aria-hidden="true">★</span>
+            <span class="widget-label">Star on GitHub</span>
+            <span id="githubStarCount" class="widget-count" aria-label="GitHub star count">--</span>
+          </a>
+          <div class="support-menu">
+            <button
+              id="supportMenuBtn"
+              type="button"
+              class="support-widget coffee-widget support-menu-btn"
+              aria-haspopup="menu"
+              aria-expanded="false"
+              aria-label="Support options"
+            >
+              <span class="widget-icon" aria-hidden="true">☕</span>
+              <span class="widget-label">Buy me a coffee</span>
+            </button>
+            <div id="supportMenuList" class="support-menu-list hidden" role="menu" aria-label="Support links">
+              <a href="https://buymeacoffee.com/jangajones" target="_blank" rel="noopener noreferrer" role="menuitem">buymeacoffee.com</a>
+              <a href="https://ko-fi.com/jangajones" target="_blank" rel="noopener noreferrer" role="menuitem">ko-fi.com</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="workspace-shell">
+      <aside class="workspace-sidebar" aria-label="workspace sidebar">
+        <div class="sidebar-icon-rail" role="tablist" aria-label="Sidebar views">
+          <button
+            id="sidebarTabTemplates"
+            type="button"
+            class="sidebar-tab active"
+            role="tab"
+            aria-selected="true"
+            aria-controls="sidebarPanelTemplates"
+            title="Templates"
+          >
+            <img
+              class="sidebar-tab-icon"
+              src="./resources/icons/favorite_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"
+              alt=""
+              aria-hidden="true"
+            />
+          </button>
+          <button
+            id="sidebarTabEmoji"
+            type="button"
+            class="sidebar-tab"
+            role="tab"
+            aria-selected="false"
+            aria-controls="sidebarPanelEmoji"
+            title="Emoji"
+          >
+            <img
+              class="sidebar-tab-icon"
+              src="./resources/icons/add_reaction_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"
+              alt=""
+              aria-hidden="true"
+            />
+          </button>
+          <button
+            id="sidebarTabSettings"
+            type="button"
+            class="sidebar-tab"
+            role="tab"
+            aria-selected="false"
+            aria-controls="sidebarPanelSettings"
+            title="Settings"
+          >
+            <img
+              class="sidebar-tab-icon"
+              src="./resources/icons/settings_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"
+              alt=""
+              aria-hidden="true"
+            />
+          </button>
+        </div>
+        <div class="sidebar-content">
+          <section id="sidebarPanelTemplates" class="sidebar-panel active" role="tabpanel" aria-label="Templates">
+            <div class="sidebar-panel-head">
+              <strong>Templates</strong>
+            </div>
+            <div class="preset-group sidebar-preset-group">
+              <span class="preset-title">presets</span>
               <div class="preset-buttons">
                 <button type="button" class="panel-action preset-btn" data-preset="1">1</button>
                 <button type="button" class="panel-action preset-btn" data-preset="2">2</button>
@@ -31,57 +137,83 @@
                 <button type="button" class="panel-action preset-btn" data-preset="5">5</button>
               </div>
             </div>
-            <button id="clearBtn" type="button" class="panel-action">CLEAR</button>
-            <div id="templateSearchWrap" class="template-search">
-              <input
-                id="templateSearch"
-                class="template-search-input"
-                type="text"
-                placeholder="Search for services..."
-                autocomplete="off"
-                spellcheck="false"
-              />
-              <button id="templateSearchClear" class="template-search-clear" type="button" aria-label="Clear search">✕</button>
-              <div id="templateSuggest" class="template-suggest hidden" role="listbox" aria-label="Template suggestions"></div>
+
+            <div class="local-templates">
+              <div class="local-templates-head">Local templates</div>
+              <div class="local-template-create">
+                <input
+                  id="localTemplateName"
+                  type="text"
+                  class="local-template-name"
+                  placeholder="Template name"
+                  autocomplete="off"
+                  spellcheck="false"
+                />
+                <button id="saveLocalTemplateBtn" type="button" class="panel-action">SAVE CURRENT</button>
+              </div>
+              <div id="localTemplateList" class="local-template-list" aria-live="polite"></div>
             </div>
-            <button id="importBtn" type="button" class="panel-action">IMPORT</button>
-            <button id="exportBtn" type="button" class="panel-action">EXPORT</button>
-            <input id="importFile" type="file" accept="application/json,.json" class="hidden" />
-          </div>
-          <div class="topbar-widgets">
-            <a
-              class="support-widget github-widget"
-              href="https://github.com/JangaJones/pve-notebuddy"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Star on GitHub"
-            >
-              <span class="widget-icon" aria-hidden="true">★</span>
-              <span class="widget-label">Star on GitHub</span>
-              <span id="githubStarCount" class="widget-count" aria-label="GitHub star count">--</span>
-            </a>
-            <div class="support-menu">
-              <button
-                id="supportMenuBtn"
-                type="button"
-                class="support-widget coffee-widget support-menu-btn"
-                aria-haspopup="menu"
-                aria-expanded="false"
-                aria-label="Support options"
-              >
-                <span class="widget-icon" aria-hidden="true">☕</span>
-                <span class="widget-label">Buy me a coffee</span>
+          </section>
+
+          <section id="sidebarPanelEmoji" class="sidebar-panel sidebar-panel-emoji" role="tabpanel" aria-label="Emoji">
+            <div id="emojiRail" class="emoji-rail" aria-label="Emoji copy bar">
+              <button id="emojiRailToggle" type="button" class="emoji-rail-toggle hidden" aria-expanded="true" aria-controls="emojiRailPanel">
+                <span class="emoji-rail-toggle-close" aria-hidden="true">✕</span>
+                <img
+                  class="emoji-rail-toggle-open-icon hidden"
+                  src="./resources/icons/add_reaction_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"
+                  alt=""
+                  aria-hidden="true"
+                />
               </button>
-              <div id="supportMenuList" class="support-menu-list hidden" role="menu" aria-label="Support links">
-                <a href="https://buymeacoffee.com/jangajones" target="_blank" rel="noopener noreferrer" role="menuitem">buymeacoffee.com</a>
-                <a href="https://ko-fi.com/jangajones" target="_blank" rel="noopener noreferrer" role="menuitem">ko-fi.com</a>
+              <div id="emojiRailPanel" class="emoji-rail-panel">
+                <div class="emoji-rail-head">
+                  <strong>Emoji Selector</strong>
+                  <span id="emojiRailStatus" class="emoji-rail-status" aria-live="polite"></span>
+                </div>
+                <div id="emojiRailList" class="emoji-rail-list"></div>
               </div>
             </div>
+          </section>
+
+          <section id="sidebarPanelSettings" class="sidebar-panel" role="tabpanel" aria-label="Settings" hidden>
+            <div class="sidebar-panel-head">
+              <strong>Settings</strong>
+            </div>
+            <p class="sidebar-coming-soon">coming soon</p>
+          </section>
+        </div>
+
+        <div class="sidebar-footer" aria-label="Application footer, version check and help">
+          <div class="footer-copyright">
+            <a href="./docs/README.md" target="_blank" rel="noopener noreferrer">Docs</a>
+            <span aria-hidden="true">·</span>
+            <a href="https://github.com/JangaJones/pve-notebuddy" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <span aria-hidden="true">·</span>
+            <span>© 2026 PVE NoteBuddy</span>
+          </div>
+          <div class="footer-left">
+            <div class="footer-version" aria-label="Current app version">
+              <span class="footer-version-label">Version</span>
+              <span id="appVersionValue" class="footer-version-value"></span>
+            </div>
+            <a
+              id="appVersionStatus"
+              class="footer-status footer-status-pending"
+              href="https://github.com/JangaJones/pve-notebuddy/releases/latest"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-live="polite"
+            >
+              Checking latest release...
+            </a>
           </div>
         </div>
-      </header>
+      </aside>
 
-      <main class="layout">
+      <div class="workspace-main">
+        <div class="app-shell">
+          <main class="layout">
         <section class="panel panel-form">
         <p class="subtitle">Generate Proxmox Notes using HTML blocks with per-row layout and formatting controls.</p>
 
@@ -290,51 +422,10 @@
           </div>
         </div>
         </section>
-      </main>
-
+          </main>
+        </div>
+      </div>
     </div>
-
-    <footer class="app-footer" aria-label="Application footer, version check and help">
-      <div class="app-footer-inner">
-        <div class="footer-left">
-          <div class="footer-version" aria-label="Current app version">
-            <span class="footer-version-label">Version</span>
-            <span id="appVersionValue" class="footer-version-value">1.3</span>
-          </div>
-          <a
-            id="appVersionStatus"
-            class="footer-status footer-status-pending"
-            href="https://github.com/JangaJones/pve-notebuddy/releases/latest"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-live="polite"
-          >
-            Checking latest release...
-          </a>
-        </div>
-        <div class="footer-copyright">© 2026 PVE NoteBuddy</div>
-        <div class="footer-spacer" aria-hidden="true"></div>
-      </div>
-    </footer>
-
-    <aside id="emojiRail" class="emoji-rail" aria-label="Emoji copy bar">
-      <button id="emojiRailToggle" type="button" class="emoji-rail-toggle" aria-expanded="true" aria-controls="emojiRailPanel">
-        <span class="emoji-rail-toggle-close" aria-hidden="true">✕</span>
-        <img
-          class="emoji-rail-toggle-open-icon hidden"
-          src="./resources/icons/add_reaction_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"
-          alt=""
-          aria-hidden="true"
-        />
-      </button>
-      <div id="emojiRailPanel" class="emoji-rail-panel">
-        <div class="emoji-rail-head">
-          <strong>Emoji Sidebar</strong>
-          <span id="emojiRailStatus" class="emoji-rail-status" aria-live="polite"></span>
-        </div>
-        <div id="emojiRailList" class="emoji-rail-list"></div>
-      </div>
-    </aside>
 
     <script src="./resources/vendor/purify.min.js" defer></script>
     <script src="./app.js" defer></script>

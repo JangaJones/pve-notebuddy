@@ -37,6 +37,15 @@ const emojiRailListEl = document.getElementById("emojiRailList");
 const emojiRailStatusEl = document.getElementById("emojiRailStatus");
 const supportMenuBtn = document.getElementById("supportMenuBtn");
 const supportMenuList = document.getElementById("supportMenuList");
+const localTemplateNameEl = document.getElementById("localTemplateName");
+const saveLocalTemplateBtn = document.getElementById("saveLocalTemplateBtn");
+const localTemplateListEl = document.getElementById("localTemplateList");
+const sidebarTabTemplatesEl = document.getElementById("sidebarTabTemplates");
+const sidebarTabEmojiEl = document.getElementById("sidebarTabEmoji");
+const sidebarTabSettingsEl = document.getElementById("sidebarTabSettings");
+const sidebarPanelTemplatesEl = document.getElementById("sidebarPanelTemplates");
+const sidebarPanelEmojiEl = document.getElementById("sidebarPanelEmoji");
+const sidebarPanelSettingsEl = document.getElementById("sidebarPanelSettings");
 
 const iconModeRadios = form.querySelectorAll('input[name="iconMode"]');
 const iconUrlWrap = document.getElementById("iconUrlWrap");
@@ -75,6 +84,7 @@ let selfhstVariantUiToken = 0;
 let selfhstVariantRefreshTimer = null;
 const svgColorCanvasCtx = document.createElement("canvas").getContext("2d");
 let publicTemplateCatalog = [];
+let localTemplateCatalog = [];
 const presetLoadFlashTimers = new WeakMap();
 let blockImportedRemoteCustomImages = false;
 
@@ -89,6 +99,7 @@ const STATIC_ROW_KEYS = ["icon", "title", "fqdn", "network", "config"];
 const CUSTOM_ROW_KEY_RE = /^custom[1-9][0-9]*$/;
 const APP_VERSION = document.querySelector('meta[name="app-version"]')?.getAttribute("content")?.trim() || "dev";
 const EMOJI_RAIL_STORAGE_KEY = "pve-notebuddy:emoji-rail-collapsed";
+const LOCAL_TEMPLATES_STORAGE_KEY = "pve-notebuddy:local-templates-v1";
 const PROXMOX_NOTE_EMOJIS = [
   // Infrastructure / location
   "🏠", "🌍", "🌎", "🌏", "🔗", "🌐", "🛰️", "✈️", "🚀",
@@ -2254,6 +2265,116 @@ async function loadPublicTemplateCatalog() {
   }
 }
 
+function loadLocalTemplateCatalog() {
+  try {
+    const raw = localStorage.getItem(LOCAL_TEMPLATES_STORAGE_KEY);
+    if (!raw) {
+      localTemplateCatalog = [];
+      return;
+    }
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed)) {
+      localTemplateCatalog = [];
+      return;
+    }
+    localTemplateCatalog = parsed
+      .filter((entry) => entry && typeof entry === "object")
+      .map((entry) => ({
+        id: typeof entry.id === "string" ? entry.id : "",
+        name: typeof entry.name === "string" ? entry.name : "",
+        settings: entry.settings && typeof entry.settings === "object" ? entry.settings : null,
+        updatedAt: typeof entry.updatedAt === "number" ? entry.updatedAt : 0,
+      }))
+      .filter((entry) => entry.id && entry.name && entry.settings);
+  } catch {
+    localTemplateCatalog = [];
+  }
+}
+
+function persistLocalTemplateCatalog() {
+  try {
+    localStorage.setItem(LOCAL_TEMPLATES_STORAGE_KEY, JSON.stringify(localTemplateCatalog));
+  } catch {
+    // Ignore storage errors.
+  }
+}
+
+function formatLocalTemplateTime(timestamp) {
+  if (!Number.isFinite(timestamp) || timestamp <= 0) {
+    return "";
+  }
+  try {
+    return new Date(timestamp).toLocaleString();
+  } catch {
+    return "";
+  }
+}
+
+function renderLocalTemplateCatalog() {
+  if (!localTemplateListEl) {
+    return;
+  }
+  if (localTemplateCatalog.length === 0) {
+    localTemplateListEl.innerHTML = '<div class="local-template-empty">No local templates yet.</div>';
+    return;
+  }
+
+  const sorted = [...localTemplateCatalog].sort((a, b) => b.updatedAt - a.updatedAt || a.name.localeCompare(b.name));
+  localTemplateListEl.innerHTML = sorted
+    .map((entry) => {
+      const updated = formatLocalTemplateTime(entry.updatedAt);
+      return `<div class="local-template-item" data-local-template-id="${escapeHtml(entry.id)}">
+        <button type="button" class="local-template-load" data-local-template-id="${escapeHtml(entry.id)}" title="Load local template">${escapeHtml(entry.name)}</button>
+        <div class="local-template-meta">${escapeHtml(updated)}</div>
+        <button type="button" class="local-template-delete" data-local-template-id="${escapeHtml(entry.id)}" aria-label="Delete ${escapeHtml(entry.name)}">✕</button>
+      </div>`;
+    })
+    .join("");
+}
+
+function saveCurrentLocalTemplate() {
+  if (!localTemplateNameEl) {
+    return;
+  }
+  const name = localTemplateNameEl.value.trim();
+  if (!name) {
+    return;
+  }
+
+  const existing = localTemplateCatalog.find((entry) => entry.name.toLowerCase() === name.toLowerCase());
+  const snapshot = collectSettings();
+  const now = Date.now();
+  if (existing) {
+    existing.settings = snapshot;
+    existing.updatedAt = now;
+    existing.name = name;
+  } else {
+    const id = `${now}-${Math.random().toString(16).slice(2, 8)}`;
+    localTemplateCatalog.push({ id, name, settings: snapshot, updatedAt: now });
+  }
+
+  persistLocalTemplateCatalog();
+  renderLocalTemplateCatalog();
+}
+
+async function loadLocalTemplateById(templateId) {
+  const entry = localTemplateCatalog.find((item) => item.id === templateId);
+  if (!entry || !entry.settings) {
+    return;
+  }
+  await applySettings(entry.settings, { source: "template" });
+}
+
+function deleteLocalTemplateById(templateId) {
+  const before = localTemplateCatalog.length;
+  localTemplateCatalog = localTemplateCatalog.filter((entry) => entry.id !== templateId);
+  if (localTemplateCatalog.length === before) {
+    return;
+  }
+  persistLocalTemplateCatalog();
+  renderLocalTemplateCatalog();
+}
+
 function closeTemplateSuggest() {
   if (!templateSuggestEl) {
     return;
@@ -2362,6 +2483,58 @@ function closeSupportMenu() {
   supportMenuList.classList.add("hidden");
 }
 
+function setSidebarPanel(panel) {
+  if (
+    !sidebarTabTemplatesEl ||
+    !sidebarTabEmojiEl ||
+    !sidebarTabSettingsEl ||
+    !sidebarPanelTemplatesEl ||
+    !sidebarPanelEmojiEl ||
+    !sidebarPanelSettingsEl
+  ) {
+    return;
+  }
+  const showEmoji = panel === "emoji";
+  const showSettings = panel === "settings";
+  const showTemplates = !showEmoji && !showSettings;
+
+  sidebarTabTemplatesEl.classList.toggle("active", showTemplates);
+  sidebarTabTemplatesEl.setAttribute("aria-selected", showTemplates ? "true" : "false");
+  sidebarTabEmojiEl.classList.toggle("active", showEmoji);
+  sidebarTabEmojiEl.setAttribute("aria-selected", showEmoji ? "true" : "false");
+  sidebarTabSettingsEl.classList.toggle("active", showSettings);
+  sidebarTabSettingsEl.setAttribute("aria-selected", showSettings ? "true" : "false");
+
+  sidebarPanelTemplatesEl.classList.toggle("active", showTemplates);
+  sidebarPanelTemplatesEl.toggleAttribute("hidden", !showTemplates);
+  sidebarPanelEmojiEl.classList.toggle("active", showEmoji);
+  sidebarPanelEmojiEl.toggleAttribute("hidden", !showEmoji);
+  sidebarPanelSettingsEl.classList.toggle("active", showSettings);
+  sidebarPanelSettingsEl.toggleAttribute("hidden", !showSettings);
+
+  if (!showTemplates) {
+    closeTemplateSuggest();
+  }
+}
+
+function initSidebarPanels() {
+  if (
+    !sidebarTabTemplatesEl ||
+    !sidebarTabEmojiEl ||
+    !sidebarTabSettingsEl ||
+    !sidebarPanelTemplatesEl ||
+    !sidebarPanelEmojiEl ||
+    !sidebarPanelSettingsEl
+  ) {
+    return;
+  }
+
+  sidebarTabTemplatesEl.addEventListener("click", () => setSidebarPanel("templates"));
+  sidebarTabEmojiEl.addEventListener("click", () => setSidebarPanel("emoji"));
+  sidebarTabSettingsEl.addEventListener("click", () => setSidebarPanel("settings"));
+  setSidebarPanel("templates");
+}
+
 function toggleSupportMenu() {
   if (!supportMenuBtn || !supportMenuList) {
     return;
@@ -2422,12 +2595,15 @@ function initEmojiRail() {
     (emoji) => `<button type="button" class="emoji-chip" data-emoji="${escapeHtml(emoji)}" title="Copy ${escapeHtml(emoji)}">${escapeHtml(emoji)}</button>`
   ).join("");
 
-  setEmojiRailCollapsed(loadEmojiRailCollapsed());
+  const sidebarMode = Boolean(sidebarPanelEmojiEl && sidebarTabEmojiEl);
+  setEmojiRailCollapsed(sidebarMode ? false : loadEmojiRailCollapsed());
 
-  emojiRailToggleEl.addEventListener("click", () => {
-    const isCollapsed = emojiRailEl.classList.contains("collapsed");
-    setEmojiRailCollapsed(!isCollapsed);
-  });
+  if (!emojiRailToggleEl.classList.contains("hidden")) {
+    emojiRailToggleEl.addEventListener("click", () => {
+      const isCollapsed = emojiRailEl.classList.contains("collapsed");
+      setEmojiRailCollapsed(!isCollapsed);
+    });
+  }
 
   emojiRailListEl.addEventListener("click", async (event) => {
     const target = event.target;
@@ -2952,6 +3128,7 @@ function bootstrap() {
   configLocationsEl.append(createConfigLocationInput("/etc/app/config.yml"));
   addCustomRow();
   initializeRowVisibility();
+  initSidebarPanels();
   initEmojiRail();
 
   addHostBtn.addEventListener("click", () => {
@@ -3094,6 +3271,44 @@ function bootstrap() {
   });
 
   copyBtn.addEventListener("click", copyOutput);
+  loadLocalTemplateCatalog();
+  renderLocalTemplateCatalog();
+  if (saveLocalTemplateBtn) {
+    saveLocalTemplateBtn.addEventListener("click", saveCurrentLocalTemplate);
+  }
+  if (localTemplateNameEl) {
+    localTemplateNameEl.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter") {
+        return;
+      }
+      event.preventDefault();
+      saveCurrentLocalTemplate();
+    });
+  }
+  if (localTemplateListEl) {
+    localTemplateListEl.addEventListener("click", async (event) => {
+      const target = event.target;
+      if (!(target instanceof HTMLElement)) {
+        return;
+      }
+      const loadBtn = target.closest(".local-template-load");
+      if (loadBtn instanceof HTMLElement) {
+        const id = loadBtn.getAttribute("data-local-template-id") || "";
+        if (id) {
+          await loadLocalTemplateById(id);
+        }
+        return;
+      }
+      const deleteBtn = target.closest(".local-template-delete");
+      if (deleteBtn instanceof HTMLElement) {
+        const id = deleteBtn.getAttribute("data-local-template-id") || "";
+        if (id) {
+          deleteLocalTemplateById(id);
+        }
+      }
+    });
+  }
+
   if (templateSearchInputEl && templateSuggestEl) {
     loadPublicTemplateCatalog().then(() => {
       if (document.activeElement === templateSearchInputEl && !templateSearchInputEl.value.trim()) {

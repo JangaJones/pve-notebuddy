@@ -20,7 +20,6 @@
       </div>
       <div class="topbar-tools">
         <div class="topbar-actions">
-          <button id="clearBtn" type="button" class="panel-action">CLEAR</button>
           <div id="templateSearchWrap" class="template-search">
             <input
               id="templateSearch"
@@ -31,11 +30,8 @@
               spellcheck="false"
             />
             <button id="templateSearchClear" class="template-search-clear" type="button" aria-label="Clear search">✕</button>
-            <div id="templateSuggest" class="template-suggest hidden" role="listbox" aria-label="Template suggestions"></div>
+              <div id="templateSuggest" class="template-suggest hidden" role="listbox" aria-label="Template suggestions"></div>
           </div>
-          <button id="importBtn" type="button" class="panel-action">IMPORT</button>
-          <button id="exportBtn" type="button" class="panel-action">EXPORT</button>
-          <input id="importFile" type="file" accept="application/json,.json" class="hidden" />
         </div>
         <div class="topbar-widgets">
           <a
@@ -73,6 +69,30 @@
     <div class="workspace-shell">
       <aside class="workspace-sidebar" aria-label="workspace sidebar">
         <div class="sidebar-icon-rail" role="tablist" aria-label="Sidebar views">
+          <button
+            id="sidebarToggleBtn"
+            type="button"
+            class="sidebar-tab sidebar-toggle-tab"
+            aria-expanded="true"
+            aria-label="Collapse sidebar"
+            title="Toggle sidebar"
+          >
+            <img
+              id="sidebarToggleIconClose"
+              class="sidebar-tab-icon"
+              src="./resources/icons/left_panel_close_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"
+              alt=""
+              aria-hidden="true"
+            />
+            <img
+              id="sidebarToggleIconOpen"
+              class="sidebar-tab-icon hidden"
+              src="./resources/icons/left_panel_open_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"
+              alt=""
+              aria-hidden="true"
+            />
+          </button>
+          <div class="sidebar-icon-separator" aria-hidden="true"></div>
           <button
             id="sidebarTabTemplates"
             type="button"
@@ -127,35 +147,55 @@
             <div class="sidebar-panel-head">
               <strong>Templates</strong>
             </div>
-            <div class="preset-group sidebar-preset-group">
-              <span class="preset-title">presets</span>
-              <div class="preset-buttons">
-                <button type="button" class="panel-action preset-btn" data-preset="1">1</button>
-                <button type="button" class="panel-action preset-btn" data-preset="2">2</button>
-                <button type="button" class="panel-action preset-btn" data-preset="3">3</button>
-                <button type="button" class="panel-action preset-btn" data-preset="4">4</button>
-                <button type="button" class="panel-action preset-btn" data-preset="5">5</button>
+            <div class="sidebar-panel-body">
+              <div class="templates-section">
+                <div class="local-templates-head">Design</div>
+                <div class="preset-group sidebar-preset-group">
+                  <div class="preset-buttons">
+                    <button type="button" class="panel-action preset-btn" data-preset="1">1</button>
+                    <button type="button" class="panel-action preset-btn" data-preset="2">2</button>
+                    <button type="button" class="panel-action preset-btn" data-preset="3">3</button>
+                    <button type="button" class="panel-action preset-btn" data-preset="4">4</button>
+                    <button type="button" class="panel-action preset-btn" data-preset="5">5</button>
+                  </div>
+                </div>
               </div>
-            </div>
 
-            <div class="local-templates">
-              <div class="local-templates-head">Local templates</div>
-              <div class="local-template-create">
-                <input
-                  id="localTemplateName"
-                  type="text"
-                  class="local-template-name"
-                  placeholder="Template name"
-                  autocomplete="off"
-                  spellcheck="false"
-                />
-                <button id="saveLocalTemplateBtn" type="button" class="panel-action">SAVE CURRENT</button>
+              <div class="templates-section">
+                <div class="local-templates-head">JSON Settings File</div>
+                <div class="template-json-actions">
+                  <button id="importBtn" type="button" class="panel-action">IMPORT</button>
+                  <button id="exportBtn" type="button" class="panel-action">EXPORT</button>
+                  <input id="importFile" type="file" accept="application/json,.json" class="hidden" />
+                </div>
               </div>
-              <div id="localTemplateList" class="local-template-list" aria-live="polite"></div>
+
+              <div class="templates-section">
+              <div class="local-templates">
+                <div class="local-templates-head">Local Templates</div>
+                <div class="local-template-create">
+                  <input
+                    id="localTemplateName"
+                    type="text"
+                    class="local-template-name"
+                    placeholder="Template name"
+                    autocomplete="off"
+                    spellcheck="false"
+                  />
+                  <button id="saveLocalTemplateBtn" type="button" class="panel-action">SAVE CURRENT</button>
+                </div>
+                <div id="localTemplateList" class="local-template-list" aria-live="polite"></div>
+              </div>
+              </div>
             </div>
           </section>
 
           <section id="sidebarPanelEmoji" class="sidebar-panel sidebar-panel-emoji" role="tabpanel" aria-label="Emoji">
+            <div class="sidebar-panel-head">
+              <strong>Emoji Selector</strong>
+              <span id="emojiRailStatus" class="emoji-rail-status" aria-live="polite"></span>
+            </div>
+            <div class="sidebar-panel-body">
             <div id="emojiRail" class="emoji-rail" aria-label="Emoji copy bar">
               <button id="emojiRailToggle" type="button" class="emoji-rail-toggle hidden" aria-expanded="true" aria-controls="emojiRailPanel">
                 <span class="emoji-rail-toggle-close" aria-hidden="true">✕</span>
@@ -167,12 +207,9 @@
                 />
               </button>
               <div id="emojiRailPanel" class="emoji-rail-panel">
-                <div class="emoji-rail-head">
-                  <strong>Emoji Selector</strong>
-                  <span id="emojiRailStatus" class="emoji-rail-status" aria-live="polite"></span>
-                </div>
                 <div id="emojiRailList" class="emoji-rail-list"></div>
               </div>
+            </div>
             </div>
           </section>
 
@@ -180,7 +217,9 @@
             <div class="sidebar-panel-head">
               <strong>Settings</strong>
             </div>
-            <p class="sidebar-coming-soon">coming soon</p>
+            <div class="sidebar-panel-body">
+              <p class="sidebar-coming-soon">coming soon</p>
+            </div>
           </section>
         </div>
 
@@ -215,7 +254,10 @@
         <div class="app-shell">
           <main class="layout">
         <section class="panel panel-form">
-        <p class="subtitle">Generate Proxmox Notes using HTML blocks with per-row layout and formatting controls.</p>
+        <div class="subtitle-row">
+          <p class="subtitle">Generate Proxmox Notes with per-row layout and formatting controls.</p>
+          <button id="clearBtn" type="button" class="panel-action">CLEAR</button>
+        </div>
 
         <form id="noteForm">
           <fieldset class="group" data-row-key="icon">
@@ -396,35 +438,39 @@
         </div>
       </section>
 
-        <section class="panel panel-preview">
-        <div class="preview-wrap">
-
-          <div id="previewShell" class="preview-shell dark">
-            <div class="preview-title">
-              <span>Notes</span>
-              <button id="themeToggleBtn" type="button" class="theme-toggle" aria-label="Toggle preview theme" title="Toggle preview theme">
-                <span id="themeIcon" class="theme-icon">🌙</span>
-              </button>
-            </div>
-            <div class="preview-body">
-              <div id="previewCard" class="preview-card"></div>
-            </div>
-          </div>
-
-          <div class="output-meta">
-            <span id="charCount">0 / 8192</span>
-            <span id="charWarning" class="warning"></span>
-          </div>
-
-          <div class="output-wrap">
-            <button id="copyBtn" type="button" class="copy-inline">Copy HTML</button>
-            <textarea id="output" rows="16" readonly></textarea>
-          </div>
-        </div>
-        </section>
           </main>
         </div>
       </div>
+
+      <aside class="workspace-preview-sidebar" aria-label="Preview sidebar">
+        <section class="panel panel-preview">
+          <div class="preview-wrap">
+            <div id="previewShell" class="preview-shell dark">
+              <div class="preview-title">
+                <span>Notes</span>
+                <button id="themeToggleBtn" type="button" class="theme-toggle" aria-label="Toggle preview theme" title="Toggle preview theme">
+                  <span id="themeIcon" class="theme-icon">🌙</span>
+                </button>
+              </div>
+              <div class="preview-body">
+                <div id="previewCard" class="preview-card"></div>
+              </div>
+            </div>
+
+            <div class="output-meta">
+              <div class="output-meta-left">
+                <span id="charCount">0 / 8192</span>
+                <span id="charWarning" class="warning"></span>
+              </div>
+              <button id="copyBtn" type="button" class="copy-inline">Copy HTML</button>
+            </div>
+
+            <div class="output-wrap">
+              <textarea id="output" rows="16" readonly></textarea>
+            </div>
+          </div>
+        </section>
+      </aside>
     </div>
 
     <script src="./resources/vendor/purify.min.js" defer></script>

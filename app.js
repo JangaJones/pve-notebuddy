@@ -43,6 +43,9 @@ const localTemplateListEl = document.getElementById("localTemplateList");
 const sidebarTabTemplatesEl = document.getElementById("sidebarTabTemplates");
 const sidebarTabEmojiEl = document.getElementById("sidebarTabEmoji");
 const sidebarTabSettingsEl = document.getElementById("sidebarTabSettings");
+const sidebarToggleBtnEl = document.getElementById("sidebarToggleBtn");
+const sidebarToggleIconCloseEl = document.getElementById("sidebarToggleIconClose");
+const sidebarToggleIconOpenEl = document.getElementById("sidebarToggleIconOpen");
 const sidebarPanelTemplatesEl = document.getElementById("sidebarPanelTemplates");
 const sidebarPanelEmojiEl = document.getElementById("sidebarPanelEmoji");
 const sidebarPanelSettingsEl = document.getElementById("sidebarPanelSettings");
@@ -100,6 +103,7 @@ const CUSTOM_ROW_KEY_RE = /^custom[1-9][0-9]*$/;
 const APP_VERSION = document.querySelector('meta[name="app-version"]')?.getAttribute("content")?.trim() || "dev";
 const EMOJI_RAIL_STORAGE_KEY = "pve-notebuddy:emoji-rail-collapsed";
 const LOCAL_TEMPLATES_STORAGE_KEY = "pve-notebuddy:local-templates-v1";
+const SIDEBAR_COLLAPSED_STORAGE_KEY = "pve-notebuddy:sidebar-collapsed";
 const PROXMOX_NOTE_EMOJIS = [
   // Infrastructure / location
   "🏠", "🌍", "🌎", "🌏", "🔗", "🌐", "🛰️", "✈️", "🚀",
@@ -2535,6 +2539,45 @@ function initSidebarPanels() {
   setSidebarPanel("templates");
 }
 
+function setSidebarCollapsed(collapsed) {
+  document.body.classList.toggle("sidebar-collapsed", collapsed);
+  if (sidebarToggleBtnEl) {
+    sidebarToggleBtnEl.setAttribute("aria-expanded", collapsed ? "false" : "true");
+    sidebarToggleBtnEl.setAttribute("aria-label", collapsed ? "Expand sidebar" : "Collapse sidebar");
+    sidebarToggleBtnEl.setAttribute("title", collapsed ? "Expand sidebar" : "Collapse sidebar");
+  }
+  if (sidebarToggleIconCloseEl) {
+    sidebarToggleIconCloseEl.classList.toggle("hidden", collapsed);
+  }
+  if (sidebarToggleIconOpenEl) {
+    sidebarToggleIconOpenEl.classList.toggle("hidden", !collapsed);
+  }
+  try {
+    localStorage.setItem(SIDEBAR_COLLAPSED_STORAGE_KEY, collapsed ? "1" : "0");
+  } catch {
+    // Ignore storage errors.
+  }
+}
+
+function loadSidebarCollapsed() {
+  try {
+    return localStorage.getItem(SIDEBAR_COLLAPSED_STORAGE_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+
+function initSidebarToggle() {
+  if (!sidebarToggleBtnEl) {
+    return;
+  }
+  setSidebarCollapsed(loadSidebarCollapsed());
+  sidebarToggleBtnEl.addEventListener("click", () => {
+    const collapsed = document.body.classList.contains("sidebar-collapsed");
+    setSidebarCollapsed(!collapsed);
+  });
+}
+
 function toggleSupportMenu() {
   if (!supportMenuBtn || !supportMenuList) {
     return;
@@ -3129,6 +3172,7 @@ function bootstrap() {
   addCustomRow();
   initializeRowVisibility();
   initSidebarPanels();
+  initSidebarToggle();
   initEmojiRail();
 
   addHostBtn.addEventListener("click", () => {

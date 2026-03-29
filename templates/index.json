@@ -2197,6 +2197,12 @@
       "tag": "PVE Scripts"
     },
     {
+      "name": "PVE NoteBuddy",
+      "file": "custom/pve-notebuddy.json",
+      "source": "custom/pve-notebuddy.json",
+      "tag": "Custom"
+    },
+    {
       "name": "PVE Startup Dependency Check",
       "file": "community-scripts/dependency-check.json",
       "source": "community-scripts/dependency-check.json",

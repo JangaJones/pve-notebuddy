@@ -18,7 +18,7 @@ const REPORT_PATH = path.join(CRAWL_TEMP_DIR, "generate-report.json");
 const DATASET_CONFIG = [
   { key: "community-scripts", dir: COMMUNITY_SCRIPTS_DIR, tag: "PVE Scripts" },
   { key: "selfhst", dir: SELFHST_DIR, tag: "selfh.st" },
-  { key: "custom", dir: CUSTOM_DIR, tag: "custom" },
+  { key: "custom", dir: CUSTOM_DIR, tag: "Custom" },
 ];
 
 // Entries that are not actual container service templates.

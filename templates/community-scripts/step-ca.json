@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/step-ca.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "step-ca",
+    "fqdnLabel": "github.com/smallstep/certificates",
+    "fqdnUrl": "https://github.com/smallstep/certificates",
+    "networkText": "Default Port: 443",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/etc/step-ca"
+      }
+    ]
+  }
+}

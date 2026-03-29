@@ -2162,7 +2162,11 @@ async function loadPresetByNumber(number) {
   if (!Number.isFinite(preset) || preset < 1 || preset > 5) {
     return false;
   }
-  return fetchAndApplySettings(`./templates/notebuddy-template-${preset}.json`, "preset", `Could not load template ${preset}.`);
+  return fetchAndApplySettings(
+    `./templates/presets/notebuddy-template-${preset}.json`,
+    "preset",
+    `Could not load template ${preset}.`
+  );
 }
 
 function flashLoadedPresetButton(buttonEl) {
@@ -2194,6 +2198,20 @@ function normalizeTemplateCatalog(payload) {
       : [];
 
   const map = new Map();
+  const inferTagFromFile = (filePath) => {
+    const clean = String(filePath || "").replace(/^\/+/, "").toLowerCase();
+    if (clean.startsWith("community-scripts/")) {
+      return "PVE Scripts";
+    }
+    if (clean.startsWith("selfhst/")) {
+      return "selfh.st";
+    }
+    if (clean.startsWith("custom/")) {
+      return "custom";
+    }
+    return "";
+  };
+
   for (const row of rows) {
     if (typeof row === "string") {
       const file = row.replace(/^\.?\/*public\//i, "").trim();
@@ -2201,7 +2219,7 @@ function normalizeTemplateCatalog(payload) {
         continue;
       }
       const name = file.replace(/\.json$/i, "").replace(/[-_]+/g, " ").trim() || file;
-      map.set(file.toLowerCase(), { name, file });
+      map.set(file.toLowerCase(), { name, file, tag: inferTagFromFile(file) });
       continue;
     }
 
@@ -2213,7 +2231,8 @@ function normalizeTemplateCatalog(payload) {
       }
       const fallbackName = file.replace(/\.json$/i, "").replace(/[-_]+/g, " ").trim() || file;
       const name = typeof row.name === "string" && row.name.trim() ? row.name.trim() : fallbackName;
-      map.set(file.toLowerCase(), { name, file });
+      const tag = typeof row.tag === "string" && row.tag.trim() ? row.tag.trim() : inferTagFromFile(file);
+      map.set(file.toLowerCase(), { name, file, tag });
     }
   }
 
@@ -2271,8 +2290,11 @@ function renderTemplateSuggest(items) {
   templateSuggestEl.innerHTML = items
     .slice(0, 10)
     .map(
-      (item) =>
-        `<button type="button" class="template-suggest-item" data-template-file="${escapeHtml(item.file)}" data-template-name="${escapeHtml(item.name)}">${escapeHtml(item.name)}</button>`
+      (item) => {
+        const tag = String(item.tag || "").trim();
+        const tagHtml = tag ? `<span class="template-suggest-tag">${escapeHtml(tag)}</span>` : "";
+        return `<button type="button" class="template-suggest-item" data-template-file="${escapeHtml(item.file)}" data-template-name="${escapeHtml(item.name)}"><span class="template-suggest-item-name">${escapeHtml(item.name)}</span>${tagHtml}</button>`;
+      }
     )
     .join("");
   templateSuggestEl.classList.remove("hidden");
@@ -2296,16 +2318,22 @@ function updateTemplateSuggest(showRandomWhenEmpty = false) {
   const matches = publicTemplateCatalog.filter((item) => {
     const name = item.name.toLowerCase();
     const file = item.file.toLowerCase();
-    return name.includes(query) || file.includes(query);
+    const tag = String(item.tag || "").toLowerCase();
+    return name.includes(query) || file.includes(query) || tag.includes(query);
   });
   renderTemplateSuggest(matches);
 }
 
 function toPublicTemplatePath(file) {
   const clean = String(file || "")
-    .replace(/^\.?\/*(templates\/services|public)\//i, "")
+    .replace(/^\.?\/*public\//i, "")
+    .replace(/^\.?\/*templates\//i, "")
     .trim();
-  return clean ? `./templates/services/${clean}` : "";
+  if (!clean) {
+    return "";
+  }
+
+  return `./templates/${clean.replace(/^\/+/, "")}`;
 }
 
 // Load and apply a selected service template JSON from the catalog.

@@ -1,0 +1,19 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://raw.githubusercontent.com/fccview/degoog/main/src/public/images/degoog-logo.png",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "degoog",
+    "fqdnLabel": "github.com/fccview/degoog",
+    "fqdnUrl": "https://github.com/fccview/degoog",
+    "networkText": "Default Port: 4444",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/degoog/.env"
+      }
+    ]
+  }
+}

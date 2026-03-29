@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/affine.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "AFFiNE",
+    "fqdnLabel": "affine.pro",
+    "fqdnUrl": "https://affine.pro/",
+    "networkText": "Default Port: 3010",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/affine/.env"
+      }
+    ]
+  }
+}

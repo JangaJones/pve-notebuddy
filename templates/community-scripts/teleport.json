@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/teleport.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Teleport",
+    "fqdnLabel": "goteleport.com",
+    "fqdnUrl": "https://goteleport.com/",
+    "networkText": "Default Port: 3080",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/etc/teleport.yaml"
+      }
+    ]
+  }
+}

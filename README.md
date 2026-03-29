@@ -72,13 +72,13 @@
 </div>
 
 
-## Crawl-Scripts
+## Crawl Scripts
 
-In the crawl-scripts folder inside the repo there are are 2 scripts, one to crawl content from the **[community-scripts](https://github.com/community-scripts/ProxmoxVE)** repo (crawl.mjs) and a second script (generate-templates.mjs) to transform the .json files in their repositoy into usable NoteBuddy .json files. Thanks to their curated repo, NoteBuddy is able to provide over 400 service templates with names, icons, website links, default ports & default config locations. 
+In `templates/scripts` there are two scripts: `community-scripts.mjs` crawls source records from the community-scripts PocketBase API (`https://db.community-scripts.org/api/collections/script_scripts/`) into `templates/scripts/community-scripts-temp` and writes `templates/scripts/crawl-report.json`, and `generate-templates.mjs` transforms those records into NoteBuddy templates under `templates/community-scripts` and rewrites `templates/index.json`.
 
 Massive shoutout to them! 🤝
 
-The crawl-scripts are only needed to commit template updates to this repo and are not used by NoteBuddy itself.
+These scripts are only needed to commit template updates to this repo and are not used by NoteBuddy itself.
 
 ## Local Deployment
 

@@ -1,0 +1,18 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": ""
+  },
+  "fields": {
+    "titleText": "LocalAGI",
+    "fqdnLabel": "github.com/mudler/LocalAGI",
+    "fqdnUrl": "https://github.com/mudler/LocalAGI",
+    "networkText": "Default Port: 3000",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/localagi/.env"
+      }
+    ]
+  }
+}

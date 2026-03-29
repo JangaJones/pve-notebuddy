@@ -1,0 +1,19 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/labca.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "LabCA",
+    "fqdnLabel": "github.com/hakwerk/labca",
+    "fqdnUrl": "https://github.com/hakwerk/labca",
+    "networkText": "Default Port: 3000",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/etc/labca/config.json"
+      }
+    ]
+  }
+}

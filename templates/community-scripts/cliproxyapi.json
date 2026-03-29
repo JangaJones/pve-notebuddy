@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/openai.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "CLIProxyAPI",
+    "fqdnLabel": "github.com/router-for-me/CLIProxyAPI",
+    "fqdnUrl": "https://github.com/router-for-me/CLIProxyAPI",
+    "networkText": "Default Port: 8317",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/cliproxyapi/config.yaml"
+      }
+    ]
+  }
+}

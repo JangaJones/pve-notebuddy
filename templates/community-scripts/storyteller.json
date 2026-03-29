@@ -1,0 +1,19 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/storyteller.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "Storyteller",
+    "fqdnLabel": "storyteller-platform.dev",
+    "fqdnUrl": "https://storyteller-platform.dev/",
+    "networkText": "Default Port: 8001",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/storyteller/.env"
+      }
+    ]
+  }
+}

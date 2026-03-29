@@ -1,0 +1,21 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/splitpro.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Split Pro",
+    "fqdnLabel": "github.com/oss-apps/split-pro",
+    "fqdnUrl": "https://github.com/oss-apps/split-pro",
+    "networkText": "Default Port: 3000",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/split-pro/.env"
+      }
+    ]
+  }
+}

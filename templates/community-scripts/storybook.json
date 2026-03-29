@@ -1,0 +1,16 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/storybook.svg",
+    "embedSvg": true,
+    "resizeWithWsrv": false,
+    "colorVariant": "original"
+  },
+  "fields": {
+    "titleText": "Storybook",
+    "fqdnLabel": "storybook.js.org",
+    "fqdnUrl": "https://storybook.js.org/",
+    "networkText": "Default Port: 6006",
+    "configLocations": []
+  }
+}

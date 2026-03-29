@@ -1,0 +1,19 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/tube-archivist.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "Tube Archivist",
+    "fqdnLabel": "github.com/tubearchivist/tubearchivist",
+    "fqdnUrl": "https://github.com/tubearchivist/tubearchivist",
+    "networkText": "Default Port: 8000",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/tubearchivist/.env"
+      }
+    ]
+  }
+}

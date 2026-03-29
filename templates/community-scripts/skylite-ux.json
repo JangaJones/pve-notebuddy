@@ -1,0 +1,19 @@
+{
+  "icon": {
+    "mode": "external",
+    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/skylite-ux.webp",
+    "resizeWithWsrv": true
+  },
+  "fields": {
+    "titleText": "Skylite-UX",
+    "fqdnLabel": "github.com/Wetzel402/Skylite-UX",
+    "fqdnUrl": "https://github.com/Wetzel402/Skylite-UX",
+    "networkText": "Default Port: 3000",
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/skylite-ux/.env"
+      }
+    ]
+  }
+}

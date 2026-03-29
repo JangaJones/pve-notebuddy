@@ -2,2288 +2,3147 @@
   "templates": [
     {
       "name": "2FAuth",
-      "file": "2fauth.json",
-      "source": "frontend/public/json/2fauth.json"
+      "file": "community-scripts/2fauth.json",
+      "source": "community-scripts/2fauth.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Actual Budget",
-      "file": "actualbudget.json",
-      "source": "frontend/public/json/actualbudget.json"
+      "file": "community-scripts/actualbudget.json",
+      "source": "community-scripts/actualbudget.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "AdGuard Home",
-      "file": "adguard.json",
-      "source": "frontend/public/json/adguard.json"
+      "file": "community-scripts/adguard.json",
+      "source": "community-scripts/adguard.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "AdGuardHome-Sync",
-      "file": "adguardhome-sync.json",
-      "source": "frontend/public/json/adguardhome-sync.json"
+      "file": "community-scripts/adguardhome-sync.json",
+      "source": "community-scripts/adguardhome-sync.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "AdventureLog",
-      "file": "adventurelog.json",
-      "source": "frontend/public/json/adventurelog.json"
+      "file": "community-scripts/adventurelog.json",
+      "source": "community-scripts/adventurelog.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "AFFiNE",
+      "file": "community-scripts/affine.json",
+      "source": "community-scripts/affine.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "AgentDVR",
-      "file": "agentdvr.json",
-      "source": "frontend/public/json/agentdvr.json"
+      "file": "community-scripts/agentdvr.json",
+      "source": "community-scripts/agentdvr.json",
+      "tag": "PVE Scripts"
     },
     {
-      "name": "Alpine",
-      "file": "alpine.json",
-      "source": "frontend/public/json/alpine.json"
+      "name": "AlmaLinux 10",
+      "file": "community-scripts/almalinux-10-vm.json",
+      "source": "community-scripts/almalinux-10-vm.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Alpine Linux",
+      "file": "community-scripts/alpine.json",
+      "source": "community-scripts/alpine.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Alpine-BorgBackup-Server",
+      "file": "community-scripts/alpine-borgbackup-server.json",
+      "source": "community-scripts/alpine-borgbackup-server.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Alpine-IT-Tools",
-      "file": "alpine-it-tools.json",
-      "source": "frontend/public/json/alpine-it-tools.json"
+      "file": "community-scripts/alpine-it-tools.json",
+      "source": "community-scripts/alpine-it-tools.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Alpine-Nextcloud",
+      "file": "community-scripts/alpine-nextcloud.json",
+      "source": "community-scripts/alpine-nextcloud.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Alpine-Wakapi",
+      "file": "community-scripts/alpine-wakapi.json",
+      "source": "community-scripts/alpine-wakapi.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Ampache",
-      "file": "ampache.json",
-      "source": "frontend/public/json/ampache.json"
+      "file": "community-scripts/ampache.json",
+      "source": "community-scripts/ampache.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Anytype Server",
+      "file": "community-scripts/anytype-server.json",
+      "source": "community-scripts/anytype-server.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Apache CouchDB",
-      "file": "apache-couchdb.json",
-      "source": "frontend/public/json/apache-couchdb.json"
+      "file": "community-scripts/apache-couchdb.json",
+      "source": "community-scripts/apache-couchdb.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Apache Guacamole",
-      "file": "apache-guacamole.json",
-      "source": "frontend/public/json/apache-guacamole.json"
+      "file": "community-scripts/apache-guacamole.json",
+      "source": "community-scripts/apache-guacamole.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Apache Tika",
-      "file": "apache-tika.json",
-      "source": "frontend/public/json/apache-tika.json"
+      "file": "community-scripts/apache-tika.json",
+      "source": "community-scripts/apache-tika.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Apache Tomcat",
-      "file": "apache-tomcat.json",
-      "source": "frontend/public/json/apache-tomcat.json"
+      "file": "community-scripts/apache-tomcat.json",
+      "source": "community-scripts/apache-tomcat.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Apache-Cassandra",
-      "file": "apache-cassandra.json",
-      "source": "frontend/public/json/apache-cassandra.json"
+      "file": "community-scripts/apache-cassandra.json",
+      "source": "community-scripts/apache-cassandra.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Apprise API",
+      "file": "community-scripts/apprise-api.json",
+      "source": "community-scripts/apprise-api.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Apt-Cacher-NG",
-      "file": "apt-cacher-ng.json",
-      "source": "frontend/public/json/apt-cacher-ng.json"
+      "file": "community-scripts/apt-cacher-ng.json",
+      "source": "community-scripts/apt-cacher-ng.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Arcane",
-      "file": "arcane.json",
-      "source": "frontend/public/json/arcane.json"
+      "file": "community-scripts/arcane.json",
+      "source": "community-scripts/arcane.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Arch Linux",
-      "file": "archlinux-vm.json",
-      "source": "frontend/public/json/archlinux-vm.json"
+      "file": "community-scripts/archlinux-vm.json",
+      "source": "community-scripts/archlinux-vm.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "ArchiveBox",
-      "file": "archivebox.json",
-      "source": "frontend/public/json/archivebox.json"
+      "file": "community-scripts/archivebox.json",
+      "source": "community-scripts/archivebox.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Argus",
-      "file": "argus.json",
-      "source": "frontend/public/json/argus.json"
+      "file": "community-scripts/argus.json",
+      "source": "community-scripts/argus.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Aria2",
-      "file": "aria2.json",
-      "source": "frontend/public/json/aria2.json"
+      "file": "community-scripts/aria2.json",
+      "source": "community-scripts/aria2.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Asterisk",
-      "file": "asterisk.json",
-      "source": "frontend/public/json/asterisk.json"
+      "file": "community-scripts/asterisk.json",
+      "source": "community-scripts/asterisk.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Audiobookshelf",
-      "file": "audiobookshelf.json",
-      "source": "frontend/public/json/audiobookshelf.json"
+      "file": "community-scripts/audiobookshelf.json",
+      "source": "community-scripts/audiobookshelf.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Authelia",
-      "file": "authelia.json",
-      "source": "frontend/public/json/authelia.json"
+      "file": "community-scripts/authelia.json",
+      "source": "community-scripts/authelia.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "authentik",
+      "file": "community-scripts/authentik.json",
+      "source": "community-scripts/authentik.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Autobrr",
-      "file": "autobrr.json",
-      "source": "frontend/public/json/autobrr.json"
+      "file": "community-scripts/autobrr.json",
+      "source": "community-scripts/autobrr.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Autocaliweb",
-      "file": "autocaliweb.json",
-      "source": "frontend/public/json/autocaliweb.json"
+      "file": "community-scripts/autocaliweb.json",
+      "source": "community-scripts/autocaliweb.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Baby Buddy",
-      "file": "babybuddy.json",
-      "source": "frontend/public/json/babybuddy.json"
+      "file": "community-scripts/babybuddy.json",
+      "source": "community-scripts/babybuddy.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Backrest",
-      "file": "backrest.json",
-      "source": "frontend/public/json/backrest.json"
+      "file": "community-scripts/backrest.json",
+      "source": "community-scripts/backrest.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Baïkal",
-      "file": "baikal.json",
-      "source": "frontend/public/json/baikal.json"
+      "file": "community-scripts/baikal.json",
+      "source": "community-scripts/baikal.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Bambuddy",
+      "file": "community-scripts/bambuddy.json",
+      "source": "community-scripts/bambuddy.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Bar-Assistant",
-      "file": "bar-assistant.json",
-      "source": "frontend/public/json/bar-assistant.json"
+      "file": "community-scripts/bar-assistant.json",
+      "source": "community-scripts/bar-assistant.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Baserow",
+      "file": "community-scripts/baserow.json",
+      "source": "community-scripts/baserow.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Bazarr",
-      "file": "bazarr.json",
-      "source": "frontend/public/json/bazarr.json"
+      "file": "community-scripts/bazarr.json",
+      "source": "community-scripts/bazarr.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "BentoPDF",
-      "file": "bentopdf.json",
-      "source": "frontend/public/json/bentopdf.json"
+      "file": "community-scripts/bentopdf.json",
+      "source": "community-scripts/bentopdf.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Beszel",
-      "file": "beszel.json",
-      "source": "frontend/public/json/beszel.json"
+      "file": "community-scripts/beszel.json",
+      "source": "community-scripts/beszel.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Bichon",
-      "file": "bichon.json",
-      "source": "frontend/public/json/bichon.json"
+      "file": "community-scripts/bichon.json",
+      "source": "community-scripts/bichon.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "BirdNET",
+      "file": "community-scripts/birdnet.json",
+      "source": "community-scripts/birdnet.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Bitfocus Companion",
+      "file": "community-scripts/bitfocus-companion.json",
+      "source": "community-scripts/bitfocus-companion.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Bitmagnet",
-      "file": "bitmagnet.json",
-      "source": "frontend/public/json/bitmagnet.json"
+      "file": "community-scripts/bitmagnet.json",
+      "source": "community-scripts/bitmagnet.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Blocky",
-      "file": "blocky.json",
-      "source": "frontend/public/json/blocky.json"
+      "file": "community-scripts/blocky.json",
+      "source": "community-scripts/blocky.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "BookLore",
-      "file": "booklore.json",
-      "source": "frontend/public/json/booklore.json"
+      "file": "community-scripts/booklore.json",
+      "source": "community-scripts/booklore.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "BookStack",
-      "file": "bookstack.json",
-      "source": "frontend/public/json/bookstack.json"
+      "file": "community-scripts/bookstack.json",
+      "source": "community-scripts/bookstack.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "BunkerWeb",
-      "file": "bunkerweb.json",
-      "source": "frontend/public/json/bunkerweb.json"
+      "file": "community-scripts/bunkerweb.json",
+      "source": "community-scripts/bunkerweb.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Byparr",
-      "file": "byparr.json",
-      "source": "frontend/public/json/byparr.json"
+      "file": "community-scripts/byparr.json",
+      "source": "community-scripts/byparr.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "ByteStash",
-      "file": "bytestash.json",
-      "source": "frontend/public/json/bytestash.json"
+      "file": "community-scripts/bytestash.json",
+      "source": "community-scripts/bytestash.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Caddy",
-      "file": "caddy.json",
-      "source": "frontend/public/json/caddy.json"
+      "file": "community-scripts/caddy.json",
+      "source": "community-scripts/caddy.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "CaddyManager",
+      "file": "community-scripts/caddymanager.json",
+      "source": "community-scripts/caddymanager.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Calibre-Web",
-      "file": "calibre-web.json",
-      "source": "frontend/public/json/calibre-web.json"
+      "file": "community-scripts/calibre-web.json",
+      "source": "community-scripts/calibre-web.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "CasaOS",
-      "file": "casaos.json",
-      "source": "frontend/public/json/casaos.json"
+      "file": "community-scripts/casaos.json",
+      "source": "community-scripts/casaos.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Change Detection",
-      "file": "changedetection.json",
-      "source": "frontend/public/json/changedetection.json"
+      "file": "community-scripts/changedetection.json",
+      "source": "community-scripts/changedetection.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Channels DVR Server",
-      "file": "channels.json",
-      "source": "frontend/public/json/channels.json"
+      "file": "community-scripts/channels.json",
+      "source": "community-scripts/channels.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Checkmate",
-      "file": "checkmate.json",
-      "source": "frontend/public/json/checkmate.json"
+      "file": "community-scripts/checkmate.json",
+      "source": "community-scripts/checkmate.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Checkmk",
-      "file": "checkmk.json",
-      "source": "frontend/public/json/checkmk.json"
+      "file": "community-scripts/checkmk.json",
+      "source": "community-scripts/checkmk.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Cleanuparr",
-      "file": "cleanuparr.json",
-      "source": "frontend/public/json/cleanuparr.json"
+      "file": "community-scripts/cleanuparr.json",
+      "source": "community-scripts/cleanuparr.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "CLIProxyAPI",
+      "file": "community-scripts/cliproxyapi.json",
+      "source": "community-scripts/cliproxyapi.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Cloudflare-DDNS",
-      "file": "cloudflare-ddns.json",
-      "source": "frontend/public/json/cloudflare-ddns.json"
+      "file": "community-scripts/cloudflare-ddns.json",
+      "source": "community-scripts/cloudflare-ddns.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Cloudflared",
-      "file": "cloudflared.json",
-      "source": "frontend/public/json/cloudflared.json"
+      "file": "community-scripts/cloudflared.json",
+      "source": "community-scripts/cloudflared.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Cloudreve",
-      "file": "cloudreve.json",
-      "source": "frontend/public/json/cloudreve.json"
+      "file": "community-scripts/cloudreve.json",
+      "source": "community-scripts/cloudreve.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Cockpit",
-      "file": "cockpit.json",
-      "source": "frontend/public/json/cockpit.json"
+      "file": "community-scripts/cockpit.json",
+      "source": "community-scripts/cockpit.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Coder Code Server",
-      "file": "coder-code-server.json",
-      "source": "frontend/public/json/coder-code-server.json"
+      "file": "community-scripts/coder-code-server.json",
+      "source": "community-scripts/coder-code-server.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "ComfyUI",
-      "file": "comfyui.json",
-      "source": "frontend/public/json/comfyui.json"
+      "file": "community-scripts/comfyui.json",
+      "source": "community-scripts/comfyui.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "CommaFeed",
-      "file": "commafeed.json",
-      "source": "frontend/public/json/commafeed.json"
+      "file": "community-scripts/commafeed.json",
+      "source": "community-scripts/commafeed.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Configarr",
-      "file": "configarr.json",
-      "source": "frontend/public/json/configarr.json"
+      "file": "community-scripts/configarr.json",
+      "source": "community-scripts/configarr.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "ConvertX",
-      "file": "convertx.json",
-      "source": "frontend/public/json/convertx.json"
+      "file": "community-scripts/convertx.json",
+      "source": "community-scripts/convertx.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Coolify",
-      "file": "coolify.json",
-      "source": "frontend/public/json/coolify.json"
+      "file": "community-scripts/coolify.json",
+      "source": "community-scripts/coolify.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Copyparty",
-      "file": "copyparty.json",
-      "source": "frontend/public/json/copyparty.json"
+      "file": "community-scripts/copyparty.json",
+      "source": "community-scripts/copyparty.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "CoreDNS",
+      "file": "community-scripts/coredns.json",
+      "source": "community-scripts/coredns.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Cosmos",
-      "file": "cosmos.json",
-      "source": "frontend/public/json/cosmos.json"
-    },
-    {
-      "name": "CR*NMASTER",
-      "file": "cronmaster.json",
-      "source": "frontend/public/json/cronmaster.json"
+      "file": "community-scripts/cosmos.json",
+      "source": "community-scripts/cosmos.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Crafty Controller",
-      "file": "crafty-controller.json",
-      "source": "frontend/public/json/crafty-controller.json"
+      "file": "community-scripts/crafty-controller.json",
+      "source": "community-scripts/crafty-controller.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Cronicle Primary",
-      "file": "cronicle.json",
-      "source": "frontend/public/json/cronicle.json"
+      "file": "community-scripts/cronicle.json",
+      "source": "community-scripts/cronicle.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "CronMaster",
+      "file": "community-scripts/cronmaster.json",
+      "source": "community-scripts/cronmaster.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "cross-seed",
-      "file": "cross-seed.json",
-      "source": "frontend/public/json/cross-seed.json"
+      "file": "community-scripts/cross-seed.json",
+      "source": "community-scripts/cross-seed.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "CrowdSec",
-      "file": "crowdsec.json",
-      "source": "frontend/public/json/crowdsec.json"
+      "file": "community-scripts/crowdsec.json",
+      "source": "community-scripts/crowdsec.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "CryptPad",
-      "file": "cryptpad.json",
-      "source": "frontend/public/json/cryptpad.json"
+      "file": "community-scripts/cryptpad.json",
+      "source": "community-scripts/cryptpad.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Daemon Sync Server",
-      "file": "daemonsync.json",
-      "source": "frontend/public/json/daemonsync.json"
+      "file": "community-scripts/daemonsync.json",
+      "source": "community-scripts/daemonsync.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Databasus",
-      "file": "databasus.json",
-      "source": "frontend/public/json/databasus.json"
+      "file": "community-scripts/databasus.json",
+      "source": "community-scripts/databasus.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Dawarich",
-      "file": "dawarich.json",
-      "source": "frontend/public/json/dawarich.json"
+      "file": "community-scripts/dawarich.json",
+      "source": "community-scripts/dawarich.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "ddclient",
-      "file": "ddclient.json",
-      "source": "frontend/public/json/ddclient.json"
+      "file": "community-scripts/ddclient.json",
+      "source": "community-scripts/ddclient.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Debian",
-      "file": "debian.json",
-      "source": "frontend/public/json/debian.json"
+      "file": "community-scripts/debian.json",
+      "source": "community-scripts/debian.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Debian 12",
-      "file": "debian-vm.json",
-      "source": "frontend/public/json/debian-vm.json"
+      "file": "community-scripts/debian-vm.json",
+      "source": "community-scripts/debian-vm.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Debian 13",
-      "file": "debian-13-vm.json",
-      "source": "frontend/public/json/debian-13-vm.json"
+      "file": "community-scripts/debian-13-vm.json",
+      "source": "community-scripts/debian-13-vm.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "deCONZ",
-      "file": "deconz.json",
-      "source": "frontend/public/json/deconz.json"
+      "file": "community-scripts/deconz.json",
+      "source": "community-scripts/deconz.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "degoog",
+      "file": "community-scripts/degoog.json",
+      "source": "community-scripts/degoog.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Deluge",
-      "file": "deluge.json",
-      "source": "frontend/public/json/deluge.json"
+      "file": "community-scripts/deluge.json",
+      "source": "community-scripts/deluge.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "DiscoPanel",
-      "file": "discopanel.json",
-      "source": "frontend/public/json/discopanel.json"
+      "file": "community-scripts/discopanel.json",
+      "source": "community-scripts/discopanel.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Discourse",
+      "file": "community-scripts/discourse.json",
+      "source": "community-scripts/discourse.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Dispatcharr",
-      "file": "dispatcharr.json",
-      "source": "frontend/public/json/dispatcharr.json"
+      "file": "community-scripts/dispatcharr.json",
+      "source": "community-scripts/dispatcharr.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Docker",
-      "file": "docker-vm.json",
-      "source": "frontend/public/json/docker-vm.json"
+      "file": "community-scripts/docker-vm.json",
+      "source": "community-scripts/docker-vm.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Docker",
+      "file": "community-scripts/docker.json",
+      "source": "community-scripts/docker.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Dockge",
-      "file": "dockge.json",
-      "source": "frontend/public/json/dockge.json"
+      "file": "community-scripts/dockge.json",
+      "source": "community-scripts/dockge.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Docmost",
-      "file": "docmost.json",
-      "source": "frontend/public/json/docmost.json"
+      "file": "community-scripts/docmost.json",
+      "source": "community-scripts/docmost.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Dokploy",
-      "file": "dokploy.json",
-      "source": "frontend/public/json/dokploy.json"
+      "file": "community-scripts/dokploy.json",
+      "source": "community-scripts/dokploy.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Dolibarr",
-      "file": "dolibarr.json",
-      "source": "frontend/public/json/dolibarr.json"
+      "file": "community-scripts/dolibarr.json",
+      "source": "community-scripts/dolibarr.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Domain Locker",
-      "file": "domain-locker.json",
-      "source": "frontend/public/json/domain-locker.json"
+      "file": "community-scripts/domain-locker.json",
+      "source": "community-scripts/domain-locker.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Domain Monitor",
-      "file": "domain-monitor.json",
-      "source": "frontend/public/json/domain-monitor.json"
+      "file": "community-scripts/domain-monitor.json",
+      "source": "community-scripts/domain-monitor.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Donetick",
-      "file": "donetick.json",
-      "source": "frontend/public/json/donetick.json"
+      "file": "community-scripts/donetick.json",
+      "source": "community-scripts/donetick.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Dotnet ASP Web API",
-      "file": "dotnetaspwebapi.json",
-      "source": "frontend/public/json/dotnetaspwebapi.json"
+      "file": "community-scripts/dotnetaspwebapi.json",
+      "source": "community-scripts/dotnetaspwebapi.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Draw.IO",
-      "file": "drawio.json",
-      "source": "frontend/public/json/drawio.json"
+      "file": "community-scripts/drawio.json",
+      "source": "community-scripts/drawio.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Duplicati",
-      "file": "duplicati.json",
-      "source": "frontend/public/json/duplicati.json"
+      "file": "community-scripts/duplicati.json",
+      "source": "community-scripts/duplicati.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "ebusd",
-      "file": "ebusd.json",
-      "source": "frontend/public/json/ebusd.json"
+      "file": "community-scripts/ebusd.json",
+      "source": "community-scripts/ebusd.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Element Synapse",
-      "file": "elementsynapse.json",
-      "source": "frontend/public/json/elementsynapse.json"
+      "file": "community-scripts/elementsynapse.json",
+      "source": "community-scripts/elementsynapse.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Emby Media Server",
-      "file": "emby.json",
-      "source": "frontend/public/json/emby.json"
+      "file": "community-scripts/emby.json",
+      "source": "community-scripts/emby.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "EMQX",
-      "file": "emqx.json",
-      "source": "frontend/public/json/emqx.json"
+      "file": "community-scripts/emqx.json",
+      "source": "community-scripts/emqx.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Endurain",
-      "file": "endurain.json",
-      "source": "frontend/public/json/endurain.json"
+      "file": "community-scripts/endurain.json",
+      "source": "community-scripts/endurain.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Ente",
+      "file": "community-scripts/ente.json",
+      "source": "community-scripts/ente.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "ERPNext",
+      "file": "community-scripts/erpnext.json",
+      "source": "community-scripts/erpnext.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "ErsatzTV",
-      "file": "ersatztv.json",
-      "source": "frontend/public/json/ersatztv.json"
+      "file": "community-scripts/ersatztv.json",
+      "source": "community-scripts/ersatztv.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "ESPHome",
-      "file": "esphome.json",
-      "source": "frontend/public/json/esphome.json"
+      "file": "community-scripts/esphome.json",
+      "source": "community-scripts/esphome.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "evcc",
-      "file": "evcc.json",
-      "source": "frontend/public/json/evcc.json"
+      "file": "community-scripts/evcc.json",
+      "source": "community-scripts/evcc.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Excalidraw",
-      "file": "excalidraw.json",
-      "source": "frontend/public/json/excalidraw.json"
+      "file": "community-scripts/excalidraw.json",
+      "source": "community-scripts/excalidraw.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "FHEM",
-      "file": "fhem.json",
-      "source": "frontend/public/json/fhem.json"
+      "file": "community-scripts/fhem.json",
+      "source": "community-scripts/fhem.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "File Browser",
-      "file": "filebrowser.json",
-      "source": "frontend/public/json/filebrowser.json"
+      "file": "community-scripts/filebrowser.json",
+      "source": "community-scripts/filebrowser.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "FileBrowser Quantum",
-      "file": "filebrowser-quantum.json",
-      "source": "frontend/public/json/filebrowser-quantum.json"
+      "file": "community-scripts/filebrowser-quantum.json",
+      "source": "community-scripts/filebrowser-quantum.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "FileFlows",
-      "file": "fileflows.json",
-      "source": "frontend/public/json/fileflows.json"
+      "file": "community-scripts/fileflows.json",
+      "source": "community-scripts/fileflows.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Firefly III",
-      "file": "firefly.json",
-      "source": "frontend/public/json/firefly.json"
+      "file": "community-scripts/firefly.json",
+      "source": "community-scripts/firefly.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Fladder",
-      "file": "fladder.json",
-      "source": "frontend/public/json/fladder.json"
+      "file": "community-scripts/fladder.json",
+      "source": "community-scripts/fladder.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "FlareSolverr",
-      "file": "flaresolverr.json",
-      "source": "frontend/public/json/flaresolverr.json"
+      "file": "community-scripts/flaresolverr.json",
+      "source": "community-scripts/flaresolverr.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Flatnotes",
-      "file": "flatnotes.json",
-      "source": "frontend/public/json/flatnotes.json"
+      "file": "community-scripts/flatnotes.json",
+      "source": "community-scripts/flatnotes.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "FlowiseAI",
-      "file": "flowiseai.json",
-      "source": "frontend/public/json/flowiseai.json"
+      "file": "community-scripts/flowiseai.json",
+      "source": "community-scripts/flowiseai.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Fluid-Calendar",
-      "file": "fluid-calendar.json",
-      "source": "frontend/public/json/fluid-calendar.json"
+      "file": "community-scripts/fluid-calendar.json",
+      "source": "community-scripts/fluid-calendar.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Foldergram",
+      "file": "community-scripts/foldergram.json",
+      "source": "community-scripts/foldergram.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Forgejo",
-      "file": "forgejo.json",
-      "source": "frontend/public/json/forgejo.json"
+      "file": "community-scripts/forgejo.json",
+      "source": "community-scripts/forgejo.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Forgejo Runner",
+      "file": "community-scripts/forgejo-runner.json",
+      "source": "community-scripts/forgejo-runner.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "FreePBX",
-      "file": "freepbx.json",
-      "source": "frontend/public/json/freepbx.json"
+      "file": "community-scripts/freepbx.json",
+      "source": "community-scripts/freepbx.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "FreshRSS",
-      "file": "freshrss.json",
-      "source": "frontend/public/json/freshrss.json"
+      "file": "community-scripts/freshrss.json",
+      "source": "community-scripts/freshrss.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Frigate",
-      "file": "frigate.json",
-      "source": "frontend/public/json/frigate.json"
+      "file": "community-scripts/frigate.json",
+      "source": "community-scripts/frigate.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Fumadocs",
-      "file": "fumadocs.json",
-      "source": "frontend/public/json/fumadocs.json"
+      "file": "community-scripts/fumadocs.json",
+      "source": "community-scripts/fumadocs.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Garage",
-      "file": "garage.json",
-      "source": "frontend/public/json/garage.json"
+      "file": "community-scripts/garage.json",
+      "source": "community-scripts/garage.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "garmin-grafana",
+      "file": "community-scripts/garmin-grafana.json",
+      "source": "community-scripts/garmin-grafana.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "gatus",
-      "file": "gatus.json",
-      "source": "frontend/public/json/gatus.json"
+      "file": "community-scripts/gatus.json",
+      "source": "community-scripts/gatus.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "GeoPulse",
+      "file": "community-scripts/geopulse.json",
+      "source": "community-scripts/geopulse.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Ghost",
-      "file": "ghost.json",
-      "source": "frontend/public/json/ghost.json"
+      "file": "community-scripts/ghost.json",
+      "source": "community-scripts/ghost.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Ghostfolio",
-      "file": "ghostfolio.json",
-      "source": "frontend/public/json/ghostfolio.json"
+      "file": "community-scripts/ghostfolio.json",
+      "source": "community-scripts/ghostfolio.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Gitea",
-      "file": "gitea.json",
-      "source": "frontend/public/json/gitea.json"
+      "file": "community-scripts/gitea.json",
+      "source": "community-scripts/gitea.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Gitea-Mirror",
-      "file": "gitea-mirror.json",
-      "source": "frontend/public/json/gitea-mirror.json"
+      "file": "community-scripts/gitea-mirror.json",
+      "source": "community-scripts/gitea-mirror.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "GitHub Runner",
+      "file": "community-scripts/github-runner.json",
+      "source": "community-scripts/github-runner.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Glance",
-      "file": "glance.json",
-      "source": "frontend/public/json/glance.json"
+      "file": "community-scripts/glance.json",
+      "source": "community-scripts/glance.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Glances",
-      "file": "glances.json",
-      "source": "frontend/public/json/glances.json"
+      "file": "community-scripts/glances.json",
+      "source": "community-scripts/glances.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "GlobaLeaks",
-      "file": "globaleaks.json",
-      "source": "frontend/public/json/globaleaks.json"
+      "file": "community-scripts/globaleaks.json",
+      "source": "community-scripts/globaleaks.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "GLPI",
-      "file": "glpi.json",
-      "source": "frontend/public/json/glpi.json"
+      "file": "community-scripts/glpi.json",
+      "source": "community-scripts/glpi.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Gluetun",
+      "file": "community-scripts/gluetun.json",
+      "source": "community-scripts/gluetun.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "go2rtc",
-      "file": "go2rtc.json",
-      "source": "frontend/public/json/go2rtc.json"
+      "file": "community-scripts/go2rtc.json",
+      "source": "community-scripts/go2rtc.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Gokapi",
-      "file": "gokapi.json",
-      "source": "frontend/public/json/gokapi.json"
+      "file": "community-scripts/gokapi.json",
+      "source": "community-scripts/gokapi.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Gotify",
-      "file": "gotify.json",
-      "source": "frontend/public/json/gotify.json"
+      "file": "community-scripts/gotify.json",
+      "source": "community-scripts/gotify.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Grafana",
-      "file": "grafana.json",
-      "source": "frontend/public/json/grafana.json"
+      "file": "community-scripts/grafana.json",
+      "source": "community-scripts/grafana.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Gramps Web",
-      "file": "gramps-web.json",
-      "source": "frontend/public/json/gramps-web.json"
+      "file": "community-scripts/gramps-web.json",
+      "source": "community-scripts/gramps-web.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Graylog",
-      "file": "graylog.json",
-      "source": "frontend/public/json/graylog.json"
+      "file": "community-scripts/graylog.json",
+      "source": "community-scripts/graylog.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Grist",
-      "file": "grist.json",
-      "source": "frontend/public/json/grist.json"
+      "file": "community-scripts/grist.json",
+      "source": "community-scripts/grist.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "grocy",
-      "file": "grocy.json",
-      "source": "frontend/public/json/grocy.json"
+      "file": "community-scripts/grocy.json",
+      "source": "community-scripts/grocy.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Guardian",
-      "file": "guardian.json",
-      "source": "frontend/public/json/guardian.json"
+      "file": "community-scripts/guardian.json",
+      "source": "community-scripts/guardian.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "GWN Manager",
-      "file": "gwn-manager.json",
-      "source": "frontend/public/json/gwn-manager.json"
+      "file": "community-scripts/gwn-manager.json",
+      "source": "community-scripts/gwn-manager.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Headscale",
-      "file": "headscale.json",
-      "source": "frontend/public/json/headscale.json"
+      "file": "community-scripts/headscale.json",
+      "source": "community-scripts/headscale.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Healthchecks",
-      "file": "healthchecks.json",
-      "source": "frontend/public/json/healthchecks.json"
+      "file": "community-scripts/healthchecks.json",
+      "source": "community-scripts/healthchecks.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Heimdall Dashboard",
-      "file": "heimdall-dashboard.json",
-      "source": "frontend/public/json/heimdall-dashboard.json"
+      "file": "community-scripts/heimdall-dashboard.json",
+      "source": "community-scripts/heimdall-dashboard.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "hev-socks5-server",
-      "file": "hev-socks5-server.json",
-      "source": "frontend/public/json/hev-socks5-server.json"
+      "file": "community-scripts/hev-socks5-server.json",
+      "source": "community-scripts/hev-socks5-server.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "HiveMQ CE",
-      "file": "hivemq.json",
-      "source": "frontend/public/json/hivemq.json"
+      "file": "community-scripts/hivemq.json",
+      "source": "community-scripts/hivemq.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Homarr",
-      "file": "homarr.json",
-      "source": "frontend/public/json/homarr.json"
+      "file": "community-scripts/homarr.json",
+      "source": "community-scripts/homarr.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Home Assistant Container",
-      "file": "homeassistant.json",
-      "source": "frontend/public/json/homeassistant.json"
+      "file": "community-scripts/homeassistant.json",
+      "source": "community-scripts/homeassistant.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Home Assistant OS",
-      "file": "haos-vm.json",
-      "source": "frontend/public/json/haos-vm.json"
+      "file": "community-scripts/haos-vm.json",
+      "source": "community-scripts/haos-vm.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "HomeBox",
-      "file": "homebox.json",
-      "source": "frontend/public/json/homebox.json"
+      "file": "community-scripts/homebox.json",
+      "source": "community-scripts/homebox.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Homebrew (Linuxbrew)",
+      "file": "community-scripts/homebrew.json",
+      "source": "community-scripts/homebrew.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Homebridge",
-      "file": "homebridge.json",
-      "source": "frontend/public/json/homebridge.json"
+      "file": "community-scripts/homebridge.json",
+      "source": "community-scripts/homebridge.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Homepage",
-      "file": "homepage.json",
-      "source": "frontend/public/json/homepage.json"
+      "file": "community-scripts/homepage.json",
+      "source": "community-scripts/homepage.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Homer",
-      "file": "homer.json",
-      "source": "frontend/public/json/homer.json"
+      "file": "community-scripts/homer.json",
+      "source": "community-scripts/homer.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Hoodik",
+      "file": "community-scripts/hoodik.json",
+      "source": "community-scripts/hoodik.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "HortusFox",
-      "file": "hortusfox.json",
-      "source": "frontend/public/json/hortusfox.json"
+      "file": "community-scripts/hortusfox.json",
+      "source": "community-scripts/hortusfox.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "HyperHDR",
-      "file": "hyperhdr.json",
-      "source": "frontend/public/json/hyperhdr.json"
+      "file": "community-scripts/hyperhdr.json",
+      "source": "community-scripts/hyperhdr.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Hyperion",
-      "file": "hyperion.json",
-      "source": "frontend/public/json/hyperion.json"
+      "file": "community-scripts/hyperion.json",
+      "source": "community-scripts/hyperion.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "iGotify",
+      "file": "community-scripts/igotify.json",
+      "source": "community-scripts/igotify.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Immich",
-      "file": "immich.json",
-      "source": "frontend/public/json/immich.json"
+      "file": "community-scripts/immich.json",
+      "source": "community-scripts/immich.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Immich Public Proxy",
-      "file": "immich-public-proxy.json",
-      "source": "frontend/public/json/immich-public-proxy.json"
+      "file": "community-scripts/immich-public-proxy.json",
+      "source": "community-scripts/immich-public-proxy.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "ImmichFrame",
+      "file": "community-scripts/immichframe.json",
+      "source": "community-scripts/immichframe.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Infisical",
-      "file": "infisical.json",
-      "source": "frontend/public/json/infisical.json"
+      "file": "community-scripts/infisical.json",
+      "source": "community-scripts/infisical.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "InfluxDB",
-      "file": "influxdb.json",
-      "source": "frontend/public/json/influxdb.json"
+      "file": "community-scripts/influxdb.json",
+      "source": "community-scripts/influxdb.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "InspIRCd 4",
-      "file": "inspircd.json",
-      "source": "frontend/public/json/inspircd.json"
+      "file": "community-scripts/inspircd.json",
+      "source": "community-scripts/inspircd.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "InvenTree",
-      "file": "inventree.json",
-      "source": "frontend/public/json/inventree.json"
+      "file": "community-scripts/inventree.json",
+      "source": "community-scripts/inventree.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Investbrain",
-      "file": "investbrain.json",
-      "source": "frontend/public/json/investbrain.json"
+      "file": "community-scripts/investbrain.json",
+      "source": "community-scripts/investbrain.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "InvoiceNinja",
-      "file": "invoiceninja.json",
-      "source": "frontend/public/json/invoiceninja.json"
+      "file": "community-scripts/invoiceninja.json",
+      "source": "community-scripts/invoiceninja.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "ioBroker",
-      "file": "iobroker.json",
-      "source": "frontend/public/json/iobroker.json"
+      "file": "community-scripts/iobroker.json",
+      "source": "community-scripts/iobroker.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "IronClaw",
+      "file": "community-scripts/ironclaw.json",
+      "source": "community-scripts/ironclaw.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "iSponsorBlockTV",
+      "file": "community-scripts/isponsorblocktv.json",
+      "source": "community-scripts/isponsorblocktv.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "ITSM-NG",
-      "file": "itsm-ng.json",
-      "source": "frontend/public/json/itsm-ng.json"
+      "file": "community-scripts/itsm-ng.json",
+      "source": "community-scripts/itsm-ng.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Jackett",
-      "file": "jackett.json",
-      "source": "frontend/public/json/jackett.json"
+      "file": "community-scripts/jackett.json",
+      "source": "community-scripts/jackett.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Jeedom",
-      "file": "jeedom.json",
-      "source": "frontend/public/json/jeedom.json"
+      "file": "community-scripts/jeedom.json",
+      "source": "community-scripts/jeedom.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Jellyfin Media Server",
-      "file": "jellyfin.json",
-      "source": "frontend/public/json/jellyfin.json"
+      "file": "community-scripts/jellyfin.json",
+      "source": "community-scripts/jellyfin.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Jellystat",
-      "file": "jellystat.json",
-      "source": "frontend/public/json/jellystat.json"
+      "file": "community-scripts/jellystat.json",
+      "source": "community-scripts/jellystat.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Jenkins",
-      "file": "jenkins.json",
-      "source": "frontend/public/json/jenkins.json"
+      "file": "community-scripts/jenkins.json",
+      "source": "community-scripts/jenkins.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Jitsi Meet",
+      "file": "community-scripts/jitsi.json",
+      "source": "community-scripts/jitsi.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Joplin Server",
-      "file": "joplin-server.json",
-      "source": "frontend/public/json/joplin-server.json"
+      "file": "community-scripts/joplin-server.json",
+      "source": "community-scripts/joplin-server.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "jotty",
-      "file": "jotty.json",
-      "source": "frontend/public/json/jotty.json"
+      "file": "community-scripts/jotty.json",
+      "source": "community-scripts/jotty.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Jupyter Notebook",
-      "file": "jupyternotebook.json",
-      "source": "frontend/public/json/jupyternotebook.json"
+      "file": "community-scripts/jupyternotebook.json",
+      "source": "community-scripts/jupyternotebook.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Kapowarr",
-      "file": "kapowarr.json",
-      "source": "frontend/public/json/kapowarr.json"
+      "file": "community-scripts/kapowarr.json",
+      "source": "community-scripts/kapowarr.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "karakeep",
-      "file": "karakeep.json",
-      "source": "frontend/public/json/karakeep.json"
+      "file": "community-scripts/karakeep.json",
+      "source": "community-scripts/karakeep.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Kasm",
-      "file": "kasm.json",
-      "source": "frontend/public/json/kasm.json"
+      "file": "community-scripts/kasm.json",
+      "source": "community-scripts/kasm.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Kavita",
-      "file": "kavita.json",
-      "source": "frontend/public/json/kavita.json"
+      "file": "community-scripts/kavita.json",
+      "source": "community-scripts/kavita.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Keycloak",
-      "file": "keycloak.json",
-      "source": "frontend/public/json/keycloak.json"
+      "file": "community-scripts/keycloak.json",
+      "source": "community-scripts/keycloak.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Kima-Hub",
-      "file": "kima-hub.json",
-      "source": "frontend/public/json/kima-hub.json"
+      "file": "community-scripts/kima-hub.json",
+      "source": "community-scripts/kima-hub.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Kimai",
-      "file": "kimai.json",
-      "source": "frontend/public/json/kimai.json"
+      "file": "community-scripts/kimai.json",
+      "source": "community-scripts/kimai.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "KitchenOwl",
-      "file": "kitchenowl.json",
-      "source": "frontend/public/json/kitchenowl.json"
+      "file": "community-scripts/kitchenowl.json",
+      "source": "community-scripts/kitchenowl.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Koel",
-      "file": "koel.json",
-      "source": "frontend/public/json/koel.json"
+      "file": "community-scripts/koel.json",
+      "source": "community-scripts/koel.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Koillection",
-      "file": "koillection.json",
-      "source": "frontend/public/json/koillection.json"
+      "file": "community-scripts/koillection.json",
+      "source": "community-scripts/koillection.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Kometa",
-      "file": "kometa.json",
-      "source": "frontend/public/json/kometa.json"
+      "file": "community-scripts/kometa.json",
+      "source": "community-scripts/kometa.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Komga",
-      "file": "komga.json",
-      "source": "frontend/public/json/komga.json"
+      "file": "community-scripts/komga.json",
+      "source": "community-scripts/komga.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Komodo",
-      "file": "komodo.json",
-      "source": "frontend/public/json/komodo.json"
+      "file": "community-scripts/komodo.json",
+      "source": "community-scripts/komodo.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Kubo",
-      "file": "kubo.json",
-      "source": "frontend/public/json/kubo.json"
+      "file": "community-scripts/kubo.json",
+      "source": "community-scripts/kubo.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Kutt",
-      "file": "kutt.json",
-      "source": "frontend/public/json/kutt.json"
+      "file": "community-scripts/kutt.json",
+      "source": "community-scripts/kutt.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "LabCA",
+      "file": "community-scripts/labca.json",
+      "source": "community-scripts/labca.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "LanguageTool",
-      "file": "languagetool.json",
-      "source": "frontend/public/json/languagetool.json"
+      "file": "community-scripts/languagetool.json",
+      "source": "community-scripts/languagetool.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "LazyLibrarian",
-      "file": "lazylibrarian.json",
-      "source": "frontend/public/json/lazylibrarian.json"
+      "file": "community-scripts/lazylibrarian.json",
+      "source": "community-scripts/lazylibrarian.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Leantime",
-      "file": "leantime.json",
-      "source": "frontend/public/json/leantime.json"
+      "file": "community-scripts/leantime.json",
+      "source": "community-scripts/leantime.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "LibreChat",
+      "file": "community-scripts/librechat.json",
+      "source": "community-scripts/librechat.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "LibreNMS",
-      "file": "librenms.json",
-      "source": "frontend/public/json/librenms.json"
+      "file": "community-scripts/librenms.json",
+      "source": "community-scripts/librenms.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Librespeed Rust",
-      "file": "librespeed-rust.json",
-      "source": "frontend/public/json/librespeed-rust.json"
+      "file": "community-scripts/librespeed-rust.json",
+      "source": "community-scripts/librespeed-rust.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "LibreTranslate",
-      "file": "libretranslate.json",
-      "source": "frontend/public/json/libretranslate.json"
+      "file": "community-scripts/libretranslate.json",
+      "source": "community-scripts/libretranslate.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Lidarr",
-      "file": "lidarr.json",
-      "source": "frontend/public/json/lidarr.json"
+      "file": "community-scripts/lidarr.json",
+      "source": "community-scripts/lidarr.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "LimeSurvey",
-      "file": "limesurvey.json",
-      "source": "frontend/public/json/limesurvey.json"
+      "file": "community-scripts/limesurvey.json",
+      "source": "community-scripts/limesurvey.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "linkding",
-      "file": "linkding.json",
-      "source": "frontend/public/json/linkding.json"
+      "file": "community-scripts/linkding.json",
+      "source": "community-scripts/linkding.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "LinkStack",
-      "file": "linkstack.json",
-      "source": "frontend/public/json/linkstack.json"
+      "file": "community-scripts/linkstack.json",
+      "source": "community-scripts/linkstack.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Linkwarden",
-      "file": "linkwarden.json",
-      "source": "frontend/public/json/linkwarden.json"
+      "file": "community-scripts/linkwarden.json",
+      "source": "community-scripts/linkwarden.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "listmonk",
-      "file": "listmonk.json",
-      "source": "frontend/public/json/listmonk.json"
+      "file": "community-scripts/listmonk.json",
+      "source": "community-scripts/listmonk.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "LiteLLM",
-      "file": "litellm.json",
-      "source": "frontend/public/json/litellm.json"
+      "file": "community-scripts/litellm.json",
+      "source": "community-scripts/litellm.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Livebook",
-      "file": "livebook.json",
-      "source": "frontend/public/json/livebook.json"
+      "file": "community-scripts/livebook.json",
+      "source": "community-scripts/livebook.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "lldap",
-      "file": "lldap.json",
-      "source": "frontend/public/json/lldap.json"
+      "file": "community-scripts/lldap.json",
+      "source": "community-scripts/lldap.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "LobeHub",
+      "file": "community-scripts/lobehub.json",
+      "source": "community-scripts/lobehub.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "LocalAGI",
+      "file": "community-scripts/localagi.json",
+      "source": "community-scripts/localagi.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Loki",
-      "file": "loki.json",
-      "source": "frontend/public/json/loki.json"
+      "file": "community-scripts/loki.json",
+      "source": "community-scripts/loki.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "LubeLogger",
-      "file": "lubelogger.json",
-      "source": "frontend/public/json/lubelogger.json"
+      "file": "community-scripts/lubelogger.json",
+      "source": "community-scripts/lubelogger.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Lyrion Music Server",
-      "file": "lyrionmusicserver.json",
-      "source": "frontend/public/json/lyrionmusicserver.json"
+      "file": "community-scripts/lyrionmusicserver.json",
+      "source": "community-scripts/lyrionmusicserver.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Mafl",
-      "file": "mafl.json",
-      "source": "frontend/public/json/mafl.json"
+      "file": "community-scripts/mafl.json",
+      "source": "community-scripts/mafl.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "MagicMirror Server",
-      "file": "magicmirror.json",
-      "source": "frontend/public/json/magicmirror.json"
+      "file": "community-scripts/magicmirror.json",
+      "source": "community-scripts/magicmirror.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Mail-Archiver",
-      "file": "mail-archiver.json",
-      "source": "frontend/public/json/mail-archiver.json"
+      "file": "community-scripts/mail-archiver.json",
+      "source": "community-scripts/mail-archiver.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Manage My Damn Life",
-      "file": "managemydamnlife.json",
-      "source": "frontend/public/json/managemydamnlife.json"
+      "file": "community-scripts/managemydamnlife.json",
+      "source": "community-scripts/managemydamnlife.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Manyfold",
-      "file": "manyfold.json",
-      "source": "frontend/public/json/manyfold.json"
+      "file": "community-scripts/manyfold.json",
+      "source": "community-scripts/manyfold.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Mariadb",
-      "file": "mariadb.json",
-      "source": "frontend/public/json/mariadb.json"
+      "file": "community-scripts/mariadb.json",
+      "source": "community-scripts/mariadb.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Matter Server",
+      "file": "community-scripts/matter-server.json",
+      "source": "community-scripts/matter-server.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Matterbridge",
-      "file": "matterbridge.json",
-      "source": "frontend/public/json/matterbridge.json"
+      "file": "community-scripts/matterbridge.json",
+      "source": "community-scripts/matterbridge.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Mattermost",
-      "file": "mattermost.json",
-      "source": "frontend/public/json/mattermost.json"
+      "file": "community-scripts/mattermost.json",
+      "source": "community-scripts/mattermost.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Mealie",
-      "file": "mealie.json",
-      "source": "frontend/public/json/mealie.json"
+      "file": "community-scripts/mealie.json",
+      "source": "community-scripts/mealie.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "MediaManager",
-      "file": "mediamanager.json",
-      "source": "frontend/public/json/mediamanager.json"
+      "file": "community-scripts/mediamanager.json",
+      "source": "community-scripts/mediamanager.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "MediaMTX",
-      "file": "mediamtx.json",
-      "source": "frontend/public/json/mediamtx.json"
+      "file": "community-scripts/mediamtx.json",
+      "source": "community-scripts/mediamtx.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Medusa",
-      "file": "medusa.json",
-      "source": "frontend/public/json/medusa.json"
+      "file": "community-scripts/medusa.json",
+      "source": "community-scripts/medusa.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Meilisearch",
-      "file": "meilisearch.json",
-      "source": "frontend/public/json/meilisearch.json"
+      "file": "community-scripts/meilisearch.json",
+      "source": "community-scripts/meilisearch.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Memos",
-      "file": "memos.json",
-      "source": "frontend/public/json/memos.json"
+      "file": "community-scripts/memos.json",
+      "source": "community-scripts/memos.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "MeshCentral",
-      "file": "meshcentral.json",
-      "source": "frontend/public/json/meshcentral.json"
+      "file": "community-scripts/meshcentral.json",
+      "source": "community-scripts/meshcentral.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Metabase",
-      "file": "metabase.json",
-      "source": "frontend/public/json/metabase.json"
+      "file": "community-scripts/metabase.json",
+      "source": "community-scripts/metabase.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "MeTube",
-      "file": "metube.json",
-      "source": "frontend/public/json/metube.json"
+      "file": "community-scripts/metube.json",
+      "source": "community-scripts/metube.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Mikrotik RouterOS CHR",
-      "file": "mikrotik-routeros.json",
-      "source": "frontend/public/json/mikrotik-routeros.json"
+      "file": "community-scripts/mikrotik-routeros.json",
+      "source": "community-scripts/mikrotik-routeros.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Minarca",
-      "file": "minarca.json",
-      "source": "frontend/public/json/minarca.json"
+      "file": "community-scripts/minarca.json",
+      "source": "community-scripts/minarca.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Miniflux",
-      "file": "miniflux.json",
-      "source": "frontend/public/json/miniflux.json"
+      "file": "community-scripts/miniflux.json",
+      "source": "community-scripts/miniflux.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "MinIO",
-      "file": "minio.json",
-      "source": "frontend/public/json/minio.json"
+      "file": "community-scripts/minio.json",
+      "source": "community-scripts/minio.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "MintHCM",
+      "file": "community-scripts/minthcm.json",
+      "source": "community-scripts/minthcm.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "MongoDB",
-      "file": "mongodb.json",
-      "source": "frontend/public/json/mongodb.json"
+      "file": "community-scripts/mongodb.json",
+      "source": "community-scripts/mongodb.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Monica",
-      "file": "monica.json",
-      "source": "frontend/public/json/monica.json"
+      "file": "community-scripts/monica.json",
+      "source": "community-scripts/monica.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "MotionEye NVR",
-      "file": "motioneye.json",
-      "source": "frontend/public/json/motioneye.json"
+      "file": "community-scripts/motioneye.json",
+      "source": "community-scripts/motioneye.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "MQTT",
-      "file": "mqtt.json",
-      "source": "frontend/public/json/mqtt.json"
+      "file": "community-scripts/mqtt.json",
+      "source": "community-scripts/mqtt.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "MyIP",
-      "file": "myip.json",
-      "source": "frontend/public/json/myip.json"
+      "file": "community-scripts/myip.json",
+      "source": "community-scripts/myip.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Mylar3",
-      "file": "mylar3.json",
-      "source": "frontend/public/json/mylar3.json"
+      "file": "community-scripts/mylar3.json",
+      "source": "community-scripts/mylar3.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "MySpeed",
-      "file": "myspeed.json",
-      "source": "frontend/public/json/myspeed.json"
+      "file": "community-scripts/myspeed.json",
+      "source": "community-scripts/myspeed.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "n8n",
-      "file": "n8n.json",
-      "source": "frontend/public/json/n8n.json"
+      "file": "community-scripts/n8n.json",
+      "source": "community-scripts/n8n.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Navidrome",
-      "file": "navidrome.json",
-      "source": "frontend/public/json/navidrome.json"
+      "file": "community-scripts/navidrome.json",
+      "source": "community-scripts/navidrome.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Neo4j",
-      "file": "neo4j.json",
-      "source": "frontend/public/json/neo4j.json"
+      "file": "community-scripts/neo4j.json",
+      "source": "community-scripts/neo4j.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "NetBird",
-      "file": "add-netbird-lxc.json",
-      "source": "frontend/public/json/add-netbird-lxc.json"
+      "file": "community-scripts/add-netbird-lxc.json",
+      "source": "community-scripts/add-netbird-lxc.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "NetBird",
+      "file": "community-scripts/netbird.json",
+      "source": "community-scripts/netbird.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "netboot.xyz",
+      "file": "community-scripts/netboot-xyz.json",
+      "source": "community-scripts/netboot-xyz.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "NetBox",
-      "file": "netbox.json",
-      "source": "frontend/public/json/netbox.json"
+      "file": "community-scripts/netbox.json",
+      "source": "community-scripts/netbox.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Nextcloud",
-      "file": "nextcloud-vm.json",
-      "source": "frontend/public/json/nextcloud-vm.json"
+      "file": "community-scripts/nextcloud-vm.json",
+      "source": "community-scripts/nextcloud-vm.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Nextcloud Exporter",
-      "file": "nextcloud-exporter.json",
-      "source": "frontend/public/json/nextcloud-exporter.json"
+      "file": "community-scripts/nextcloud-exporter.json",
+      "source": "community-scripts/nextcloud-exporter.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "NextcloudPi",
-      "file": "nextcloudpi.json",
-      "source": "frontend/public/json/nextcloudpi.json"
+      "file": "community-scripts/nextcloudpi.json",
+      "source": "community-scripts/nextcloudpi.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "nextExplorer",
+      "file": "community-scripts/nextexplorer.json",
+      "source": "community-scripts/nextexplorer.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "NextPVR",
-      "file": "nextpvr.json",
-      "source": "frontend/public/json/nextpvr.json"
+      "file": "community-scripts/nextpvr.json",
+      "source": "community-scripts/nextpvr.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Nginx Proxy Manager",
-      "file": "nginxproxymanager.json",
-      "source": "frontend/public/json/nginxproxymanager.json"
+      "file": "community-scripts/nginxproxymanager.json",
+      "source": "community-scripts/nginxproxymanager.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Nginx UI",
-      "file": "nginx-ui.json",
-      "source": "frontend/public/json/nginx-ui.json"
+      "file": "community-scripts/nginx-ui.json",
+      "source": "community-scripts/nginx-ui.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Nightscout",
-      "file": "nightscout.json",
-      "source": "frontend/public/json/nightscout.json"
+      "file": "community-scripts/nightscout.json",
+      "source": "community-scripts/nightscout.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "NocoDB",
-      "file": "nocodb.json",
-      "source": "frontend/public/json/nocodb.json"
+      "file": "community-scripts/nocodb.json",
+      "source": "community-scripts/nocodb.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Node-Red",
-      "file": "node-red.json",
-      "source": "frontend/public/json/node-red.json"
+      "file": "community-scripts/node-red.json",
+      "source": "community-scripts/node-red.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "NodeBB",
-      "file": "nodebb.json",
-      "source": "frontend/public/json/nodebb.json"
+      "file": "community-scripts/nodebb.json",
+      "source": "community-scripts/nodebb.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "nodecast-tv",
-      "file": "nodecast-tv.json",
-      "source": "frontend/public/json/nodecast-tv.json"
+      "file": "community-scripts/nodecast-tv.json",
+      "source": "community-scripts/nodecast-tv.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Notifiarr",
-      "file": "notifiarr.json",
-      "source": "frontend/public/json/notifiarr.json"
+      "file": "community-scripts/notifiarr.json",
+      "source": "community-scripts/notifiarr.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "NPMplus",
-      "file": "npmplus.json",
-      "source": "frontend/public/json/npmplus.json"
+      "file": "community-scripts/npmplus.json",
+      "source": "community-scripts/npmplus.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "ntfy",
-      "file": "ntfy.json",
-      "source": "frontend/public/json/ntfy.json"
+      "file": "community-scripts/ntfy.json",
+      "source": "community-scripts/ntfy.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Nx Witness",
-      "file": "nxwitness.json",
-      "source": "frontend/public/json/nxwitness.json"
+      "file": "community-scripts/nxwitness.json",
+      "source": "community-scripts/nxwitness.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "NZBGet",
-      "file": "nzbget.json",
-      "source": "frontend/public/json/nzbget.json"
+      "file": "community-scripts/nzbget.json",
+      "source": "community-scripts/nzbget.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "OAuth2-Proxy",
-      "file": "oauth2-proxy.json",
-      "source": "frontend/public/json/oauth2-proxy.json"
+      "file": "community-scripts/oauth2-proxy.json",
+      "source": "community-scripts/oauth2-proxy.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "OctoPrint",
-      "file": "octoprint.json",
-      "source": "frontend/public/json/octoprint.json"
+      "file": "community-scripts/octoprint.json",
+      "source": "community-scripts/octoprint.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Odoo",
-      "file": "odoo.json",
-      "source": "frontend/public/json/odoo.json"
+      "file": "community-scripts/odoo.json",
+      "source": "community-scripts/odoo.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "OliveTin",
-      "file": "olivetin.json",
-      "source": "frontend/public/json/olivetin.json"
+      "file": "community-scripts/olivetin.json",
+      "source": "community-scripts/olivetin.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Ollama",
-      "file": "ollama.json",
-      "source": "frontend/public/json/ollama.json"
+      "file": "community-scripts/ollama.json",
+      "source": "community-scripts/ollama.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Omada Controller",
-      "file": "omada.json",
-      "source": "frontend/public/json/omada.json"
+      "file": "community-scripts/omada.json",
+      "source": "community-scripts/omada.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Ombi",
-      "file": "ombi.json",
-      "source": "frontend/public/json/ombi.json"
+      "file": "community-scripts/ombi.json",
+      "source": "community-scripts/ombi.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "OneDev",
-      "file": "onedev.json",
-      "source": "frontend/public/json/onedev.json"
+      "file": "community-scripts/onedev.json",
+      "source": "community-scripts/onedev.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "ONLYOFFICE Docs",
-      "file": "onlyoffice.json",
-      "source": "frontend/public/json/onlyoffice.json"
+      "file": "community-scripts/onlyoffice.json",
+      "source": "community-scripts/onlyoffice.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Open WebUI",
-      "file": "openwebui.json",
-      "source": "frontend/public/json/openwebui.json"
+      "file": "community-scripts/openwebui.json",
+      "source": "community-scripts/openwebui.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Open-Archiver",
-      "file": "open-archiver.json",
-      "source": "frontend/public/json/open-archiver.json"
+      "file": "community-scripts/open-archiver.json",
+      "source": "community-scripts/open-archiver.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "OpenCloud",
-      "file": "opencloud.json",
-      "source": "frontend/public/json/opencloud.json"
+      "file": "community-scripts/opencloud.json",
+      "source": "community-scripts/opencloud.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Opengist",
-      "file": "opengist.json",
-      "source": "frontend/public/json/opengist.json"
+      "file": "community-scripts/opengist.json",
+      "source": "community-scripts/opengist.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "openHAB",
-      "file": "openhab.json",
-      "source": "frontend/public/json/openhab.json"
+      "file": "community-scripts/openhab.json",
+      "source": "community-scripts/openhab.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "OpenMediaVault",
-      "file": "omv.json",
-      "source": "frontend/public/json/omv.json"
+      "file": "community-scripts/omv.json",
+      "source": "community-scripts/omv.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "OpenObserve",
-      "file": "openobserve.json",
-      "source": "frontend/public/json/openobserve.json"
+      "file": "community-scripts/openobserve.json",
+      "source": "community-scripts/openobserve.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "OpenProject",
-      "file": "openproject.json",
-      "source": "frontend/public/json/openproject.json"
+      "file": "community-scripts/openproject.json",
+      "source": "community-scripts/openproject.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "OpenWrt",
-      "file": "openwrt-vm.json",
-      "source": "frontend/public/json/openwrt-vm.json"
+      "file": "community-scripts/openwrt-vm.json",
+      "source": "community-scripts/openwrt-vm.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "openziti-controller",
-      "file": "openziti-controller.json",
-      "source": "frontend/public/json/openziti-controller.json"
+      "file": "community-scripts/openziti-controller.json",
+      "source": "community-scripts/openziti-controller.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "openziti-tunnel",
-      "file": "openziti-tunnel.json",
-      "source": "frontend/public/json/openziti-tunnel.json"
+      "file": "community-scripts/openziti-tunnel.json",
+      "source": "community-scripts/openziti-tunnel.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "OPNsense",
-      "file": "opnsense-vm.json",
-      "source": "frontend/public/json/opnsense-vm.json"
+      "file": "community-scripts/opnsense-vm.json",
+      "source": "community-scripts/opnsense-vm.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "OTS",
-      "file": "ots.json",
-      "source": "frontend/public/json/ots.json"
+      "file": "community-scripts/ots.json",
+      "source": "community-scripts/ots.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Outline",
-      "file": "outline.json",
-      "source": "frontend/public/json/outline.json"
+      "file": "community-scripts/outline.json",
+      "source": "community-scripts/outline.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Owncast",
-      "file": "owncast.json",
-      "source": "frontend/public/json/owncast.json"
+      "file": "community-scripts/owncast.json",
+      "source": "community-scripts/owncast.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "ownCloud",
-      "file": "owncloud-vm.json",
-      "source": "frontend/public/json/owncloud-vm.json"
+      "file": "community-scripts/owncloud-vm.json",
+      "source": "community-scripts/owncloud-vm.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "OxiCloud",
+      "file": "community-scripts/oxicloud.json",
+      "source": "community-scripts/oxicloud.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "PairDrop",
-      "file": "pairdrop.json",
-      "source": "frontend/public/json/pairdrop.json"
+      "file": "community-scripts/pairdrop.json",
+      "source": "community-scripts/pairdrop.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Pangolin",
-      "file": "pangolin.json",
-      "source": "frontend/public/json/pangolin.json"
+      "file": "community-scripts/pangolin.json",
+      "source": "community-scripts/pangolin.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Paperless-GPT",
-      "file": "paperless-gpt.json",
-      "source": "frontend/public/json/paperless-gpt.json"
+      "file": "community-scripts/paperless-gpt.json",
+      "source": "community-scripts/paperless-gpt.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Paperless-ngx",
-      "file": "paperless-ngx.json",
-      "source": "frontend/public/json/paperless-ngx.json"
+      "file": "community-scripts/paperless-ngx.json",
+      "source": "community-scripts/paperless-ngx.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "PaperlessAI",
-      "file": "paperless-ai.json",
-      "source": "frontend/public/json/paperless-ai.json"
+      "file": "community-scripts/paperless-ai.json",
+      "source": "community-scripts/paperless-ai.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Papra",
-      "file": "papra.json",
-      "source": "frontend/public/json/papra.json"
+      "file": "community-scripts/papra.json",
+      "source": "community-scripts/papra.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Part-DB",
-      "file": "part-db.json",
-      "source": "frontend/public/json/part-db.json"
+      "file": "community-scripts/part-db.json",
+      "source": "community-scripts/part-db.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Passbolt",
-      "file": "passbolt.json",
-      "source": "frontend/public/json/passbolt.json"
+      "file": "community-scripts/passbolt.json",
+      "source": "community-scripts/passbolt.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "PatchMon",
-      "file": "patchmon.json",
-      "source": "frontend/public/json/patchmon.json"
+      "file": "community-scripts/patchmon.json",
+      "source": "community-scripts/patchmon.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Paymenter",
-      "file": "paymenter.json",
-      "source": "frontend/public/json/paymenter.json"
+      "file": "community-scripts/paymenter.json",
+      "source": "community-scripts/paymenter.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "PeaNUT",
-      "file": "peanut.json",
-      "source": "frontend/public/json/peanut.json"
+      "file": "community-scripts/peanut.json",
+      "source": "community-scripts/peanut.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Pelican Panel",
-      "file": "pelican-panel.json",
-      "source": "frontend/public/json/pelican-panel.json"
+      "file": "community-scripts/pelican-panel.json",
+      "source": "community-scripts/pelican-panel.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Pelican Wings",
-      "file": "pelican-wings.json",
-      "source": "frontend/public/json/pelican-wings.json"
+      "file": "community-scripts/pelican-wings.json",
+      "source": "community-scripts/pelican-wings.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Pf2eTools",
-      "file": "pf2etools.json",
-      "source": "frontend/public/json/pf2etools.json"
+      "file": "community-scripts/pf2etools.json",
+      "source": "community-scripts/pf2etools.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "PhotoPrism",
-      "file": "photoprism.json",
-      "source": "frontend/public/json/photoprism.json"
+      "file": "community-scripts/photoprism.json",
+      "source": "community-scripts/photoprism.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "PhpMyAdmin",
-      "file": "phpmyadmin.json",
-      "source": "frontend/public/json/phpmyadmin.json"
+      "file": "community-scripts/phpmyadmin.json",
+      "source": "community-scripts/phpmyadmin.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Pi-Hole",
-      "file": "pihole.json",
-      "source": "frontend/public/json/pihole.json"
+      "file": "community-scripts/pihole.json",
+      "source": "community-scripts/pihole.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Pi-Hole Exporter",
-      "file": "pihole-exporter.json",
-      "source": "frontend/public/json/pihole-exporter.json"
+      "file": "community-scripts/pihole-exporter.json",
+      "source": "community-scripts/pihole-exporter.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Pi.Alert",
-      "file": "pialert.json",
-      "source": "frontend/public/json/pialert.json"
+      "file": "community-scripts/pialert.json",
+      "source": "community-scripts/pialert.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "PiMox HAOS",
-      "file": "pimox-haos-vm.json",
-      "source": "frontend/public/json/pimox-haos-vm.json"
+      "file": "community-scripts/pimox-haos-vm.json",
+      "source": "community-scripts/pimox-haos-vm.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Pixelfed",
+      "file": "community-scripts/pixelfed.json",
+      "source": "community-scripts/pixelfed.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Plane",
+      "file": "community-scripts/plane.json",
+      "source": "community-scripts/plane.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "PLANKA",
-      "file": "planka.json",
-      "source": "frontend/public/json/planka.json"
+      "file": "community-scripts/planka.json",
+      "source": "community-scripts/planka.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Plant-it",
-      "file": "plant-it.json",
-      "source": "frontend/public/json/plant-it.json"
+      "file": "community-scripts/plant-it.json",
+      "source": "community-scripts/plant-it.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Plex Media Server",
-      "file": "plex.json",
-      "source": "frontend/public/json/plex.json"
+      "file": "community-scripts/plex.json",
+      "source": "community-scripts/plex.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Pocket ID",
-      "file": "pocketid.json",
-      "source": "frontend/public/json/pocketid.json"
+      "file": "community-scripts/pocketid.json",
+      "source": "community-scripts/pocketid.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Pocketbase",
-      "file": "pocketbase.json",
-      "source": "frontend/public/json/pocketbase.json"
+      "file": "community-scripts/pocketbase.json",
+      "source": "community-scripts/pocketbase.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Podman",
-      "file": "podman.json",
-      "source": "frontend/public/json/podman.json"
+      "file": "community-scripts/podman.json",
+      "source": "community-scripts/podman.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Podman Home Assistant Container",
-      "file": "podman-homeassistant.json",
-      "source": "frontend/public/json/podman-homeassistant.json"
+      "file": "community-scripts/podman-homeassistant.json",
+      "source": "community-scripts/podman-homeassistant.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "PostgreSQL",
-      "file": "postgresql.json",
-      "source": "frontend/public/json/postgresql.json"
+      "file": "community-scripts/postgresql.json",
+      "source": "community-scripts/postgresql.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Postiz",
+      "file": "community-scripts/postiz.json",
+      "source": "community-scripts/postiz.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "PowerDNS",
-      "file": "powerdns.json",
-      "source": "frontend/public/json/powerdns.json"
+      "file": "community-scripts/powerdns.json",
+      "source": "community-scripts/powerdns.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "PrivateBin",
-      "file": "privatebin.json",
-      "source": "frontend/public/json/privatebin.json"
+      "file": "community-scripts/privatebin.json",
+      "source": "community-scripts/privatebin.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Profilarr",
-      "file": "profilarr.json",
-      "source": "frontend/public/json/profilarr.json"
+      "file": "community-scripts/profilarr.json",
+      "source": "community-scripts/profilarr.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "ProjectSend",
-      "file": "projectsend.json",
-      "source": "frontend/public/json/projectsend.json"
+      "file": "community-scripts/projectsend.json",
+      "source": "community-scripts/projectsend.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Prometheus",
-      "file": "prometheus.json",
-      "source": "frontend/public/json/prometheus.json"
+      "file": "community-scripts/prometheus.json",
+      "source": "community-scripts/prometheus.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Prometheus Alertmanager",
-      "file": "prometheus-alertmanager.json",
-      "source": "frontend/public/json/prometheus-alertmanager.json"
+      "file": "community-scripts/prometheus-alertmanager.json",
+      "source": "community-scripts/prometheus-alertmanager.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Prometheus Blackbox Exporter",
-      "file": "prometheus-blackbox-exporter.json",
-      "source": "frontend/public/json/prometheus-blackbox-exporter.json"
+      "file": "community-scripts/prometheus-blackbox-exporter.json",
+      "source": "community-scripts/prometheus-blackbox-exporter.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Prometheus Paperless NGX Exporter",
-      "file": "prometheus-paperless-ngx-exporter.json",
-      "source": "frontend/public/json/prometheus-paperless-ngx-exporter.json"
+      "file": "community-scripts/prometheus-paperless-ngx-exporter.json",
+      "source": "community-scripts/prometheus-paperless-ngx-exporter.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Prometheus Proxmox VE Exporter",
-      "file": "prometheus-pve-exporter.json",
-      "source": "frontend/public/json/prometheus-pve-exporter.json"
+      "file": "community-scripts/prometheus-pve-exporter.json",
+      "source": "community-scripts/prometheus-pve-exporter.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Proton Mail Bridge",
+      "file": "community-scripts/protonmail-bridge.json",
+      "source": "community-scripts/protonmail-bridge.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Prowlarr",
-      "file": "prowlarr.json",
-      "source": "frontend/public/json/prowlarr.json"
+      "file": "community-scripts/prowlarr.json",
+      "source": "community-scripts/prowlarr.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Proxmox Backup Server (PBS)",
-      "file": "proxmox-backup-server.json",
-      "source": "frontend/public/json/proxmox-backup-server.json"
+      "file": "community-scripts/proxmox-backup-server.json",
+      "source": "community-scripts/proxmox-backup-server.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Proxmox Datacenter Manager (PDM)",
-      "file": "proxmox-datacenter-manager.json",
-      "source": "frontend/public/json/proxmox-datacenter-manager.json"
+      "file": "community-scripts/proxmox-datacenter-manager.json",
+      "source": "community-scripts/proxmox-datacenter-manager.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Proxmox Mail Gateway (PMG)",
-      "file": "proxmox-mail-gateway.json",
-      "source": "frontend/public/json/proxmox-mail-gateway.json"
+      "file": "community-scripts/proxmox-mail-gateway.json",
+      "source": "community-scripts/proxmox-mail-gateway.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "PS5-MQTT",
-      "file": "ps5-mqtt.json",
-      "source": "frontend/public/json/ps5-mqtt.json"
+      "file": "community-scripts/ps5-mqtt.json",
+      "source": "community-scripts/ps5-mqtt.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Pterodactyl Panel",
-      "file": "pterodactyl-panel.json",
-      "source": "frontend/public/json/pterodactyl-panel.json"
+      "file": "community-scripts/pterodactyl-panel.json",
+      "source": "community-scripts/pterodactyl-panel.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Pterodactyl Wings",
-      "file": "pterodactyl-wings.json",
-      "source": "frontend/public/json/pterodactyl-wings.json"
+      "file": "community-scripts/pterodactyl-wings.json",
+      "source": "community-scripts/pterodactyl-wings.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Pulse",
-      "file": "pulse.json",
-      "source": "frontend/public/json/pulse.json"
+      "file": "community-scripts/pulse.json",
+      "source": "community-scripts/pulse.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "PVE LXC Execute",
+      "file": "community-scripts/execute.json",
+      "source": "community-scripts/execute.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "PVE Netdata",
-      "file": "netdata.json",
-      "source": "frontend/public/json/netdata.json"
+      "file": "community-scripts/netdata.json",
+      "source": "community-scripts/netdata.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "PVE Startup Dependency Check",
+      "file": "community-scripts/dependency-check.json",
+      "source": "community-scripts/dependency-check.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "PVEScriptsLocal",
-      "file": "pve-scripts-local.json",
-      "source": "frontend/public/json/pve-scripts-local.json"
+      "file": "community-scripts/pve-scripts-local.json",
+      "source": "community-scripts/pve-scripts-local.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "qBittorrent",
-      "file": "qbittorrent.json",
-      "source": "frontend/public/json/qbittorrent.json"
+      "file": "community-scripts/qbittorrent.json",
+      "source": "community-scripts/qbittorrent.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "qbittorrent Exporter",
-      "file": "qbittorrent-exporter.json",
-      "source": "frontend/public/json/qbittorrent-exporter.json"
+      "file": "community-scripts/qbittorrent-exporter.json",
+      "source": "community-scripts/qbittorrent-exporter.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Qdrant",
-      "file": "qdrant.json",
-      "source": "frontend/public/json/qdrant.json"
+      "file": "community-scripts/qdrant.json",
+      "source": "community-scripts/qdrant.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Qui",
-      "file": "qui.json",
-      "source": "frontend/public/json/qui.json"
+      "file": "community-scripts/qui.json",
+      "source": "community-scripts/qui.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "RabbitMQ",
-      "file": "rabbitmq.json",
-      "source": "frontend/public/json/rabbitmq.json"
+      "file": "community-scripts/rabbitmq.json",
+      "source": "community-scripts/rabbitmq.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Radarr",
-      "file": "radarr.json",
-      "source": "frontend/public/json/radarr.json"
+      "file": "community-scripts/radarr.json",
+      "source": "community-scripts/radarr.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Radicale",
-      "file": "radicale.json",
-      "source": "frontend/public/json/radicale.json"
+      "file": "community-scripts/radicale.json",
+      "source": "community-scripts/radicale.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Rclone",
-      "file": "rclone.json",
-      "source": "frontend/public/json/rclone.json"
+      "file": "community-scripts/rclone.json",
+      "source": "community-scripts/rclone.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Reactive Resume",
-      "file": "reactive-resume.json",
-      "source": "frontend/public/json/reactive-resume.json"
+      "file": "community-scripts/reactive-resume.json",
+      "source": "community-scripts/reactive-resume.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Readeck",
-      "file": "readeck.json",
-      "source": "frontend/public/json/readeck.json"
+      "file": "community-scripts/readeck.json",
+      "source": "community-scripts/readeck.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Real-Debrid Torrent Client",
-      "file": "rdtclient.json",
-      "source": "frontend/public/json/rdtclient.json"
+      "file": "community-scripts/rdtclient.json",
+      "source": "community-scripts/rdtclient.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Recyclarr",
-      "file": "recyclarr.json",
-      "source": "frontend/public/json/recyclarr.json"
+      "file": "community-scripts/recyclarr.json",
+      "source": "community-scripts/recyclarr.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Redis",
-      "file": "redis.json",
-      "source": "frontend/public/json/redis.json"
+      "file": "community-scripts/redis.json",
+      "source": "community-scripts/redis.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Redlib",
-      "file": "alpine-redlib.json",
-      "source": "frontend/public/json/redlib.json"
+      "file": "community-scripts/alpine-redlib.json",
+      "source": "community-scripts/alpine-redlib.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Reitti",
-      "file": "reitti.json",
-      "source": "frontend/public/json/reitti.json"
+      "file": "community-scripts/reitti.json",
+      "source": "community-scripts/reitti.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Resilio Sync",
-      "file": "resiliosync.json",
-      "source": "frontend/public/json/resiliosync.json"
+      "file": "community-scripts/resiliosync.json",
+      "source": "community-scripts/resiliosync.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "RevealJS",
-      "file": "revealjs.json",
-      "source": "frontend/public/json/revealjs.json"
+      "file": "community-scripts/revealjs.json",
+      "source": "community-scripts/revealjs.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "RomM",
-      "file": "romm.json",
-      "source": "frontend/public/json/romm.json"
+      "file": "community-scripts/romm.json",
+      "source": "community-scripts/romm.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Runtipi",
-      "file": "runtipi.json",
-      "source": "frontend/public/json/runtipi.json"
+      "file": "community-scripts/runtipi.json",
+      "source": "community-scripts/runtipi.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "RustDesk Server",
-      "file": "rustdeskserver.json",
-      "source": "frontend/public/json/rustdeskserver.json"
+      "file": "community-scripts/rustdeskserver.json",
+      "source": "community-scripts/rustdeskserver.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "RustyPaste",
-      "file": "rustypaste.json",
-      "source": "frontend/public/json/rustypaste.json"
+      "file": "community-scripts/rustypaste.json",
+      "source": "community-scripts/rustypaste.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "SABnzbd",
-      "file": "sabnzbd.json",
-      "source": "frontend/public/json/sabnzbd.json"
+      "file": "community-scripts/sabnzbd.json",
+      "source": "community-scripts/sabnzbd.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Salt",
-      "file": "salt.json",
-      "source": "frontend/public/json/salt.json"
+      "file": "community-scripts/salt.json",
+      "source": "community-scripts/salt.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Scanopy",
-      "file": "scanopy.json",
-      "source": "frontend/public/json/scanopy.json"
+      "file": "community-scripts/scanopy.json",
+      "source": "community-scripts/scanopy.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Scraparr",
-      "file": "scraparr.json",
-      "source": "frontend/public/json/scraparr.json"
+      "file": "community-scripts/scraparr.json",
+      "source": "community-scripts/scraparr.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "SearXNG",
-      "file": "searxng.json",
-      "source": "frontend/public/json/searxng.json"
+      "file": "community-scripts/searxng.json",
+      "source": "community-scripts/searxng.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "SeaweedFS",
-      "file": "seaweedfs.json",
-      "source": "frontend/public/json/seaweedfs.json"
+      "file": "community-scripts/seaweedfs.json",
+      "source": "community-scripts/seaweedfs.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "seelf",
-      "file": "seelf.json",
-      "source": "frontend/public/json/seelf.json"
+      "file": "community-scripts/seelf.json",
+      "source": "community-scripts/seelf.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Seerr",
-      "file": "seerr.json",
-      "source": "frontend/public/json/seerr.json"
+      "file": "community-scripts/seerr.json",
+      "source": "community-scripts/seerr.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Semaphore",
-      "file": "semaphore.json",
-      "source": "frontend/public/json/semaphore.json"
+      "file": "community-scripts/semaphore.json",
+      "source": "community-scripts/semaphore.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "SFTPGo",
-      "file": "sftpgo.json",
-      "source": "frontend/public/json/sftpgo.json"
+      "file": "community-scripts/sftpgo.json",
+      "source": "community-scripts/sftpgo.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Shelfmark",
-      "file": "shelfmark.json",
-      "source": "frontend/public/json/shelfmark.json"
+      "file": "community-scripts/shelfmark.json",
+      "source": "community-scripts/shelfmark.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Shinobi NVR",
-      "file": "shinobi.json",
-      "source": "frontend/public/json/shinobi.json"
+      "file": "community-scripts/shinobi.json",
+      "source": "community-scripts/shinobi.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "SigNoz",
-      "file": "signoz.json",
-      "source": "frontend/public/json/signoz.json"
+      "file": "community-scripts/signoz.json",
+      "source": "community-scripts/signoz.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Silverbullet",
-      "file": "silverbullet.json",
-      "source": "frontend/public/json/silverbullet.json"
+      "file": "community-scripts/silverbullet.json",
+      "source": "community-scripts/silverbullet.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "SimpleLogin",
+      "file": "community-scripts/simplelogin.json",
+      "source": "community-scripts/simplelogin.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Skylite-UX",
+      "file": "community-scripts/skylite-ux.json",
+      "source": "community-scripts/skylite-ux.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Slskd",
-      "file": "slskd.json",
-      "source": "frontend/public/json/slskd.json"
+      "file": "community-scripts/slskd.json",
+      "source": "community-scripts/slskd.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "SmokePing",
-      "file": "smokeping.json",
-      "source": "frontend/public/json/smokeping.json"
+      "file": "community-scripts/smokeping.json",
+      "source": "community-scripts/smokeping.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "SnipeIT",
-      "file": "snipeit.json",
-      "source": "frontend/public/json/snipeit.json"
+      "file": "community-scripts/snipeit.json",
+      "source": "community-scripts/snipeit.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "SnowShare",
-      "file": "snowshare.json",
-      "source": "frontend/public/json/snowshare.json"
+      "file": "community-scripts/snowshare.json",
+      "source": "community-scripts/snowshare.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "sonarqube",
-      "file": "sonarqube.json",
-      "source": "frontend/public/json/sonarqube.json"
+      "file": "community-scripts/sonarqube.json",
+      "source": "community-scripts/sonarqube.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Sonarr",
-      "file": "sonarr.json",
-      "source": "frontend/public/json/sonarr.json"
+      "file": "community-scripts/sonarr.json",
+      "source": "community-scripts/sonarr.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Sonobarr",
-      "file": "sonobarr.json",
-      "source": "frontend/public/json/sonobarr.json"
+      "file": "community-scripts/sonobarr.json",
+      "source": "community-scripts/sonobarr.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "SparkyFitness",
-      "file": "sparkyfitness.json",
-      "source": "frontend/public/json/sparkyfitness.json"
+      "file": "community-scripts/sparkyfitness.json",
+      "source": "community-scripts/sparkyfitness.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "SparkyFitness Garmin Microservice",
+      "file": "community-scripts/sparkyfitness-garmin.json",
+      "source": "community-scripts/sparkyfitness-garmin.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Speedtest-Tracker",
-      "file": "speedtest-tracker.json",
-      "source": "frontend/public/json/speedtest-tracker.json"
+      "file": "community-scripts/speedtest-tracker.json",
+      "source": "community-scripts/speedtest-tracker.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Split Pro",
+      "file": "community-scripts/split-pro.json",
+      "source": "community-scripts/split-pro.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Splunk Enterprise",
-      "file": "splunk-enterprise.json",
-      "source": "frontend/public/json/splunk-enterprise.json"
+      "file": "community-scripts/splunk-enterprise.json",
+      "source": "community-scripts/splunk-enterprise.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Spoolman",
-      "file": "spoolman.json",
-      "source": "frontend/public/json/spoolman.json"
+      "file": "community-scripts/spoolman.json",
+      "source": "community-scripts/spoolman.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Sportarr",
-      "file": "sportarr.json",
-      "source": "frontend/public/json/sportarr.json"
+      "file": "community-scripts/sportarr.json",
+      "source": "community-scripts/sportarr.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "SQL Server 2022",
-      "file": "sqlserver2022.json",
-      "source": "frontend/public/json/sqlserver2022.json"
+      "file": "community-scripts/sqlserver2022.json",
+      "source": "community-scripts/sqlserver2022.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "SQL Server 2025",
-      "file": "sqlserver2025.json",
-      "source": "frontend/public/json/sqlserver2025.json"
+      "file": "community-scripts/sqlserver2025.json",
+      "source": "community-scripts/sqlserver2025.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "step-ca",
+      "file": "community-scripts/step-ca.json",
+      "source": "community-scripts/step-ca.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Stirling-PDF",
-      "file": "stirling-pdf.json",
-      "source": "frontend/public/json/stirling-pdf.json"
+      "file": "community-scripts/stirling-pdf.json",
+      "source": "community-scripts/stirling-pdf.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Storybook",
+      "file": "community-scripts/storybook.json",
+      "source": "community-scripts/storybook.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Storyteller",
+      "file": "community-scripts/storyteller.json",
+      "source": "community-scripts/storyteller.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Strapi",
-      "file": "strapi.json",
-      "source": "frontend/public/json/strapi.json"
+      "file": "community-scripts/strapi.json",
+      "source": "community-scripts/strapi.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Streamlink WebUI",
-      "file": "streamlink-webui.json",
-      "source": "frontend/public/json/streamlink-webui.json"
+      "file": "community-scripts/streamlink-webui.json",
+      "source": "community-scripts/streamlink-webui.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Stylus",
-      "file": "stylus.json",
-      "source": "frontend/public/json/stylus.json"
+      "file": "community-scripts/stylus.json",
+      "source": "community-scripts/stylus.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Sure",
-      "file": "sure.json",
-      "source": "frontend/public/json/sure.json"
+      "file": "community-scripts/sure.json",
+      "source": "community-scripts/sure.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "SurrealDB",
+      "file": "community-scripts/surrealdb.json",
+      "source": "community-scripts/surrealdb.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Suwayomi-Server",
+      "file": "community-scripts/suwayomi-server.json",
+      "source": "community-scripts/suwayomi-server.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Swizzin",
-      "file": "swizzin.json",
-      "source": "frontend/public/json/swizzin.json"
+      "file": "community-scripts/swizzin.json",
+      "source": "community-scripts/swizzin.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Syncthing",
-      "file": "syncthing.json",
-      "source": "frontend/public/json/syncthing.json"
+      "file": "community-scripts/syncthing.json",
+      "source": "community-scripts/syncthing.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Tailscale",
-      "file": "add-tailscale-lxc.json",
-      "source": "frontend/public/json/add-tailscale-lxc.json"
+      "file": "community-scripts/add-tailscale-lxc.json",
+      "source": "community-scripts/add-tailscale-lxc.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Tandoor Recipes",
-      "file": "tandoor.json",
-      "source": "frontend/public/json/tandoor.json"
+      "file": "community-scripts/tandoor.json",
+      "source": "community-scripts/tandoor.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "TasmoAdmin",
-      "file": "tasmoadmin.json",
-      "source": "frontend/public/json/tasmoadmin.json"
+      "file": "community-scripts/tasmoadmin.json",
+      "source": "community-scripts/tasmoadmin.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "TasmoCompiler",
-      "file": "tasmocompiler.json",
-      "source": "frontend/public/json/tasmocompiler.json"
+      "file": "community-scripts/tasmocompiler.json",
+      "source": "community-scripts/tasmocompiler.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Tautulli",
-      "file": "tautulli.json",
-      "source": "frontend/public/json/tautulli.json"
+      "file": "community-scripts/tautulli.json",
+      "source": "community-scripts/tautulli.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Tdarr",
-      "file": "tdarr.json",
-      "source": "frontend/public/json/tdarr.json"
+      "file": "community-scripts/tdarr.json",
+      "source": "community-scripts/tdarr.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Teable",
+      "file": "community-scripts/teable.json",
+      "source": "community-scripts/teable.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Teamspeak-Server",
-      "file": "teamspeak-server.json",
-      "source": "frontend/public/json/teamspeak-server.json"
+      "file": "community-scripts/teamspeak-server.json",
+      "source": "community-scripts/teamspeak-server.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Technitium DNS",
-      "file": "technitiumdns.json",
-      "source": "frontend/public/json/technitiumdns.json"
+      "file": "community-scripts/technitiumdns.json",
+      "source": "community-scripts/technitiumdns.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "TeddyCloud",
-      "file": "teddycloud.json",
-      "source": "frontend/public/json/teddycloud.json"
+      "file": "community-scripts/teddycloud.json",
+      "source": "community-scripts/teddycloud.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Telegraf",
-      "file": "telegraf.json",
-      "source": "frontend/public/json/telegraf.json"
+      "file": "community-scripts/telegraf.json",
+      "source": "community-scripts/telegraf.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Teleport",
+      "file": "community-scripts/teleport.json",
+      "source": "community-scripts/teleport.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Termix",
-      "file": "termix.json",
-      "source": "frontend/public/json/termix.json"
+      "file": "community-scripts/termix.json",
+      "source": "community-scripts/termix.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "The Lounge",
-      "file": "the-lounge.json",
-      "source": "frontend/public/json/the-lounge.json"
+      "file": "community-scripts/the-lounge.json",
+      "source": "community-scripts/the-lounge.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "ThingsBoard",
-      "file": "thingsboard.json",
-      "source": "frontend/public/json/thingsboard.json"
+      "file": "community-scripts/thingsboard.json",
+      "source": "community-scripts/thingsboard.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Threadfin",
-      "file": "threadfin.json",
-      "source": "frontend/public/json/threadfin.json"
+      "file": "community-scripts/threadfin.json",
+      "source": "community-scripts/threadfin.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Tianji",
-      "file": "tianji.json",
-      "source": "frontend/public/json/tianji.json"
+      "file": "community-scripts/tianji.json",
+      "source": "community-scripts/tianji.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Tinyauth",
-      "file": "tinyauth.json",
-      "source": "frontend/public/json/tinyauth.json"
+      "file": "community-scripts/tinyauth.json",
+      "source": "community-scripts/tinyauth.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Tor Snowflake",
+      "file": "community-scripts/tor-snowflake.json",
+      "source": "community-scripts/tor-snowflake.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Traccar",
-      "file": "traccar.json",
-      "source": "frontend/public/json/traccar.json"
+      "file": "community-scripts/traccar.json",
+      "source": "community-scripts/traccar.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Tracearr",
-      "file": "tracearr.json",
-      "source": "frontend/public/json/tracearr.json"
+      "file": "community-scripts/tracearr.json",
+      "source": "community-scripts/tracearr.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Tracktor",
-      "file": "tracktor.json",
-      "source": "frontend/public/json/tracktor.json"
+      "file": "community-scripts/tracktor.json",
+      "source": "community-scripts/tracktor.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Traefik",
-      "file": "traefik.json",
-      "source": "frontend/public/json/traefik.json"
+      "file": "community-scripts/traefik.json",
+      "source": "community-scripts/traefik.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Transmission",
-      "file": "transmission.json",
-      "source": "frontend/public/json/transmission.json"
+      "file": "community-scripts/transmission.json",
+      "source": "community-scripts/transmission.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Trilium Notes",
-      "file": "trilium.json",
-      "source": "frontend/public/json/trilium.json"
+      "file": "community-scripts/trilium.json",
+      "source": "community-scripts/trilium.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "TRIP",
-      "file": "trip.json",
-      "source": "frontend/public/json/trip.json"
+      "file": "community-scripts/trip.json",
+      "source": "community-scripts/trip.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "TrueNAS Community Edition",
-      "file": "truenas-vm.json",
-      "source": "frontend/public/json/truenas-vm.json"
+      "file": "community-scripts/truenas-vm.json",
+      "source": "community-scripts/truenas-vm.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Tube Archivist",
+      "file": "community-scripts/tubearchivist.json",
+      "source": "community-scripts/tubearchivist.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Tududi",
-      "file": "tududi.json",
-      "source": "frontend/public/json/tududi.json"
+      "file": "community-scripts/tududi.json",
+      "source": "community-scripts/tududi.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Tunarr",
-      "file": "tunarr.json",
-      "source": "frontend/public/json/tunarr.json"
+      "file": "community-scripts/tunarr.json",
+      "source": "community-scripts/tunarr.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "TurnKey",
-      "file": "turnkey.json",
-      "source": "frontend/public/json/turnkey.json"
+      "file": "community-scripts/turnkey.json",
+      "source": "community-scripts/turnkey.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Twenty",
+      "file": "community-scripts/twenty.json",
+      "source": "community-scripts/twenty.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "twingate-connector",
-      "file": "twingate-connector.json",
-      "source": "frontend/public/json/twingate-connector.json"
+      "file": "community-scripts/twingate-connector.json",
+      "source": "community-scripts/twingate-connector.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "TypeSense",
-      "file": "typesense.json",
-      "source": "frontend/public/json/typesense.json"
+      "file": "community-scripts/typesense.json",
+      "source": "community-scripts/typesense.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Ubuntu",
-      "file": "ubuntu.json",
-      "source": "frontend/public/json/ubuntu.json"
+      "file": "community-scripts/ubuntu.json",
+      "source": "community-scripts/ubuntu.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Ubuntu 22.04",
-      "file": "ubuntu2204-vm.json",
-      "source": "frontend/public/json/ubuntu2204-vm.json"
+      "file": "community-scripts/ubuntu2204-vm.json",
+      "source": "community-scripts/ubuntu2204-vm.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Ubuntu 24.04",
-      "file": "ubuntu2404-vm.json",
-      "source": "frontend/public/json/ubuntu2404-vm.json"
+      "file": "community-scripts/ubuntu2404-vm.json",
+      "source": "community-scripts/ubuntu2404-vm.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Ubuntu 25.04",
-      "file": "ubuntu2504-vm.json",
-      "source": "frontend/public/json/ubuntu2504-vm.json"
+      "file": "community-scripts/ubuntu2504-vm.json",
+      "source": "community-scripts/ubuntu2504-vm.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "UHF Server",
-      "file": "uhf.json",
-      "source": "frontend/public/json/uhf.json"
+      "file": "community-scripts/uhf.json",
+      "source": "community-scripts/uhf.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Umami",
-      "file": "umami.json",
-      "source": "frontend/public/json/umami.json"
+      "file": "community-scripts/umami.json",
+      "source": "community-scripts/umami.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Umbrel OS",
-      "file": "umbrel-os-vm.json",
-      "source": "frontend/public/json/umbrel-os-vm.json"
+      "file": "community-scripts/umbrel-os-vm.json",
+      "source": "community-scripts/umbrel-os-vm.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "UmlautAdaptarr",
-      "file": "umlautadaptarr.json",
-      "source": "frontend/public/json/umlautadaptarr.json"
+      "file": "community-scripts/umlautadaptarr.json",
+      "source": "community-scripts/umlautadaptarr.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Unbound",
-      "file": "unbound.json",
-      "source": "frontend/public/json/unbound.json"
+      "file": "community-scripts/unbound.json",
+      "source": "community-scripts/unbound.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Unifi OS Server",
-      "file": "unifi-os-server.json",
-      "source": "frontend/public/json/unifi-os-server.json"
+      "file": "community-scripts/unifi-os-server.json",
+      "source": "community-scripts/unifi-os-server.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Unifi OS Server VM",
+      "file": "community-scripts/unifi-os-server-vm.json",
+      "source": "community-scripts/unifi-os-server-vm.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Unmanic",
-      "file": "unmanic.json",
-      "source": "frontend/public/json/unmanic.json"
+      "file": "community-scripts/unmanic.json",
+      "source": "community-scripts/unmanic.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Upgopher",
-      "file": "upgopher.json",
-      "source": "frontend/public/json/upgopher.json"
+      "file": "community-scripts/upgopher.json",
+      "source": "community-scripts/upgopher.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "UpSnap",
-      "file": "upsnap.json",
-      "source": "frontend/public/json/upsnap.json"
+      "file": "community-scripts/upsnap.json",
+      "source": "community-scripts/upsnap.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Uptime Kuma",
-      "file": "uptimekuma.json",
-      "source": "frontend/public/json/uptimekuma.json"
+      "file": "community-scripts/uptimekuma.json",
+      "source": "community-scripts/uptimekuma.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "UrBackup Server",
-      "file": "urbackupserver.json",
-      "source": "frontend/public/json/urbackupserver.json"
+      "file": "community-scripts/urbackupserver.json",
+      "source": "community-scripts/urbackupserver.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Valkey",
-      "file": "valkey.json",
-      "source": "frontend/public/json/valkey.json"
+      "file": "community-scripts/valkey.json",
+      "source": "community-scripts/valkey.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Vaultwarden",
-      "file": "vaultwarden.json",
-      "source": "frontend/public/json/vaultwarden.json"
+      "file": "community-scripts/vaultwarden.json",
+      "source": "community-scripts/vaultwarden.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Verdaccio",
-      "file": "verdaccio.json",
-      "source": "frontend/public/json/verdaccio.json"
+      "file": "community-scripts/verdaccio.json",
+      "source": "community-scripts/verdaccio.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "VersityGW",
+      "file": "community-scripts/versitygw.json",
+      "source": "community-scripts/versitygw.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "VictoriaMetrics",
-      "file": "victoriametrics.json",
-      "source": "frontend/public/json/victoriametrics.json"
+      "file": "community-scripts/victoriametrics.json",
+      "source": "community-scripts/victoriametrics.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Vikunja",
-      "file": "vikunja.json",
-      "source": "frontend/public/json/vikunja.json"
+      "file": "community-scripts/vikunja.json",
+      "source": "community-scripts/vikunja.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Wallabag",
-      "file": "wallabag.json",
-      "source": "frontend/public/json/wallabag.json"
+      "file": "community-scripts/wallabag.json",
+      "source": "community-scripts/wallabag.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Wallos",
-      "file": "wallos.json",
-      "source": "frontend/public/json/wallos.json"
+      "file": "community-scripts/wallos.json",
+      "source": "community-scripts/wallos.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Wanderer",
-      "file": "wanderer.json",
-      "source": "frontend/public/json/wanderer.json"
+      "file": "community-scripts/wanderer.json",
+      "source": "community-scripts/wanderer.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Warracker",
-      "file": "warracker.json",
-      "source": "frontend/public/json/warracker.json"
+      "file": "community-scripts/warracker.json",
+      "source": "community-scripts/warracker.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Wastebin",
-      "file": "wastebin.json",
-      "source": "frontend/public/json/wastebin.json"
+      "file": "community-scripts/wastebin.json",
+      "source": "community-scripts/wastebin.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Watcharr",
-      "file": "watcharr.json",
-      "source": "frontend/public/json/watcharr.json"
+      "file": "community-scripts/watcharr.json",
+      "source": "community-scripts/watcharr.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "WatchYourLAN",
-      "file": "watchyourlan.json",
-      "source": "frontend/public/json/watchyourlan.json"
+      "file": "community-scripts/watchyourlan.json",
+      "source": "community-scripts/watchyourlan.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Wavelog",
-      "file": "wavelog.json",
-      "source": "frontend/public/json/wavelog.json"
+      "file": "community-scripts/wavelog.json",
+      "source": "community-scripts/wavelog.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Wazuh",
-      "file": "wazuh.json",
-      "source": "frontend/public/json/wazuh.json"
+      "file": "community-scripts/wazuh.json",
+      "source": "community-scripts/wazuh.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Wealthfolio",
-      "file": "wealthfolio.json",
-      "source": "frontend/public/json/wealthfolio.json"
+      "file": "community-scripts/wealthfolio.json",
+      "source": "community-scripts/wealthfolio.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Web-Check",
-      "file": "web-check.json",
-      "source": "frontend/public/json/web-check.json"
+      "file": "community-scripts/web-check.json",
+      "source": "community-scripts/web-check.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Webmin System Administration",
-      "file": "webmin.json",
-      "source": "frontend/public/json/webmin.json"
+      "file": "community-scripts/webmin.json",
+      "source": "community-scripts/webmin.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "wger",
-      "file": "wger.json",
-      "source": "frontend/public/json/wger.json"
+      "file": "community-scripts/wger.json",
+      "source": "community-scripts/wger.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Whisparr",
-      "file": "whisparr.json",
-      "source": "frontend/public/json/whisparr.json"
+      "file": "community-scripts/whisparr.json",
+      "source": "community-scripts/whisparr.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Wiki.js",
-      "file": "wikijs.json",
-      "source": "frontend/public/json/wikijs.json"
+      "file": "community-scripts/wikijs.json",
+      "source": "community-scripts/wikijs.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "WireGuard",
-      "file": "wireguard.json",
-      "source": "frontend/public/json/wireguard.json"
+      "file": "community-scripts/wireguard.json",
+      "source": "community-scripts/wireguard.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Wishlist",
-      "file": "wishlist.json",
-      "source": "frontend/public/json/wishlist.json"
+      "file": "community-scripts/wishlist.json",
+      "source": "community-scripts/wishlist.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Wizarr",
-      "file": "wizarr.json",
-      "source": "frontend/public/json/wizarr.json"
+      "file": "community-scripts/wizarr.json",
+      "source": "community-scripts/wizarr.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Wordpress",
-      "file": "wordpress.json",
-      "source": "frontend/public/json/wordpress.json"
+      "file": "community-scripts/wordpress.json",
+      "source": "community-scripts/wordpress.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "WriteFreely",
-      "file": "writefreely.json",
-      "source": "frontend/public/json/writefreely.json"
+      "file": "community-scripts/writefreely.json",
+      "source": "community-scripts/writefreely.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Yamtrack",
+      "file": "community-scripts/yamtrack.json",
+      "source": "community-scripts/yamtrack.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "YOURLS",
+      "file": "community-scripts/yourls.json",
+      "source": "community-scripts/yourls.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "yt-dlp-webui",
-      "file": "yt-dlp-webui.json",
-      "source": "frontend/public/json/yt-dlp-webui.json"
+      "file": "community-scripts/yt-dlp-webui.json",
+      "source": "community-scripts/yt-dlp-webui.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Yubal",
-      "file": "yubal.json",
-      "source": "frontend/public/json/yubal.json"
+      "file": "community-scripts/yubal.json",
+      "source": "community-scripts/yubal.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "YunoHost",
-      "file": "yunohost.json",
-      "source": "frontend/public/json/yunohost.json"
+      "file": "community-scripts/yunohost.json",
+      "source": "community-scripts/yunohost.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Z-Wave JS UI",
-      "file": "zwave-js-ui.json",
-      "source": "frontend/public/json/zwave-js-ui.json"
+      "file": "community-scripts/zwave-js-ui.json",
+      "source": "community-scripts/zwave-js-ui.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Zabbix",
-      "file": "zabbix.json",
-      "source": "frontend/public/json/zabbix.json"
+      "file": "community-scripts/zabbix.json",
+      "source": "community-scripts/zabbix.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Zammad",
-      "file": "zammad.json",
-      "source": "frontend/public/json/zammad.json"
+      "file": "community-scripts/zammad.json",
+      "source": "community-scripts/zammad.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Zerobyte",
-      "file": "zerobyte.json",
-      "source": "frontend/public/json/zerobyte.json"
+      "file": "community-scripts/zerobyte.json",
+      "source": "community-scripts/zerobyte.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Zerotier-One",
-      "file": "zerotier-one.json",
-      "source": "frontend/public/json/zerotier-one.json"
+      "file": "community-scripts/zerotier-one.json",
+      "source": "community-scripts/zerotier-one.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Zigbee2MQTT",
-      "file": "zigbee2mqtt.json",
-      "source": "frontend/public/json/zigbee2mqtt.json"
+      "file": "community-scripts/zigbee2mqtt.json",
+      "source": "community-scripts/zigbee2mqtt.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Zipline",
-      "file": "zipline.json",
-      "source": "frontend/public/json/zipline.json"
+      "file": "community-scripts/zipline.json",
+      "source": "community-scripts/zipline.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Zitadel",
-      "file": "zitadel.json",
-      "source": "frontend/public/json/zitadel.json"
+      "file": "community-scripts/zitadel.json",
+      "source": "community-scripts/zitadel.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Zoraxy",
-      "file": "zoraxy.json",
-      "source": "frontend/public/json/zoraxy.json"
+      "file": "community-scripts/zoraxy.json",
+      "source": "community-scripts/zoraxy.json",
+      "tag": "PVE Scripts"
     },
     {
       "name": "Zot Registry",
-      "file": "zot.json",
-      "source": "frontend/public/json/zot-registry.json"
+      "file": "community-scripts/zot-registry.json",
+      "source": "community-scripts/zot-registry.json",
+      "tag": "PVE Scripts"
     }
   ]
 }

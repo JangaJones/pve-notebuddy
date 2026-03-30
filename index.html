@@ -13,6 +13,18 @@
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
+    <div id="unsupportedViewport" class="unsupported-viewport hidden" role="alert" aria-live="polite">
+      <div class="unsupported-viewport-card">
+        <img src="./resources/favicon.svg" alt="" aria-hidden="true" />
+        <h1>Desktop Or Landscape Required</h1>
+        <p>
+          PVE NoteBuddy is optimized for desktop screens.
+          <br />
+          On tablets, rotate to landscape mode to continue.
+        </p>
+      </div>
+    </div>
+
     <header class="topbar topbar-global">
       <div class="topbar-brand">
         <img src="./resources/favicon.svg" alt="PVE NoteBuddy logo" class="topbar-logo" />
@@ -92,7 +104,6 @@
               aria-hidden="true"
             />
           </button>
-          <div class="sidebar-icon-separator" aria-hidden="true"></div>
           <button
             id="sidebarTabTemplates"
             type="button"

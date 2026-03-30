@@ -49,6 +49,7 @@ const sidebarToggleIconOpenEl = document.getElementById("sidebarToggleIconOpen")
 const sidebarPanelTemplatesEl = document.getElementById("sidebarPanelTemplates");
 const sidebarPanelEmojiEl = document.getElementById("sidebarPanelEmoji");
 const sidebarPanelSettingsEl = document.getElementById("sidebarPanelSettings");
+const unsupportedViewportEl = document.getElementById("unsupportedViewport");
 
 const iconModeRadios = form.querySelectorAll('input[name="iconMode"]');
 const iconUrlWrap = document.getElementById("iconUrlWrap");
@@ -104,6 +105,7 @@ const APP_VERSION = document.querySelector('meta[name="app-version"]')?.getAttri
 const EMOJI_RAIL_STORAGE_KEY = "pve-notebuddy:emoji-rail-collapsed";
 const LOCAL_TEMPLATES_STORAGE_KEY = "pve-notebuddy:local-templates-v1";
 const SIDEBAR_COLLAPSED_STORAGE_KEY = "pve-notebuddy:sidebar-collapsed";
+const MIN_DESKTOP_VIEWPORT_WIDTH = 1200;
 const PROXMOX_NOTE_EMOJIS = [
   // Infrastructure / location
   "🏠", "🌍", "🌎", "🌏", "🔗", "🌐", "🛰️", "✈️", "🚀",
@@ -241,6 +243,33 @@ function setVersionStatus(message, tone = "pending") {
 
   appVersionStatusEl.textContent = message;
   appVersionStatusEl.className = `footer-status footer-status-${tone}`;
+}
+
+function shouldShowUnsupportedViewport() {
+  const width = window.innerWidth || document.documentElement.clientWidth || 0;
+  const isPortrait = window.matchMedia("(orientation: portrait)").matches;
+  const hasCoarsePointer = window.matchMedia("(pointer: coarse)").matches || navigator.maxTouchPoints > 0;
+
+  if (width < MIN_DESKTOP_VIEWPORT_WIDTH) {
+    return true;
+  }
+
+  return hasCoarsePointer && isPortrait;
+}
+
+function updateUnsupportedViewportState() {
+  if (!unsupportedViewportEl) {
+    return;
+  }
+  const show = shouldShowUnsupportedViewport();
+  document.body.classList.toggle("unsupported-viewport-active", show);
+  unsupportedViewportEl.classList.toggle("hidden", !show);
+}
+
+function initUnsupportedViewportGuard() {
+  updateUnsupportedViewportState();
+  window.addEventListener("resize", updateUnsupportedViewportState);
+  window.addEventListener("orientationchange", updateUnsupportedViewportState);
 }
 
 function setSelectedRadioValue(name, value) {
@@ -2533,9 +2562,16 @@ function initSidebarPanels() {
     return;
   }
 
-  sidebarTabTemplatesEl.addEventListener("click", () => setSidebarPanel("templates"));
-  sidebarTabEmojiEl.addEventListener("click", () => setSidebarPanel("emoji"));
-  sidebarTabSettingsEl.addEventListener("click", () => setSidebarPanel("settings"));
+  const openSidebarPanel = (panel) => {
+    if (document.body.classList.contains("sidebar-collapsed")) {
+      setSidebarCollapsed(false);
+    }
+    setSidebarPanel(panel);
+  };
+
+  sidebarTabTemplatesEl.addEventListener("click", () => openSidebarPanel("templates"));
+  sidebarTabEmojiEl.addEventListener("click", () => openSidebarPanel("emoji"));
+  sidebarTabSettingsEl.addEventListener("click", () => openSidebarPanel("settings"));
   setSidebarPanel("templates");
 }
 
@@ -3163,6 +3199,7 @@ async function loadReleaseVersionStatus() {
 
 // ===== App Bootstrap =====
 function bootstrap() {
+  initUnsupportedViewportGuard();
   mountStyleToolbars();
   bindStyleConflicts();
 

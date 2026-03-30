@@ -1597,14 +1597,29 @@ body.unsupported-viewport-active .workspace-shell {
   font-size: var(--ui-size-sm);
 }
 
-.emoji-rail-status {
-  min-height: 1em;
-  color: #8fd6ff;
+.emoji-sections {
+  display: grid;
+  gap: 0;
 }
 
-.emoji-rail-list {
+.emoji-section + .emoji-section {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid #2a3347;
+}
+
+.emoji-section-title {
+  color: #cddcf3;
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0.01em;
+  margin-bottom: 0.45rem;
+}
+
+.emoji-grid {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 0.35rem;
 }
 
@@ -1614,6 +1629,27 @@ body.unsupported-viewport-active .workspace-shell {
   border-radius: 8px;
   font-size: 18px;
   line-height: 1;
+}
+
+.emoji-copy-toast {
+  position: fixed;
+  z-index: 120;
+  padding: 0.16rem 0.42rem;
+  border-radius: 999px;
+  border: 1px solid #3e567d;
+  background: rgba(8, 15, 27, 0.94);
+  color: #d9ecff;
+  font-size: 12px;
+  line-height: 1.2;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(2px);
+  transition: opacity 0.12s ease, transform 0.12s ease;
+}
+
+.emoji-copy-toast.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* ===== Layout Rework v1: Fixed Sidebar + Full-Width Topbar ===== */
@@ -2125,7 +2161,7 @@ body.sidebar-collapsed .workspace-main {
   gap: 0.42rem;
 }
 
-.workspace-sidebar .emoji-rail-list {
+.workspace-sidebar .emoji-sections {
   max-height: none;
   overflow: auto;
   padding-right: 0.16rem;

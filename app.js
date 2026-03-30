@@ -34,7 +34,6 @@ const emojiRailToggleEl = document.getElementById("emojiRailToggle");
 const emojiRailToggleCloseEl = emojiRailToggleEl?.querySelector(".emoji-rail-toggle-close") || null;
 const emojiRailToggleOpenIconEl = emojiRailToggleEl?.querySelector(".emoji-rail-toggle-open-icon") || null;
 const emojiRailListEl = document.getElementById("emojiRailList");
-const emojiRailStatusEl = document.getElementById("emojiRailStatus");
 const supportMenuBtn = document.getElementById("supportMenuBtn");
 const supportMenuList = document.getElementById("supportMenuList");
 const localTemplateNameEl = document.getElementById("localTemplateName");
@@ -91,6 +90,7 @@ let publicTemplateCatalog = [];
 let localTemplateCatalog = [];
 const presetLoadFlashTimers = new WeakMap();
 let blockImportedRemoteCustomImages = false;
+let emojiCopyToastTimer = null;
 
 const staticRowConfigs = [
   { prefix: "title", defaultAlign: "center", defaultTag: "h2", bold: false, italic: false, strong: false, code: false },
@@ -106,19 +106,31 @@ const EMOJI_RAIL_STORAGE_KEY = "pve-notebuddy:emoji-rail-collapsed";
 const LOCAL_TEMPLATES_STORAGE_KEY = "pve-notebuddy:local-templates-v1";
 const SIDEBAR_COLLAPSED_STORAGE_KEY = "pve-notebuddy:sidebar-collapsed";
 const MIN_DESKTOP_VIEWPORT_WIDTH = 1200;
-const PROXMOX_NOTE_EMOJIS = [
-  // Infrastructure / location
-  "🏠", "🌍", "🌎", "🌏", "🔗", "🌐", "🛰️", "✈️", "🚀",
-  // Devices / hardware
-  "📱", "💻", "🖥️", "⌨️", "🖨️", "🖱️", "🕹️", "💽", "💾", "🧲",
-  // Services / media
-  "🎧", "🎵", "🎹", "🎮", "📷", "📸", "🌄", "🎬", "📽️", "📺", "🎞️",
-  // Files / organization
-  "✉️", "🏷️", "📊", "🗃️", "📁", "📂", "🗂️", "📋", "📎", "🖇️", "📌", "📍",
-  // Security / diagnostics
-  "🔐", "🔓", "🔍", "🔎", "🛠️", "⚡️", "💥", "🚨", "🛑", "🧩", "🚧",
-  // Status / indicators
-  "✅", "☑️", "❎", "⭕️", "❌", "🚫", "❗️", "❇️", "✳️", "💠", "🔘", "🔹", "🔸", "➡️", "⭐️", "🌟", "💎",
+const PROXMOX_NOTE_EMOJI_GROUPS = [
+  {
+    title: "Infrastructure & Network",
+    items: ["🏠", "🌐", "🔗", "🛰️", "📡", "🛜", "🌍", "🌎", "🌏", "🚀", "🧭", "🗺️"],
+  },
+  {
+    title: "Systems & Hardware",
+    items: ["🖥️", "💻", "📱", "⌨️", "🖱️", "🖨️", "🧰", "🧲", "🔌", "🔋", "⚙️", "🛠️"],
+  },
+  {
+    title: "Services & Platforms",
+    items: ["📦", "🐳", "☸️", "🧱", "🧩", "🧪", "🧠", "🔧", "🧵", "🔀", "🪄", "📺"],
+  },
+  {
+    title: "Storage & Data",
+    items: ["💾", "💽", "🗄️", "🗃️", "📁", "📂", "🗂️", "📋", "📊", "🧾", "📎", "🖇️"],
+  },
+  {
+    title: "Security & Monitoring",
+    items: ["🔐", "🔓", "🛡️", "🔒", "🕵️", "🔍", "🔎", "🚨", "🚧", "🔥", "🧯", "📈"],
+  },
+  {
+    title: "Status & Actions",
+    items: ["✅", "☑️", "❌", "🚫", "⚠️", "❗️", "⭕️", "🔹", "🔸", "➡️", "⭐️", "💎"],
+  },
 ];
 
 // ===== Generic DOM / Value Helpers =====
@@ -2650,19 +2662,52 @@ function loadEmojiRailCollapsed() {
   }
 }
 
-function setEmojiRailStatus(text) {
-  if (!emojiRailStatusEl) {
-    return;
+function getEmojiCopyToastEl() {
+  let toastEl = document.getElementById("emojiCopyToast");
+  if (toastEl) {
+    return toastEl;
   }
-  emojiRailStatusEl.textContent = text;
-  if (!text) {
-    return;
+  toastEl = document.createElement("div");
+  toastEl.id = "emojiCopyToast";
+  toastEl.className = "emoji-copy-toast hidden";
+  toastEl.setAttribute("aria-hidden", "true");
+  document.body.append(toastEl);
+  return toastEl;
+}
+
+function showEmojiCopyToast(text, clientX, clientY) {
+  const toastEl = getEmojiCopyToastEl();
+  toastEl.textContent = text;
+  toastEl.classList.remove("hidden", "visible");
+
+  const offset = 12;
+  const viewportWidth = window.innerWidth || document.documentElement.clientWidth || 0;
+  const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
+  const padding = 8;
+
+  const measuredWidth = toastEl.offsetWidth || 72;
+  const measuredHeight = toastEl.offsetHeight || 24;
+  const left = Math.min(
+    Math.max(Math.round(clientX + offset), padding),
+    Math.max(padding, viewportWidth - measuredWidth - padding)
+  );
+  const top = Math.min(
+    Math.max(Math.round(clientY - measuredHeight - offset), padding),
+    Math.max(padding, viewportHeight - measuredHeight - padding)
+  );
+
+  toastEl.style.left = `${left}px`;
+  toastEl.style.top = `${top}px`;
+  toastEl.classList.add("visible");
+
+  if (emojiCopyToastTimer) {
+    window.clearTimeout(emojiCopyToastTimer);
   }
-  window.setTimeout(() => {
-    if (emojiRailStatusEl.textContent === text) {
-      emojiRailStatusEl.textContent = "";
-    }
-  }, 1200);
+  emojiCopyToastTimer = window.setTimeout(() => {
+    toastEl.classList.remove("visible");
+    toastEl.classList.add("hidden");
+    emojiCopyToastTimer = null;
+  }, 900);
 }
 
 function initEmojiRail() {
@@ -2670,9 +2715,16 @@ function initEmojiRail() {
     return;
   }
 
-  emojiRailListEl.innerHTML = PROXMOX_NOTE_EMOJIS.map(
-    (emoji) => `<button type="button" class="emoji-chip" data-emoji="${escapeHtml(emoji)}" title="Copy ${escapeHtml(emoji)}">${escapeHtml(emoji)}</button>`
-  ).join("");
+  emojiRailListEl.innerHTML = PROXMOX_NOTE_EMOJI_GROUPS.map((group) => {
+    const title = escapeHtml(group.title);
+    const items = group.items
+      .map(
+        (emoji) =>
+          `<button type="button" class="emoji-chip" data-emoji="${escapeHtml(emoji)}" title="Copy ${escapeHtml(emoji)}">${escapeHtml(emoji)}</button>`
+      )
+      .join("");
+    return `<section class="emoji-section"><div class="emoji-section-title">${title}</div><div class="emoji-grid">${items}</div></section>`;
+  }).join("");
 
   const sidebarMode = Boolean(sidebarPanelEmojiEl && sidebarTabEmojiEl);
   setEmojiRailCollapsed(sidebarMode ? false : loadEmojiRailCollapsed());
@@ -2697,11 +2749,17 @@ function initEmojiRail() {
     if (!emoji) {
       return;
     }
+    const rect = button.getBoundingClientRect();
+    const fallbackX = Math.round(rect.left + rect.width / 2);
+    const fallbackY = Math.round(rect.top + rect.height / 2);
+    const clientX = typeof event.clientX === "number" && event.clientX > 0 ? event.clientX : fallbackX;
+    const clientY = typeof event.clientY === "number" && event.clientY > 0 ? event.clientY : fallbackY;
+
     try {
       await navigator.clipboard.writeText(emoji);
-      setEmojiRailStatus("Copied");
+      showEmojiCopyToast("sent to clipboard!", clientX, clientY);
     } catch {
-      setEmojiRailStatus("Clipboard blocked");
+      showEmojiCopyToast("Clipboard blocked", clientX, clientY);
     }
   });
 }

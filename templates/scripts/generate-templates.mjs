@@ -48,6 +48,7 @@ const BLACKLIST_NAMES = new Set(
     "PVE Privilege Converter",
     "PVE Processor Microcode",
     "PVE Update Repositories",
+    "PVE LXC Execute",
   ].map((name) => name.toLowerCase())
 );
 

@@ -1833,6 +1833,10 @@ body {
   display: grid;
 }
 
+.sidebar-panel-settings {
+  overflow: visible;
+}
+
 .sidebar-panel-head {
   display: flex;
   align-items: center;
@@ -1855,6 +1859,10 @@ body {
   padding: 0.8rem 0.78rem;
   overflow: auto;
   min-height: 0;
+}
+
+.sidebar-panel-settings .sidebar-panel-body {
+  overflow: visible;
 }
 
 .sidebar-preset-group {
@@ -1940,6 +1948,72 @@ body {
   color: #96a8c4;
   font-size: var(--ui-size-sm);
   padding: 0.3rem 0.2rem;
+}
+
+.settings-field-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.settings-section-head {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.35rem;
+}
+
+.settings-head-info {
+  flex: 0 0 auto;
+  z-index: 120;
+}
+
+.settings-domain-input-wrap {
+  display: block;
+}
+
+.settings-icon-btn {
+  min-width: 34px;
+  width: 34px;
+  min-height: 34px;
+  height: 34px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #9db2d4;
+}
+
+.settings-icon-btn:hover {
+  color: #dcecff;
+}
+
+.settings-icon-btn-glyph {
+  width: 18px;
+  height: 18px;
+  display: block;
+  background-color: currentColor;
+  -webkit-mask: url("./resources/icons/save_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg") center / contain no-repeat;
+  mask: url("./resources/icons/save_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg") center / contain no-repeat;
+}
+
+.settings-reset-btn {
+  width: 100%;
+  margin-top: 0.45rem;
+}
+
+.info-wrap.tooltip-below .tooltip {
+  left: 50%;
+  right: auto;
+  top: calc(100% + 6px);
+  bottom: auto;
+  transform: translate(-50%, -6px);
+}
+
+.info-wrap.tooltip-below:hover .tooltip,
+.info-wrap.tooltip-below:focus-within .tooltip {
+  transform: translate(-50%, 0);
 }
 
 .local-template-item {

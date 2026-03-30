@@ -49,6 +49,13 @@ const sidebarPanelTemplatesEl = document.getElementById("sidebarPanelTemplates")
 const sidebarPanelEmojiEl = document.getElementById("sidebarPanelEmoji");
 const sidebarPanelSettingsEl = document.getElementById("sidebarPanelSettings");
 const unsupportedViewportEl = document.getElementById("unsupportedViewport");
+const settingsWeservDomainEl = document.getElementById("settingsWeservDomain");
+const saveWeservDomainBtnEl = document.getElementById("saveWeservDomainBtn");
+const deleteWeservDomainBtnEl = document.getElementById("deleteWeservDomainBtn");
+const exportStorageBtnEl = document.getElementById("exportStorageBtn");
+const importStorageBtnEl = document.getElementById("importStorageBtn");
+const importStorageFileEl = document.getElementById("importStorageFile");
+const resetStorageBtnEl = document.getElementById("resetStorageBtn");
 
 const iconModeRadios = form.querySelectorAll('input[name="iconMode"]');
 const iconUrlWrap = document.getElementById("iconUrlWrap");
@@ -60,6 +67,9 @@ const iconUrlRowEl = iconUrlEl?.closest(".icon-url-row") || null;
 const iconCdnVariantsEl = document.getElementById("iconCdnVariants");
 const iconEmbedSvgEl = document.getElementById("iconEmbedSvg");
 const iconResizeWsrvEl = document.getElementById("iconResizeWsrv");
+const iconResizeLabelPrefixEl = document.getElementById("iconResizeLabelPrefix");
+const iconResizeServiceLinkEl = document.getElementById("iconResizeServiceLink");
+const iconResizeServiceTooltipEl = document.getElementById("iconResizeServiceTooltip");
 const iconUploadEl = document.getElementById("iconUpload");
 const iconScaleEl = document.getElementById("iconScale");
 const iconScaleValueEl = document.getElementById("iconScaleValue");
@@ -102,9 +112,10 @@ const customRowDefaults = { prefix: "custom", defaultAlign: "left", defaultTag: 
 const STATIC_ROW_KEYS = ["icon", "title", "fqdn", "network", "config"];
 const CUSTOM_ROW_KEY_RE = /^custom[1-9][0-9]*$/;
 const APP_VERSION = document.querySelector('meta[name="app-version"]')?.getAttribute("content")?.trim() || "dev";
-const EMOJI_RAIL_STORAGE_KEY = "pve-notebuddy:emoji-rail-collapsed";
-const LOCAL_TEMPLATES_STORAGE_KEY = "pve-notebuddy:local-templates-v1";
-const SIDEBAR_COLLAPSED_STORAGE_KEY = "pve-notebuddy:sidebar-collapsed";
+const APP_STATE_STORAGE_KEY = "pve-notebuddy:state-v1";
+const LEGACY_EMOJI_RAIL_STORAGE_KEY = "pve-notebuddy:emoji-rail-collapsed";
+const LEGACY_LOCAL_TEMPLATES_STORAGE_KEY = "pve-notebuddy:local-templates-v1";
+const LEGACY_SIDEBAR_COLLAPSED_STORAGE_KEY = "pve-notebuddy:sidebar-collapsed";
 const MIN_DESKTOP_VIEWPORT_WIDTH = 1200;
 const PROXMOX_NOTE_EMOJI_GROUPS = [
   {
@@ -132,6 +143,27 @@ const PROXMOX_NOTE_EMOJI_GROUPS = [
     items: ["✅", "☑️", "❌", "🚫", "⚠️", "❗️", "⭕️", "🔹", "🔸", "➡️", "⭐️", "💎"],
   },
 ];
+
+const DEFAULT_APP_STATE = Object.freeze({
+  ui: {
+    sidebarCollapsed: false,
+    activeSidebarPanel: "templates",
+  },
+  settings: {
+    weservDomain: "",
+  },
+  templates: {
+    localCatalog: [],
+  },
+});
+
+function normalizeSidebarPanel(value) {
+  const raw = String(value || "").trim().toLowerCase();
+  if (raw === "emoji" || raw === "settings") {
+    return raw;
+  }
+  return "templates";
+}
 
 // ===== Generic DOM / Value Helpers =====
 function getEl(id) {
@@ -255,6 +287,143 @@ function setVersionStatus(message, tone = "pending") {
 
   appVersionStatusEl.textContent = message;
   appVersionStatusEl.className = `footer-status footer-status-${tone}`;
+}
+
+function createDefaultAppState() {
+  return {
+    ui: {
+      sidebarCollapsed: DEFAULT_APP_STATE.ui.sidebarCollapsed,
+      activeSidebarPanel: DEFAULT_APP_STATE.ui.activeSidebarPanel,
+    },
+    settings: {
+      weservDomain: DEFAULT_APP_STATE.settings.weservDomain,
+    },
+    templates: {
+      localCatalog: [],
+    },
+  };
+}
+
+function normalizeLocalTemplateCatalog(value) {
+  if (!Array.isArray(value)) {
+    return [];
+  }
+  return value
+    .filter((entry) => entry && typeof entry === "object")
+    .map((entry) => ({
+      id: typeof entry.id === "string" ? entry.id : "",
+      name: typeof entry.name === "string" ? entry.name : "",
+      settings: entry.settings && typeof entry.settings === "object" ? entry.settings : null,
+      updatedAt: typeof entry.updatedAt === "number" ? entry.updatedAt : 0,
+    }))
+    .filter((entry) => entry.id && entry.name && entry.settings);
+}
+
+function normalizeWeservDomain(value) {
+  const raw = String(value || "").trim();
+  if (!raw) {
+    return "";
+  }
+  const withScheme = /^[a-z]+:\/\//i.test(raw) ? raw : `https://${raw}`;
+  try {
+    const parsed = new URL(withScheme);
+    if (!parsed.hostname) {
+      return "";
+    }
+    return parsed.origin;
+  } catch {
+    return "";
+  }
+}
+
+function normalizeAppState(value) {
+  const defaults = createDefaultAppState();
+  if (!isPlainObject(value)) {
+    return defaults;
+  }
+
+  const normalized = createDefaultAppState();
+  if (isPlainObject(value.ui)) {
+    if (typeof value.ui.sidebarCollapsed === "boolean") {
+      normalized.ui.sidebarCollapsed = value.ui.sidebarCollapsed;
+    }
+    if (value.ui.activeSidebarPanel !== undefined) {
+      normalized.ui.activeSidebarPanel = normalizeSidebarPanel(value.ui.activeSidebarPanel);
+    }
+  }
+  if (isPlainObject(value.settings)) {
+    normalized.settings.weservDomain = normalizeWeservDomain(value.settings.weservDomain);
+  }
+  if (isPlainObject(value.templates)) {
+    normalized.templates.localCatalog = normalizeLocalTemplateCatalog(value.templates.localCatalog);
+  }
+  return normalized;
+}
+
+function readLegacySidebarCollapsed() {
+  try {
+    return localStorage.getItem(LEGACY_SIDEBAR_COLLAPSED_STORAGE_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+
+function readLegacyLocalTemplateCatalog() {
+  try {
+    const raw = localStorage.getItem(LEGACY_LOCAL_TEMPLATES_STORAGE_KEY);
+    if (!raw) {
+      return [];
+    }
+    return normalizeLocalTemplateCatalog(JSON.parse(raw));
+  } catch {
+    return [];
+  }
+}
+
+function clearLegacyStorageKeys() {
+  try {
+    localStorage.removeItem(LEGACY_EMOJI_RAIL_STORAGE_KEY);
+    localStorage.removeItem(LEGACY_LOCAL_TEMPLATES_STORAGE_KEY);
+    localStorage.removeItem(LEGACY_SIDEBAR_COLLAPSED_STORAGE_KEY);
+  } catch {
+    // Ignore storage errors.
+  }
+}
+
+function readAppState() {
+  const defaults = createDefaultAppState();
+  try {
+    const raw = localStorage.getItem(APP_STATE_STORAGE_KEY);
+    if (!raw) {
+      defaults.ui.sidebarCollapsed = readLegacySidebarCollapsed();
+      defaults.templates.localCatalog = readLegacyLocalTemplateCatalog();
+      return defaults;
+    }
+    return normalizeAppState(JSON.parse(raw));
+  } catch {
+    return defaults;
+  }
+}
+
+let appState = readAppState();
+
+function getAppState() {
+  return appState;
+}
+
+function persistAppState() {
+  try {
+    localStorage.setItem(APP_STATE_STORAGE_KEY, JSON.stringify(appState));
+    clearLegacyStorageKeys();
+  } catch {
+    // Ignore storage errors.
+  }
+}
+
+function patchAppState(patchFn) {
+  patchFn(appState);
+  appState = normalizeAppState(appState);
+  persistAppState();
 }
 
 function shouldShowUnsupportedViewport() {
@@ -807,8 +976,37 @@ function isWsrvResizeEnabled() {
   return Boolean(iconResizeWsrvEl?.checked);
 }
 
+function getConfiguredWeservDomain() {
+  return normalizeWeservDomain(getAppState().settings.weservDomain);
+}
+
+function getWeservBaseUrl() {
+  return getConfiguredWeservDomain() || "https://wsrv.nl";
+}
+
+function updateWeservResizeUi() {
+  const customDomain = getConfiguredWeservDomain();
+  const hasCustomDomain = Boolean(customDomain);
+  const serviceName = hasCustomDomain ? "weserv/images" : "wsrv.nl";
+  const serviceHref = hasCustomDomain ? customDomain : "https://wsrv.nl/";
+  const tooltipText = hasCustomDomain
+    ? "Uses weserv/images custom domain to resize the linked image."
+    : "Uses wsrv.nl (Open Source + worldwide CDN via Cloudflare) to resize & cache the linked image through their service.";
+
+  if (iconResizeLabelPrefixEl) {
+    iconResizeLabelPrefixEl.textContent = "Resize with";
+  }
+  if (iconResizeServiceLinkEl) {
+    iconResizeServiceLinkEl.textContent = serviceName;
+    iconResizeServiceLinkEl.href = serviceHref;
+  }
+  if (iconResizeServiceTooltipEl) {
+    iconResizeServiceTooltipEl.textContent = tooltipText;
+  }
+}
+
 function buildWsrvUrl(url, width) {
-  return `https://wsrv.nl/?url=${encodeURIComponent(String(url || "").trim())}&w=${encodeURIComponent(String(width || ""))}`;
+  return `${getWeservBaseUrl()}/?url=${encodeURIComponent(String(url || "").trim())}&w=${encodeURIComponent(String(width || ""))}`;
 }
 
 function isSelfhstCdnUrl(url) {
@@ -2311,37 +2509,13 @@ async function loadPublicTemplateCatalog() {
 }
 
 function loadLocalTemplateCatalog() {
-  try {
-    const raw = localStorage.getItem(LOCAL_TEMPLATES_STORAGE_KEY);
-    if (!raw) {
-      localTemplateCatalog = [];
-      return;
-    }
-    const parsed = JSON.parse(raw);
-    if (!Array.isArray(parsed)) {
-      localTemplateCatalog = [];
-      return;
-    }
-    localTemplateCatalog = parsed
-      .filter((entry) => entry && typeof entry === "object")
-      .map((entry) => ({
-        id: typeof entry.id === "string" ? entry.id : "",
-        name: typeof entry.name === "string" ? entry.name : "",
-        settings: entry.settings && typeof entry.settings === "object" ? entry.settings : null,
-        updatedAt: typeof entry.updatedAt === "number" ? entry.updatedAt : 0,
-      }))
-      .filter((entry) => entry.id && entry.name && entry.settings);
-  } catch {
-    localTemplateCatalog = [];
-  }
+  localTemplateCatalog = normalizeLocalTemplateCatalog(getAppState().templates.localCatalog);
 }
 
 function persistLocalTemplateCatalog() {
-  try {
-    localStorage.setItem(LOCAL_TEMPLATES_STORAGE_KEY, JSON.stringify(localTemplateCatalog));
-  } catch {
-    // Ignore storage errors.
-  }
+  patchAppState((state) => {
+    state.templates.localCatalog = normalizeLocalTemplateCatalog(localTemplateCatalog);
+  });
 }
 
 function formatLocalTemplateTime(timestamp) {
@@ -2418,6 +2592,84 @@ function deleteLocalTemplateById(templateId) {
   }
   persistLocalTemplateCatalog();
   renderLocalTemplateCatalog();
+}
+
+function syncSettingsPaneFromState() {
+  if (settingsWeservDomainEl) {
+    settingsWeservDomainEl.value = getConfiguredWeservDomain();
+  }
+  updateWeservResizeUi();
+}
+
+function saveWeservDomainSetting() {
+  if (!settingsWeservDomainEl) {
+    return;
+  }
+  const normalized = normalizeWeservDomain(settingsWeservDomainEl.value);
+  patchAppState((state) => {
+    state.settings.weservDomain = normalized;
+  });
+  syncSettingsPaneFromState();
+  prepareIcon();
+}
+
+function deleteWeservDomainSetting() {
+  patchAppState((state) => {
+    state.settings.weservDomain = "";
+  });
+  syncSettingsPaneFromState();
+  prepareIcon();
+}
+
+function applyStateToRuntime() {
+  loadLocalTemplateCatalog();
+  renderLocalTemplateCatalog();
+  syncSettingsPaneFromState();
+  setSidebarPanel(normalizeSidebarPanel(getAppState().ui.activeSidebarPanel), { persist: false });
+  setSidebarCollapsed(loadSidebarCollapsed());
+  prepareIcon();
+}
+
+function exportAppStateToFile() {
+  const payload = JSON.stringify(getAppState(), null, 2);
+  const blob = new Blob([payload], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "pve-notebuddy-local-storage.json";
+  document.body.append(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+
+async function importAppStateFromFile(event) {
+  const input = event.target;
+  if (!(input instanceof HTMLInputElement)) {
+    return;
+  }
+  const file = input.files?.[0];
+  if (!file) {
+    return;
+  }
+  try {
+    assertFileSizeWithinLimit(file, MAX_IMPORT_FILE_BYTES, "Storage import file");
+    const text = await readTextFile(file);
+    assertTextSizeWithinLimit(text, MAX_IMPORT_FILE_BYTES, "Storage import file");
+    appState = normalizeAppState(JSON.parse(text));
+    persistAppState();
+    applyStateToRuntime();
+  } catch {
+    // Ignore invalid import files.
+  } finally {
+    input.value = "";
+  }
+}
+
+function resetAppStateToDefaults() {
+  appState = createDefaultAppState();
+  persistAppState();
+  applyStateToRuntime();
 }
 
 function closeTemplateSuggest() {
@@ -2528,7 +2780,7 @@ function closeSupportMenu() {
   supportMenuList.classList.add("hidden");
 }
 
-function setSidebarPanel(panel) {
+function setSidebarPanel(panel, options = {}) {
   if (
     !sidebarTabTemplatesEl ||
     !sidebarTabEmojiEl ||
@@ -2539,8 +2791,10 @@ function setSidebarPanel(panel) {
   ) {
     return;
   }
-  const showEmoji = panel === "emoji";
-  const showSettings = panel === "settings";
+  const persist = options.persist !== false;
+  const normalizedPanel = normalizeSidebarPanel(panel);
+  const showEmoji = normalizedPanel === "emoji";
+  const showSettings = normalizedPanel === "settings";
   const showTemplates = !showEmoji && !showSettings;
 
   sidebarTabTemplatesEl.classList.toggle("active", showTemplates);
@@ -2559,6 +2813,12 @@ function setSidebarPanel(panel) {
 
   if (!showTemplates) {
     closeTemplateSuggest();
+  }
+
+  if (persist && getAppState().ui.activeSidebarPanel !== normalizedPanel) {
+    patchAppState((state) => {
+      state.ui.activeSidebarPanel = normalizedPanel;
+    });
   }
 }
 
@@ -2584,7 +2844,7 @@ function initSidebarPanels() {
   sidebarTabTemplatesEl.addEventListener("click", () => openSidebarPanel("templates"));
   sidebarTabEmojiEl.addEventListener("click", () => openSidebarPanel("emoji"));
   sidebarTabSettingsEl.addEventListener("click", () => openSidebarPanel("settings"));
-  setSidebarPanel("templates");
+  setSidebarPanel(normalizeSidebarPanel(getAppState().ui.activeSidebarPanel), { persist: false });
 }
 
 function setSidebarCollapsed(collapsed) {
@@ -2600,19 +2860,15 @@ function setSidebarCollapsed(collapsed) {
   if (sidebarToggleIconOpenEl) {
     sidebarToggleIconOpenEl.classList.toggle("hidden", !collapsed);
   }
-  try {
-    localStorage.setItem(SIDEBAR_COLLAPSED_STORAGE_KEY, collapsed ? "1" : "0");
-  } catch {
-    // Ignore storage errors.
+  if (getAppState().ui.sidebarCollapsed !== Boolean(collapsed)) {
+    patchAppState((state) => {
+      state.ui.sidebarCollapsed = Boolean(collapsed);
+    });
   }
 }
 
 function loadSidebarCollapsed() {
-  try {
-    return localStorage.getItem(SIDEBAR_COLLAPSED_STORAGE_KEY) === "1";
-  } catch {
-    return false;
-  }
+  return Boolean(getAppState().ui.sidebarCollapsed);
 }
 
 function initSidebarToggle() {
@@ -2624,6 +2880,38 @@ function initSidebarToggle() {
     const collapsed = document.body.classList.contains("sidebar-collapsed");
     setSidebarCollapsed(!collapsed);
   });
+}
+
+function initSettingsPane() {
+  syncSettingsPaneFromState();
+
+  if (saveWeservDomainBtnEl) {
+    saveWeservDomainBtnEl.addEventListener("click", saveWeservDomainSetting);
+  }
+  if (deleteWeservDomainBtnEl) {
+    deleteWeservDomainBtnEl.addEventListener("click", deleteWeservDomainSetting);
+  }
+  if (settingsWeservDomainEl) {
+    settingsWeservDomainEl.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter") {
+        return;
+      }
+      event.preventDefault();
+      saveWeservDomainSetting();
+    });
+  }
+  if (exportStorageBtnEl) {
+    exportStorageBtnEl.addEventListener("click", exportAppStateToFile);
+  }
+  if (importStorageBtnEl && importStorageFileEl) {
+    importStorageBtnEl.addEventListener("click", () => importStorageFileEl.click());
+  }
+  if (importStorageFileEl) {
+    importStorageFileEl.addEventListener("change", importAppStateFromFile);
+  }
+  if (resetStorageBtnEl) {
+    resetStorageBtnEl.addEventListener("click", resetAppStateToDefaults);
+  }
 }
 
 function toggleSupportMenu() {
@@ -2647,19 +2935,10 @@ function setEmojiRailCollapsed(collapsed) {
   if (emojiRailToggleOpenIconEl) {
     emojiRailToggleOpenIconEl.classList.toggle("hidden", !collapsed);
   }
-  try {
-    localStorage.setItem(EMOJI_RAIL_STORAGE_KEY, collapsed ? "1" : "0");
-  } catch {
-    // Ignore storage errors.
-  }
 }
 
 function loadEmojiRailCollapsed() {
-  try {
-    return localStorage.getItem(EMOJI_RAIL_STORAGE_KEY) === "1";
-  } catch {
-    return false;
-  }
+  return false;
 }
 
 function getEmojiCopyToastEl() {
@@ -2897,7 +3176,8 @@ async function prepareIcon() {
 
   if (isWsrvResizeEnabled()) {
     iconResolvedSrc = buildWsrvUrl(url, iconScaleEl.value);
-    setIconStatus(`wsrv.nl resize enabled at ${iconScaleEl.value}px width.`);
+    const serviceName = getConfiguredWeservDomain() ? "weserv/images" : "wsrv.nl";
+    setIconStatus(`${serviceName} resize enabled at ${iconScaleEl.value}px width.`);
     updateIconControls();
     renderOutput();
     return;
@@ -3269,6 +3549,8 @@ function bootstrap() {
   initSidebarPanels();
   initSidebarToggle();
   initEmojiRail();
+  initSettingsPane();
+  applyStateToRuntime();
 
   addHostBtn.addEventListener("click", () => {
     hostEntriesEl.append(createHostEntryInput("", "", "🔗"));
@@ -3410,8 +3692,6 @@ function bootstrap() {
   });
 
   copyBtn.addEventListener("click", copyOutput);
-  loadLocalTemplateCatalog();
-  renderLocalTemplateCatalog();
   if (saveLocalTemplateBtn) {
     saveLocalTemplateBtn.addEventListener("click", saveCurrentLocalTemplate);
   }

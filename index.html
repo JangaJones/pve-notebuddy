@@ -223,12 +223,46 @@
             </div>
           </section>
 
-          <section id="sidebarPanelSettings" class="sidebar-panel" role="tabpanel" aria-label="Settings" hidden>
+          <section id="sidebarPanelSettings" class="sidebar-panel sidebar-panel-settings" role="tabpanel" aria-label="Settings" hidden>
             <div class="sidebar-panel-head">
               <strong>Settings</strong>
             </div>
             <div class="sidebar-panel-body">
-              <p class="sidebar-coming-soon">coming soon</p>
+              <div class="templates-section settings-section">
+                <div class="settings-section-head">
+                  <div class="local-templates-head">Custom weserv/images domain</div>
+                  <span class="info-wrap settings-head-info tooltip-below" aria-label="weserv custom domain details">
+                    <span class="info-icon">i</span>
+                    <span class="tooltip">Optionally use your own weserv/images domain for image resizing. Leave empty to use wsrv.nl.</span>
+                  </span>
+                </div>
+                <div class="settings-field-row">
+                  <label class="settings-domain-input-wrap">
+                    <input
+                      id="settingsWeservDomain"
+                      type="text"
+                      class="local-template-name"
+                      placeholder="https://images.example.com"
+                      autocomplete="off"
+                      spellcheck="false"
+                    />
+                  </label>
+                  <button id="saveWeservDomainBtn" type="button" class="panel-action settings-icon-btn" aria-label="Save custom domain" title="Save custom domain">
+                    <span class="settings-icon-btn-glyph" aria-hidden="true"></span>
+                  </button>
+                  <button id="deleteWeservDomainBtn" type="button" class="panel-action ghost settings-icon-btn" aria-label="Delete custom domain" title="Delete custom domain">✕</button>
+                </div>
+              </div>
+
+              <div class="templates-section settings-section">
+                <div class="local-templates-head">Storage</div>
+                <div class="template-json-actions">
+                  <button id="exportStorageBtn" type="button" class="panel-action">EXPORT</button>
+                  <button id="importStorageBtn" type="button" class="panel-action ghost">IMPORT</button>
+                </div>
+                <input id="importStorageFile" type="file" accept="application/json,.json" class="hidden" />
+                <button id="resetStorageBtn" type="button" class="panel-action ghost settings-reset-btn">RESET TO DEFAULTS</button>
+              </div>
             </div>
           </section>
         </div>
@@ -324,11 +358,12 @@
                 </label>
                 <label width="50px" class="inline-check">
                   <input id="iconResizeWsrv" type="checkbox" />
-                  Resize with <a href="https://wsrv.nl/" target="_blank" rel="noopener noreferrer">wsrv.nl</a>
+                  <span id="iconResizeLabelPrefix">Resize with</span>
+                  <a id="iconResizeServiceLink" href="https://wsrv.nl/" target="_blank" rel="noopener noreferrer">wsrv.nl</a>
                   <div class="icon-help">
                     <span class="info-wrap" aria-label="wsrv resize details">
                       <span class="info-icon">i</span>
-                      <span class="tooltip">Uses wsrv.nl (Open Source + worldwide CDN via Cloudflare) to resize & cache the linked image through their service.</span>
+                      <span id="iconResizeServiceTooltip" class="tooltip">Uses wsrv.nl (Open Source + worldwide CDN via Cloudflare) to resize & cache the linked image through their service.</span>
                     </span>
                   </div>
                 </label>

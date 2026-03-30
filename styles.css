@@ -1814,6 +1814,16 @@ body {
   opacity: 1;
 }
 
+body.sidebar-collapsed .sidebar-icon-rail .sidebar-tab.active {
+  border-color: #2f405e;
+  color: #a8bfdf;
+  background: rgba(14, 25, 43, 0.76);
+}
+
+body.sidebar-collapsed .sidebar-icon-rail .sidebar-tab.active .sidebar-tab-icon {
+  opacity: 0.86;
+}
+
 .sidebar-content {
   grid-column: 2 / 3;
   grid-row: 1 / 2;
@@ -1896,6 +1906,16 @@ body {
   font-weight: 600;
   text-transform: none;
   letter-spacing: 0.01em;
+}
+
+.settings-inline-link {
+  color: #87d0ff;
+  text-decoration: none;
+}
+
+.settings-inline-link:hover {
+  color: #a6defe;
+  text-decoration: underline;
 }
 
 .local-template-create {

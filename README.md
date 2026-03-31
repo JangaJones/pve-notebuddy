@@ -9,9 +9,14 @@
     </a>
   </p>
 
- **Search a broad palette of templates for your self-hosted services**  
- and adjust them to your liking or just start from scratch.
-
+ **Use a broad palette of templates for your self-hosted services &**  
+ **adjust them to your needs or create notes fully from scratch in a few seconds.**
+ 
+ **🚧 _Upcoming Version 1.5.0 is currently planned for mid to late April!_ 🚧**<br>
+ _It will include a lot of new features and a complete UI overhaul<br>
+ You are welcome to clone the dev branch to take a sneak peek.<br>
+ Feel free to open up an issue for feature requests/bugs/other inquiries._
+ 
 </div>
 
 <div align="center">
@@ -22,14 +27,15 @@
     <img src="https://img.shields.io/badge/community--scripts-Proxmox_VE_Helper--Scripts-0298a1?style=for-the-badge&labelColor=25787d" alt="Community-Scripts" />
   </a>
   <br />
-  <sub><a href="https://github.com/community-scripts/ProxmoxVE">View on GitHub</a> • Used their frontend .jsons to generate template files</sub>
+  <sub><a href="https://github.com/community-scripts/ProxmoxVE">View on GitHub</a> • Used their PocketBase DB to generate template files</sub>
 <br />
 <br />
   <a href="https://selfh.st/">
     <img src="https://img.shields.io/badge/selfh.st-Icons_for_Self--Hosted-2563eb?style=for-the-badge&labelColor=1e3a8a" alt="selfh.st Icons" />
   </a>
   <br />
-  <sub><a href="https://github.com/selfhst/icons">View on GitHub</a> • Consistent, beautiful icons for 5000+ self-hosted apps</sub>
+  <sub><a href="https://github.com/selfhst/icons">View on GitHub</a> • Consistent, beautiful icons for 5000+ self-hosted apps</sub><br>
+  <sub>Huge thanks for including NoteBuddy in the icon collection!</sub>
 </div>
 <br />
 
@@ -72,13 +78,13 @@
 </div>
 
 
-## Crawl Scripts
+## Crawl-Scripts
 
-In `templates/scripts` there are two scripts: `community-scripts.mjs` crawls source records from the community-scripts PocketBase API (`https://db.community-scripts.org/api/collections/script_scripts/`) into `templates/scripts/community-scripts-temp` and writes `templates/scripts/crawl-report.json`, and `generate-templates.mjs` transforms those records into NoteBuddy templates under `templates/community-scripts` and rewrites `templates/index.json`.
+In the crawl-scripts folder inside the repo there are are 2 scripts, one to crawl content from the **[community-scripts](https://github.com/community-scripts/ProxmoxVE)** repo (crawl.mjs) and a second script (generate-templates.mjs) to transform the .json files in their repositoy into usable NoteBuddy .json files. Thanks to their curated repo, NoteBuddy is able to provide over 400 service templates with names, icons, website links, default ports & default config locations. 
 
 Massive shoutout to them! 🤝
 
-These scripts are only needed to commit template updates to this repo and are not used by NoteBuddy itself.
+The crawl-scripts are only needed to commit template updates to this repo and are not used by NoteBuddy itself.
 
 ## Local Deployment
 
@@ -125,9 +131,8 @@ Currently API & Automation (e.g. automatic publishing to Proxmox or fetching the
 
 ## Disclaimer
 
-_The recent problems that erupted in the community with vibe-coded apps, specifically regarding security issues are concerning. The app is fully client-sided, there is no backend, no usage telemetry tracking + it's hosted on GitHub Pages. I am definitely categorizing NoteBuddy as safe to visit & use. Still - I want to disclose, that I had assistance from an AI Agent to create & troubleshoot parts of the scripts inside this repository. I used it to write the parser for the the final HTML Output, the SVG embed feature, the scaling feature, the handling of JSON files for import/export as well as the script for template creation. The .html, .css, as well as a portion of the app.js still includes a lot of handwritten code that took many hours and a lot of coffee. The code has been thouroughly reviewed and tested by myself. Be aware, since I am a hobbyist-coder my skills and knowledge are limited, but my decade long non-pro experience with HTML and JS is still not neglegible._
+_NoteBuddy is a fully client-side application with no backend, no telemetry, with the live version directly hosted on GitHub Pages. Based on its design and my own review, I consider it safe to use. Always be cautious about other distributed forks/clones that may contain malware. This project is actively maintained, there is no need to download or use it from another source._
 
-## Thanks
+_Security in vibe-coded/AI-assisted apps is something I take seriously. For transparency, I did use an AI agent for parts of the development process, including certain features, troubleshooting, and boilerplate code. However, large portions of the codebase are still written and maintained manually._
 
-Special thanks to @kenrmayfield for thoughtful feedback, feature ideas, and for helping spread the word about the project.
-NoteBuddy is heading in the right direction with all feedback I am currently receiving.
+_Every commit has been thoroughly reviewed and tested by me. I'm a hobbyist developer with many years of hands-on experience with HTML and JavaScript long before we had AI to assist us._

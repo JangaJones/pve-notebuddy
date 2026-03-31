@@ -59,20 +59,20 @@
 <div align="center">
 <p>A collection of screenshots from the preview pane</p>
 <p align="middle">
-      <img src="screenshots/1.png" width="49.5%" />
-      <img src="screenshots/2.png" width="49.5%" />
+      <img src="docs/images/1.png" width="49.5%" />
+      <img src="docs/images/2.png" width="49.5%" />
 </p>
 <p align="middle">
-      <img src="screenshots/3.png" width="49.5%" />
-      <img src="screenshots/4.png" width="49.5%" />
+      <img src="docs/images/3.png" width="49.5%" />
+      <img src="docs/images/4.png" width="49.5%" />
 </p>
 <p align="middle">
-      <img src="screenshots/5.png" width="49.5%" />
-      <img src="screenshots/6.png" width="49.5%" />
+      <img src="docs/images/5.png" width="49.5%" />
+      <img src="docs/images/6.png" width="49.5%" />
 </p>
 <p align="middle">
-      <img src="screenshots/7.png" width="49.5%" />
-      <img src="screenshots/8.png" width="49.5%" />
+      <img src="docs/images/7.png" width="49.5%" />
+      <img src="docs/images/8.png" width="49.5%" />
 </p>
 
 </div>

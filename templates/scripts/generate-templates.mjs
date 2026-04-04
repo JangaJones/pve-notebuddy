@@ -4,6 +4,12 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
+import {
+  collectJsonFilesRecursive,
+  ensureString,
+  sanitizeSlug,
+  writeJson,
+} from "./lib/script-utils.mjs";
 
 const SOURCE_ENDPOINT = "https://db.community-scripts.org/api/collections/script_scripts/";
 
@@ -55,22 +61,9 @@ const BLACKLIST_NAMES = new Set(
 const DRY_RUN = process.argv.includes("--dry-run");
 const MAX_SVG_CHARS = 6500;
 
-function sanitizeSlug(input) {
-  const base = String(input || "")
-    .toLowerCase()
-    .replace(/\.json$/i, "")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-  return base || "template";
-}
-
 function prettyNameFromPath(relPath) {
   const base = relPath.replace(/\\/g, "/").replace(/\.json$/i, "").split("/").pop() || "template";
   return base.replace(/[-_]+/g, " ").trim() || base;
-}
-
-function ensureString(value) {
-  return typeof value === "string" ? value.trim() : "";
 }
 
 function splitConfigPaths(configPath) {
@@ -249,12 +242,6 @@ function deriveTemplateDisplayName(parsed, relPath) {
   return prettyNameFromPath(relPath);
 }
 
-async function writeJson(filePath, data) {
-  const text = `${JSON.stringify(data, null, 2)}\n`;
-  await fs.mkdir(path.dirname(filePath), { recursive: true });
-  await fs.writeFile(filePath, text, "utf8");
-}
-
 async function cleanupCommunityJsonOutputs() {
   const entries = await fs.readdir(COMMUNITY_SCRIPTS_DIR, { withFileTypes: true });
   for (const entry of entries) {
@@ -266,32 +253,6 @@ async function cleanupCommunityJsonOutputs() {
     }
     await fs.rm(path.join(COMMUNITY_SCRIPTS_DIR, entry.name), { force: true });
   }
-}
-
-async function collectJsonFilesRecursive(dir, baseDir = dir, excludeNames = new Set()) {
-  const entries = await fs.readdir(dir, { withFileTypes: true });
-  const files = [];
-
-  for (const entry of entries) {
-    const fullPath = path.join(dir, entry.name);
-    if (entry.isDirectory()) {
-      files.push(...(await collectJsonFilesRecursive(fullPath, baseDir, excludeNames)));
-      continue;
-    }
-    if (!entry.isFile()) {
-      continue;
-    }
-    if (!entry.name.toLowerCase().endsWith(".json")) {
-      continue;
-    }
-    if (excludeNames.has(entry.name)) {
-      continue;
-    }
-    const relPath = path.relative(baseDir, fullPath);
-    files.push({ fullPath, relPath });
-  }
-
-  return files;
 }
 
 async function collectDatasetIndexEntries(dataset, report) {

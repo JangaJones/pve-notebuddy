@@ -133,7 +133,5 @@ export function createAppShellFeature({
     initCopyButton,
     setTheme,
     getTheme,
-    closeSupportMenu,
-    copyOutput,
   };
 }

@@ -4,6 +4,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
+import { ensureString, sanitizeSlug, writeJson } from "./lib/script-utils.mjs";
 
 const SOURCE_ENDPOINT = "https://db.community-scripts.org/api/collections/script_scripts/";
 
@@ -13,19 +14,6 @@ const REPORT_PATH = path.join(SCRIPT_DIR, "community-scripts-log.json");
 
 const DRY_RUN = process.argv.includes("--dry-run");
 const PER_PAGE = 200;
-
-function ensureString(value) {
-  return typeof value === "string" ? value.trim() : "";
-}
-
-function sanitizeSlug(input) {
-  const base = String(input || "")
-    .toLowerCase()
-    .replace(/\.json$/i, "")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-  return base || "template";
-}
 
 async function fetchJson(url) {
   const res = await fetch(url, {
@@ -38,12 +26,6 @@ async function fetchJson(url) {
     throw new Error(`HTTP ${res.status} for ${url}`);
   }
   return res.json();
-}
-
-async function writeJson(filePath, data) {
-  const text = `${JSON.stringify(data, null, 2)}\n`;
-  await fs.mkdir(path.dirname(filePath), { recursive: true });
-  await fs.writeFile(filePath, text, "utf8");
 }
 
 async function ensureTempDir() {

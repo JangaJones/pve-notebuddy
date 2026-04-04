@@ -18,6 +18,8 @@ export function createRowEditorFeature({
   const customRowDefaults = { prefix: "custom", defaultAlign: "left", defaultTag: "none", bold: false, italic: false, strong: false, code: false };
   const STATIC_ROW_KEYS = ["icon", "title", "fqdn", "network", "config"];
   const CUSTOM_ROW_KEY_RE = /^custom[1-9][0-9]*$/;
+  let rowInteractionsBound = false;
+  let defaultRowsInitialized = false;
 
   function normalizeCustomRowKey(value) {
     const raw = String(value || "").trim().toLowerCase();
@@ -632,6 +634,114 @@ export function createRowEditorFeature({
     }
   }
 
+  function initDefaultRows() {
+    if (defaultRowsInitialized) {
+      return;
+    }
+    defaultRowsInitialized = true;
+
+    refs.hostEntriesEl.append(createHostEntryInput("www.proxmox.com", "https://www.proxmox.com/", "🔗"));
+    refs.networkEntriesEl.append(createNetworkEntryInput("10.2.0.40:8443", "🖥️"));
+    refs.configLocationsEl.append(createConfigLocationInput("/etc/app/config.yml"));
+    addCustomRow();
+    initializeRowVisibility();
+  }
+
+  function initRowEditorInteractions({ onCustomTextareaInput } = {}) {
+    if (rowInteractionsBound) {
+      return;
+    }
+    rowInteractionsBound = true;
+
+    refs.addHostBtn?.addEventListener("click", () => {
+      refs.hostEntriesEl.append(createHostEntryInput("", "", "🔗"));
+      renderOutput();
+    });
+
+    refs.addNetworkBtn?.addEventListener("click", () => {
+      refs.networkEntriesEl.append(createNetworkEntryInput("", "🖥️"));
+      renderOutput();
+    });
+
+    refs.addConfigBtn?.addEventListener("click", () => {
+      refs.configLocationsEl.append(createConfigLocationInput(""));
+      renderOutput();
+    });
+
+    refs.addCustomRowBtn?.addEventListener("click", () => {
+      addCustomRow();
+      renderOutput();
+    });
+
+    form.addEventListener("input", (event) => {
+      const target = event.target;
+      if (target instanceof HTMLTextAreaElement && target.matches('textarea[data-custom-text="1"]')) {
+        onCustomTextareaInput?.();
+      }
+      renderOutput();
+    });
+
+    form.addEventListener("click", (event) => {
+      const target = event.target;
+      if (!(target instanceof HTMLElement)) {
+        return;
+      }
+
+      const moveBtn = target.closest(".row-move");
+      if (moveBtn instanceof HTMLElement) {
+        const rowKey = moveBtn.getAttribute("data-row-key");
+        const direction = moveBtn.getAttribute("data-direction");
+        if (rowKey && (direction === "up" || direction === "down")) {
+          moveRow(rowKey, direction);
+          renderOutput();
+        }
+        return;
+      }
+
+      const visibilityBtn = target.closest(".row-visibility");
+      if (visibilityBtn instanceof HTMLElement) {
+        const rowKey = visibilityBtn.getAttribute("data-row-key");
+        if (rowKey) {
+          toggleRowVisibility(rowKey);
+          renderOutput();
+        }
+        return;
+      }
+
+      const removeBtn = target.closest(".row-remove");
+      if (removeBtn instanceof HTMLElement) {
+        const rowKey = normalizeCustomRowKey(removeBtn.getAttribute("data-row-key"));
+        if (rowKey) {
+          const fieldset = getRowFieldset(rowKey);
+          if (fieldset) {
+            fieldset.remove();
+            if (getCustomRowFieldsets().length === 0) {
+              addCustomRow();
+            }
+            renderOutput();
+          }
+        }
+        return;
+      }
+
+      const localClearBtn = target.closest(".icon-clear");
+      if (!localClearBtn) {
+        return;
+      }
+
+      const inputId = localClearBtn.getAttribute("data-target");
+      const input = inputId ? getEl(inputId) : null;
+      if (input) {
+        input.value = "";
+        renderOutput();
+      }
+    });
+
+    refs.clearBtn?.addEventListener("click", () => {
+      clearTextFields();
+    });
+  }
+
   return {
     normalizeCustomRowKey,
     isCustomRowKey,
@@ -639,19 +749,12 @@ export function createRowEditorFeature({
     normalizeRowKey,
     getSelectedRadioValue,
     setSelectedRadioValue,
-    getCustomRowFieldsets,
-    getNextCustomRowKey,
     mountStyleToolbars,
     bindStyleConflicts,
     getOrderedRowKeys,
     reorderFieldsets,
-    getRowFieldset,
     isRowVisible,
-    updateRowVisibilityUi,
     setRowVisibility,
-    toggleRowVisibility,
-    initializeRowVisibility,
-    moveRow,
     createHostEntryInput,
     createNetworkEntryInput,
     createConfigLocationInput,
@@ -659,9 +762,9 @@ export function createRowEditorFeature({
     getHostEntries,
     getNetworkEntries,
     getCustomRowEntries,
-    clearTextFields,
     collectRowState,
-    addCustomRow,
     syncCustomRows,
+    initDefaultRows,
+    initRowEditorInteractions,
   };
 }

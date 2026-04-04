@@ -1,4 +1,5 @@
 import DOMPurify from "../vendor/purify.es.mjs";
+import { sanitizeFqdnHref } from "../core/utils.js";
 
 export function createNoteBuilderFeature({
   form,
@@ -44,23 +45,6 @@ export function createNoteBuilderFeature({
 
     if (/^(https?:|mailto:|tel:)/i.test(raw) || raw.startsWith("/") || raw.startsWith("./") || raw.startsWith("../") || raw.startsWith("#")) {
       return raw;
-    }
-
-    return "";
-  }
-
-  function sanitizeFqdnHref(value) {
-    const raw = String(value || "").trim();
-    if (!raw) {
-      return "";
-    }
-
-    if (/^(https?:|mailto:)/i.test(raw)) {
-      return raw;
-    }
-
-    if (/^[a-z0-9.-]+\.[a-z]{2,}(?:[/:?#]|$)/i.test(raw) || /^localhost(?:[/:?#]|$)/i.test(raw)) {
-      return `https://${raw}`;
     }
 
     return "";
@@ -362,7 +346,6 @@ export function createNoteBuilderFeature({
   }
 
   return {
-    sanitizeFqdnHref,
     buildNoteHtml,
   };
 }

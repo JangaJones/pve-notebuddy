@@ -132,6 +132,5 @@ export function createSidebarFeature({
     initSidebarToggle,
     setSidebarPanel,
     setSidebarCollapsed,
-    loadSidebarCollapsed,
   };
 }

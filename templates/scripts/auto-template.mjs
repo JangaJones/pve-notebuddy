@@ -7,8 +7,8 @@ import { createInterface } from "node:readline/promises";
 import { stdin, stdout, argv, execPath } from "node:process";
 import { fileURLToPath } from "node:url";
 
-const TEMPLATE_DIR = path.dirname(fileURLToPath(import.meta.url));
-const SCRIPTS_DIR = path.join(TEMPLATE_DIR, "scripts");
+const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
+const ENTRY_BASENAME = path.basename(fileURLToPath(import.meta.url));
 
 function toDisplayName(filePath) {
   return path.basename(filePath);
@@ -17,7 +17,7 @@ function toDisplayName(filePath) {
 async function listScripts(dir) {
   const entries = await fs.readdir(dir, { withFileTypes: true });
   return entries
-    .filter((entry) => entry.isFile() && entry.name.toLowerCase().endsWith(".mjs"))
+    .filter((entry) => entry.isFile() && entry.name.toLowerCase().endsWith(".mjs") && entry.name !== ENTRY_BASENAME)
     .map((entry) => path.join(dir, entry.name))
     .sort((a, b) => a.localeCompare(b));
 }
@@ -58,15 +58,15 @@ function runScript(scriptPath, passThroughArgs) {
 async function main() {
   let scripts = [];
   try {
-    scripts = await listScripts(SCRIPTS_DIR);
+    scripts = await listScripts(SCRIPT_DIR);
   } catch (error) {
-    console.error(`Could not read scripts directory at ${SCRIPTS_DIR}: ${error.message}`);
+    console.error(`Could not read scripts directory at ${SCRIPT_DIR}: ${error.message}`);
     process.exitCode = 1;
     return;
   }
 
   if (scripts.length === 0) {
-    console.error(`No scripts found in ${SCRIPTS_DIR}`);
+    console.error(`No scripts found in ${SCRIPT_DIR}`);
     process.exitCode = 1;
     return;
   }

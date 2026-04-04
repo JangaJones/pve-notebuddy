@@ -20,7 +20,7 @@ import {
   MIN_DESKTOP_VIEWPORT_WIDTH,
   PROXMOX_NOTE_EMOJI_GROUPS,
 } from "./core/config.js";
-import { getEl } from "./core/dom.js";
+import { getAppDomRefs, getEl } from "./core/dom.js";
 import {
   assertFileSizeWithinLimit,
   assertTextSizeWithinLimit,
@@ -31,109 +31,134 @@ import {
 } from "./core/utils.js";
 import { fetchJsonWithCache } from "./services/http-cache.service.js";
 import { createGithubMetadataService } from "./services/github-metadata.js";
+import { loadPublicTemplateCatalog as fetchPublicTemplateCatalog } from "./services/template-catalog.service.js";
 import { createSidebarFeature } from "./features/sidebar.js";
 import { createSettingsFeature } from "./features/settings.js";
 import { createEmojiFeature } from "./features/emoji.js";
-import { loadPublicTemplateCatalog as fetchPublicTemplateCatalog } from "./features/template-search.js";
 import { createTemplateManagerFeature } from "./features/template-manager.js";
 import { createTemplateSettingsFeature } from "./features/template-settings.js";
-import { createIconFeature } from "./features/icon.js";
+import { createAppIconsFeature } from "./features/app-icons.js";
 import { createNoteBuilderFeature } from "./features/note-builder.js";
 import { createPreviewFeature } from "./features/preview.js";
-import { createTemplateSearchUiFeature } from "./features/template-search-ui.js";
+import { createTemplateSearchFeature } from "./features/template-search.js";
 import { createAppShellFeature } from "./features/app-shell.js";
 import { createRowEditorFeature } from "./features/row-editor.js";
 
-const form = document.getElementById("noteForm");
-const outputEl = document.getElementById("output");
-const previewCard = document.getElementById("previewCard");
-const copyBtn = document.getElementById("copyBtn");
-const charCountEl = document.getElementById("charCount");
-const charWarningEl = document.getElementById("charWarning");
-const previewShell = document.getElementById("previewShell");
-const themeToggleBtn = document.getElementById("themeToggleBtn");
-const themeIconEl = document.getElementById("themeIcon");
-const githubStarCountEl = document.getElementById("githubStarCount");
-const appVersionValueEl = document.getElementById("appVersionValue");
-const appVersionStatusEl = document.getElementById("appVersionStatus");
-const clearBtn = document.getElementById("clearBtn");
-const importBtn = document.getElementById("importBtn");
-const exportBtn = document.getElementById("exportBtn");
-const importFileEl = document.getElementById("importFile");
-const presetBtnEls = document.querySelectorAll("button[data-preset]");
-const templateSearchInputEl = document.getElementById("templateSearch");
-const templateSearchWrapEl = document.getElementById("templateSearchWrap");
-const templateSearchClearEl = document.getElementById("templateSearchClear");
-const templateSuggestEl = document.getElementById("templateSuggest");
-const emojiRailEl = document.getElementById("emojiRail");
-const emojiRailToggleEl = document.getElementById("emojiRailToggle");
-const emojiRailToggleCloseEl = emojiRailToggleEl?.querySelector(".emoji-rail-toggle-close") || null;
-const emojiRailToggleOpenIconEl = emojiRailToggleEl?.querySelector(".emoji-rail-toggle-open-icon") || null;
-const emojiRailListEl = document.getElementById("emojiRailList");
-const supportMenuBtn = document.getElementById("supportMenuBtn");
-const supportMenuList = document.getElementById("supportMenuList");
-const localTemplateNameEl = document.getElementById("localTemplateName");
-const saveLocalTemplateBtn = document.getElementById("saveLocalTemplateBtn");
-const localTemplateListEl = document.getElementById("localTemplateList");
-const sidebarTabTemplatesEl = document.getElementById("sidebarTabTemplates");
-const sidebarTabEmojiEl = document.getElementById("sidebarTabEmoji");
-const sidebarTabSettingsEl = document.getElementById("sidebarTabSettings");
-const sidebarToggleBtnEl = document.getElementById("sidebarToggleBtn");
-const sidebarToggleIconCloseEl = document.getElementById("sidebarToggleIconClose");
-const sidebarToggleIconOpenEl = document.getElementById("sidebarToggleIconOpen");
-const sidebarPanelTemplatesEl = document.getElementById("sidebarPanelTemplates");
-const sidebarPanelEmojiEl = document.getElementById("sidebarPanelEmoji");
-const sidebarPanelSettingsEl = document.getElementById("sidebarPanelSettings");
-const unsupportedViewportEl = document.getElementById("unsupportedViewport");
-const settingsWeservDomainEl = document.getElementById("settingsWeservDomain");
-const saveWeservDomainBtnEl = document.getElementById("saveWeservDomainBtn");
-const deleteWeservDomainBtnEl = document.getElementById("deleteWeservDomainBtn");
-const exportStorageBtnEl = document.getElementById("exportStorageBtn");
-const importStorageBtnEl = document.getElementById("importStorageBtn");
-const importStorageFileEl = document.getElementById("importStorageFile");
-const resetStorageBtnEl = document.getElementById("resetStorageBtn");
-const iconModeRadios = form.querySelectorAll('input[name="iconMode"]');
-const iconUrlWrap = document.getElementById("iconUrlWrap");
-const iconUploadWrap = document.getElementById("iconUploadWrap");
-const iconEmbedWrap = document.getElementById("iconEmbedWrap");
-const iconSelfhstWrap = document.getElementById("iconSelfhstWrap");
-const iconUrlEl = document.getElementById("iconUrl");
-const iconUrlRowEl = iconUrlEl?.closest(".icon-url-row") || null;
-const iconCdnVariantsEl = document.getElementById("iconCdnVariants");
-const iconEmbedSvgEl = document.getElementById("iconEmbedSvg");
-const iconResizeWsrvEl = document.getElementById("iconResizeWsrv");
-const iconResizeLabelPrefixEl = document.getElementById("iconResizeLabelPrefix");
-const iconResizeServiceLinkEl = document.getElementById("iconResizeServiceLink");
-const iconResizeServiceTooltipEl = document.getElementById("iconResizeServiceTooltip");
-const iconUploadEl = document.getElementById("iconUpload");
-const iconScaleEl = document.getElementById("iconScale");
-const iconScaleValueEl = document.getElementById("iconScaleValue");
-const iconScaleWrapEl = document.getElementById("iconScaleWrap");
-const iconStatusEl = document.getElementById("iconStatus");
-const iconColorVariantEls = form.querySelectorAll('input[name="iconColorVariant"]');
-const iconVariantWrapEl = document.querySelector(".svg-variant-wrap");
-const configLocationsEl = document.getElementById("configLocations");
-const addConfigBtn = document.getElementById("addConfigBtn");
-const hostEntriesEl = document.getElementById("hostEntries");
-const addHostBtn = document.getElementById("addHostBtn");
-const networkEntriesEl = document.getElementById("networkEntries");
-const addNetworkBtn = document.getElementById("addNetworkBtn");
-const addCustomRowBtn = document.getElementById("addCustomRowBtn");
-const APP_VERSION = document.querySelector('meta[name="app-version"]')?.getAttribute("content")?.trim() || "dev";
+const {
+  form,
+  appVersion: APP_VERSION,
+  presetBtnEls,
+  shellRefs: {
+    outputEl,
+    previewCard,
+    copyBtn,
+    previewShell,
+    themeToggleBtn,
+    themeIconEl,
+    supportMenuBtn,
+    supportMenuList,
+    unsupportedViewportEl,
+  },
+  githubRefs: {
+    githubStarCountEl,
+    appVersionValueEl,
+    appVersionStatusEl,
+  },
+  templateSearchRefs: {
+    templateSearchInputEl,
+    templateSearchWrapEl,
+    templateSearchClearEl,
+    templateSuggestEl,
+  },
+  emojiRefs: {
+    emojiRailEl,
+    emojiRailToggleEl,
+    emojiRailToggleCloseEl,
+    emojiRailToggleOpenIconEl,
+    emojiRailListEl,
+  },
+  templateManagerRefs: {
+    localTemplateNameEl,
+    saveLocalTemplateBtn,
+    localTemplateListEl,
+    importBtn,
+    exportBtn,
+    importFileEl,
+  },
+  sidebarRefs: {
+    sidebarTabTemplatesEl,
+    sidebarTabEmojiEl,
+    sidebarTabSettingsEl,
+    sidebarToggleBtnEl,
+    sidebarToggleIconCloseEl,
+    sidebarToggleIconOpenEl,
+    sidebarPanelTemplatesEl,
+    sidebarPanelEmojiEl,
+    sidebarPanelSettingsEl,
+  },
+  settingsRefs: {
+    settingsWeservDomainEl,
+    saveWeservDomainBtnEl,
+    deleteWeservDomainBtnEl,
+    exportStorageBtnEl,
+    importStorageBtnEl,
+    importStorageFileEl,
+    resetStorageBtnEl,
+    iconResizeLabelPrefixEl,
+    iconResizeServiceLinkEl,
+    iconResizeServiceTooltipEl,
+  },
+  previewRefs: {
+    iconScaleEl,
+    iconScaleValueEl,
+    charCountEl,
+    charWarningEl,
+  },
+  iconRefs: {
+    iconModeRadios,
+    iconUrlWrap,
+    iconUploadWrap,
+    iconEmbedWrap,
+    iconSelfhstWrap,
+    iconUrlEl,
+    iconUrlRowEl,
+    iconCdnVariantsEl,
+    iconEmbedSvgEl,
+    iconResizeWsrvEl,
+    iconUploadEl,
+    iconScaleEl: iconScaleInputEl,
+    iconScaleWrapEl,
+    iconStatusEl,
+    iconColorVariantEls,
+    iconVariantWrapEl,
+  },
+  rowEditorRefs: {
+    configLocationsEl,
+    addConfigBtn,
+    hostEntriesEl,
+    addHostBtn,
+    networkEntriesEl,
+    addNetworkBtn,
+    addCustomRowBtn,
+    clearBtn,
+  },
+} = getAppDomRefs();
 
-let iconResolvedSrc = "";
-let uploadSvgText = "";
-let uploadImageDataUrl = "";
-let blockImportedRemoteCustomImages = false;
+const runtime = {
+  iconResolvedSrc: "",
+  uploadSvgText: "",
+  uploadImageDataUrl: "",
+  blockImportedRemoteCustomImages: false,
+};
 let sidebarFeature = null;
 let settingsFeature = null;
 let emojiFeature = null;
 let previewFeature = null;
 let templateManagerFeature = null;
 let templateSettingsFeature = null;
-let iconFeature = null;
+let appIconsFeature = null;
 let noteBuilderFeature = null;
-let templateSearchUiFeature = null;
+let templateSearchFeature = null;
 let appShellFeature = null;
 let githubMetadataService = null;
 let rowEditorFeature = null;
@@ -208,54 +233,22 @@ function applyStateToRuntime() {
   prepareIcon();
 }
 
-function updateLengthState(noteHtml) {
-  const len = noteHtml.length;
-  charCountEl.textContent = `${len} / ${MAX_OUTPUT_LENGTH}`;
-
-  if (len > MAX_OUTPUT_LENGTH) {
-    charWarningEl.textContent = `Too long by ${len - MAX_OUTPUT_LENGTH} characters.`;
-    copyBtn.disabled = true;
-  } else {
-    charWarningEl.textContent = "";
-    copyBtn.disabled = len === 0;
-  }
-}
-
 function buildNoteHtml() {
   return noteBuilderFeature ? noteBuilderFeature.buildNoteHtml() : "";
 }
 
 function renderOutput() {
-  if (previewFeature) {
-    previewFeature.renderOutput();
-    return;
-  }
-  iconScaleValueEl.textContent = `${iconScaleEl.value} px`;
-  const noteHtml = buildNoteHtml();
-  outputEl.value = noteHtml;
-  previewCard.innerHTML = noteHtml;
-  updateLengthState(noteHtml);
-}
-
-function updateIconControls() {
-  iconFeature?.updateIconControls();
+  previewFeature?.renderOutput();
 }
 
 async function prepareIcon() {
-  if (!iconFeature) {
+  if (!appIconsFeature) {
     return;
   }
-  await iconFeature.prepareIcon();
+  await appIconsFeature.prepareIcon();
 }
 
-async function onIconUploadChange(event) {
-  if (!iconFeature) {
-    return;
-  }
-  await iconFeature.onIconUploadChange(event);
-}
-
-function bootstrap() {
+function createFeatures() {
   appShellFeature = createAppShellFeature({
     refs: {
       previewShell,
@@ -269,7 +262,6 @@ function bootstrap() {
     },
     minDesktopViewportWidth: MIN_DESKTOP_VIEWPORT_WIDTH,
   });
-  appShellFeature.initUnsupportedViewportGuard();
 
   rowEditorFeature = createRowEditorFeature({
     form,
@@ -280,20 +272,25 @@ function bootstrap() {
       configLocationsEl,
       hostEntriesEl,
       networkEntriesEl,
+      addConfigBtn,
+      addHostBtn,
+      addNetworkBtn,
+      addCustomRowBtn,
+      clearBtn,
     },
     renderOutput,
     prepareIcon,
     setUploadSvgText: (value) => {
-      uploadSvgText = String(value || "");
+      runtime.uploadSvgText = String(value || "");
     },
     setUploadImageDataUrl: (value) => {
-      uploadImageDataUrl = String(value || "");
+      runtime.uploadImageDataUrl = String(value || "");
     },
   });
   rowEditorFeature.mountStyleToolbars();
   rowEditorFeature.bindStyleConflicts();
 
-  templateSearchUiFeature = createTemplateSearchUiFeature({
+  templateSearchFeature = createTemplateSearchFeature({
     refs: {
       templateSearchInputEl,
       templateSearchWrapEl,
@@ -322,12 +319,12 @@ function bootstrap() {
       sidebarPanelEmojiEl,
       sidebarPanelSettingsEl,
     },
-    closeTemplateSuggest: () => templateSearchUiFeature?.closeSuggest(),
+    closeTemplateSuggest: () => templateSearchFeature?.closeSuggest(),
     getState: getAppState,
     patchState: patchAppState,
   });
 
-  iconFeature = createIconFeature({
+  appIconsFeature = createAppIconsFeature({
     refs: {
       iconStatusEl,
       iconUrlWrap,
@@ -342,25 +339,26 @@ function bootstrap() {
       iconEmbedSvgEl,
       iconResizeWsrvEl,
       iconUploadEl,
-      iconScaleEl,
+      iconScaleEl: iconScaleInputEl,
       iconColorVariantEls,
+      iconModeRadios,
     },
-    getUploadSvgText: () => uploadSvgText,
+    getUploadSvgText: () => runtime.uploadSvgText,
     setUploadSvgText: (value) => {
-      uploadSvgText = String(value || "");
+      runtime.uploadSvgText = String(value || "");
     },
-    getUploadImageDataUrl: () => uploadImageDataUrl,
+    getUploadImageDataUrl: () => runtime.uploadImageDataUrl,
     setUploadImageDataUrl: (value) => {
-      uploadImageDataUrl = String(value || "");
+      runtime.uploadImageDataUrl = String(value || "");
     },
     getIconMode,
     isWsrvResizeEnabled,
     getIconColorVariant,
     getConfiguredWeservDomain,
     getWeservBaseUrl,
-    getIconResolvedSrc: () => iconResolvedSrc,
+    getIconResolvedSrc: () => runtime.iconResolvedSrc,
     setIconResolvedSrc: (value) => {
-      iconResolvedSrc = String(value || "");
+      runtime.iconResolvedSrc = String(value || "");
     },
     maxFetchedSvgBytes: MAX_FETCHED_SVG_BYTES,
     maxUploadSvgBytes: MAX_UPLOAD_SVG_BYTES,
@@ -410,14 +408,14 @@ function bootstrap() {
     getEl,
     escapeHtml,
     getIconAlign,
-    getIconResolvedSrc: () => iconResolvedSrc,
+    getIconResolvedSrc: () => runtime.iconResolvedSrc,
     getHostEntries: rowEditorFeature.getHostEntries,
     getNetworkEntries: rowEditorFeature.getNetworkEntries,
     getConfigLocationEntries: rowEditorFeature.getConfigLocationEntries,
     getCustomRowEntries: rowEditorFeature.getCustomRowEntries,
     getOrderedRowKeys: rowEditorFeature.getOrderedRowKeys,
     isRowVisible: rowEditorFeature.isRowVisible,
-    getBlockImportedRemoteCustomImages: () => blockImportedRemoteCustomImages,
+    getBlockImportedRemoteCustomImages: () => runtime.blockImportedRemoteCustomImages,
     isCrossOriginHttpUrl,
   });
 
@@ -427,9 +425,12 @@ function bootstrap() {
       iconScaleValueEl,
       outputEl,
       previewCard,
+      charCountEl,
+      charWarningEl,
+      copyBtn,
     },
     buildNoteHtml,
-    updateLengthState,
+    maxOutputLength: MAX_OUTPUT_LENGTH,
   });
 
   templateSettingsFeature = createTemplateSettingsFeature({
@@ -447,16 +448,16 @@ function bootstrap() {
     },
     form,
     getTheme: () => appShellFeature?.getTheme() || "dark",
-    getUploadSvgText: () => uploadSvgText,
+    getUploadSvgText: () => runtime.uploadSvgText,
     setUploadSvgText: (value) => {
-      uploadSvgText = String(value || "");
+      runtime.uploadSvgText = String(value || "");
     },
-    getUploadImageDataUrl: () => uploadImageDataUrl,
+    getUploadImageDataUrl: () => runtime.uploadImageDataUrl,
     setUploadImageDataUrl: (value) => {
-      uploadImageDataUrl = String(value || "");
+      runtime.uploadImageDataUrl = String(value || "");
     },
     setBlockImportedRemoteCustomImages: (value) => {
-      blockImportedRemoteCustomImages = Boolean(value);
+      runtime.blockImportedRemoteCustomImages = Boolean(value);
     },
     assertTextSizeWithinLimit,
     isValidRowKey: rowEditorFeature.isValidRowKey,
@@ -485,7 +486,7 @@ function bootstrap() {
     createNetworkEntryInput: rowEditorFeature.createNetworkEntryInput,
     createConfigLocationInput: rowEditorFeature.createConfigLocationInput,
     prepareIcon,
-    setIconStatus: (...args) => iconFeature?.setIconStatus(...args),
+    setIconStatus: (...args) => appIconsFeature?.setIconStatus(...args),
     getEl,
   });
 
@@ -509,23 +510,24 @@ function bootstrap() {
     assertTextSizeWithinLimit,
     maxImportFileBytes: MAX_IMPORT_FILE_BYTES,
   });
+}
 
-  hostEntriesEl.append(rowEditorFeature.createHostEntryInput("www.proxmox.com", "https://www.proxmox.com/", "🔗"));
-  networkEntriesEl.append(rowEditorFeature.createNetworkEntryInput("10.2.0.40:8443", "🖥️"));
-  configLocationsEl.append(rowEditorFeature.createConfigLocationInput("/etc/app/config.yml"));
-  rowEditorFeature.addCustomRow();
-  rowEditorFeature.initializeRowVisibility();
+function initFeatureUi() {
+  appShellFeature.initUnsupportedViewportGuard();
+  rowEditorFeature.initDefaultRows();
 
   sidebarFeature.initSidebarPanels();
   sidebarFeature.initSidebarToggle();
   emojiFeature.initEmojiRail();
   settingsFeature.initSettingsPane(DEFAULT_APP_STATE);
   templateManagerFeature.initTemplateManager();
-  templateSearchUiFeature.init();
+  templateSearchFeature.init();
   appShellFeature.initThemeToggle();
   appShellFeature.initSupportMenu();
   appShellFeature.initCopyButton();
+}
 
+function createMetadataServices() {
   githubMetadataService = createGithubMetadataService({
     refs: {
       githubStarCountEl,
@@ -537,150 +539,39 @@ function bootstrap() {
     githubReleaseCacheTtlMs: GITHUB_RELEASE_CACHE_TTL_MS,
     fetchJsonWithCache,
   });
+}
 
-  applyStateToRuntime();
-
-  addHostBtn.addEventListener("click", () => {
-    hostEntriesEl.append(rowEditorFeature.createHostEntryInput("", "", "🔗"));
-    renderOutput();
-  });
-  addNetworkBtn.addEventListener("click", () => {
-    networkEntriesEl.append(rowEditorFeature.createNetworkEntryInput("", "🖥️"));
-    renderOutput();
-  });
-  addConfigBtn.addEventListener("click", () => {
-    configLocationsEl.append(rowEditorFeature.createConfigLocationInput(""));
-    renderOutput();
-  });
-  addCustomRowBtn.addEventListener("click", () => {
-    rowEditorFeature.addCustomRow();
-    renderOutput();
-  });
-
-  form.addEventListener("input", (event) => {
-    const target = event.target;
-    if (target instanceof HTMLTextAreaElement && target.matches('textarea[data-custom-text="1"]') && blockImportedRemoteCustomImages) {
-      blockImportedRemoteCustomImages = false;
-    }
-    renderOutput();
-  });
-
-  form.addEventListener("click", (event) => {
-    const target = event.target;
-    if (!(target instanceof HTMLElement)) {
-      return;
-    }
-
-    const moveBtn = target.closest(".row-move");
-    if (moveBtn instanceof HTMLElement) {
-      const rowKey = moveBtn.getAttribute("data-row-key");
-      const direction = moveBtn.getAttribute("data-direction");
-      if (rowKey && (direction === "up" || direction === "down")) {
-        rowEditorFeature.moveRow(rowKey, direction);
-        renderOutput();
+function wireFeatureInteractions() {
+  rowEditorFeature.initRowEditorInteractions({
+    onCustomTextareaInput: () => {
+      if (runtime.blockImportedRemoteCustomImages) {
+        runtime.blockImportedRemoteCustomImages = false;
       }
-      return;
-    }
-
-    const visibilityBtn = target.closest(".row-visibility");
-    if (visibilityBtn instanceof HTMLElement) {
-      const rowKey = visibilityBtn.getAttribute("data-row-key");
-      if (rowKey) {
-        rowEditorFeature.toggleRowVisibility(rowKey);
-        renderOutput();
-      }
-      return;
-    }
-
-    const removeBtn = target.closest(".row-remove");
-    if (removeBtn instanceof HTMLElement) {
-      const rowKey = rowEditorFeature.normalizeCustomRowKey(removeBtn.getAttribute("data-row-key"));
-      if (rowKey) {
-        const fieldset = rowEditorFeature.getRowFieldset(rowKey);
-        if (fieldset) {
-          fieldset.remove();
-          if (rowEditorFeature.getCustomRowFieldsets().length === 0) {
-            rowEditorFeature.addCustomRow();
-          }
-          renderOutput();
-        }
-      }
-      return;
-    }
-
-    const localClearBtn = target.closest(".icon-clear");
-    if (!localClearBtn) {
-      return;
-    }
-
-    const inputId = localClearBtn.getAttribute("data-target");
-    const input = inputId ? getEl(inputId) : null;
-    if (input) {
-      input.value = "";
-      renderOutput();
-    }
+    },
   });
+  templateSettingsFeature.initPresetInteractions(presetBtnEls);
+  appIconsFeature.initIconInteractions();
+}
 
-  clearBtn.addEventListener("click", () => {
-    rowEditorFeature.clearTextFields();
-  });
-
-  for (const presetBtn of presetBtnEls) {
-    presetBtn.addEventListener("click", async () => {
-      const didLoad = await templateSettingsFeature.loadPresetByNumber(presetBtn.getAttribute("data-preset"));
-      if (didLoad) {
-        templateSettingsFeature.flashLoadedPresetButton(presetBtn);
-      }
-    });
-  }
-
-  for (const radio of iconModeRadios) {
-    radio.addEventListener("change", prepareIcon);
-  }
-  iconUrlEl.addEventListener("input", prepareIcon);
-  iconEmbedSvgEl.addEventListener("change", () => {
-    if (iconEmbedSvgEl.checked && iconResizeWsrvEl) {
-      iconResizeWsrvEl.checked = false;
-    }
-    prepareIcon();
-  });
-  if (iconResizeWsrvEl) {
-    iconResizeWsrvEl.addEventListener("change", () => {
-      if (iconResizeWsrvEl.checked) {
-        iconEmbedSvgEl.checked = false;
-      }
-      prepareIcon();
-    });
-  }
-  iconScaleEl.addEventListener("input", prepareIcon);
-  iconUploadEl.addEventListener("change", onIconUploadChange);
-  for (const radio of iconColorVariantEls) {
-    radio.addEventListener("change", prepareIcon);
-  }
-  if (iconCdnVariantsEl) {
-    iconCdnVariantsEl.addEventListener("click", (event) => {
-      const target = event.target;
-      if (!(target instanceof HTMLElement)) {
-        return;
-      }
-      const btn = target.closest(".icon-cdn-variant-btn");
-      if (!(btn instanceof HTMLButtonElement)) {
-        return;
-      }
-      const nextUrl = btn.getAttribute("data-variant-url");
-      if (!nextUrl) {
-        return;
-      }
-      iconUrlEl.value = nextUrl;
-      prepareIcon();
-    });
-  }
-
+function applyInitialRuntime() {
   appShellFeature.setTheme("dark");
-  updateIconControls();
+  appIconsFeature.updateIconControls();
   prepareIcon();
+}
+
+function loadInitialMetadata() {
   githubMetadataService.loadGithubStarCount();
   githubMetadataService.loadReleaseVersionStatus();
+}
+
+function bootstrap() {
+  createFeatures();
+  initFeatureUi();
+  createMetadataServices();
+  applyStateToRuntime();
+  wireFeatureInteractions();
+  applyInitialRuntime();
+  loadInitialMetadata();
 }
 
 bootstrap();

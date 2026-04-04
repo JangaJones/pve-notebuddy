@@ -367,7 +367,7 @@ function parseSelfhstVariantUrls(inputUrl) {
   };
 }
 
-export function createIconFeature({
+export function createAppIconsFeature({
   refs,
   getUploadSvgText,
   setUploadSvgText,
@@ -389,6 +389,7 @@ export function createIconFeature({
   let prepareToken = 0;
   let selfhstVariantUiToken = 0;
   let selfhstVariantRefreshTimer = null;
+  let iconInteractionsBound = false;
   const externalSvgCache = new Map();
   const selfhstVariantExistsCache = new Map();
   const svgColorCanvasCtx = document.createElement("canvas").getContext("2d");
@@ -736,11 +737,65 @@ export function createIconFeature({
     }
   }
 
+  function initIconInteractions() {
+    if (iconInteractionsBound) {
+      return;
+    }
+    iconInteractionsBound = true;
+
+    if (refs.iconModeRadios) {
+      for (const radio of refs.iconModeRadios) {
+        radio.addEventListener("change", prepareIcon);
+      }
+    }
+
+    refs.iconUrlEl?.addEventListener("input", prepareIcon);
+
+    refs.iconEmbedSvgEl?.addEventListener("change", () => {
+      if (refs.iconEmbedSvgEl.checked && refs.iconResizeWsrvEl) {
+        refs.iconResizeWsrvEl.checked = false;
+      }
+      prepareIcon();
+    });
+
+    refs.iconResizeWsrvEl?.addEventListener("change", () => {
+      if (refs.iconResizeWsrvEl.checked && refs.iconEmbedSvgEl) {
+        refs.iconEmbedSvgEl.checked = false;
+      }
+      prepareIcon();
+    });
+
+    refs.iconScaleEl?.addEventListener("input", prepareIcon);
+    refs.iconUploadEl?.addEventListener("change", onIconUploadChange);
+
+    if (refs.iconColorVariantEls) {
+      for (const radio of refs.iconColorVariantEls) {
+        radio.addEventListener("change", prepareIcon);
+      }
+    }
+
+    refs.iconCdnVariantsEl?.addEventListener("click", (event) => {
+      const target = event.target;
+      if (!(target instanceof HTMLElement)) {
+        return;
+      }
+      const btn = target.closest(".icon-cdn-variant-btn");
+      if (!(btn instanceof HTMLButtonElement)) {
+        return;
+      }
+      const nextUrl = btn.getAttribute("data-variant-url");
+      if (!nextUrl) {
+        return;
+      }
+      refs.iconUrlEl.value = nextUrl;
+      prepareIcon();
+    });
+  }
+
   return {
     updateIconControls,
     prepareIcon,
-    onIconUploadChange,
-    getIconResolvedSrc,
     setIconStatus,
+    initIconInteractions,
   };
 }

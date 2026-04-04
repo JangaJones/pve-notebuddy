@@ -143,7 +143,6 @@ export function createSettingsFeature({
   return {
     getConfiguredWeservDomain,
     getWeservBaseUrl,
-    updateWeservResizeUi,
     syncSettingsPaneFromState,
     initSettingsPane,
   };

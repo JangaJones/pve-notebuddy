@@ -314,8 +314,5 @@ export function createTemplateManagerFeature({
   return {
     syncFromState,
     initTemplateManager,
-    loadLocalTemplateById,
-    saveCurrentLocalTemplate,
-    deleteLocalTemplateById,
   };
 }

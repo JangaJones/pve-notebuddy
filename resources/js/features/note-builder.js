@@ -6,7 +6,13 @@ export function createNoteBuilderFeature({
   getEl,
   escapeHtml,
   getIconAlign,
+  getIconMode,
   getIconResolvedSrc,
+  getIconGalleryItems,
+  getIconGalleryColumns,
+  getWeservBaseUrl,
+  isWsrvResizeEnabled,
+  isAllowedIconImageUrl,
   getHostEntries,
   getNetworkEntries,
   getConfigLocationEntries,
@@ -278,13 +284,74 @@ export function createNoteBuilderFeature({
     return `<img src="${escapeHtml(src)}" alt="${escapeHtml(alt)}" referrerpolicy="no-referrer" />`;
   }
 
+  function buildWsrvUrl(url, width) {
+    return `${getWeservBaseUrl()}/?url=${encodeURIComponent(String(url || "").trim())}&w=${encodeURIComponent(String(width || ""))}`;
+  }
+
+  function buildTransparentSpacerTag(width = 5) {
+    const safeWidth = Math.max(1, Number.parseInt(String(width || ""), 10) || 5);
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${safeWidth}" height="1" viewBox="0 0 ${safeWidth} 1"></svg>`;
+    const dataUri = `data:image/svg+xml,${encodeURIComponent(svg)}`;
+    return `<img src="${dataUri}" />`;
+  }
+
+  function normalizeItemsPerRow(value, fallback) {
+    const numeric = Number.parseInt(String(value || ""), 10);
+    if (!Number.isFinite(numeric)) {
+      return fallback;
+    }
+    return Math.min(8, Math.max(1, numeric));
+  }
+
+  function buildGalleryHtml() {
+    const mode = getIconMode();
+    if (mode !== "gallery") {
+      return "";
+    }
+
+    const rawItems = Array.isArray(getIconGalleryItems()) ? getIconGalleryItems() : [];
+    const items = rawItems
+      .map((value) => String(value || "").trim())
+      .filter((value) => value && isAllowedIconImageUrl(value))
+      .slice(0, 20);
+    if (items.length === 0) {
+      return "";
+    }
+
+    const columns = normalizeItemsPerRow(getIconGalleryColumns(), 4);
+    const scopedItems = items;
+    const spacer = buildTransparentSpacerTag(5);
+
+    const rows = [];
+    for (let index = 0; index < scopedItems.length; index += columns) {
+      const rowItems = scopedItems.slice(index, index + columns);
+      const images = rowItems
+        .map((item) => {
+          const src = isWsrvResizeEnabled() ? buildWsrvUrl(item, getEl("iconScale")?.value || "100") : item;
+          return buildSafeImageTag(src, "App icon");
+        })
+        .join(spacer);
+      rows.push(`<div align="${escapeHtml(getIconAlign())}">${images}</div>`);
+    }
+
+    return rows.join("\n");
+  }
+
   function buildNoteHtml() {
     const byKey = {};
     const lines = [];
 
-    const iconResolvedSrc = getIconResolvedSrc();
-    if (iconResolvedSrc) {
-      byKey.icon = [buildRowDiv({ align: getIconAlign(), contentHtml: buildSafeImageTag(iconResolvedSrc, "App icon") })];
+    const iconMode = getIconMode();
+    if (iconMode === "gallery") {
+      const galleryHtml = buildGalleryHtml();
+      if (galleryHtml) {
+        byKey.icon = [galleryHtml];
+      }
+    } else {
+      const iconResolvedSrc = getIconResolvedSrc();
+      if (iconResolvedSrc) {
+        byKey.icon = [buildRowDiv({ align: getIconAlign(), contentHtml: buildSafeImageTag(iconResolvedSrc, "App icon") })];
+      }
     }
 
     const titleText = getEl("titleText").value.trim();

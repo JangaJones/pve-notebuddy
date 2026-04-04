@@ -920,6 +920,11 @@ textarea:focus {
   gap: 0.35rem;
 }
 
+.icon-mode-group .tool-gap {
+  width: 0.7rem;
+  flex: 0 0 0.7rem;
+}
+
 .tool-chip {
   position: relative;
   display: inline-flex;
@@ -1032,6 +1037,87 @@ textarea:focus {
 #iconUrlWrap,
 #iconUploadWrap {
   margin-bottom: 0.55rem;
+}
+
+#iconGalleryWrap {
+  margin-bottom: 0.55rem;
+  display: grid;
+  gap: 0.55rem;
+}
+
+#iconGalleryWrap.hidden {
+  display: none;
+}
+
+.icon-gallery-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 0.7rem;
+}
+
+.icon-gallery-layout {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.55rem;
+}
+
+.icon-gallery-layout label {
+  min-width: 72px;
+  gap: 0.2rem;
+}
+
+.icon-gallery-layout input {
+  min-width: 72px;
+  text-align: center;
+}
+
+.icon-gallery-add {
+  min-width: 66px;
+}
+
+.icon-gallery-list {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.icon-gallery-row {
+  display: grid;
+  grid-template-columns: auto auto auto minmax(0, 1fr) auto;
+  gap: 0.35rem;
+  align-items: center;
+}
+
+.icon-gallery-row.is-dragging {
+  opacity: 0.65;
+}
+
+.icon-gallery-btn {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  padding: 0;
+  border-radius: 8px;
+  border: 1px solid var(--ctrl-border);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01)),
+    var(--ctrl-bg);
+  color: var(--ctrl-text);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.icon-gallery-grab {
+  cursor: grab;
+}
+
+.icon-gallery-grab:active {
+  cursor: grabbing;
+}
+
+.icon-gallery-hint {
+  margin: 0;
 }
 
 .icon-url-row {
@@ -1369,7 +1455,7 @@ button:disabled {
 
 .preview-card img {
   object-fit: contain;
-  display: block;
+  display: inline-block;
 }
 
 .preview-shell.dark .preview-card a {

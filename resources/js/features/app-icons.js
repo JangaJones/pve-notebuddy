@@ -386,10 +386,13 @@ export function createAppIconsFeature({
   maxOutputLength,
   renderOutput,
 }) {
+  const MAX_GALLERY_ITEMS = 20;
   let prepareToken = 0;
   let selfhstVariantUiToken = 0;
   let selfhstVariantRefreshTimer = null;
   let iconInteractionsBound = false;
+  let galleryDragRow = null;
+  let galleryDragMoved = false;
   const externalSvgCache = new Map();
   const selfhstVariantExistsCache = new Map();
   const svgColorCanvasCtx = document.createElement("canvas").getContext("2d");
@@ -400,6 +403,143 @@ export function createAppIconsFeature({
     }
     refs.iconStatusEl.textContent = text;
     refs.iconStatusEl.classList.toggle("error", isError);
+  }
+
+  function normalizeGalleryDimension(value, fallback) {
+    const numeric = Number.parseInt(String(value || ""), 10);
+    if (!Number.isFinite(numeric)) {
+      return fallback;
+    }
+    return Math.min(8, Math.max(1, numeric));
+  }
+
+  function normalizeGalleryItems(items) {
+    if (!Array.isArray(items)) {
+      return [];
+    }
+    const normalized = [];
+    for (const item of items) {
+      const value = String(item || "").trim();
+      if (!value) {
+        continue;
+      }
+      normalized.push(value);
+      if (normalized.length >= MAX_GALLERY_ITEMS) {
+        break;
+      }
+    }
+    return normalized;
+  }
+
+  function createGalleryRow(initialValue = "") {
+    const row = document.createElement("div");
+    row.className = "icon-gallery-row";
+
+    const upBtn = document.createElement("button");
+    upBtn.type = "button";
+    upBtn.className = "icon-gallery-btn icon-gallery-up";
+    upBtn.title = "Move up";
+    upBtn.textContent = "↑";
+
+    const downBtn = document.createElement("button");
+    downBtn.type = "button";
+    downBtn.className = "icon-gallery-btn icon-gallery-down";
+    downBtn.title = "Move down";
+    downBtn.textContent = "↓";
+
+    const grabBtn = document.createElement("button");
+    grabBtn.type = "button";
+    grabBtn.className = "icon-gallery-btn icon-gallery-grab";
+    grabBtn.title = "Drag handle";
+    grabBtn.setAttribute("draggable", "true");
+    grabBtn.textContent = "⋮⋮";
+
+    const input = document.createElement("input");
+    input.type = "url";
+    input.className = "icon-gallery-url";
+    input.placeholder = "ICON IMAGE URL";
+    input.value = String(initialValue || "").trim();
+
+    const removeBtn = document.createElement("button");
+    removeBtn.type = "button";
+    removeBtn.className = "icon-gallery-btn icon-gallery-remove";
+    removeBtn.title = "Remove icon";
+    removeBtn.textContent = "✕";
+
+    row.append(upBtn, downBtn, grabBtn, input, removeBtn);
+    return row;
+  }
+
+  function getGalleryRowsCollection() {
+    if (!refs.iconGalleryListEl) {
+      return [];
+    }
+    return Array.from(refs.iconGalleryListEl.querySelectorAll(".icon-gallery-row"));
+  }
+
+  function clearGalleryDragState() {
+    if (galleryDragRow) {
+      galleryDragRow.classList.remove("is-dragging");
+    }
+    galleryDragRow = null;
+    galleryDragMoved = false;
+  }
+
+  function refreshGalleryButtons() {
+    const rows = getGalleryRowsCollection();
+    rows.forEach((row, index) => {
+      const upBtn = row.querySelector(".icon-gallery-up");
+      const downBtn = row.querySelector(".icon-gallery-down");
+      const removeBtn = row.querySelector(".icon-gallery-remove");
+      if (upBtn instanceof HTMLButtonElement) {
+        upBtn.disabled = index === 0;
+      }
+      if (downBtn instanceof HTMLButtonElement) {
+        downBtn.disabled = index === rows.length - 1;
+      }
+      if (removeBtn instanceof HTMLButtonElement) {
+        removeBtn.disabled = rows.length <= 1;
+      }
+    });
+    if (refs.addIconGalleryItemBtnEl instanceof HTMLButtonElement) {
+      refs.addIconGalleryItemBtnEl.disabled = rows.length >= MAX_GALLERY_ITEMS;
+    }
+  }
+
+  function getGalleryItems() {
+    if (!refs.iconGalleryListEl) {
+      return [];
+    }
+    return Array.from(refs.iconGalleryListEl.querySelectorAll(".icon-gallery-url"))
+      .map((input) => (input instanceof HTMLInputElement ? input.value.trim() : ""))
+      .filter(Boolean)
+      .slice(0, MAX_GALLERY_ITEMS);
+  }
+
+  function setGalleryItems(items) {
+    if (!refs.iconGalleryListEl) {
+      return;
+    }
+    refs.iconGalleryListEl.innerHTML = "";
+    const normalized = normalizeGalleryItems(items);
+    if (normalized.length === 0) {
+      normalized.push(refs.iconUrlEl?.value?.trim() || "");
+    }
+    for (const value of normalized) {
+      refs.iconGalleryListEl.append(createGalleryRow(value));
+    }
+    refreshGalleryButtons();
+  }
+
+  function getGalleryColumns() {
+    return normalizeGalleryDimension(refs.iconGalleryColumnsEl?.value, 4);
+  }
+
+  function setGalleryColumns(value) {
+    if (!refs.iconGalleryColumnsEl) {
+      return;
+    }
+    refs.iconGalleryColumnsEl.value = String(normalizeGalleryDimension(value, 4));
   }
 
   function buildWsrvUrl(url, width) {
@@ -502,6 +642,9 @@ export function createAppIconsFeature({
     if (mode === "upload") {
       return Boolean(getUploadSvgText());
     }
+    if (mode === "gallery") {
+      return getGalleryItems().length > 0;
+    }
 
     if (mode === "external") {
       const url = refs.iconUrlEl.value.trim();
@@ -523,15 +666,20 @@ export function createAppIconsFeature({
       const url = refs.iconUrlEl.value.trim();
       return isSvgUrl(url) && refs.iconEmbedSvgEl.checked && !isWsrvResizeEnabled();
     }
+    if (mode === "gallery") {
+      return false;
+    }
     return false;
   }
 
   function updateIconControls() {
     const mode = getIconMode();
     refs.iconUrlWrap.classList.toggle("hidden", mode !== "external");
-    refs.iconSelfhstWrap.classList.toggle("hidden", mode !== "external");
-    refs.iconEmbedWrap.classList.toggle("hidden", mode !== "external");
     refs.iconUploadWrap.classList.toggle("hidden", mode !== "upload");
+    refs.iconGalleryWrap?.classList.toggle("hidden", mode !== "gallery");
+    refs.iconSelfhstWrap.classList.toggle("hidden", !(mode === "external" || mode === "gallery"));
+    refs.iconEmbedWrap.classList.toggle("hidden", mode !== "external" && mode !== "gallery");
+    refs.iconEmbedSvgControlEl?.classList.toggle("hidden", mode === "gallery");
     if (isWsrvResizeEnabled()) {
       refs.iconEmbedSvgEl.checked = false;
     }
@@ -546,7 +694,7 @@ export function createAppIconsFeature({
       refs.iconVariantWrapEl.classList.toggle("hidden", !showVariantControls);
     }
     if (refs.iconScaleWrapEl) {
-      refs.iconScaleWrapEl.classList.toggle("hidden", mode === "none");
+      refs.iconScaleWrapEl.classList.toggle("hidden", false);
     }
 
     if (rasterLink) {
@@ -556,7 +704,7 @@ export function createAppIconsFeature({
       refs.iconEmbedSvgEl.disabled = false;
     }
     if (refs.iconResizeWsrvEl) {
-      refs.iconResizeWsrvEl.disabled = mode !== "external";
+      refs.iconResizeWsrvEl.disabled = mode !== "external" && mode !== "gallery";
     }
 
     refs.iconScaleEl.disabled = !iconCanUseScale();
@@ -568,10 +716,31 @@ export function createAppIconsFeature({
 
   async function prepareIcon() {
     const token = ++prepareToken;
-    scheduleSelfhstVariantButtonsRefresh();
+    if (getIconMode() === "external") {
+      scheduleSelfhstVariantButtonsRefresh();
+    } else if (refs.iconCdnVariantsEl) {
+      refs.iconCdnVariantsEl.innerHTML = "";
+      refs.iconCdnVariantsEl.classList.add("hidden");
+      refs.iconUrlRowEl?.classList.remove("has-variants");
+    }
     updateIconControls();
 
     const mode = getIconMode();
+    if (mode === "gallery") {
+      const items = getGalleryItems().filter((value) => isAllowedIconImageUrl(value));
+      if (items.length === 0) {
+        setIconResolvedSrc("");
+        setIconStatus("Gallery mode: add one or more external image URLs.");
+        renderOutput();
+        return;
+      }
+      const first = items[0];
+      const resolved = isWsrvResizeEnabled() ? buildWsrvUrl(first, refs.iconScaleEl.value) : first;
+      setIconResolvedSrc(resolved);
+      setIconStatus(`Gallery mode active with ${items.length} icon${items.length === 1 ? "" : "s"}.`);
+      renderOutput();
+      return;
+    }
     if (mode === "none") {
       setIconResolvedSrc("");
       setIconStatus("App-Icon disabled. Select a source to enable it again.");
@@ -743,9 +912,23 @@ export function createAppIconsFeature({
     }
     iconInteractionsBound = true;
 
+    if (refs.iconGalleryListEl && getGalleryRowsCollection().length === 0) {
+      setGalleryItems([]);
+    }
+
     if (refs.iconModeRadios) {
       for (const radio of refs.iconModeRadios) {
-        radio.addEventListener("change", prepareIcon);
+        radio.addEventListener("change", () => {
+          if (getIconMode() === "gallery") {
+            if (refs.iconResizeWsrvEl && !refs.iconResizeWsrvEl.checked) {
+              refs.iconResizeWsrvEl.checked = true;
+            }
+            if (getGalleryRowsCollection().length === 0) {
+              setGalleryItems([]);
+            }
+          }
+          prepareIcon();
+        });
       }
     }
 
@@ -767,6 +950,122 @@ export function createAppIconsFeature({
 
     refs.iconScaleEl?.addEventListener("input", prepareIcon);
     refs.iconUploadEl?.addEventListener("change", onIconUploadChange);
+    refs.iconGalleryColumnsEl?.addEventListener("input", () => {
+      setGalleryColumns(refs.iconGalleryColumnsEl.value);
+      prepareIcon();
+    });
+    refs.addIconGalleryItemBtnEl?.addEventListener("click", () => {
+      if (!refs.iconGalleryListEl || getGalleryRowsCollection().length >= MAX_GALLERY_ITEMS) {
+        return;
+      }
+      refs.iconGalleryListEl.append(createGalleryRow(""));
+      refreshGalleryButtons();
+      prepareIcon();
+    });
+
+    refs.iconGalleryListEl?.addEventListener("input", (event) => {
+      const target = event.target;
+      if (target instanceof HTMLInputElement && target.classList.contains("icon-gallery-url")) {
+        prepareIcon();
+      }
+    });
+    refs.iconGalleryListEl?.addEventListener("click", (event) => {
+      const target = event.target;
+      if (!(target instanceof HTMLElement) || !refs.iconGalleryListEl) {
+        return;
+      }
+      const row = target.closest(".icon-gallery-row");
+      if (!(row instanceof HTMLElement)) {
+        return;
+      }
+
+      if (target.closest(".icon-gallery-up")) {
+        const prev = row.previousElementSibling;
+        if (prev) {
+          refs.iconGalleryListEl.insertBefore(row, prev);
+        }
+        refreshGalleryButtons();
+        prepareIcon();
+        return;
+      }
+
+      if (target.closest(".icon-gallery-down")) {
+        const next = row.nextElementSibling;
+        if (next) {
+          refs.iconGalleryListEl.insertBefore(next, row);
+        }
+        refreshGalleryButtons();
+        prepareIcon();
+        return;
+      }
+
+      if (target.closest(".icon-gallery-grab")) {
+        return;
+      }
+
+      if (target.closest(".icon-gallery-remove")) {
+        row.remove();
+        if (getGalleryRowsCollection().length === 0) {
+          refs.iconGalleryListEl.append(createGalleryRow(""));
+        }
+        refreshGalleryButtons();
+        prepareIcon();
+      }
+    });
+    refs.iconGalleryListEl?.addEventListener("dragstart", (event) => {
+      const target = event.target;
+      if (!(target instanceof HTMLElement) || !target.closest(".icon-gallery-grab")) {
+        return;
+      }
+      const row = target.closest(".icon-gallery-row");
+      if (!(row instanceof HTMLElement)) {
+        return;
+      }
+      galleryDragRow = row;
+      galleryDragMoved = false;
+      row.classList.add("is-dragging");
+      if (event.dataTransfer) {
+        event.dataTransfer.effectAllowed = "move";
+        event.dataTransfer.setData("text/plain", "icon-gallery-row");
+      }
+    });
+    refs.iconGalleryListEl?.addEventListener("dragover", (event) => {
+      if (!refs.iconGalleryListEl || !galleryDragRow) {
+        return;
+      }
+      event.preventDefault();
+      const target = event.target;
+      if (!(target instanceof HTMLElement)) {
+        return;
+      }
+      const row = target.closest(".icon-gallery-row");
+      if (!(row instanceof HTMLElement) || row === galleryDragRow) {
+        return;
+      }
+      const bounds = row.getBoundingClientRect();
+      const shouldInsertAfter = event.clientY > bounds.top + bounds.height / 2;
+      if (shouldInsertAfter) {
+        refs.iconGalleryListEl.insertBefore(galleryDragRow, row.nextElementSibling);
+      } else {
+        refs.iconGalleryListEl.insertBefore(galleryDragRow, row);
+      }
+      galleryDragMoved = true;
+      refreshGalleryButtons();
+    });
+    refs.iconGalleryListEl?.addEventListener("drop", (event) => {
+      if (!galleryDragRow) {
+        return;
+      }
+      event.preventDefault();
+    });
+    refs.iconGalleryListEl?.addEventListener("dragend", () => {
+      const moved = galleryDragMoved;
+      clearGalleryDragState();
+      refreshGalleryButtons();
+      if (moved) {
+        prepareIcon();
+      }
+    });
 
     if (refs.iconColorVariantEls) {
       for (const radio of refs.iconColorVariantEls) {
@@ -797,5 +1096,9 @@ export function createAppIconsFeature({
     prepareIcon,
     setIconStatus,
     initIconInteractions,
+    getGalleryItems,
+    setGalleryItems,
+    getGalleryColumns,
+    setGalleryColumns,
   };
 }

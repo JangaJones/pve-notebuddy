@@ -24,6 +24,10 @@ export function createTemplateSettingsFeature({
   getIconMode,
   isWsrvResizeEnabled,
   getIconColorVariant,
+  getIconGalleryItems,
+  setIconGalleryItems,
+  getIconGalleryColumns,
+  setIconGalleryColumns,
   getHostEntries,
   getNetworkEntries,
   getConfigLocationEntries,
@@ -72,8 +76,8 @@ export function createTemplateSettingsFeature({
       rowOrder,
       theme: getTheme(),
       icon: {
-        align: getSelectedRadioValue("iconAlign", "center"),
         mode: getIconMode(),
+        align: getSelectedRadioValue("iconAlign", "center"),
         url: refs.iconUrlEl.value,
         embedSvg: refs.iconEmbedSvgEl.checked,
         resizeWithWsrv: isWsrvResizeEnabled(),
@@ -81,6 +85,8 @@ export function createTemplateSettingsFeature({
         colorVariant: getIconColorVariant(),
         uploadSvgText: getUploadSvgText(),
         uploadImageDataUrl: getUploadImageDataUrl(),
+        galleryItems: getIconMode() === "gallery" ? getIconGalleryItems() : [],
+        galleryColumns: getIconGalleryColumns(),
       },
       fields: {
         titleText: getEl("titleText").value,
@@ -194,12 +200,23 @@ export function createTemplateSettingsFeature({
         setSelectedRadioValue("iconAlign", settings.icon.align);
       }
       if (typeof settings.icon.mode === "string") {
-        setIconMode(settings.icon.mode);
+        if (settings.icon.mode === "none") {
+          // Legacy compatibility: the NONE mode was removed from the UI.
+          // Map it to hidden icon row while keeping the current mode radios valid.
+          setIconMode("external");
+          setRowVisibility("icon", false);
+        } else {
+          setIconMode(settings.icon.mode);
+          if (settings.rowOrder === undefined) {
+            setRowVisibility("icon", true);
+          }
+        }
       }
       if (typeof settings.icon.url === "string") {
         refs.iconUrlEl.value = settings.icon.url;
         if (source === "import" && settings.icon.url.trim() && !isAllowedIconImageUrl(settings.icon.url)) {
-          setIconMode("none");
+          setIconMode("external");
+          setRowVisibility("icon", false);
           blockedImportedInvalidIcon = true;
         }
       }
@@ -220,6 +237,12 @@ export function createTemplateSettingsFeature({
       }
       if (typeof settings.icon.uploadImageDataUrl === "string") {
         setUploadImageDataUrl(settings.icon.uploadImageDataUrl);
+      }
+      if (Array.isArray(settings.icon.galleryItems)) {
+        setIconGalleryItems(settings.icon.galleryItems.map((item) => String(item || "")));
+      }
+      if (settings.icon.galleryColumns !== undefined) {
+        setIconGalleryColumns(settings.icon.galleryColumns);
       }
     }
 

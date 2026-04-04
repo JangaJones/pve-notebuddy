@@ -99,6 +99,8 @@ export function createTemplateSettingsSchema({
         "colorVariant",
         "uploadSvgText",
         "uploadImageDataUrl",
+        "galleryItems",
+        "galleryColumns",
       ]);
       for (const key of Object.keys(settings.icon)) {
         if (!iconAllowed.has(key)) {
@@ -106,7 +108,8 @@ export function createTemplateSettingsSchema({
         }
       }
       assertEnumValue(settings.icon.align, ["left", "center", "right"], `${source} icon.align`);
-      assertEnumValue(settings.icon.mode, ["external", "upload", "none"], `${source} icon.mode`);
+      // Keep "none" for backward compatibility with older exported templates.
+      assertEnumValue(settings.icon.mode, ["external", "upload", "gallery", "none"], `${source} icon.mode`);
       assertEnumValue(settings.icon.colorVariant, ["original", "dark", "light"], `${source} icon.colorVariant`);
       if (settings.icon.url !== undefined) assertMaxTextBytes(settings.icon.url, 4096, `${source} icon.url`);
       if (settings.icon.uploadSvgText !== undefined) {
@@ -115,11 +118,28 @@ export function createTemplateSettingsSchema({
       if (settings.icon.uploadImageDataUrl !== undefined) {
         assertMaxTextBytes(settings.icon.uploadImageDataUrl, maxImportFileBytes, `${source} icon.uploadImageDataUrl`);
       }
+      if (settings.icon.galleryItems !== undefined) {
+        if (!Array.isArray(settings.icon.galleryItems)) {
+          throw new Error(`${source} icon.galleryItems must be an array.`);
+        }
+        if (settings.icon.galleryItems.length > 20) {
+          throw new Error(`${source} icon.galleryItems exceeds maximum entries.`);
+        }
+        for (const item of settings.icon.galleryItems) {
+          assertMaxTextBytes(String(item || ""), 4096, `${source} icon.galleryItems item`);
+        }
+      }
       if (settings.icon.embedSvg !== undefined && typeof settings.icon.embedSvg !== "boolean") {
         throw new Error(`${source} icon.embedSvg must be boolean.`);
       }
       if (settings.icon.resizeWithWsrv !== undefined && typeof settings.icon.resizeWithWsrv !== "boolean") {
         throw new Error(`${source} icon.resizeWithWsrv must be boolean.`);
+      }
+      if (settings.icon.galleryColumns !== undefined) {
+        const columns = Number.parseInt(String(settings.icon.galleryColumns), 10);
+        if (!Number.isFinite(columns) || columns < 1 || columns > 8) {
+          throw new Error(`${source} icon.galleryColumns must be between 1 and 8.`);
+        }
       }
       if (settings.icon.scale !== undefined) {
         const scale = Number.parseInt(String(settings.icon.scale), 10);

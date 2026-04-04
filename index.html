@@ -317,10 +317,11 @@
                   </div>
                 </div>
                 <div class="tool-set">
-                  <div class="tool-group">
+                  <div class="tool-group icon-mode-group">
                     <label class="tool-chip" title="External link"><input type="radio" name="iconMode" value="external" checked /><span>LINK</span></label>
                     <label class="tool-chip" title="Local SVG"><input type="radio" name="iconMode" value="upload" /><span>FILE</span></label>
-                    <label class="tool-chip" title="Disable icon"><input type="radio" name="iconMode" value="none" /><span>NONE</span></label>
+                    <span class="tool-gap" aria-hidden="true"></span>
+                    <label class="tool-chip" title="Icon gallery"><input type="radio" name="iconMode" value="gallery" /><span>GALLERY</span></label>
                   </div>
                 </div>
               </div>
@@ -344,9 +345,23 @@
               <input id="iconUpload" type="file" accept=".svg,.png,.jpeg,.jpg,.gif,.webp,image/svg+xml,image/png,image/jpeg,image/gif,image/webp" />
             </label>
 
+            <div id="iconGalleryWrap" class="hidden">
+              <div class="icon-gallery-head">
+                <div class="icon-gallery-layout">
+                  <label>
+                    Items per row
+                    <input id="iconGalleryColumns" type="number" min="1" max="8" step="1" value="4" />
+                  </label>
+                </div>
+                <button id="addIconGalleryItemBtn" type="button" class="panel-action icon-gallery-add">ADD</button>
+              </div>
+              <div id="iconGalleryList" class="icon-gallery-list"></div>
+              <p class="status icon-gallery-hint">Up to 20 linked icons. Reorder with arrows or drag handle.</p>
+            </div>
+
             <div id="iconEmbedWrap" class="scale-row">
               <div>
-                <label width="50px" class="inline-check">
+                <label id="iconEmbedSvgControl" width="50px" class="inline-check">
                   <input id="iconEmbedSvg" type="checkbox" checked />
                   Embed SVG
                   <div class="icon-help">

@@ -122,6 +122,7 @@ const {
     iconGalleryListEl,
     addIconGalleryItemBtnEl,
     iconGalleryColumnsEl,
+    iconGallerySpacingRadios,
     iconEmbedWrap,
     iconEmbedSvgControlEl,
     iconSelfhstWrap,
@@ -338,6 +339,7 @@ function createFeatures() {
       iconGalleryListEl,
       addIconGalleryItemBtnEl,
       iconGalleryColumnsEl,
+      iconGallerySpacingRadios,
       iconEmbedWrap,
       iconEmbedSvgControlEl,
       iconSelfhstWrap,
@@ -422,6 +424,7 @@ function createFeatures() {
     getIconMode,
     getIconGalleryItems: () => (appIconsFeature?.getGalleryItems ? appIconsFeature.getGalleryItems() : []),
     getIconGalleryColumns: () => (appIconsFeature?.getGalleryColumns ? appIconsFeature.getGalleryColumns() : 4),
+    getIconGallerySpacing: () => (appIconsFeature?.getGallerySpacing ? appIconsFeature.getGallerySpacing() : "s"),
     getWeservBaseUrl,
     isWsrvResizeEnabled,
     isAllowedIconImageUrl,
@@ -494,6 +497,10 @@ function createFeatures() {
     getIconGalleryColumns: () => (appIconsFeature?.getGalleryColumns ? appIconsFeature.getGalleryColumns() : 4),
     setIconGalleryColumns: (value) => {
       appIconsFeature?.setGalleryColumns?.(value);
+    },
+    getIconGallerySpacing: () => (appIconsFeature?.getGallerySpacing ? appIconsFeature.getGallerySpacing() : "s"),
+    setIconGallerySpacing: (value) => {
+      appIconsFeature?.setGallerySpacing?.(value);
     },
     getHostEntries: rowEditorFeature.getHostEntries,
     getNetworkEntries: rowEditorFeature.getNetworkEntries,

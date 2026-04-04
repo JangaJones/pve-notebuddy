@@ -1062,6 +1062,13 @@ textarea:focus {
   gap: 0.55rem;
 }
 
+.icon-gallery-spacing {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-left: 0.2rem;
+}
+
 .icon-gallery-layout label {
   min-width: 72px;
   gap: 0.2rem;
@@ -1083,9 +1090,47 @@ textarea:focus {
 
 .icon-gallery-row {
   display: grid;
-  grid-template-columns: auto auto auto minmax(0, 1fr) auto;
+  grid-template-columns: auto auto auto minmax(0, 1fr) auto auto;
   gap: 0.35rem;
   align-items: center;
+}
+
+.icon-gallery-variants {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.icon-gallery-variant-btn {
+  min-width: 38px;
+  height: 32px;
+  padding: 0 0.35rem;
+  font-size: var(--ui-size-sm);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--ctrl-text);
+  overflow: visible;
+}
+
+.icon-gallery-variant-btn:hover {
+  transform: translateY(-1px);
+}
+
+.icon-gallery-variant-btn.is-active {
+  background: linear-gradient(130deg, #63c2ff, #8ce5c4);
+  color: #052132;
+  border-color: transparent;
+}
+
+.icon-gallery-variant-btn.is-active:hover,
+.icon-gallery-variant-btn.is-active:focus-visible {
+  background: linear-gradient(130deg, #63c2ff, #8ce5c4);
+  color: #052132;
+  filter: none;
+}
+
+.icon-gallery-variant-btn::after {
+  display: none !important;
 }
 
 .icon-gallery-row.is-dragging {

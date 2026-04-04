@@ -28,6 +28,8 @@ export function createTemplateSettingsFeature({
   setIconGalleryItems,
   getIconGalleryColumns,
   setIconGalleryColumns,
+  getIconGallerySpacing,
+  setIconGallerySpacing,
   getHostEntries,
   getNetworkEntries,
   getConfigLocationEntries,
@@ -87,6 +89,7 @@ export function createTemplateSettingsFeature({
         uploadImageDataUrl: getUploadImageDataUrl(),
         galleryItems: getIconMode() === "gallery" ? getIconGalleryItems() : [],
         galleryColumns: getIconGalleryColumns(),
+        gallerySpacing: getIconGallerySpacing(),
       },
       fields: {
         titleText: getEl("titleText").value,
@@ -243,6 +246,9 @@ export function createTemplateSettingsFeature({
       }
       if (settings.icon.galleryColumns !== undefined) {
         setIconGalleryColumns(settings.icon.galleryColumns);
+      }
+      if (settings.icon.gallerySpacing !== undefined) {
+        setIconGallerySpacing(settings.icon.gallerySpacing);
       }
     }
 

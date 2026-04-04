@@ -10,6 +10,7 @@ export function createNoteBuilderFeature({
   getIconResolvedSrc,
   getIconGalleryItems,
   getIconGalleryColumns,
+  getIconGallerySpacing,
   getWeservBaseUrl,
   isWsrvResizeEnabled,
   isAllowedIconImageUrl,
@@ -295,6 +296,17 @@ export function createNoteBuilderFeature({
     return `<img src="${dataUri}" />`;
   }
 
+  function resolveGallerySpacingPreset() {
+    const preset = String(getIconGallerySpacing ? getIconGallerySpacing() : "s").trim().toLowerCase();
+    if (preset === "m") {
+      return { horizontal: 23, rowBreaks: 2 };
+    }
+    if (preset === "xl") {
+      return { horizontal: 42, rowBreaks: 3 };
+    }
+    return { horizontal: 5, rowBreaks: 1 };
+  }
+
   function normalizeItemsPerRow(value, fallback) {
     const numeric = Number.parseInt(String(value || ""), 10);
     if (!Number.isFinite(numeric)) {
@@ -320,9 +332,11 @@ export function createNoteBuilderFeature({
 
     const columns = normalizeItemsPerRow(getIconGalleryColumns(), 4);
     const scopedItems = items;
-    const spacer = buildTransparentSpacerTag(5);
+    const spacing = resolveGallerySpacingPreset();
+    const spacer = buildTransparentSpacerTag(spacing.horizontal);
+    const rowSeparator = Array.from({ length: Math.max(1, spacing.rowBreaks) }, () => "<br />").join("");
 
-    const rows = [];
+    const lines = [];
     for (let index = 0; index < scopedItems.length; index += columns) {
       const rowItems = scopedItems.slice(index, index + columns);
       const images = rowItems
@@ -331,10 +345,10 @@ export function createNoteBuilderFeature({
           return buildSafeImageTag(src, "App icon");
         })
         .join(spacer);
-      rows.push(`<div align="${escapeHtml(getIconAlign())}">${images}</div>`);
+      lines.push(images);
     }
 
-    return rows.join("\n");
+    return `<div align="${escapeHtml(getIconAlign())}">${lines.join(rowSeparator)}</div>`;
   }
 
   function buildNoteHtml() {

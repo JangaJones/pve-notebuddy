@@ -86,6 +86,7 @@ export function getAppDomRefs() {
       iconGalleryListEl: document.getElementById("iconGalleryList"),
       addIconGalleryItemBtnEl: document.getElementById("addIconGalleryItemBtn"),
       iconGalleryColumnsEl: document.getElementById("iconGalleryColumns"),
+      iconGallerySpacingRadios: form.querySelectorAll('input[name="iconGallerySpacing"]'),
       iconEmbedWrap: document.getElementById("iconEmbedWrap"),
       iconEmbedSvgControlEl: document.getElementById("iconEmbedSvgControl"),
       iconSelfhstWrap: document.getElementById("iconSelfhstWrap"),

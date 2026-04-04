@@ -1,12 +1,12 @@
 {
   "name": "pve-notebuddy",
   "private": true,
-  "version": "1.4.1",
+  "version": "1.5.0",
   "description": "Static client-side Proxmox note generator",
   "scripts": {
-    "vendor:dompurify": "mkdir -p resources/vendor && cp node_modules/dompurify/dist/purify.min.js resources/vendor/purify.min.js"
+    "vendor:dompurify": "mkdir -p resources/js/vendor && cp node_modules/dompurify/dist/purify.es.mjs resources/js/vendor/purify.es.mjs"
   },
   "dependencies": {
-    "dompurify": "3.3.2"
+    "dompurify": "3.3.3"
   }
 }

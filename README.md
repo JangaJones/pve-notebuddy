@@ -15,11 +15,6 @@
  **Use a broad palette of templates for your self-hosted services &**  
  **adjust them to your needs or create notes fully from scratch in a few seconds.**
  
- **🚧 _Upcoming Version 1.5.0 is currently planned for mid to late April!_ 🚧**<br>
- _It will include a lot of new features and a complete UI overhaul<br>
- You are welcome to clone the dev branch to take a sneak peek.<br>
- Feel free to open up an issue for feature requests/bugs/other inquiries._
- 
 </div>
 
 <div align="center">
@@ -81,72 +76,16 @@
 </div>
 
 
-## Crawl-Scripts
+## Local Deployment & Template Scripts
 
-Template tooling lives in `templates/scripts/` and is only used to refresh committed template files.
+Please refer to the documentation.
 
-- `auto-template.mjs`: interactive launcher for script execution
-- `community-scripts.mjs`: crawls PocketBase records from `https://db.community-scripts.org/api/collections/script_scripts/` into `templates/scripts/community-scripts-temp/` and writes `community-scripts-log.json`
-- `generate-templates.mjs`: transforms crawled/community/custom/selfh.st JSON sources into:
-  - `templates/community-scripts/*.json`
-  - `templates/index.json` (merged template catalog with source tags)
-  - `templates/scripts/community-scripts-temp/generate-report.json`
+## Frequently Asked: API & Automation
 
-Shared script helpers are centralized in `templates/scripts/lib/script-utils.mjs` (string normalization, slug sanitization, JSON write, recursive JSON scan).
+Currently API & Automation (e.g. automatic publishing to Proxmox or fetching the HTML Output with a GET Request) is not planned, since this would only weaken robustness and security. PVE NoteBuddy will remain separate from Proxmox or automation/deployment tools.
 
-Thanks to the curated **[community-scripts](https://github.com/community-scripts/ProxmoxVE)** data source and selfh.st assets, NoteBuddy can provide a large template catalog with name, icon, website, default ports and config locations.
+## AI Disclaimer & Security
 
-Massive shoutout to them! 🤝
+This project leverages AI to assist with development. Code contributions generated or modified with the help of AI tools are thoroughly reviewed and tested by myself before release.
 
-The crawl-scripts are only needed to commit template updates to this repo and are not used by NoteBuddy itself.
-
-## Local Deployment
-
-PVE NoteBuddy is static & client-side. For local use, deploy the contents of the `main` branch to any static web server, or run a lightweight local server directly from the repository root.
-
-### Option 1: Deploy to a static web server
-
-Clone the repository and serve the project directory with your preferred static hosting solution.
-
-```bash
-git clone --branch main https://github.com/JangaJones/pve-notebuddy.git
-```
-
-Examples:
-
-- Nginx
-- Apache
-- Caddy
-- any simple static file host
-
-### Option 2: Run a local Python web server
-
-```bash
-git clone --branch main https://github.com/JangaJones/pve-notebuddy.git
-cd pve-notebuddy
-python3 -m http.server 8000
-```
-
-Then open:
-
-```text
-http://localhost:8000
-```
-
-### Important
-
-Do **not** open `index.html` directly via `file://`. NoteBuddy won't work as intended this way.
-
-The app loads template JSON files dynamically, and modern browser blocks those local `fetch()` requests when opened directly from disk. This results in template loading failures caused by browser CORS/security restrictions. Use a local or self-hosted static web server instead.
-
-### API & Automation
-
-Currently API & Automation (e.g. automatic publishing to Proxmox or fetching the HTML Output with a GET Request) is not on the table, since this currently exceeds my skillset and would only weaken robustness and security. PVE NoteBuddy will remain separate from Proxmox or automation/deployment tools. This may or may not change in the future.
-
-## Disclaimer
-
-_NoteBuddy is a fully client-side application with no backend, no telemetry, with the live version directly hosted on GitHub Pages. Based on its design and my own review, I consider it safe to use. Always be cautious about other distributed forks/clones that may contain malware. This project is actively maintained, there is no need to download or use it from another source._
-
-_Security in vibe-coded/AI-assisted apps is something I take seriously. For transparency, I did use an AI agent for parts of the development process, including certain features, troubleshooting, and boilerplate code. However, large portions of the codebase are still written and maintained manually._
-
-_Every commit has been thoroughly reviewed and tested by me. I'm a hobbyist developer with many years of hands-on experience with HTML and JavaScript long before we had AI to assist us._
+_NoteBuddy is a fully client-side application with no backend & no telemetry. The live version is directly hosted on GitHub Pages. Based on its design and my own review, I consider it safe to use. Always be cautious about other distributed forks/clones that may contain malware. This project is actively maintained, there is no need to download or use it from another source._

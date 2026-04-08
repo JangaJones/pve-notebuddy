@@ -1,18 +1,29 @@
-name: CodeQL
+name: "CodeQL Advanced"
 
 on:
+  # Analyze on pushes to active branches.
   push:
     branches: [main, dev]
+  # Analyze PRs before merge.
   pull_request:
     branches: [main, dev]
+  # Weekly background scan for newly-added queries/advisories.
   schedule:
     - cron: '25 3 * * 1'
+  # Allow manual runs from the Actions tab.
   workflow_dispatch:
 
 permissions:
+  # Required by CodeQL action internals.
   actions: read
+  # Needed to checkout repository sources.
   contents: read
+  # Needed to upload code scanning results.
   security-events: write
+
+env:
+  # Ensure JS-based actions run on Node 24 runtime.
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   analyze:
@@ -20,21 +31,25 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
+      # Keep scans independent if matrix expands later.
       fail-fast: false
       matrix:
         language: [javascript]
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
         with:
+          # Static analysis target language for this repository.
           languages: ${{ matrix.language }}
 
       - name: Autobuild
+        # For JS this is usually a no-op, but keeps workflow template-compatible.
         uses: github/codeql-action/autobuild@v3
 
       - name: Perform CodeQL analysis
+        # Runs queries and uploads findings to GitHub code scanning.
         uses: github/codeql-action/analyze@v3

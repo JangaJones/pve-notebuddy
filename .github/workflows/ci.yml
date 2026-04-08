@@ -1,14 +1,22 @@
 name: CI
 
 on:
+  # Run on direct commits to main development branches.
   push:
     branches: [main, dev]
+  # Also run for PR validation before merge.
   pull_request:
     branches: [main, dev]
+  # Allow manual runs from the Actions tab.
   workflow_dispatch:
 
 permissions:
+  # Least-privilege: CI only needs repository read access.
   contents: read
+
+env:
+  # Opt actions runtime into Node 24 ahead of platform default.
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   validate:
@@ -17,24 +25,35 @@ jobs:
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
+          # Keep runtime pinned for reproducible installs/checks.
           node-version: 22
+          # Cache npm modules to speed up repeated runs.
           cache: npm
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Install dependencies (lockfile-aware)
+        run: |
+          # Use deterministic install when lockfile exists.
+          if [ -f package-lock.json ] || [ -f npm-shrinkwrap.json ]; then
+            npm ci
+          else
+            # Fallback for repos that intentionally do not commit a lockfile.
+            npm install --no-audit --no-fund
+          fi
 
       - name: Ensure vendored DOMPurify is in sync
         run: |
+          # Regenerate vendored file and fail if committed copy is outdated.
           npm run vendor:dompurify
           git diff --exit-code -- resources/js/vendor/purify.es.mjs
 
       - name: Syntax-check JavaScript modules
         run: |
+          # Parse-check all JS modules without executing project code.
           set -euo pipefail
           while IFS= read -r file; do
             node --check "$file"
@@ -42,6 +61,7 @@ jobs:
 
       - name: Validate JSON fixtures and templates
         run: |
+          # Verify all JSON fixtures/templates are valid JSON documents.
           node <<'NODE'
           const fs = require('fs');
           const path = require('path');

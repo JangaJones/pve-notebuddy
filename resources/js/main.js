@@ -19,6 +19,9 @@ import {
   MAX_UPLOAD_RASTER_BYTES,
   MAX_UPLOAD_SVG_BYTES,
   MIN_DESKTOP_VIEWPORT_WIDTH,
+  PREVIEW_SIDEBAR_DEFAULT_WIDTH,
+  PREVIEW_SIDEBAR_MAX_WIDTH,
+  PREVIEW_SIDEBAR_MIN_WIDTH,
   PROXMOX_NOTE_EMOJI_GROUPS,
 } from "./core/config.js";
 import { getAppDomRefs, getEl } from "./core/dom.js";
@@ -59,6 +62,8 @@ const {
     supportMenuBtn,
     supportMenuList,
     unsupportedViewportEl,
+    previewResizeHandleEl,
+    workspacePreviewSidebarEl,
   },
   githubRefs: {
     githubStarCountEl,
@@ -244,6 +249,7 @@ function applyStateToRuntime() {
   settingsFeature?.syncSettingsPaneFromState();
   sidebarFeature?.setSidebarPanel(normalizeSidebarPanel(getAppState().ui.activeSidebarPanel), { persist: false });
   sidebarFeature?.setSidebarCollapsed(Boolean(getAppState().ui.sidebarCollapsed));
+  appShellFeature?.syncPreviewSidebarWidthFromState({ persist: false });
   prepareIcon();
 }
 
@@ -273,8 +279,16 @@ function createFeatures() {
       supportMenuList,
       copyBtn,
       outputEl,
+      previewResizeHandleEl,
+      workspacePreviewSidebarEl,
     },
     minDesktopViewportWidth: MIN_DESKTOP_VIEWPORT_WIDTH,
+    getState: getAppState,
+    patchState: patchAppState,
+    previewSidebarMinWidth: PREVIEW_SIDEBAR_MIN_WIDTH,
+    previewSidebarDefaultWidth: PREVIEW_SIDEBAR_DEFAULT_WIDTH,
+    previewSidebarMaxWidth: PREVIEW_SIDEBAR_MAX_WIDTH,
+    workspaceMinWidth: 752,
   });
 
   rowEditorFeature = createRowEditorFeature({
@@ -567,6 +581,7 @@ function initFeatureUi() {
   appShellFeature.initThemeToggle();
   appShellFeature.initSupportMenu();
   appShellFeature.initCopyButton();
+  appShellFeature.initPreviewSidebarResize();
 }
 
 function createMetadataServices() {

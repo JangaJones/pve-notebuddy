@@ -28,6 +28,8 @@ export function getAppDomRefs() {
       supportMenuBtn: document.getElementById("supportMenuBtn"),
       supportMenuList: document.getElementById("supportMenuList"),
       unsupportedViewportEl: document.getElementById("unsupportedViewport"),
+      previewResizeHandleEl: document.getElementById("previewResizeHandle"),
+      workspacePreviewSidebarEl: document.querySelector(".workspace-preview-sidebar"),
     },
     githubRefs: {
       githubStarCountEl: document.getElementById("githubStarCount"),

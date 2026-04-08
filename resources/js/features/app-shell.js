@@ -1,8 +1,16 @@
 export function createAppShellFeature({
   refs,
   minDesktopViewportWidth,
+  getState,
+  patchState,
+  previewSidebarMinWidth = 358,
+  previewSidebarDefaultWidth = 468,
+  previewSidebarMaxWidth = 600,
+  workspaceMinWidth = 752,
 }) {
   let activeTheme = "dark";
+  let previewResizeBound = false;
+  const previewWidthCssVar = "--preview-sidebar-width";
 
   function shouldShowUnsupportedViewport() {
     const width = window.innerWidth || document.documentElement.clientWidth || 0;
@@ -126,11 +134,129 @@ export function createAppShellFeature({
     refs.copyBtn.addEventListener("click", copyOutput);
   }
 
+  function getCssPxVar(name, fallback) {
+    const raw = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    const numeric = Number.parseFloat(raw);
+    return Number.isFinite(numeric) ? numeric : fallback;
+  }
+
+  function getLeftSidebarWidthPx() {
+    const collapsed = document.body.classList.contains("sidebar-collapsed");
+    if (collapsed) {
+      return getCssPxVar("--sidebar-rail-width", 52);
+    }
+    return getCssPxVar("--sidebar-width", 356);
+  }
+
+  function clampPreviewSidebarWidth(value) {
+    const numeric = Number.parseInt(String(value || ""), 10);
+    const requested = Number.isFinite(numeric) ? numeric : previewSidebarDefaultWidth;
+    const viewport = window.innerWidth || document.documentElement.clientWidth || 0;
+    const maxByViewport = Math.max(previewSidebarMinWidth, viewport - getLeftSidebarWidthPx() - workspaceMinWidth);
+    const effectiveMax = Math.min(previewSidebarMaxWidth, maxByViewport);
+    return Math.min(effectiveMax, Math.max(previewSidebarMinWidth, requested));
+  }
+
+  function setPreviewSidebarWidth(width, options = {}) {
+    const persist = options.persist !== false;
+    const clamped = clampPreviewSidebarWidth(width);
+    document.documentElement.style.setProperty(previewWidthCssVar, `${clamped}px`);
+    if (persist && getState().ui.previewSidebarWidth !== clamped) {
+      patchState((state) => {
+        state.ui.previewSidebarWidth = clamped;
+      });
+    }
+    return clamped;
+  }
+
+  function syncPreviewSidebarWidthFromState(options = {}) {
+    const persist = options.persist === true;
+    const stateWidth = getState().ui.previewSidebarWidth;
+    setPreviewSidebarWidth(stateWidth, { persist });
+  }
+
+  function resetPreviewSidebarWidth() {
+    setPreviewSidebarWidth(previewSidebarDefaultWidth, { persist: true });
+  }
+
+  function initPreviewSidebarResize() {
+    if (previewResizeBound) {
+      return;
+    }
+    const handleEl = refs.previewResizeHandleEl;
+    if (!(handleEl instanceof HTMLElement)) {
+      return;
+    }
+    previewResizeBound = true;
+
+    let dragging = false;
+    let startX = 0;
+    let startWidth = 0;
+    let currentWidth = 0;
+
+    const onPointerMove = (event) => {
+      if (!dragging) {
+        return;
+      }
+      const delta = startX - event.clientX;
+      currentWidth = setPreviewSidebarWidth(startWidth + delta, { persist: false });
+    };
+
+    const endDrag = () => {
+      if (!dragging) {
+        return;
+      }
+      dragging = false;
+      document.body.classList.remove("preview-resizing");
+      handleEl.classList.remove("is-dragging");
+      setPreviewSidebarWidth(currentWidth, { persist: true });
+      window.removeEventListener("pointermove", onPointerMove);
+      window.removeEventListener("pointerup", endDrag);
+      window.removeEventListener("pointercancel", endDrag);
+    };
+
+    handleEl.addEventListener("pointerdown", (event) => {
+      if (event.button !== 0) {
+        return;
+      }
+      event.preventDefault();
+      dragging = true;
+      startX = event.clientX;
+      startWidth = refs.workspacePreviewSidebarEl
+        ? refs.workspacePreviewSidebarEl.getBoundingClientRect().width
+        : getCssPxVar(previewWidthCssVar, previewSidebarDefaultWidth);
+      currentWidth = startWidth;
+      document.body.classList.add("preview-resizing");
+      handleEl.classList.add("is-dragging");
+      window.addEventListener("pointermove", onPointerMove);
+      window.addEventListener("pointerup", endDrag);
+      window.addEventListener("pointercancel", endDrag);
+    });
+
+    handleEl.addEventListener("dblclick", (event) => {
+      event.preventDefault();
+      resetPreviewSidebarWidth();
+    });
+
+    window.addEventListener("resize", () => {
+      syncPreviewSidebarWidthFromState({ persist: false });
+    });
+
+    const bodyClassObserver = new MutationObserver(() => {
+      syncPreviewSidebarWidthFromState({ persist: false });
+    });
+    bodyClassObserver.observe(document.body, { attributes: true, attributeFilter: ["class"] });
+
+    syncPreviewSidebarWidthFromState({ persist: false });
+  }
+
   return {
     initUnsupportedViewportGuard,
     initSupportMenu,
     initThemeToggle,
     initCopyButton,
+    initPreviewSidebarResize,
+    syncPreviewSidebarWidthFromState,
     setTheme,
     getTheme,
   };

@@ -88,8 +88,9 @@ Currently API & Automation (e.g. automatic publishing to Proxmox or fetching the
 
 This project leverages AI to assist with development. Code contributions generated or modified with the help of AI tools are thoroughly reviewed and tested by myself before release.
 
-_NoteBuddy is a fully client-side application with no backend & no telemetry. The live version is directly hosted on GitHub Pages. Based on its design and my own review, I consider it safe to use. Always be cautious about other distributed forks/clones that may contain malware. This project is actively maintained, there is no need to download or use it from another source._
+_PVE NoteBuddy is a fully client-side application with no backend & no telemetry. The live version is directly hosted on GitHub Pages. Based on its design and my own review, I consider it safe to use. Always be cautious about other distributed forks/clones that may contain malware. This project is actively maintained, there is no need to download or use it from another source._
 
+## Project Statistics
 <a href="https://www.star-history.com/?repos=JangaJones%2Fpve-notebuddy&type=date&legend=top-left">
  <picture>
    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=JangaJones/pve-notebuddy&type=date&theme=dark&legend=top-left" />

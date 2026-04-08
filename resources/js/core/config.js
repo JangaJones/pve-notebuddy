@@ -11,11 +11,15 @@ export const LEGACY_EMOJI_RAIL_STORAGE_KEY = "pve-notebuddy:emoji-rail-collapsed
 export const LEGACY_LOCAL_TEMPLATES_STORAGE_KEY = "pve-notebuddy:local-templates-v1";
 export const LEGACY_SIDEBAR_COLLAPSED_STORAGE_KEY = "pve-notebuddy:sidebar-collapsed";
 export const MIN_DESKTOP_VIEWPORT_WIDTH = 1200;
+export const PREVIEW_SIDEBAR_MIN_WIDTH = 358;
+export const PREVIEW_SIDEBAR_DEFAULT_WIDTH = 468;
+export const PREVIEW_SIDEBAR_MAX_WIDTH = 600;
 
 export const DEFAULT_APP_STATE = Object.freeze({
   ui: {
     sidebarCollapsed: false,
     activeSidebarPanel: "templates",
+    previewSidebarWidth: PREVIEW_SIDEBAR_DEFAULT_WIDTH,
   },
   settings: {
     weservDomain: "",

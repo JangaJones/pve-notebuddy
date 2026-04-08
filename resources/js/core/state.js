@@ -46,6 +46,13 @@ export function normalizeSvgPreferredMode(value) {
   return raw === "resize" ? "resize" : "embed";
 }
 
+export function normalizePreviewSidebarWidth(value, fallback = 468) {
+  const numeric = Number.parseInt(String(value || ""), 10);
+  const base = Number.isFinite(numeric) ? numeric : Number.parseInt(String(fallback || ""), 10);
+  const safe = Number.isFinite(base) ? base : 468;
+  return Math.min(600, Math.max(358, safe));
+}
+
 export function createAppStateStore({
   storageKey,
   legacyKeys = {},
@@ -56,6 +63,7 @@ export function createAppStateStore({
       ui: {
         sidebarCollapsed: Boolean(defaultState?.ui?.sidebarCollapsed),
         activeSidebarPanel: normalizeSidebarPanel(defaultState?.ui?.activeSidebarPanel),
+        previewSidebarWidth: normalizePreviewSidebarWidth(defaultState?.ui?.previewSidebarWidth, 468),
       },
       settings: {
         weservDomain: normalizeWeservDomain(defaultState?.settings?.weservDomain),
@@ -80,6 +88,12 @@ export function createAppStateStore({
       }
       if (value.ui.activeSidebarPanel !== undefined) {
         normalized.ui.activeSidebarPanel = normalizeSidebarPanel(value.ui.activeSidebarPanel);
+      }
+      if (value.ui.previewSidebarWidth !== undefined) {
+        normalized.ui.previewSidebarWidth = normalizePreviewSidebarWidth(
+          value.ui.previewSidebarWidth,
+          defaults.ui.previewSidebarWidth
+        );
       }
     }
     if (isPlainObject(value.settings)) {

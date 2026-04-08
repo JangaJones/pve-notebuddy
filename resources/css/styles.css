@@ -1445,7 +1445,7 @@ button:disabled {
 
 .preview-shell {
   width: 100%;
-  min-width: 340px;
+  min-width: var(--preview-content-min-width);
 }
 
 .preview-shell.dark {
@@ -1525,6 +1525,7 @@ button:disabled {
 
 .preview-card {
   height: 100%;
+  min-width: var(--preview-content-min-width);
   padding: 10px;
   overflow: auto;
   font-family: helvetica, arial, verdana, sans-serif;
@@ -1841,7 +1842,12 @@ body.unsupported-viewport-active .workspace-shell {
   --topbar-height: 62px;
   --sidebar-width: 356px;
   --sidebar-rail-width: 52px;
-  --preview-sidebar-width: clamp(340px, 30vw, 498px);
+  --preview-sidebar-min-width: 358px;
+  --preview-sidebar-default-width: 468px;
+  --preview-sidebar-max-width: 600px;
+  --preview-sidebar-width: var(--preview-sidebar-default-width);
+  --preview-panel-padding-x: 0.85rem;
+  --preview-content-min-width: 326px;
   --topbar-search-left-stop: 230px;
   --topbar-search-right-stop: 350px;
   --topbar-search-width: clamp(180px, 24vw, 320px);
@@ -2381,11 +2387,46 @@ body.sidebar-collapsed .workspace-main {
   right: 0;
   bottom: 0;
   width: var(--preview-sidebar-width);
+  min-width: var(--preview-sidebar-min-width);
+  max-width: var(--preview-sidebar-max-width);
   border-left: 0;
   background: var(--chrome-panel-bg);
   padding: 0;
   z-index: 55;
   display: flex;
+}
+
+.preview-resize-handle {
+  position: fixed;
+  top: var(--topbar-height);
+  bottom: 0;
+  right: var(--preview-sidebar-width);
+  width: 10px;
+  transform: translateX(50%);
+  cursor: col-resize;
+  z-index: 58;
+  touch-action: none;
+}
+
+.preview-resize-handle::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  transform: translateX(-50%);
+  background: #2a3347;
+}
+
+.preview-resize-handle:hover::before,
+.preview-resize-handle.is-dragging::before {
+  background: #63b7ee;
+}
+
+body.preview-resizing {
+  cursor: col-resize;
+  user-select: none;
 }
 
 .workspace-preview-sidebar .panel-preview {
@@ -2395,7 +2436,7 @@ body.sidebar-collapsed .workspace-main {
   border: 0;
   border-radius: 0;
   background: transparent;
-  padding: 0.9rem 0.85rem 1rem;
+  padding: 0.9rem var(--preview-panel-padding-x) 1rem;
   overflow: auto;
 }
 

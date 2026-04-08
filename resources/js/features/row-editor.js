@@ -21,6 +21,8 @@ export function createRowEditorFeature({
   let rowInteractionsBound = false;
   let defaultRowsInitialized = false;
   let dragRowFieldset = null;
+  let dragOverFieldset = null;
+  let dragOverPosition = "";
 
   function normalizeCustomRowKey(value) {
     const raw = String(value || "").trim().toLowerCase();
@@ -87,9 +89,69 @@ export function createRowEditorFeature({
         continue;
       }
       legend.classList.add("row-drag-handle");
-      legend.draggable = true;
       legend.setAttribute("title", "Drag to reorder row");
+      let hotspot = legend.querySelector(".row-drag-hotspot");
+      if (!(hotspot instanceof HTMLSpanElement)) {
+        hotspot = document.createElement("span");
+        hotspot.className = "row-drag-hotspot";
+        hotspot.draggable = true;
+        hotspot.setAttribute("aria-hidden", "true");
+        hotspot.setAttribute("title", "Drag to reorder row");
+        legend.append(hotspot);
+      }
     }
+  }
+
+  function clearDragIndicators() {
+    for (const fieldset of form.querySelectorAll("fieldset[data-row-key]")) {
+      fieldset.classList.remove("row-drop-before", "row-drop-after");
+    }
+    dragOverFieldset = null;
+    dragOverPosition = "";
+  }
+
+  function resolveDropTarget(clientY, preferredFieldset = null) {
+    const fieldsets = Array.from(form.querySelectorAll("fieldset[data-row-key]")).filter(
+      (fieldset) => fieldset instanceof HTMLFieldSetElement && fieldset !== dragRowFieldset
+    );
+    if (fieldsets.length === 0) {
+      return { fieldset: null, position: "" };
+    }
+
+    const preferred =
+      preferredFieldset instanceof HTMLFieldSetElement && preferredFieldset !== dragRowFieldset ? preferredFieldset : null;
+    let target = preferred;
+    if (!target) {
+      let best = null;
+      let bestDistance = Number.POSITIVE_INFINITY;
+      for (const fieldset of fieldsets) {
+        const rect = fieldset.getBoundingClientRect();
+        const mid = rect.top + rect.height / 2;
+        const distance = Math.abs(clientY - mid);
+        if (distance < bestDistance) {
+          bestDistance = distance;
+          best = fieldset;
+        }
+      }
+      target = best;
+    }
+    if (!(target instanceof HTMLFieldSetElement)) {
+      return { fieldset: null, position: "" };
+    }
+
+    const rect = target.getBoundingClientRect();
+    const position = clientY > rect.top + rect.height / 2 ? "after" : "before";
+    return { fieldset: target, position };
+  }
+
+  function isNoopDropPosition(targetFieldset, position) {
+    if (!(dragRowFieldset instanceof HTMLFieldSetElement) || !(targetFieldset instanceof HTMLFieldSetElement)) {
+      return true;
+    }
+    return (
+      (position === "before" && dragRowFieldset.nextElementSibling === targetFieldset) ||
+      (position === "after" && dragRowFieldset.previousElementSibling === targetFieldset)
+    );
   }
 
   function getNextCustomRowKey() {
@@ -597,7 +659,6 @@ export function createRowEditorFeature({
     const legend = document.createElement("legend");
     legend.textContent = "Custom Note";
     legend.className = "row-drag-handle";
-    legend.draggable = true;
     legend.setAttribute("title", "Drag to reorder row");
 
     const controls = document.createElement("div");
@@ -768,8 +829,8 @@ export function createRowEditorFeature({
       if (!(target instanceof HTMLElement)) {
         return;
       }
-      const handle = target.closest("legend.row-drag-handle");
-      if (!(handle instanceof HTMLLegendElement)) {
+      const handle = target.closest(".row-drag-hotspot");
+      if (!(handle instanceof HTMLSpanElement)) {
         return;
       }
       const fieldset = handle.closest("fieldset[data-row-key]");
@@ -778,6 +839,7 @@ export function createRowEditorFeature({
       }
       dragRowFieldset = fieldset;
       fieldset.classList.add("row-dragging");
+      clearDragIndicators();
       if (event.dataTransfer) {
         event.dataTransfer.effectAllowed = "move";
         event.dataTransfer.setData("text/plain", fieldset.getAttribute("data-row-key") || "row");
@@ -788,21 +850,23 @@ export function createRowEditorFeature({
       if (!(dragRowFieldset instanceof HTMLFieldSetElement)) {
         return;
       }
-      const target = event.target;
-      if (!(target instanceof HTMLElement)) {
-        return;
-      }
-      const overFieldset = target.closest("fieldset[data-row-key]");
-      if (!(overFieldset instanceof HTMLFieldSetElement) || overFieldset === dragRowFieldset) {
-        return;
-      }
       event.preventDefault();
-      const bounds = overFieldset.getBoundingClientRect();
-      const shouldInsertAfter = event.clientY > bounds.top + bounds.height / 2;
-      if (shouldInsertAfter) {
-        form.insertBefore(dragRowFieldset, overFieldset.nextElementSibling);
-      } else {
-        form.insertBefore(dragRowFieldset, overFieldset);
+      if (event.dataTransfer) {
+        event.dataTransfer.dropEffect = "move";
+      }
+
+      const target = event.target;
+      const preferredFieldset = target instanceof HTMLElement ? target.closest("fieldset[data-row-key]") : null;
+      const { fieldset: nextFieldset, position: nextPosition } = resolveDropTarget(event.clientY, preferredFieldset);
+      if (!(nextFieldset instanceof HTMLFieldSetElement) || !nextPosition || isNoopDropPosition(nextFieldset, nextPosition)) {
+        clearDragIndicators();
+        return;
+      }
+      if (dragOverFieldset !== nextFieldset || dragOverPosition !== nextPosition) {
+        clearDragIndicators();
+        dragOverFieldset = nextFieldset;
+        dragOverPosition = nextPosition;
+        nextFieldset.classList.add(nextPosition === "after" ? "row-drop-after" : "row-drop-before");
       }
     });
 
@@ -811,12 +875,37 @@ export function createRowEditorFeature({
         return;
       }
       event.preventDefault();
+      let targetFieldset = dragOverFieldset;
+      let targetPosition = dragOverPosition;
+      if (!(targetFieldset instanceof HTMLFieldSetElement) || !targetPosition) {
+        const target = event.target;
+        const preferredFieldset = target instanceof HTMLElement ? target.closest("fieldset[data-row-key]") : null;
+        const resolved = resolveDropTarget(event.clientY, preferredFieldset);
+        targetFieldset = resolved.fieldset;
+        targetPosition = resolved.position;
+      }
+      if (
+        targetFieldset instanceof HTMLFieldSetElement &&
+        targetPosition &&
+        !isNoopDropPosition(targetFieldset, targetPosition)
+      ) {
+        if (targetPosition === "after") {
+          form.insertBefore(dragRowFieldset, targetFieldset.nextElementSibling);
+        } else {
+          form.insertBefore(dragRowFieldset, targetFieldset);
+        }
+      }
+      clearDragIndicators();
+      dragRowFieldset.classList.remove("row-dragging");
+      dragRowFieldset = null;
+      renderOutput();
     });
 
     form.addEventListener("dragend", () => {
       if (!(dragRowFieldset instanceof HTMLFieldSetElement)) {
         return;
       }
+      clearDragIndicators();
       dragRowFieldset.classList.remove("row-dragging");
       dragRowFieldset = null;
       renderOutput();

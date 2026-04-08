@@ -9,6 +9,9 @@
     </a>
   </p>
 
+[![CodeQL](https://github.com/jangajones/pve-notebuddy/actions/workflows/codeql.yml/badge.svg)](https://github.com/jangajones/pve-notebuddy/actions/workflows/codeql.yml) [![CI](https://github.com/jangajones/pve-notebuddy/actions/workflows/ci.yml/badge.svg)](https://github.com/jangajones/pve-notebuddy/actions/workflows/ci.yml)
+
+
  **Use a broad palette of templates for your self-hosted services &**  
  **adjust them to your needs or create notes fully from scratch in a few seconds.**
  

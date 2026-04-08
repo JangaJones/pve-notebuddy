@@ -1,0 +1,75 @@
+name: CI
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main, dev]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate project quality
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Ensure vendored DOMPurify is in sync
+        run: |
+          npm run vendor:dompurify
+          git diff --exit-code -- resources/js/vendor/purify.es.mjs
+
+      - name: Syntax-check JavaScript modules
+        run: |
+          set -euo pipefail
+          while IFS= read -r file; do
+            node --check "$file"
+          done < <(find resources/js -type f \( -name '*.js' -o -name '*.mjs' \) | sort)
+
+      - name: Validate JSON fixtures and templates
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const path = require('path');
+
+          const roots = ['templates', 'testing'];
+          const jsonFiles = [];
+
+          function walk(dir) {
+            if (!fs.existsSync(dir)) return;
+            for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+              const p = path.join(dir, entry.name);
+              if (entry.isDirectory()) walk(p);
+              else if (entry.isFile() && p.endsWith('.json')) jsonFiles.push(p);
+            }
+          }
+
+          roots.forEach(walk);
+          let failures = 0;
+          for (const file of jsonFiles.sort()) {
+            try {
+              JSON.parse(fs.readFileSync(file, 'utf8'));
+            } catch (err) {
+              failures += 1;
+              console.error(`Invalid JSON: ${file}`);
+              console.error(err.message);
+            }
+          }
+
+          if (failures > 0) process.exit(1);
+          console.log(`Validated ${jsonFiles.length} JSON files.`);
+          NODE

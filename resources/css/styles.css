@@ -2182,6 +2182,11 @@ body.sidebar-collapsed .sidebar-icon-rail .sidebar-tab.active .sidebar-tab-icon 
   display: block;
 }
 
+.settings-select {
+  width: 100%;
+  appearance: none;
+}
+
 .settings-icon-btn {
   min-width: 34px;
   width: 34px;

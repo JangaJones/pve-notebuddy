@@ -68,6 +68,7 @@ export function getAppDomRefs() {
     },
     settingsRefs: {
       settingsWeservDomainEl: document.getElementById("settingsWeservDomain"),
+      settingsSvgPreferredModeEl: document.getElementById("settingsSvgPreferredMode"),
       saveWeservDomainBtnEl: document.getElementById("saveWeservDomainBtn"),
       deleteWeservDomainBtnEl: document.getElementById("deleteWeservDomainBtn"),
       exportStorageBtnEl: document.getElementById("exportStorageBtn"),

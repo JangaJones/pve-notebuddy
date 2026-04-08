@@ -41,6 +41,11 @@ export function normalizeWeservDomain(value) {
   }
 }
 
+export function normalizeSvgPreferredMode(value) {
+  const raw = String(value || "").trim().toLowerCase();
+  return raw === "resize" ? "resize" : "embed";
+}
+
 export function createAppStateStore({
   storageKey,
   legacyKeys = {},
@@ -54,6 +59,7 @@ export function createAppStateStore({
       },
       settings: {
         weservDomain: normalizeWeservDomain(defaultState?.settings?.weservDomain),
+        svgPreferredMode: normalizeSvgPreferredMode(defaultState?.settings?.svgPreferredMode),
       },
       templates: {
         localCatalog: [],
@@ -78,6 +84,7 @@ export function createAppStateStore({
     }
     if (isPlainObject(value.settings)) {
       normalized.settings.weservDomain = normalizeWeservDomain(value.settings.weservDomain);
+      normalized.settings.svgPreferredMode = normalizeSvgPreferredMode(value.settings.svgPreferredMode);
     }
     if (isPlainObject(value.templates)) {
       normalized.templates.localCatalog = normalizeLocalTemplateCatalog(value.templates.localCatalog);

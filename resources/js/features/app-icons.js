@@ -376,10 +376,12 @@ export function createAppIconsFeature({
   getIconMode,
   isWsrvResizeEnabled,
   getIconColorVariant,
+  getPreferredSvgMode,
   getConfiguredWeservDomain,
   getWeservBaseUrl,
   getIconResolvedSrc,
   setIconResolvedSrc,
+  getRenderedOutputLength,
   maxFetchedSvgBytes,
   maxUploadSvgBytes,
   maxUploadRasterBytes,
@@ -395,6 +397,14 @@ export function createAppIconsFeature({
   let iconInteractionsBound = false;
   let galleryDragRow = null;
   let galleryDragMoved = false;
+  let previousIconMode = "";
+  const externalModePreference = {
+    resizeWithWsrv: Boolean(refs.iconResizeWsrvEl?.checked),
+    embedSvg: Boolean(refs.iconEmbedSvgEl?.checked),
+  };
+  let oversizeEmbedLockedUrl = "";
+  let lastExternalUrlApplied = "";
+  let lastAppliedPreferredMode = "";
   const externalSvgCache = new Map();
   const selfhstVariantExistsCache = new Map();
   const svgColorCanvasCtx = document.createElement("canvas").getContext("2d");
@@ -606,6 +616,51 @@ export function createAppIconsFeature({
     return `${getWeservBaseUrl()}/?url=${encodeURIComponent(String(url || "").trim())}&w=${encodeURIComponent(String(width || ""))}`;
   }
 
+  function normalizePreferredMode(value) {
+    return String(value || "").trim().toLowerCase() === "resize" ? "resize" : "embed";
+  }
+
+  function getEffectivePreferredMode() {
+    return normalizePreferredMode(typeof getPreferredSvgMode === "function" ? getPreferredSvgMode() : "embed");
+  }
+
+  function syncExternalModePreferenceFromControls() {
+    externalModePreference.resizeWithWsrv = Boolean(refs.iconResizeWsrvEl?.checked);
+    externalModePreference.embedSvg = externalModePreference.resizeWithWsrv ? false : Boolean(refs.iconEmbedSvgEl?.checked);
+  }
+
+  function applyPreferredExternalMode() {
+    const preferredMode = getEffectivePreferredMode();
+    if (refs.iconResizeWsrvEl) {
+      refs.iconResizeWsrvEl.checked = preferredMode === "resize";
+    }
+    if (refs.iconEmbedSvgEl) {
+      refs.iconEmbedSvgEl.checked = preferredMode === "embed";
+    }
+    syncExternalModePreferenceFromControls();
+  }
+
+  function lockEmbedForOversize(url) {
+    oversizeEmbedLockedUrl = String(url || "").trim();
+    if (refs.iconResizeWsrvEl) {
+      refs.iconResizeWsrvEl.checked = true;
+    }
+    if (refs.iconEmbedSvgEl) {
+      refs.iconEmbedSvgEl.checked = false;
+    }
+    syncExternalModePreferenceFromControls();
+  }
+
+  function clearEmbedOversizeLockIfUrlChanged(url) {
+    const normalizedUrl = String(url || "").trim();
+    if (!oversizeEmbedLockedUrl) {
+      return;
+    }
+    if (normalizedUrl !== oversizeEmbedLockedUrl) {
+      oversizeEmbedLockedUrl = "";
+    }
+  }
+
   async function checkUrlExists(url) {
     if (selfhstVariantExistsCache.has(url)) {
       return selfhstVariantExistsCache.get(url);
@@ -771,7 +826,7 @@ export function createAppIconsFeature({
       return Boolean(getUploadSvgText());
     }
     if (mode === "gallery") {
-      return getGalleryItems().length > 0;
+      return getGalleryItems().length > 0 && isWsrvResizeEnabled();
     }
 
     if (mode === "external") {
@@ -813,6 +868,7 @@ export function createAppIconsFeature({
     }
 
     const url = refs.iconUrlEl.value.trim();
+    const embedLockedByOversize = mode === "external" && Boolean(oversizeEmbedLockedUrl) && url === oversizeEmbedLockedUrl;
     const rasterLink = mode === "external" && isRasterUrl(url);
     const externalSvg = mode === "external" && isSvgUrl(url);
     const showVariantControls =
@@ -828,7 +884,7 @@ export function createAppIconsFeature({
       scheduleGalleryVariantButtonsRefresh();
     }
 
-    if (rasterLink) {
+    if (rasterLink || embedLockedByOversize) {
       refs.iconEmbedSvgEl.checked = false;
       refs.iconEmbedSvgEl.disabled = true;
     } else {
@@ -847,6 +903,19 @@ export function createAppIconsFeature({
 
   async function prepareIcon() {
     const token = ++prepareToken;
+    const mode = getIconMode();
+    if (mode === "external") {
+      const currentUrl = refs.iconUrlEl.value.trim();
+      const preferredMode = getEffectivePreferredMode();
+      const isLocked = Boolean(oversizeEmbedLockedUrl) && currentUrl === oversizeEmbedLockedUrl;
+      const shouldApplyPreferred = (!isLocked && currentUrl !== lastExternalUrlApplied) || preferredMode !== lastAppliedPreferredMode;
+      if (shouldApplyPreferred) {
+        applyPreferredExternalMode();
+        lastExternalUrlApplied = currentUrl;
+      }
+      lastAppliedPreferredMode = preferredMode;
+    }
+
     if (getIconMode() === "external") {
       scheduleSelfhstVariantButtonsRefresh();
     } else if (refs.iconCdnVariantsEl) {
@@ -856,7 +925,6 @@ export function createAppIconsFeature({
     }
     updateIconControls();
 
-    const mode = getIconMode();
     if (mode === "gallery") {
       const items = getGalleryItems().filter((value) => isAllowedIconImageUrl(value));
       if (items.length === 0) {
@@ -918,6 +986,7 @@ export function createAppIconsFeature({
     }
 
     const url = refs.iconUrlEl.value.trim();
+    clearEmbedOversizeLockIfUrlChanged(url);
     if (!url) {
       setIconResolvedSrc("");
       setIconStatus("Add an external image URL.");
@@ -965,8 +1034,21 @@ export function createAppIconsFeature({
       if (token !== prepareToken) {
         return;
       }
+      const embeddedSvgDataUrl = encodeSvgDataUrl(colorized);
+      setIconResolvedSrc(embeddedSvgDataUrl);
+      renderOutput();
+      const renderedLength = typeof getRenderedOutputLength === "function" ? getRenderedOutputLength() : 0;
+      const exceedsLimit = embeddedSvgDataUrl.length > maxOutputLength || renderedLength > maxOutputLength;
+      if (exceedsLimit && refs.iconResizeWsrvEl) {
+        lockEmbedForOversize(url);
+        setIconResolvedSrc(buildWsrvUrl(url, refs.iconScaleEl.value));
+        const serviceName = getConfiguredWeservDomain() ? "weserv/images" : "wsrv.nl";
+        setIconStatus(`Embedded SVG exceeded character limit. Switched to ${serviceName} resize automatically for this URL.`);
+        updateIconControls();
+        renderOutput();
+        return;
+      }
 
-      setIconResolvedSrc(encodeSvgDataUrl(colorized));
       setIconStatus(`External SVG embedded at ${refs.iconScaleEl.value}px width.`);
       updateIconControls();
       renderOutput();
@@ -1048,9 +1130,13 @@ export function createAppIconsFeature({
     }
 
     if (refs.iconModeRadios) {
+      previousIconMode = getIconMode();
       for (const radio of refs.iconModeRadios) {
         radio.addEventListener("change", () => {
-          if (getIconMode() === "gallery") {
+          const nextMode = getIconMode();
+          if (nextMode === "gallery") {
+            externalModePreference.resizeWithWsrv = Boolean(refs.iconResizeWsrvEl?.checked);
+            externalModePreference.embedSvg = externalModePreference.resizeWithWsrv ? false : Boolean(refs.iconEmbedSvgEl?.checked);
             if (refs.iconResizeWsrvEl && !refs.iconResizeWsrvEl.checked) {
               refs.iconResizeWsrvEl.checked = true;
             }
@@ -1059,15 +1145,33 @@ export function createAppIconsFeature({
             }
             syncGalleryFirstFromSingleUrl();
             scheduleGalleryVariantButtonsRefresh();
-          } else if (getIconMode() === "external") {
+          } else if (nextMode === "external") {
+            if (refs.iconResizeWsrvEl) {
+              refs.iconResizeWsrvEl.checked = externalModePreference.resizeWithWsrv;
+            }
+            if (refs.iconEmbedSvgEl) {
+              refs.iconEmbedSvgEl.checked = externalModePreference.resizeWithWsrv ? false : externalModePreference.embedSvg;
+            }
             syncSingleUrlFromGalleryFirst();
+          } else if (previousIconMode === "external") {
+            externalModePreference.resizeWithWsrv = Boolean(refs.iconResizeWsrvEl?.checked);
+            externalModePreference.embedSvg = externalModePreference.resizeWithWsrv ? false : Boolean(refs.iconEmbedSvgEl?.checked);
           }
+          previousIconMode = nextMode;
           prepareIcon();
         });
       }
     }
 
     refs.iconUrlEl?.addEventListener("input", () => {
+      if (getIconMode() === "external") {
+        const nextUrl = refs.iconUrlEl.value.trim();
+        clearEmbedOversizeLockIfUrlChanged(nextUrl);
+        if (nextUrl !== lastExternalUrlApplied) {
+          applyPreferredExternalMode();
+          lastExternalUrlApplied = nextUrl;
+        }
+      }
       syncGalleryFirstFromSingleUrl();
       scheduleGalleryVariantButtonsRefresh();
       prepareIcon();
@@ -1077,12 +1181,18 @@ export function createAppIconsFeature({
       if (refs.iconEmbedSvgEl.checked && refs.iconResizeWsrvEl) {
         refs.iconResizeWsrvEl.checked = false;
       }
+      if (getIconMode() === "external") {
+        syncExternalModePreferenceFromControls();
+      }
       prepareIcon();
     });
 
     refs.iconResizeWsrvEl?.addEventListener("change", () => {
       if (refs.iconResizeWsrvEl.checked && refs.iconEmbedSvgEl) {
         refs.iconEmbedSvgEl.checked = false;
+      }
+      if (getIconMode() === "external") {
+        syncExternalModePreferenceFromControls();
       }
       prepareIcon();
     });

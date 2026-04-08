@@ -1,4 +1,4 @@
-import { normalizeWeservDomain } from "../core/state.js";
+import { normalizeSvgPreferredMode, normalizeWeservDomain } from "../core/state.js";
 
 export function createSettingsFeature({
   refs,
@@ -20,6 +20,10 @@ export function createSettingsFeature({
     return getConfiguredWeservDomain() || "https://wsrv.nl";
   }
 
+  function getPreferredSvgMode() {
+    return normalizeSvgPreferredMode(getState().settings.svgPreferredMode);
+  }
+
   function updateWeservResizeUi() {
     const customDomain = getConfiguredWeservDomain();
     const hasCustomDomain = Boolean(customDomain);
@@ -39,13 +43,35 @@ export function createSettingsFeature({
     if (refs.iconResizeServiceTooltipEl) {
       refs.iconResizeServiceTooltipEl.textContent = tooltipText;
     }
+    if (refs.settingsSvgPreferredModeEl) {
+      const resizeLabel = hasCustomDomain ? "Resize with weserv/images" : "Resize with wsrv.nl";
+      const resizeOption = refs.settingsSvgPreferredModeEl.querySelector('option[value="resize"]');
+      if (resizeOption) {
+        resizeOption.textContent = resizeLabel;
+      }
+    }
   }
 
   function syncSettingsPaneFromState() {
     if (refs.settingsWeservDomainEl) {
       refs.settingsWeservDomainEl.value = getConfiguredWeservDomain();
     }
+    if (refs.settingsSvgPreferredModeEl) {
+      refs.settingsSvgPreferredModeEl.value = getPreferredSvgMode();
+    }
     updateWeservResizeUi();
+  }
+
+  function saveSvgPreferredModeSetting() {
+    if (!refs.settingsSvgPreferredModeEl) {
+      return;
+    }
+    const next = normalizeSvgPreferredMode(refs.settingsSvgPreferredModeEl.value);
+    patchState((state) => {
+      state.settings.svgPreferredMode = next;
+    });
+    syncSettingsPaneFromState();
+    prepareIcon();
   }
 
   function saveWeservDomainSetting() {
@@ -126,6 +152,9 @@ export function createSettingsFeature({
         saveWeservDomainSetting();
       });
     }
+    if (refs.settingsSvgPreferredModeEl) {
+      refs.settingsSvgPreferredModeEl.addEventListener("change", saveSvgPreferredModeSetting);
+    }
     if (refs.exportStorageBtnEl) {
       refs.exportStorageBtnEl.addEventListener("click", exportAppStateToFile);
     }
@@ -143,6 +172,7 @@ export function createSettingsFeature({
   return {
     getConfiguredWeservDomain,
     getWeservBaseUrl,
+    getPreferredSvgMode,
     syncSettingsPaneFromState,
     initSettingsPane,
   };

@@ -2,6 +2,7 @@ import {
   createAppStateStore,
   normalizeLocalTemplateCatalog,
   normalizeSidebarPanel,
+  normalizeSvgPreferredMode,
   normalizeWeservDomain,
 } from "./core/state.js";
 import {
@@ -98,6 +99,7 @@ const {
   },
   settingsRefs: {
     settingsWeservDomainEl,
+    settingsSvgPreferredModeEl,
     saveWeservDomainBtnEl,
     deleteWeservDomainBtnEl,
     exportStorageBtnEl,
@@ -229,6 +231,12 @@ function getWeservBaseUrl() {
   return settingsFeature?.getWeservBaseUrl
     ? settingsFeature.getWeservBaseUrl()
     : (getConfiguredWeservDomain() || "https://wsrv.nl");
+}
+
+function getPreferredSvgMode() {
+  return settingsFeature?.getPreferredSvgMode
+    ? settingsFeature.getPreferredSvgMode()
+    : normalizeSvgPreferredMode(getAppState().settings.svgPreferredMode);
 }
 
 function applyStateToRuntime() {
@@ -368,10 +376,12 @@ function createFeatures() {
     getIconColorVariant,
     getConfiguredWeservDomain,
     getWeservBaseUrl,
+    getPreferredSvgMode,
     getIconResolvedSrc: () => runtime.iconResolvedSrc,
     setIconResolvedSrc: (value) => {
       runtime.iconResolvedSrc = String(value || "");
     },
+    getRenderedOutputLength: () => String(outputEl?.value || "").length,
     maxFetchedSvgBytes: MAX_FETCHED_SVG_BYTES,
     maxUploadSvgBytes: MAX_UPLOAD_SVG_BYTES,
     maxUploadRasterBytes: MAX_UPLOAD_RASTER_BYTES,
@@ -382,6 +392,7 @@ function createFeatures() {
   settingsFeature = createSettingsFeature({
     refs: {
       settingsWeservDomainEl,
+      settingsSvgPreferredModeEl,
       saveWeservDomainBtnEl,
       deleteWeservDomainBtnEl,
       exportStorageBtnEl,

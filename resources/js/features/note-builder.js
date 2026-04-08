@@ -301,7 +301,7 @@ export function createNoteBuilderFeature({
     if (preset === "m") {
       return { horizontal: 23, rowBreaks: 2 };
     }
-    if (preset === "xl") {
+    if (preset === "l") {
       return { horizontal: 42, rowBreaks: 3 };
     }
     return { horizontal: 5, rowBreaks: 1 };

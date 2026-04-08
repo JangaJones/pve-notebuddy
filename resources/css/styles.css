@@ -925,6 +925,16 @@ textarea:focus {
   flex: 0 0 0.7rem;
 }
 
+.icon-mode-group {
+  align-items: center;
+}
+
+.icon-mode-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
 .tool-chip {
   position: relative;
   display: inline-flex;
@@ -1049,38 +1059,48 @@ textarea:focus {
   display: none;
 }
 
-.icon-gallery-head {
+.icon-gallery-controls {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: 0.7rem;
+  align-items: center;
+  gap: 0.45rem;
+  flex-wrap: nowrap;
 }
 
-.icon-gallery-layout {
-  display: flex;
-  align-items: flex-end;
-  gap: 0.55rem;
+.icon-gallery-controls label {
+  min-width: 72px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  white-space: nowrap;
+}
+
+.icon-gallery-controls input {
+  min-width: 64px;
+  width: 64px;
+  text-align: center;
+}
+
+.icon-gallery-controls-gap {
+  width: 0.8rem;
+  flex: 0 0 0.8rem;
 }
 
 .icon-gallery-spacing {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  margin-left: 0.2rem;
+  margin-left: auto;
 }
 
-.icon-gallery-layout label {
-  min-width: 72px;
-  gap: 0.2rem;
-}
-
-.icon-gallery-layout input {
-  min-width: 72px;
-  text-align: center;
+.icon-gallery-label {
+  font-size: 0.86rem;
+  color: var(--muted);
+  margin-right: 0.2rem;
 }
 
 .icon-gallery-add {
-  min-width: 66px;
+  width: 100%;
+  min-width: 0;
 }
 
 .icon-gallery-list {

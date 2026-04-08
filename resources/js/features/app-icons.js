@@ -522,6 +522,39 @@ export function createAppIconsFeature({
       .slice(0, MAX_GALLERY_ITEMS);
   }
 
+  function getGalleryFirstInput() {
+    if (!refs.iconGalleryListEl) {
+      return null;
+    }
+    const firstRow = refs.iconGalleryListEl.querySelector(".icon-gallery-row");
+    if (!(firstRow instanceof HTMLElement)) {
+      return null;
+    }
+    const firstInput = firstRow.querySelector(".icon-gallery-url");
+    return firstInput instanceof HTMLInputElement ? firstInput : null;
+  }
+
+  function syncGalleryFirstFromSingleUrl() {
+    const singleUrl = refs.iconUrlEl?.value?.trim() || "";
+    const firstInput = getGalleryFirstInput();
+    if (firstInput) {
+      firstInput.value = singleUrl;
+      return;
+    }
+    if (refs.iconGalleryListEl) {
+      refs.iconGalleryListEl.append(createGalleryRow(singleUrl));
+      refreshGalleryButtons();
+      scheduleGalleryVariantButtonsRefresh();
+    }
+  }
+
+  function syncSingleUrlFromGalleryFirst() {
+    const firstInput = getGalleryFirstInput();
+    if (refs.iconUrlEl && firstInput) {
+      refs.iconUrlEl.value = firstInput.value.trim();
+    }
+  }
+
   function setGalleryItems(items) {
     if (!refs.iconGalleryListEl) {
       return;
@@ -551,7 +584,7 @@ export function createAppIconsFeature({
 
   function normalizeGallerySpacing(value) {
     const raw = String(value || "").trim().toLowerCase();
-    if (raw === "m" || raw === "xl") {
+    if (raw === "m" || raw === "l") {
       return raw;
     }
     return "s";
@@ -1024,13 +1057,21 @@ export function createAppIconsFeature({
             if (getGalleryRowsCollection().length === 0) {
               setGalleryItems([]);
             }
+            syncGalleryFirstFromSingleUrl();
+            scheduleGalleryVariantButtonsRefresh();
+          } else if (getIconMode() === "external") {
+            syncSingleUrlFromGalleryFirst();
           }
           prepareIcon();
         });
       }
     }
 
-    refs.iconUrlEl?.addEventListener("input", prepareIcon);
+    refs.iconUrlEl?.addEventListener("input", () => {
+      syncGalleryFirstFromSingleUrl();
+      scheduleGalleryVariantButtonsRefresh();
+      prepareIcon();
+    });
 
     refs.iconEmbedSvgEl?.addEventListener("change", () => {
       if (refs.iconEmbedSvgEl.checked && refs.iconResizeWsrvEl) {
@@ -1069,8 +1110,12 @@ export function createAppIconsFeature({
     refs.iconGalleryListEl?.addEventListener("input", (event) => {
       const target = event.target;
       if (target instanceof HTMLInputElement && target.classList.contains("icon-gallery-url")) {
-        prepareIcon();
         const row = target.closest(".icon-gallery-row");
+        const firstRow = refs.iconGalleryListEl?.querySelector(".icon-gallery-row");
+        if (row && firstRow && row === firstRow) {
+          syncSingleUrlFromGalleryFirst();
+        }
+        prepareIcon();
         if (row instanceof HTMLElement) {
           refreshGalleryRowVariantButtons(row);
         }
@@ -1092,6 +1137,7 @@ export function createAppIconsFeature({
           refs.iconGalleryListEl.insertBefore(row, prev);
         }
         refreshGalleryButtons();
+        syncSingleUrlFromGalleryFirst();
         scheduleGalleryVariantButtonsRefresh();
         prepareIcon();
         return;
@@ -1103,6 +1149,7 @@ export function createAppIconsFeature({
           refs.iconGalleryListEl.insertBefore(next, row);
         }
         refreshGalleryButtons();
+        syncSingleUrlFromGalleryFirst();
         scheduleGalleryVariantButtonsRefresh();
         prepareIcon();
         return;
@@ -1121,6 +1168,10 @@ export function createAppIconsFeature({
         const input = row.querySelector(".icon-gallery-url");
         if (input instanceof HTMLInputElement) {
           input.value = nextUrl;
+          const firstRow = refs.iconGalleryListEl?.querySelector(".icon-gallery-row");
+          if (firstRow && row === firstRow) {
+            syncSingleUrlFromGalleryFirst();
+          }
           refreshGalleryRowVariantButtons(row);
           prepareIcon();
         }
@@ -1133,6 +1184,7 @@ export function createAppIconsFeature({
           refs.iconGalleryListEl.append(createGalleryRow(""));
         }
         refreshGalleryButtons();
+        syncSingleUrlFromGalleryFirst();
         scheduleGalleryVariantButtonsRefresh();
         prepareIcon();
       }
@@ -1187,6 +1239,7 @@ export function createAppIconsFeature({
       const moved = galleryDragMoved;
       clearGalleryDragState();
       refreshGalleryButtons();
+      syncSingleUrlFromGalleryFirst();
       scheduleGalleryVariantButtonsRefresh();
       if (moved) {
         prepareIcon();
@@ -1217,6 +1270,7 @@ export function createAppIconsFeature({
     });
 
     scheduleGalleryVariantButtonsRefresh();
+    syncSingleUrlFromGalleryFirst();
   }
 
   return {

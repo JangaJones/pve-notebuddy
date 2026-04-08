@@ -318,10 +318,12 @@
                 </div>
                 <div class="tool-set">
                   <div class="tool-group icon-mode-group">
-                    <label class="tool-chip" title="External link"><input type="radio" name="iconMode" value="external" checked /><span>LINK</span></label>
-                    <label class="tool-chip" title="Local SVG"><input type="radio" name="iconMode" value="upload" /><span>FILE</span></label>
+                    <div class="icon-mode-primary">
+                      <label class="tool-chip" title="Single icon"><input type="radio" name="iconMode" value="external" checked /><span>SINGLE</span></label>
+                      <label class="tool-chip" title="Icon gallery"><input type="radio" name="iconMode" value="gallery" /><span>GALLERY</span></label>
+                    </div>
                     <span class="tool-gap" aria-hidden="true"></span>
-                    <label class="tool-chip" title="Icon gallery"><input type="radio" name="iconMode" value="gallery" /><span>GALLERY</span></label>
+                    <label class="tool-chip" title="Image file"><input type="radio" name="iconMode" value="upload" /><span>IMAGE FILE</span></label>
                   </div>
                 </div>
               </div>
@@ -346,22 +348,22 @@
             </label>
 
             <div id="iconGalleryWrap" class="hidden">
-              <div class="icon-gallery-head">
-                <div class="icon-gallery-layout">
-                  <label>
-                    Items per row
-                    <input id="iconGalleryColumns" type="number" min="1" max="8" step="1" value="4" />
-                  </label>
-                  <div class="icon-gallery-spacing" aria-label="Gallery spacing size">
-                    <label class="tool-chip"><input type="radio" name="iconGallerySpacing" value="s" checked /><span>S</span></label>
-                    <label class="tool-chip"><input type="radio" name="iconGallerySpacing" value="m" /><span>M</span></label>
-                    <label class="tool-chip"><input type="radio" name="iconGallerySpacing" value="xl" /><span>XL</span></label>
-                  </div>
-                </div>
-                <button id="addIconGalleryItemBtn" type="button" class="panel-action icon-gallery-add">ADD</button>
-              </div>
               <div id="iconGalleryList" class="icon-gallery-list"></div>
-              <p class="status icon-gallery-hint">Up to 20 linked icons. Reorder with arrows or drag handle.</p>
+              <button id="addIconGalleryItemBtn" type="button" class="panel-action ghost icon-gallery-add">ADD</button>
+              <p class="status icon-gallery-hint">Up to 20 linked icons. Reorder with arrows or drag handle. Embed SVG unavailable.</p>
+              <div class="icon-gallery-controls">
+                <label>
+                  <input id="iconGalleryColumns" type="number" min="1" max="8" step="1" value="4" />
+                  <span class="icon-gallery-label">Items per row</span>
+                </label>
+                <span class="icon-gallery-controls-gap" aria-hidden="true"></span>
+                <div class="icon-gallery-spacing" aria-label="Gallery spacing size">
+                  <span class="icon-gallery-label">Icon spacing</span>
+                  <label class="tool-chip"><input type="radio" name="iconGallerySpacing" value="s" checked /><span>S</span></label>
+                  <label class="tool-chip"><input type="radio" name="iconGallerySpacing" value="m" /><span>M</span></label>
+                  <label class="tool-chip"><input type="radio" name="iconGallerySpacing" value="l" /><span>L</span></label>
+                </div>
+              </div>
             </div>
 
             <div id="iconEmbedWrap" class="scale-row">

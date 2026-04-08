@@ -142,7 +142,7 @@ export function createTemplateSettingsSchema({
           throw new Error(`${source} icon.galleryColumns must be between 1 and 8.`);
         }
       }
-      assertEnumValue(settings.icon.gallerySpacing, ["s", "m", "xl"], `${source} icon.gallerySpacing`);
+      assertEnumValue(settings.icon.gallerySpacing, ["s", "m", "l"], `${source} icon.gallerySpacing`);
       if (settings.icon.scale !== undefined) {
         const scale = Number.parseInt(String(settings.icon.scale), 10);
         if (!Number.isFinite(scale) || scale < 32 || scale > 320) {

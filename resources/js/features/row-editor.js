@@ -20,6 +20,7 @@ export function createRowEditorFeature({
   const CUSTOM_ROW_KEY_RE = /^custom[1-9][0-9]*$/;
   let rowInteractionsBound = false;
   let defaultRowsInitialized = false;
+  let dragRowFieldset = null;
 
   function normalizeCustomRowKey(value) {
     const raw = String(value || "").trim().toLowerCase();
@@ -68,6 +69,27 @@ export function createRowEditorFeature({
 
   function getCustomRowFieldsets() {
     return Array.from(form.querySelectorAll('fieldset[data-row-key]')).filter((fieldset) => isCustomRowKey(fieldset.getAttribute("data-row-key")));
+  }
+
+  function getFieldsetLegend(fieldset) {
+    if (!(fieldset instanceof HTMLElement)) {
+      return null;
+    }
+    const legend = fieldset.querySelector(":scope > legend");
+    return legend instanceof HTMLLegendElement ? legend : null;
+  }
+
+  function ensureLegendDragHandles() {
+    const fieldsets = Array.from(form.querySelectorAll("fieldset[data-row-key]"));
+    for (const fieldset of fieldsets) {
+      const legend = getFieldsetLegend(fieldset);
+      if (!legend) {
+        continue;
+      }
+      legend.classList.add("row-drag-handle");
+      legend.draggable = true;
+      legend.setAttribute("title", "Drag to reorder row");
+    }
   }
 
   function getNextCustomRowKey() {
@@ -574,6 +596,9 @@ export function createRowEditorFeature({
 
     const legend = document.createElement("legend");
     legend.textContent = "Custom Note";
+    legend.className = "row-drag-handle";
+    legend.draggable = true;
+    legend.setAttribute("title", "Drag to reorder row");
 
     const controls = document.createElement("div");
     controls.className = "row-grid row-controls no-icon";
@@ -645,6 +670,7 @@ export function createRowEditorFeature({
     refs.configLocationsEl.append(createConfigLocationInput("/etc/app/config.yml"));
     addCustomRow();
     initializeRowVisibility();
+    ensureLegendDragHandles();
   }
 
   function initRowEditorInteractions({ onCustomTextareaInput } = {}) {
@@ -737,9 +763,70 @@ export function createRowEditorFeature({
       }
     });
 
+    form.addEventListener("dragstart", (event) => {
+      const target = event.target;
+      if (!(target instanceof HTMLElement)) {
+        return;
+      }
+      const handle = target.closest("legend.row-drag-handle");
+      if (!(handle instanceof HTMLLegendElement)) {
+        return;
+      }
+      const fieldset = handle.closest("fieldset[data-row-key]");
+      if (!(fieldset instanceof HTMLFieldSetElement)) {
+        return;
+      }
+      dragRowFieldset = fieldset;
+      fieldset.classList.add("row-dragging");
+      if (event.dataTransfer) {
+        event.dataTransfer.effectAllowed = "move";
+        event.dataTransfer.setData("text/plain", fieldset.getAttribute("data-row-key") || "row");
+      }
+    });
+
+    form.addEventListener("dragover", (event) => {
+      if (!(dragRowFieldset instanceof HTMLFieldSetElement)) {
+        return;
+      }
+      const target = event.target;
+      if (!(target instanceof HTMLElement)) {
+        return;
+      }
+      const overFieldset = target.closest("fieldset[data-row-key]");
+      if (!(overFieldset instanceof HTMLFieldSetElement) || overFieldset === dragRowFieldset) {
+        return;
+      }
+      event.preventDefault();
+      const bounds = overFieldset.getBoundingClientRect();
+      const shouldInsertAfter = event.clientY > bounds.top + bounds.height / 2;
+      if (shouldInsertAfter) {
+        form.insertBefore(dragRowFieldset, overFieldset.nextElementSibling);
+      } else {
+        form.insertBefore(dragRowFieldset, overFieldset);
+      }
+    });
+
+    form.addEventListener("drop", (event) => {
+      if (!(dragRowFieldset instanceof HTMLFieldSetElement)) {
+        return;
+      }
+      event.preventDefault();
+    });
+
+    form.addEventListener("dragend", () => {
+      if (!(dragRowFieldset instanceof HTMLFieldSetElement)) {
+        return;
+      }
+      dragRowFieldset.classList.remove("row-dragging");
+      dragRowFieldset = null;
+      renderOutput();
+    });
+
     refs.clearBtn?.addEventListener("click", () => {
       clearTextFields();
     });
+
+    ensureLegendDragHandles();
   }
 
   return {

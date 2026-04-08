@@ -623,6 +623,22 @@ legend {
   color: var(--muted);
 }
 
+legend.row-drag-handle {
+  display: inline-block;
+  width: 20%;
+  min-width: 120px;
+  max-width: 260px;
+  padding-top: 0.06rem;
+  padding-bottom: 0.06rem;
+  line-height: 1.1;
+  cursor: grab;
+  user-select: none;
+}
+
+legend.row-drag-handle:active {
+  cursor: grabbing;
+}
+
 label {
   display: grid;
   gap: 0.3rem;
@@ -2138,6 +2154,11 @@ body.sidebar-collapsed .sidebar-icon-rail .sidebar-tab.active .sidebar-tab-icon 
 .settings-head-info {
   flex: 0 0 auto;
   z-index: 120;
+}
+
+.settings-head-info .tooltip {
+  font-size: 0.86rem;
+  line-height: var(--ui-line);
 }
 
 .settings-domain-input-wrap {

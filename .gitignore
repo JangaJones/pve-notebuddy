@@ -1,4 +1,10 @@
 .DS_Store
+node_modules/
+docs/node_modules/
+docs/.vitepress/cache/
+docs/.vitepress/dist/
+.preview/
 templates/scripts/community-scripts-temp
 templates/scripts/selfhst-temp
 testing/
+doc-backup/

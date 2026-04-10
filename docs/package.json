@@ -1,0 +1,16 @@
+{
+  "name": "pve-notebuddy-docs",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Documentation site for PVE NoteBuddy",
+  "scripts": {
+    "dev": "DOCS_BASE=/docs/ vitepress dev .",
+    "build": "vitepress build .",
+    "build:local": "DOCS_BASE=/docs/ vitepress build .",
+    "build:pages": "DOCS_BASE=/pve-notebuddy/docs/ vitepress build .",
+    "preview": "DOCS_BASE=/docs/ vitepress preview ."
+  },
+  "devDependencies": {
+    "vitepress": "^1.6.4"
+  }
+}

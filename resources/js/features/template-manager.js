@@ -61,6 +61,23 @@ export function createTemplateManagerFeature({
     return out;
   }
 
+  function allDemoTemplateIds() {
+    return DEMO_TEMPLATE_SOURCES.map((item) => item.id);
+  }
+
+  function canonicalizeDemoTemplateVisibility() {
+    const allIds = allDemoTemplateIds();
+    if (allIds.length === 0) {
+      hiddenDemoTemplateIds = [];
+      return;
+    }
+    if (hiddenDemoTemplateIds.length === allIds.length) {
+      hiddenDemoTemplateIds = [...allIds];
+      return;
+    }
+    hiddenDemoTemplateIds = [];
+  }
+
   function persistTemplateState() {
     patchState((state) => {
       state.templates.localCatalog = normalizeLocalTemplateCatalog(localTemplateCatalog);
@@ -74,6 +91,7 @@ export function createTemplateManagerFeature({
     localTemplateCatalog = normalizeLocalTemplateCatalog(state.templates.localCatalog);
     userDesignSlots = normalizeUserDesignSlots(state.templates.userDesignSlots);
     hiddenDemoTemplateIds = normalizeHiddenDemoTemplateIds(state.templates.hiddenDemoTemplateIds);
+    canonicalizeDemoTemplateVisibility();
   }
 
   function flashLoadedDesignButton(buttonEl) {
@@ -265,8 +283,9 @@ export function createTemplateManagerFeature({
   function getFilteredTemplateEntries() {
     const normalizedQuery = localTemplateSearchQuery.trim().toLowerCase();
 
+    const demoVisible = hiddenDemoTemplateIds.length !== allDemoTemplateIds().length;
     const visibleDemoTemplates = demoTemplates
-      .filter((entry) => !hiddenDemoTemplateIds.includes(entry.id))
+      .filter(() => demoVisible)
       .map((entry) => ({
         kind: "demo",
         id: entry.id,
@@ -318,7 +337,6 @@ export function createTemplateManagerFeature({
           <button type="button" class="local-template-load demo${getEntryActiveClass(entry)}" data-demo-template-load="${escapeHtml(entry.id)}" title="Load demo template">${escapeHtml(entry.name)}</button>
           <div class="local-template-actions">
             <span class="local-template-tag">DEMO</span>
-            <button type="button" class="local-template-action" data-demo-template-hide="${escapeHtml(entry.id)}" title="Hide demo template">👁️</button>
           </div>
         </div>
         <div class="local-template-meta">${escapeHtml(entry.metaText)}</div>
@@ -561,24 +579,16 @@ export function createTemplateManagerFeature({
     }
   }
 
-  function hideDemoTemplateById(templateId) {
-    if (!demoTemplates.some((entry) => entry.id === templateId)) {
-      return;
-    }
-    if (hiddenDemoTemplateIds.includes(templateId)) {
-      return;
-    }
-    hiddenDemoTemplateIds.push(templateId);
-    hiddenDemoTemplateIds = normalizeHiddenDemoTemplateIds(hiddenDemoTemplateIds);
-    if (activeTemplateKey === `demo:${templateId}`) {
-      activeTemplateKey = "";
-    }
-    persistTemplateState();
-    renderLocalTemplateCatalog();
+  function areDemoTemplatesVisible() {
+    return hiddenDemoTemplateIds.length !== allDemoTemplateIds().length;
   }
 
-  function restoreDemoTemplates() {
-    hiddenDemoTemplateIds = [];
+  function setDemoTemplatesVisible(isVisible) {
+    hiddenDemoTemplateIds = isVisible ? [] : allDemoTemplateIds();
+    hiddenDemoTemplateIds = normalizeHiddenDemoTemplateIds(hiddenDemoTemplateIds);
+    if (!isVisible && activeTemplateKey.startsWith("demo:")) {
+      activeTemplateKey = "";
+    }
     persistTemplateState();
     renderLocalTemplateCatalog();
   }
@@ -727,13 +737,6 @@ export function createTemplateManagerFeature({
         return;
       }
 
-      const hideDemoBtn = target.closest("button[data-demo-template-hide]");
-      if (hideDemoBtn instanceof HTMLButtonElement) {
-        const id = hideDemoBtn.getAttribute("data-demo-template-hide") || "";
-        if (id) {
-          hideDemoTemplateById(id);
-        }
-      }
     });
   }
 
@@ -758,6 +761,7 @@ export function createTemplateManagerFeature({
   return {
     syncFromState,
     initTemplateManager,
-    restoreDemoTemplates,
+    areDemoTemplatesVisible,
+    setDemoTemplatesVisible,
   };
 }

@@ -83,7 +83,7 @@ export function getAppDomRefs() {
       importStorageBtnEl: document.getElementById("importStorageBtn"),
       importStorageFileEl: document.getElementById("importStorageFile"),
       resetStorageBtnEl: document.getElementById("resetStorageBtn"),
-      settingsRestoreDemoTemplatesEl: document.getElementById("settingsRestoreDemoTemplates"),
+      settingsShowDemoTemplatesEl: document.getElementById("settingsShowDemoTemplates"),
       iconResizeLabelPrefixEl: document.getElementById("iconResizeLabelPrefix"),
       iconResizeServiceLinkEl: document.getElementById("iconResizeServiceLink"),
       iconResizeServiceTooltipEl: document.getElementById("iconResizeServiceTooltip"),

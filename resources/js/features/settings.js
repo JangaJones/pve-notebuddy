@@ -11,7 +11,8 @@ export function createSettingsFeature({
   assertTextSizeWithinLimit,
   maxImportFileBytes,
   onAfterStateApplied,
-  onRestoreDemoTemplates,
+  isDemoTemplatesVisible,
+  onSetDemoTemplatesVisible,
 }) {
   function getConfiguredWeservDomain() {
     return normalizeWeservDomain(getState().settings.weservDomain);
@@ -60,8 +61,8 @@ export function createSettingsFeature({
     if (refs.settingsSvgPreferredModeEl) {
       refs.settingsSvgPreferredModeEl.value = getPreferredSvgMode();
     }
-    if (refs.settingsRestoreDemoTemplatesEl) {
-      refs.settingsRestoreDemoTemplatesEl.checked = false;
+    if (refs.settingsShowDemoTemplatesEl) {
+      refs.settingsShowDemoTemplatesEl.checked = isDemoTemplatesVisible ? Boolean(isDemoTemplatesVisible()) : true;
     }
     updateWeservResizeUi();
   }
@@ -171,13 +172,9 @@ export function createSettingsFeature({
     if (refs.resetStorageBtnEl) {
       refs.resetStorageBtnEl.addEventListener("click", () => resetAppStateToDefaults(defaultState));
     }
-    if (refs.settingsRestoreDemoTemplatesEl) {
-      refs.settingsRestoreDemoTemplatesEl.addEventListener("change", () => {
-        if (!refs.settingsRestoreDemoTemplatesEl.checked) {
-          return;
-        }
-        onRestoreDemoTemplates?.();
-        refs.settingsRestoreDemoTemplatesEl.checked = false;
+    if (refs.settingsShowDemoTemplatesEl) {
+      refs.settingsShowDemoTemplatesEl.addEventListener("change", () => {
+        onSetDemoTemplatesVisible?.(Boolean(refs.settingsShowDemoTemplatesEl.checked));
       });
     }
   }

@@ -117,7 +117,7 @@ const {
     importStorageBtnEl,
     importStorageFileEl,
     resetStorageBtnEl,
-    settingsRestoreDemoTemplatesEl,
+    settingsShowDemoTemplatesEl,
     iconResizeLabelPrefixEl,
     iconResizeServiceLinkEl,
     iconResizeServiceTooltipEl,
@@ -495,7 +495,7 @@ function createFeatures() {
       importStorageBtnEl,
       importStorageFileEl,
       resetStorageBtnEl,
-      settingsRestoreDemoTemplatesEl,
+      settingsShowDemoTemplatesEl,
       iconResizeLabelPrefixEl,
       iconResizeServiceLinkEl,
       iconResizeServiceTooltipEl,
@@ -509,7 +509,8 @@ function createFeatures() {
     assertTextSizeWithinLimit,
     maxImportFileBytes: MAX_IMPORT_FILE_BYTES,
     onAfterStateApplied: applyStateToRuntime,
-    onRestoreDemoTemplates: () => templateManagerFeature?.restoreDemoTemplates?.(),
+    isDemoTemplatesVisible: () => templateManagerFeature?.areDemoTemplatesVisible?.() ?? true,
+    onSetDemoTemplatesVisible: (isVisible) => templateManagerFeature?.setDemoTemplatesVisible?.(isVisible),
   });
 
   emojiFeature = createEmojiFeature({

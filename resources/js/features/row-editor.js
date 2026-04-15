@@ -178,7 +178,7 @@ export function createRowEditorFeature({
       .map((value) => {
         const title = value.toUpperCase();
         const checked = defaults.defaultAlign === value ? "checked" : "";
-        return `<label class="tool-chip align-chip" title="${title} alignment"><input type="radio" name="${prefix}Align" value="${value}" ${checked} /><span class="align-glyph align-${value}" aria-hidden="true"><span></span><span></span><span></span></span><span class="sr-only">${title}</span></label>`;
+        return `<label class="tool-chip align-chip format-chip" title="${title} alignment"><input type="radio" name="${prefix}Align" value="${value}" ${checked} /><span class="align-glyph align-${value}" aria-hidden="true"><span></span><span></span><span></span></span><span class="sr-only">${title}</span></label>`;
       })
       .join("");
 
@@ -186,7 +186,7 @@ export function createRowEditorFeature({
       .map((item) => {
         const title = `${item.tag.toUpperCase()} heading`;
         const checked = defaults.defaultTag === item.tag ? "checked" : "";
-        return `<label class="tool-chip" title="${title}"><input type="checkbox" name="${prefix}Heading" value="${item.tag}" ${checked} /><span class="chip-icon ${item.iconClass}" aria-hidden="true"></span><span class="sr-only">${title}</span></label>`;
+        return `<label class="tool-chip format-chip" title="${title}"><input type="checkbox" name="${prefix}Heading" value="${item.tag}" ${checked} /><span class="chip-icon ${item.iconClass}" aria-hidden="true"></span><span class="sr-only">${title}</span></label>`;
       })
       .join("");
 
@@ -198,7 +198,7 @@ export function createRowEditorFeature({
     ]
       .map((item) => {
         const checked = item.checked ? "checked" : "";
-        return `<label class="tool-chip" title="${item.title}"><input id="${prefix}${item.key}" type="checkbox" ${checked} /><span class="chip-icon ${item.iconClass}" aria-hidden="true"></span><span class="sr-only">${item.title}</span></label>`;
+        return `<label class="tool-chip format-chip" title="${item.title}"><input id="${prefix}${item.key}" type="checkbox" ${checked} /><span class="chip-icon ${item.iconClass}" aria-hidden="true"></span><span class="sr-only">${item.title}</span></label>`;
       })
       .join("");
 
@@ -328,10 +328,18 @@ export function createRowEditorFeature({
     const visible = isRowVisible(rowKey);
     const toggleBtn = fieldset.querySelector(".row-visibility");
     if (toggleBtn instanceof HTMLButtonElement) {
-      toggleBtn.textContent = visible ? "◉" : "○";
       toggleBtn.title = visible ? "Hide row" : "Show row";
       toggleBtn.setAttribute("aria-label", visible ? "Hide row" : "Show row");
       toggleBtn.setAttribute("aria-pressed", visible ? "false" : "true");
+      const iconEl = toggleBtn.querySelector(".action-icon");
+      if (iconEl instanceof HTMLElement) {
+        iconEl.classList.toggle("action-icon-visibility", visible);
+        iconEl.classList.toggle("action-icon-visibility-off", !visible);
+      }
+      const srOnlyEl = toggleBtn.querySelector(".sr-only");
+      if (srOnlyEl instanceof HTMLElement) {
+        srOnlyEl.textContent = visible ? "Hide row" : "Show row";
+      }
     }
     fieldset.classList.toggle("row-hidden", !visible);
 
@@ -680,8 +688,7 @@ export function createRowEditorFeature({
     const reorder = document.createElement("div");
     reorder.className = "row-reorder";
     reorder.innerHTML = `
-    <button type="button" class="row-remove" data-row-key="${key}" title="Delete row"><span class="action-icon action-icon-delete" aria-hidden="true"></span><span class="sr-only">Delete row</span></button>
-    <button type="button" class="row-visibility" data-row-key="${key}" title="Hide row" aria-label="Hide row" aria-pressed="false">◉</button>
+    <button type="button" class="row-visibility" data-row-key="${key}" title="Hide row" aria-label="Hide row" aria-pressed="false"><span class="action-icon action-icon-visibility" aria-hidden="true"></span><span class="sr-only">Hide row</span></button>
     <button type="button" class="row-move" data-row-key="${key}" data-direction="up" title="Move up"><span class="move-icon move-icon-up" aria-hidden="true"></span><span class="sr-only">Move up</span></button>
     <button type="button" class="row-move" data-row-key="${key}" data-direction="down" title="Move down"><span class="move-icon move-icon-down" aria-hidden="true"></span><span class="sr-only">Move down</span></button>
   `;
@@ -698,7 +705,18 @@ export function createRowEditorFeature({
     textarea.value = initialText;
     textarea.setAttribute("data-custom-text", "1");
 
-    fields.append(textarea);
+    const editor = document.createElement("div");
+    editor.className = "custom-note-editor span-2";
+
+    const remove = document.createElement("button");
+    remove.type = "button";
+    remove.className = "row-remove icon-delete custom-note-delete";
+    remove.setAttribute("data-row-key", key);
+    remove.title = "Delete row";
+    remove.innerHTML = '<span class="action-icon action-icon-delete" aria-hidden="true"></span><span class="sr-only">Delete row</span>';
+
+    editor.append(textarea, remove);
+    fields.append(editor);
     fieldset.append(legend, controls, fields);
     bindStyleConflictsForPrefix(key);
     return fieldset;

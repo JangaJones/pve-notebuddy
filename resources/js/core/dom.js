@@ -7,6 +7,7 @@ export function getAppDomRefs() {
   const outputEl = document.getElementById("output");
   const previewCard = document.getElementById("previewCard");
   const copyBtn = document.getElementById("copyBtn");
+  const initBtn = document.getElementById("initBtn");
   const clearBtn = document.getElementById("clearBtn");
   const emojiRailToggleEl = document.getElementById("emojiRailToggle");
   const iconUrlEl = document.getElementById("iconUrl");
@@ -17,7 +18,6 @@ export function getAppDomRefs() {
   return {
     form,
     appVersion: document.querySelector('meta[name="app-version"]')?.getAttribute("content")?.trim() || "dev",
-    presetBtnEls: document.querySelectorAll("button[data-preset]"),
     shellRefs: {
       outputEl,
       previewCard,
@@ -50,12 +50,23 @@ export function getAppDomRefs() {
       emojiRailListEl: document.getElementById("emojiRailList"),
     },
     templateManagerRefs: {
-      localTemplateNameEl: document.getElementById("localTemplateName"),
+      designEditBtnEl: document.getElementById("designEditBtn"),
+      designButtonGridEl: document.getElementById("designButtonGrid"),
+      designDefaultBtnEls: document.querySelectorAll("button[data-design-default]"),
+      designSlotBtnEls: document.querySelectorAll("button[data-design-slot]"),
+      designSlotOverwriteBtnEls: document.querySelectorAll("button[data-design-slot-overwrite]"),
+      designSlotDeleteBtnEls: document.querySelectorAll("button[data-design-slot-delete]"),
       saveLocalTemplateBtn: document.getElementById("saveLocalTemplateBtn"),
+      importLocalTemplateBtn: document.getElementById("importLocalTemplateBtn"),
+      importLocalTemplateFileEl: document.getElementById("importLocalTemplateFile"),
+      localTemplateSearchEl: document.getElementById("localTemplateSearch"),
       localTemplateListEl: document.getElementById("localTemplateList"),
-      importBtn: document.getElementById("importBtn"),
-      exportBtn: document.getElementById("exportBtn"),
-      importFileEl: document.getElementById("importFile"),
+      templateNameModalEl: document.getElementById("templateNameModal"),
+      templateNameModalTitleEl: document.getElementById("templateNameModalTitle"),
+      templateNameModalMessageEl: document.getElementById("templateNameModalMessage"),
+      templateNameModalInputEl: document.getElementById("templateNameModalInput"),
+      templateNameModalCancelBtnEl: document.getElementById("templateNameModalCancelBtn"),
+      templateNameModalConfirmBtnEl: document.getElementById("templateNameModalConfirmBtn"),
     },
     sidebarRefs: {
       sidebarTabTemplatesEl: document.getElementById("sidebarTabTemplates"),
@@ -77,6 +88,7 @@ export function getAppDomRefs() {
       importStorageBtnEl: document.getElementById("importStorageBtn"),
       importStorageFileEl: document.getElementById("importStorageFile"),
       resetStorageBtnEl: document.getElementById("resetStorageBtn"),
+      settingsRestoreDemoTemplatesEl: document.getElementById("settingsRestoreDemoTemplates"),
       iconResizeLabelPrefixEl: document.getElementById("iconResizeLabelPrefix"),
       iconResizeServiceLinkEl: document.getElementById("iconResizeServiceLink"),
       iconResizeServiceTooltipEl: document.getElementById("iconResizeServiceTooltip"),
@@ -116,6 +128,7 @@ export function getAppDomRefs() {
       networkEntriesEl: document.getElementById("networkEntries"),
       addNetworkBtn: document.getElementById("addNetworkBtn"),
       addCustomRowBtn: document.getElementById("addCustomRowBtn"),
+      initBtn,
       clearBtn,
     },
     previewRefs: {

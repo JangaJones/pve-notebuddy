@@ -367,6 +367,17 @@ function parseSelfhstVariantUrls(inputUrl) {
   };
 }
 
+function getSelfhstVariantUiMeta(key) {
+  const normalized = String(key || "").toLowerCase();
+  if (normalized === "light") {
+    return { title: "Light variant", iconClass: "chip-icon-light-mode" };
+  }
+  if (normalized === "dark") {
+    return { title: "Dark variant", iconClass: "chip-icon-dark-mode" };
+  }
+  return { title: "Original variant", iconClass: "chip-icon-dataset-linked" };
+}
+
 export function createAppIconsFeature({
   refs,
   getUploadSvgText,
@@ -700,9 +711,9 @@ export function createAppIconsFeature({
     }
 
     const available = [];
-    if (hasOrig) available.push({ key: "orig", label: "ORIG", url: variants.orig });
-    if (hasLight) available.push({ key: "light", label: "LIGHT", url: variants.light });
-    if (hasDark) available.push({ key: "dark", label: "DARK", url: variants.dark });
+    if (hasOrig) available.push({ key: "orig", url: variants.orig, ...getSelfhstVariantUiMeta("orig") });
+    if (hasLight) available.push({ key: "light", url: variants.light, ...getSelfhstVariantUiMeta("light") });
+    if (hasDark) available.push({ key: "dark", url: variants.dark, ...getSelfhstVariantUiMeta("dark") });
 
     const hasAlternatives = available.length > 1 || (available.length === 1 && available[0].url !== url);
     if (!hasAlternatives) {
@@ -715,7 +726,7 @@ export function createAppIconsFeature({
     refs.iconCdnVariantsEl.innerHTML = available
       .map((item) => {
         const activeClass = item.key === variants.currentVariant ? " is-active" : "";
-        return `<button type="button" class="tool-chip icon-cdn-variant-btn${activeClass}" data-variant-url="${escapeHtml(item.url)}">${item.label}</button>`;
+        return `<button type="button" class="tool-chip icon-cdn-variant-btn${activeClass}" data-variant-url="${escapeHtml(item.url)}" title="${item.title}" aria-label="${item.title}"><span class="chip-icon ${item.iconClass}" aria-hidden="true"></span><span class="sr-only">${item.title}</span></button>`;
       })
       .join("");
     refs.iconCdnVariantsEl.classList.remove("hidden");
@@ -753,9 +764,9 @@ export function createAppIconsFeature({
     }
 
     const available = [];
-    if (hasOrig) available.push({ key: "orig", label: "ORIG", url: variants.orig });
-    if (hasLight) available.push({ key: "light", label: "LIGHT", url: variants.light });
-    if (hasDark) available.push({ key: "dark", label: "DARK", url: variants.dark });
+    if (hasOrig) available.push({ key: "orig", url: variants.orig, ...getSelfhstVariantUiMeta("orig") });
+    if (hasLight) available.push({ key: "light", url: variants.light, ...getSelfhstVariantUiMeta("light") });
+    if (hasDark) available.push({ key: "dark", url: variants.dark, ...getSelfhstVariantUiMeta("dark") });
 
     const hasAlternatives = available.length > 1 || (available.length === 1 && available[0].url !== url);
     if (!hasAlternatives) {
@@ -768,7 +779,7 @@ export function createAppIconsFeature({
     variantsEl.innerHTML = available
       .map((item) => {
         const activeClass = item.key === variants.currentVariant ? " is-active" : "";
-        return `<button type="button" class="tool-chip icon-gallery-variant-btn${activeClass}" data-gallery-variant-url="${escapeHtml(item.url)}">${item.label}</button>`;
+        return `<button type="button" class="tool-chip icon-gallery-variant-btn${activeClass}" data-gallery-variant-url="${escapeHtml(item.url)}" title="${item.title}" aria-label="${item.title}"><span class="chip-icon ${item.iconClass}" aria-hidden="true"></span><span class="sr-only">${item.title}</span></button>`;
       })
       .join("");
     variantsEl.classList.remove("hidden");
@@ -1383,11 +1394,29 @@ export function createAppIconsFeature({
     syncSingleUrlFromGalleryFirst();
   }
 
+  function clearIconEditor() {
+    if (refs.iconUrlEl) {
+      refs.iconUrlEl.value = "";
+    }
+    if (refs.iconUploadEl) {
+      refs.iconUploadEl.value = "";
+    }
+    setUploadSvgText("");
+    setUploadImageDataUrl("");
+    setGalleryItems([]);
+    setGalleryColumns(4);
+    setGallerySpacing("s");
+    oversizeEmbedLockedUrl = "";
+    scheduleSelfhstVariantButtonsRefresh();
+    scheduleGalleryVariantButtonsRefresh();
+  }
+
   return {
     updateIconControls,
     prepareIcon,
     setIconStatus,
     initIconInteractions,
+    clearIconEditor,
     getGalleryItems,
     setGalleryItems,
     getGalleryColumns,

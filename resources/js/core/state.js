@@ -24,6 +24,38 @@ export function normalizeLocalTemplateCatalog(value) {
     .filter((entry) => entry.id && entry.name && entry.settings);
 }
 
+export function normalizeUserDesignSlots(value) {
+  if (!isPlainObject(value)) {
+    return {};
+  }
+  const next = {};
+  for (let slot = 6; slot <= 10; slot += 1) {
+    const key = String(slot);
+    if (isPlainObject(value[key])) {
+      next[key] = value[key];
+    }
+  }
+  return next;
+}
+
+export function normalizeHiddenDemoTemplateIds(value) {
+  if (!Array.isArray(value)) {
+    return [];
+  }
+  const allowed = new Set(["demo-template-1", "demo-template-2"]);
+  const seen = new Set();
+  const out = [];
+  for (const item of value) {
+    const id = String(item || "");
+    if (!allowed.has(id) || seen.has(id)) {
+      continue;
+    }
+    seen.add(id);
+    out.push(id);
+  }
+  return out;
+}
+
 export function normalizeWeservDomain(value) {
   const raw = String(value || "").trim();
   if (!raw) {
@@ -71,6 +103,8 @@ export function createAppStateStore({
       },
       templates: {
         localCatalog: [],
+        userDesignSlots: {},
+        hiddenDemoTemplateIds: [],
       },
     };
   }
@@ -102,6 +136,8 @@ export function createAppStateStore({
     }
     if (isPlainObject(value.templates)) {
       normalized.templates.localCatalog = normalizeLocalTemplateCatalog(value.templates.localCatalog);
+      normalized.templates.userDesignSlots = normalizeUserDesignSlots(value.templates.userDesignSlots);
+      normalized.templates.hiddenDemoTemplateIds = normalizeHiddenDemoTemplateIds(value.templates.hiddenDemoTemplateIds);
     }
     return normalized;
   }

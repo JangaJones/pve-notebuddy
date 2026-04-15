@@ -34,6 +34,7 @@ import {
   readTextFile,
 } from "./core/utils.js";
 import { fetchJsonWithCache } from "./services/http-cache.service.js";
+import { cacheGetItem, cacheRemoveItem, cacheSetItem } from "./services/browser-cache.service.js";
 import { createGithubMetadataService } from "./services/github-metadata.js";
 import { loadPublicTemplateCatalog as fetchPublicTemplateCatalog } from "./services/template-catalog.service.js";
 import { createSidebarFeature } from "./features/sidebar.js";
@@ -51,7 +52,6 @@ import { createRowEditorFeature } from "./features/row-editor.js";
 const {
   form,
   appVersion: APP_VERSION,
-  presetBtnEls,
   shellRefs: {
     outputEl,
     previewCard,
@@ -84,12 +84,23 @@ const {
     emojiRailListEl,
   },
   templateManagerRefs: {
-    localTemplateNameEl,
+    designEditBtnEl,
+    designButtonGridEl,
+    designDefaultBtnEls,
+    designSlotBtnEls,
+    designSlotOverwriteBtnEls,
+    designSlotDeleteBtnEls,
     saveLocalTemplateBtn,
+    importLocalTemplateBtn,
+    importLocalTemplateFileEl,
+    localTemplateSearchEl,
     localTemplateListEl,
-    importBtn,
-    exportBtn,
-    importFileEl,
+    templateNameModalEl,
+    templateNameModalTitleEl,
+    templateNameModalMessageEl,
+    templateNameModalInputEl,
+    templateNameModalCancelBtnEl,
+    templateNameModalConfirmBtnEl,
   },
   sidebarRefs: {
     sidebarTabTemplatesEl,
@@ -111,6 +122,7 @@ const {
     importStorageBtnEl,
     importStorageFileEl,
     resetStorageBtnEl,
+    settingsRestoreDemoTemplatesEl,
     iconResizeLabelPrefixEl,
     iconResizeServiceLinkEl,
     iconResizeServiceTooltipEl,
@@ -153,6 +165,7 @@ const {
     networkEntriesEl,
     addNetworkBtn,
     addCustomRowBtn,
+    initBtn,
     clearBtn,
   },
 } = getAppDomRefs();
@@ -175,6 +188,9 @@ let templateSearchFeature = null;
 let appShellFeature = null;
 let githubMetadataService = null;
 let rowEditorFeature = null;
+let draftPersistenceEnabled = false;
+let draftPersistTimer = null;
+const NOTE_DRAFT_CACHE_KEY = "pve-notebuddy:note-draft-v1";
 
 const appStateStore = createAppStateStore({
   storageKey: APP_STATE_STORAGE_KEY,
@@ -257,8 +273,47 @@ function buildNoteHtml() {
   return noteBuilderFeature ? noteBuilderFeature.buildNoteHtml() : "";
 }
 
+function persistDraftSnapshotToCache() {
+  if (!draftPersistenceEnabled || !templateSettingsFeature) {
+    return;
+  }
+  try {
+    const snapshot = templateSettingsFeature.collectSettings();
+    cacheSetItem(NOTE_DRAFT_CACHE_KEY, JSON.stringify(snapshot));
+  } catch {
+    // Keep live editing functional even if cache write fails.
+  }
+}
+
+function queueDraftPersistence() {
+  if (!draftPersistenceEnabled || !templateSettingsFeature) {
+    return;
+  }
+  if (draftPersistTimer) {
+    window.clearTimeout(draftPersistTimer);
+  }
+  draftPersistTimer = window.setTimeout(() => {
+    draftPersistTimer = null;
+    persistDraftSnapshotToCache();
+  }, 140);
+}
+
+function readDraftSnapshotFromCache() {
+  const raw = cacheGetItem(NOTE_DRAFT_CACHE_KEY);
+  if (!raw) {
+    return null;
+  }
+  try {
+    const parsed = JSON.parse(raw);
+    return parsed && typeof parsed === "object" ? parsed : null;
+  } catch {
+    return null;
+  }
+}
+
 function renderOutput() {
   previewFeature?.renderOutput();
+  queueDraftPersistence();
 }
 
 async function prepareIcon() {
@@ -266,6 +321,35 @@ async function prepareIcon() {
     return;
   }
   await appIconsFeature.prepareIcon();
+}
+
+async function applyInitTemplateFromFile() {
+  if (!templateSettingsFeature) {
+    return false;
+  }
+  const didLoad = await templateSettingsFeature.fetchAndApplySettings(
+    "./templates/app/init.json",
+    "init",
+    "Could not load init template."
+  );
+  if (didLoad) {
+    queueDraftPersistence();
+  }
+  return didLoad;
+}
+
+async function applyCachedDraftOrInitTemplate() {
+  const cachedDraft = readDraftSnapshotFromCache();
+  if (cachedDraft) {
+    try {
+      templateSettingsFeature.validateSettingsSchema(cachedDraft, "cache draft");
+      await templateSettingsFeature.applySettings(cachedDraft, { source: "cache" });
+      return true;
+    } catch {
+      cacheRemoveItem(NOTE_DRAFT_CACHE_KEY);
+    }
+  }
+  return applyInitTemplateFromFile();
 }
 
 function createFeatures() {
@@ -313,6 +397,9 @@ function createFeatures() {
     },
     setUploadImageDataUrl: (value) => {
       runtime.uploadImageDataUrl = String(value || "");
+    },
+    onClearAll: () => {
+      appIconsFeature?.clearIconEditor?.();
     },
   });
   rowEditorFeature.mountStyleToolbars();
@@ -413,6 +500,7 @@ function createFeatures() {
       importStorageBtnEl,
       importStorageFileEl,
       resetStorageBtnEl,
+      settingsRestoreDemoTemplatesEl,
       iconResizeLabelPrefixEl,
       iconResizeServiceLinkEl,
       iconResizeServiceTooltipEl,
@@ -426,6 +514,7 @@ function createFeatures() {
     assertTextSizeWithinLimit,
     maxImportFileBytes: MAX_IMPORT_FILE_BYTES,
     onAfterStateApplied: applyStateToRuntime,
+    onRestoreDemoTemplates: () => templateManagerFeature?.restoreDemoTemplates?.(),
   });
 
   emojiFeature = createEmojiFeature({
@@ -548,19 +637,33 @@ function createFeatures() {
 
   templateManagerFeature = createTemplateManagerFeature({
     refs: {
-      localTemplateNameEl,
+      designEditBtnEl,
+      designButtonGridEl,
+      designDefaultBtnEls,
+      designSlotBtnEls,
+      designSlotOverwriteBtnEls,
+      designSlotDeleteBtnEls,
       saveLocalTemplateBtn,
+      importLocalTemplateBtn,
+      importLocalTemplateFileEl,
+      localTemplateSearchEl,
       localTemplateListEl,
-      importBtn,
-      exportBtn,
-      importFileEl,
+      templateNameModalEl,
+      templateNameModalTitleEl,
+      templateNameModalMessageEl,
+      templateNameModalInputEl,
+      templateNameModalCancelBtnEl,
+      templateNameModalConfirmBtnEl,
     },
     getState: getAppState,
     patchState: patchAppState,
     normalizeLocalTemplateCatalog,
     escapeHtml,
     collectSettings: templateSettingsFeature.collectSettings,
+    collectDesignSettings: templateSettingsFeature.collectDesignSettings,
     applySettings: templateSettingsFeature.applySettings,
+    applyDesignSettings: templateSettingsFeature.applyDesignSettings,
+    fetchAndApplyDesign: templateSettingsFeature.fetchAndApplyDesign,
     validateSettingsSchema: templateSettingsFeature.validateSettingsSchema,
     assertFileSizeWithinLimit,
     assertTextSizeWithinLimit,
@@ -568,7 +671,7 @@ function createFeatures() {
   });
 }
 
-function initFeatureUi() {
+async function initFeatureUi() {
   appShellFeature.initUnsupportedViewportGuard();
   rowEditorFeature.initDefaultRows();
 
@@ -576,7 +679,7 @@ function initFeatureUi() {
   sidebarFeature.initSidebarToggle();
   emojiFeature.initEmojiRail();
   settingsFeature.initSettingsPane(DEFAULT_APP_STATE);
-  templateManagerFeature.initTemplateManager();
+  await templateManagerFeature.initTemplateManager();
   templateSearchFeature.init();
   appShellFeature.initThemeToggle();
   appShellFeature.initSupportMenu();
@@ -606,12 +709,15 @@ function wireFeatureInteractions() {
       }
     },
   });
-  templateSettingsFeature.initPresetInteractions(presetBtnEls);
+  const initButtonEl = initBtn || document.getElementById("initBtn");
+  initButtonEl?.addEventListener("click", async () => {
+    await applyInitTemplateFromFile();
+  });
+  window.addEventListener("beforeunload", persistDraftSnapshotToCache);
   appIconsFeature.initIconInteractions();
 }
 
 function applyInitialRuntime() {
-  appShellFeature.setTheme("dark");
   appIconsFeature.updateIconControls();
   prepareIcon();
 }
@@ -621,12 +727,15 @@ function loadInitialMetadata() {
   githubMetadataService.loadReleaseVersionStatus();
 }
 
-function bootstrap() {
+async function bootstrap() {
   createFeatures();
-  initFeatureUi();
+  await initFeatureUi();
   createMetadataServices();
   applyStateToRuntime();
+  await applyCachedDraftOrInitTemplate();
   wireFeatureInteractions();
+  draftPersistenceEnabled = true;
+  queueDraftPersistence();
   applyInitialRuntime();
   loadInitialMetadata();
 }

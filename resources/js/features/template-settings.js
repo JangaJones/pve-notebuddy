@@ -48,8 +48,6 @@ export function createTemplateSettingsFeature({
   setIconStatus,
   getEl,
 }) {
-  const presetLoadFlashTimers = new WeakMap();
-  const boundPresetButtons = new WeakSet();
   const { validateSettingsSchema } = createTemplateSettingsSchema({
     assertTextSizeWithinLimit,
     maxUploadSvgBytes,
@@ -325,62 +323,100 @@ export function createTemplateSettingsFeature({
     }
   }
 
-  async function loadPresetByNumber(number) {
-    const preset = Number.parseInt(String(number), 10);
-    if (!Number.isFinite(preset) || preset < 1 || preset > 5) {
-      return false;
+  function toDesignRows(rows) {
+    if (!rows || typeof rows !== "object") {
+      return undefined;
     }
-    return fetchAndApplySettings(
-      `./templates/presets/notebuddy-template-${preset}.json`,
-      "preset",
-      `Could not load template ${preset}.`
-    );
-  }
-
-  function flashLoadedPresetButton(buttonEl) {
-    if (!(buttonEl instanceof HTMLButtonElement)) {
-      return;
-    }
-
-    const existing = presetLoadFlashTimers.get(buttonEl);
-    if (existing) {
-      window.clearTimeout(existing);
-    }
-
-    buttonEl.classList.remove("template-loaded");
-    window.requestAnimationFrame(() => {
-      buttonEl.classList.add("template-loaded");
-      const timer = window.setTimeout(() => {
-        buttonEl.classList.remove("template-loaded");
-        presetLoadFlashTimers.delete(buttonEl);
-      }, 900);
-      presetLoadFlashTimers.set(buttonEl, timer);
-    });
-  }
-
-  function initPresetInteractions(presetButtons) {
-    if (!presetButtons) {
-      return;
-    }
-    for (const presetBtn of presetButtons) {
-      if (!(presetBtn instanceof HTMLButtonElement) || boundPresetButtons.has(presetBtn)) {
+    const nextRows = {};
+    for (const [rowKey, rowState] of Object.entries(rows)) {
+      if (!rowState || typeof rowState !== "object") {
         continue;
       }
-      boundPresetButtons.add(presetBtn);
-      presetBtn.addEventListener("click", async () => {
-        const didLoad = await loadPresetByNumber(presetBtn.getAttribute("data-preset"));
-        if (didLoad) {
-          flashLoadedPresetButton(presetBtn);
-        }
-      });
+      const nextRow = {};
+      if (typeof rowState.align === "string") nextRow.align = rowState.align;
+      if (typeof rowState.heading === "string") nextRow.heading = rowState.heading;
+      if (typeof rowState.bold === "boolean") nextRow.bold = rowState.bold;
+      if (typeof rowState.italic === "boolean") nextRow.italic = rowState.italic;
+      if (typeof rowState.strong === "boolean") nextRow.strong = rowState.strong;
+      if (typeof rowState.code === "boolean") nextRow.code = rowState.code;
+      if (Object.keys(nextRow).length > 0) {
+        nextRows[rowKey] = nextRow;
+      }
+    }
+    return Object.keys(nextRows).length > 0 ? nextRows : undefined;
+  }
+
+  function toDesignIcon(icon) {
+    if (!icon || typeof icon !== "object") {
+      return undefined;
+    }
+    const nextIcon = {};
+    if (typeof icon.mode === "string") nextIcon.mode = icon.mode;
+    if (typeof icon.align === "string") nextIcon.align = icon.align;
+    if (typeof icon.embedSvg === "boolean") nextIcon.embedSvg = icon.embedSvg;
+    if (typeof icon.resizeWithWsrv === "boolean") nextIcon.resizeWithWsrv = icon.resizeWithWsrv;
+    if (typeof icon.scale === "string" || typeof icon.scale === "number") nextIcon.scale = icon.scale;
+    if (typeof icon.colorVariant === "string") nextIcon.colorVariant = icon.colorVariant;
+    if (icon.galleryColumns !== undefined) nextIcon.galleryColumns = icon.galleryColumns;
+    if (icon.gallerySpacing !== undefined) nextIcon.gallerySpacing = icon.gallerySpacing;
+    return Object.keys(nextIcon).length > 0 ? nextIcon : undefined;
+  }
+
+  function toDesignSettings(settings) {
+    const source = settings && typeof settings === "object" ? settings : {};
+    const next = {};
+    if (source.version !== undefined) {
+      next.version = source.version;
+    }
+    if (source.rowOrder !== undefined) {
+      next.rowOrder = source.rowOrder;
+    }
+    if (source.theme !== undefined) {
+      next.theme = source.theme;
+    }
+    const icon = toDesignIcon(source.icon);
+    if (icon) {
+      next.icon = icon;
+    }
+    const rows = toDesignRows(source.rows);
+    if (rows) {
+      next.rows = rows;
+    }
+    return next;
+  }
+
+  function collectDesignSettings() {
+    return toDesignSettings(collectSettings());
+  }
+
+  async function applyDesignSettings(settings, options = {}) {
+    const source = options && typeof options === "object" ? options.source : "design";
+    const designSettings = toDesignSettings(settings);
+    await applySettings(designSettings, { source });
+  }
+
+  async function fetchAndApplyDesign(path, source, errorMessage) {
+    try {
+      const res = await fetch(path, { cache: "no-store" });
+      if (!res.ok) {
+        throw new Error(`HTTP ${res.status}`);
+      }
+      const parsed = await res.json();
+      await applyDesignSettings(parsed, { source });
+      return true;
+    } catch {
+      console.error(errorMessage);
+      return false;
     }
   }
 
   return {
     validateSettingsSchema,
     collectSettings,
+    collectDesignSettings,
     applySettings,
+    applyDesignSettings,
     fetchAndApplySettings,
-    initPresetInteractions,
+    fetchAndApplyDesign,
   };
 }

@@ -11,6 +11,7 @@ export function createSettingsFeature({
   assertTextSizeWithinLimit,
   maxImportFileBytes,
   onAfterStateApplied,
+  onRestoreDemoTemplates,
 }) {
   function getConfiguredWeservDomain() {
     return normalizeWeservDomain(getState().settings.weservDomain);
@@ -58,6 +59,9 @@ export function createSettingsFeature({
     }
     if (refs.settingsSvgPreferredModeEl) {
       refs.settingsSvgPreferredModeEl.value = getPreferredSvgMode();
+    }
+    if (refs.settingsRestoreDemoTemplatesEl) {
+      refs.settingsRestoreDemoTemplatesEl.checked = false;
     }
     updateWeservResizeUi();
   }
@@ -166,6 +170,15 @@ export function createSettingsFeature({
     }
     if (refs.resetStorageBtnEl) {
       refs.resetStorageBtnEl.addEventListener("click", () => resetAppStateToDefaults(defaultState));
+    }
+    if (refs.settingsRestoreDemoTemplatesEl) {
+      refs.settingsRestoreDemoTemplatesEl.addEventListener("change", () => {
+        if (!refs.settingsRestoreDemoTemplatesEl.checked) {
+          return;
+        }
+        onRestoreDemoTemplates?.();
+        refs.settingsRestoreDemoTemplatesEl.checked = false;
+      });
     }
   }
 

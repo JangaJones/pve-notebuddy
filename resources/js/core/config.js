@@ -27,6 +27,8 @@ export const DEFAULT_APP_STATE = Object.freeze({
   },
   templates: {
     localCatalog: [],
+    userDesignSlots: {},
+    hiddenDemoTemplateIds: [],
   },
 });
 

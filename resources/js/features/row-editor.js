@@ -8,6 +8,7 @@ export function createRowEditorFeature({
   prepareIcon,
   setUploadSvgText,
   setUploadImageDataUrl,
+  onClearAll,
 }) {
   const staticRowConfigs = [
     { prefix: "title", defaultAlign: "center", defaultTag: "h2", bold: false, italic: false, strong: false, code: false },
@@ -164,7 +165,13 @@ export function createRowEditorFeature({
   }
 
   function styleToolbarHtml(prefix, defaults) {
-    const headingOptions = ["h1", "h2", "h3", "h4", "h5"];
+    const headingOptions = [
+      { tag: "h1", iconClass: "chip-icon-h1" },
+      { tag: "h2", iconClass: "chip-icon-h2" },
+      { tag: "h3", iconClass: "chip-icon-h3" },
+      { tag: "h4", iconClass: "chip-icon-h4" },
+      { tag: "h5", iconClass: "chip-icon-h5" },
+    ];
     const alignOptions = ["left", "center", "right"];
 
     const align = alignOptions
@@ -176,23 +183,22 @@ export function createRowEditorFeature({
       .join("");
 
     const heading = headingOptions
-      .map((tag) => {
-        const label = tag.toUpperCase();
-        const title = `${tag.toUpperCase()} heading`;
-        const checked = defaults.defaultTag === tag ? "checked" : "";
-        return `<label class="tool-chip" title="${title}"><input type="checkbox" name="${prefix}Heading" value="${tag}" ${checked} /><span>${label}</span></label>`;
+      .map((item) => {
+        const title = `${item.tag.toUpperCase()} heading`;
+        const checked = defaults.defaultTag === item.tag ? "checked" : "";
+        return `<label class="tool-chip" title="${title}"><input type="checkbox" name="${prefix}Heading" value="${item.tag}" ${checked} /><span class="chip-icon ${item.iconClass}" aria-hidden="true"></span><span class="sr-only">${title}</span></label>`;
       })
       .join("");
 
     const toggles = [
-      { key: "Italic", label: "I", title: "Italic", checked: defaults.italic },
-      { key: "Bold", label: "B", title: "Bold", checked: defaults.bold },
-      { key: "Strong", label: "S", title: "Strong", checked: defaults.strong },
-      { key: "Code", label: "C", title: "Code", checked: defaults.code },
+      { key: "Italic", title: "Italic", iconClass: "chip-icon-italic", checked: defaults.italic },
+      { key: "Bold", title: "Bold", iconClass: "chip-icon-bold", checked: defaults.bold },
+      { key: "Strong", title: "Strong", iconClass: "chip-icon-strong", checked: defaults.strong },
+      { key: "Code", title: "Code", iconClass: "chip-icon-code", checked: defaults.code },
     ]
       .map((item) => {
         const checked = item.checked ? "checked" : "";
-        return `<label class="tool-chip" title="${item.title}"><input id="${prefix}${item.key}" type="checkbox" ${checked} /><span>${item.label}</span></label>`;
+        return `<label class="tool-chip" title="${item.title}"><input id="${prefix}${item.key}" type="checkbox" ${checked} /><span class="chip-icon ${item.iconClass}" aria-hidden="true"></span><span class="sr-only">${item.title}</span></label>`;
       })
       .join("");
 
@@ -629,6 +635,7 @@ export function createRowEditorFeature({
       input.value = "";
     }
 
+    onClearAll?.();
     prepareIcon();
   }
 

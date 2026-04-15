@@ -1,0 +1,87 @@
+{
+  "version": "2",
+  "rowOrder": {
+    "icon": "0",
+    "title": "1",
+    "fqdn": "1",
+    "network": "1",
+    "config": "1",
+    "custom1": "1"
+  },
+  "theme": "dark",
+  "fields": {
+    "titleText": "Demo Template 2",
+    "hostEntries": [
+      {
+        "icon": "🔗",
+        "label": "Project Page",
+        "url": "https://www.markdownguide.org/basic-syntax/"
+      }
+    ],
+    "networkEntries": [
+      {
+        "icon": "🖥️",
+        "value": "192.168.1.50"
+      }
+    ],
+    "configLocations": [
+      {
+        "icon": "📁",
+        "value": "/opt/demo/settings.env"
+      }
+    ],
+    "customRows": [
+      {
+        "id": "custom1",
+        "text": "<br>This is a demonstrative note.<p>You can use <code>HTML</code> tags and links in custom rows.</p>"
+      }
+    ]
+  },
+  "rows": {
+    "title": {
+      "emoji": "",
+      "align": "left",
+      "heading": "h2",
+      "bold": false,
+      "italic": false,
+      "strong": false,
+      "code": false
+    },
+    "fqdn": {
+      "emoji": "🔗",
+      "align": "left",
+      "heading": "h3",
+      "bold": false,
+      "italic": false,
+      "strong": false,
+      "code": false
+    },
+    "network": {
+      "emoji": "🖥️",
+      "align": "left",
+      "heading": "h3",
+      "bold": false,
+      "italic": false,
+      "strong": false,
+      "code": false
+    },
+    "config": {
+      "emoji": "",
+      "align": "left",
+      "heading": "",
+      "bold": false,
+      "italic": true,
+      "strong": true,
+      "code": true
+    },
+    "custom1": {
+      "emoji": "",
+      "align": "left",
+      "heading": "",
+      "bold": false,
+      "italic": false,
+      "strong": false,
+      "code": false
+    }
+  }
+}

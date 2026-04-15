@@ -1,0 +1,54 @@
+{
+  "version": "2",
+  "rowOrder": {
+    "icon": "0",
+    "title": "1",
+    "fqdn": "1",
+    "network": "1",
+    "config": "1",
+    "custom1": "1"
+  },
+  "theme": "dark",
+  "rows": {
+    "title": {
+      "align": "left",
+      "heading": "h2",
+      "bold": false,
+      "italic": false,
+      "strong": false,
+      "code": false
+    },
+    "fqdn": {
+      "align": "left",
+      "heading": "h3",
+      "bold": false,
+      "italic": false,
+      "strong": false,
+      "code": false
+    },
+    "network": {
+      "align": "left",
+      "heading": "h3",
+      "bold": false,
+      "italic": false,
+      "strong": false,
+      "code": false
+    },
+    "config": {
+      "align": "left",
+      "heading": "",
+      "bold": false,
+      "italic": true,
+      "strong": true,
+      "code": true
+    },
+    "custom1": {
+      "align": "left",
+      "heading": "",
+      "bold": false,
+      "italic": false,
+      "strong": false,
+      "code": false
+    }
+  }
+}

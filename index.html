@@ -159,44 +159,83 @@
               <strong>Template Manager</strong>
             </div>
             <div class="sidebar-panel-body">
-              <div class="templates-section">
-                <div class="local-templates-head">Design</div>
-                <div class="preset-group sidebar-preset-group">
-                  <div class="preset-buttons">
-                    <button type="button" class="panel-action preset-btn" data-preset="1">1</button>
-                    <button type="button" class="panel-action preset-btn" data-preset="2">2</button>
-                    <button type="button" class="panel-action preset-btn" data-preset="3">3</button>
-                    <button type="button" class="panel-action preset-btn" data-preset="4">4</button>
-                    <button type="button" class="panel-action preset-btn" data-preset="5">5</button>
+              <div class="templates-section design-section">
+                <div class="templates-head-row">
+                  <div class="local-templates-head">Design</div>
+                  <button id="designEditBtn" type="button" class="panel-action ghost">EDIT</button>
+                </div>
+                <div class="preset-group sidebar-preset-group design-button-grid" id="designButtonGrid">
+                  <div class="design-slot default-design-slot">
+                    <button type="button" class="panel-action preset-btn design-btn" data-design-default="1">1</button>
+                  </div>
+                  <div class="design-slot default-design-slot">
+                    <button type="button" class="panel-action preset-btn design-btn" data-design-default="2">2</button>
+                  </div>
+                  <div class="design-slot default-design-slot">
+                    <button type="button" class="panel-action preset-btn design-btn" data-design-default="3">3</button>
+                  </div>
+                  <div class="design-slot default-design-slot">
+                    <button type="button" class="panel-action preset-btn design-btn" data-design-default="4">4</button>
+                  </div>
+                  <div class="design-slot default-design-slot">
+                    <button type="button" class="panel-action preset-btn design-btn" data-design-default="5">5</button>
+                  </div>
+                  <div class="design-slot user-design-slot" data-design-slot-wrap="6" data-has-design="0">
+                    <button type="button" class="panel-action preset-btn design-btn" data-design-slot="6" aria-label="Save design to slot 6">+</button>
+                    <div class="design-slot-actions">
+                      <button type="button" class="panel-action ghost design-slot-overwrite" data-design-slot-overwrite="6" title="Overwrite design 6">♻️</button>
+                      <button type="button" class="panel-action ghost design-slot-delete" data-design-slot-delete="6" title="Delete design 6">🗑️</button>
+                    </div>
+                  </div>
+                  <div class="design-slot user-design-slot" data-design-slot-wrap="7" data-has-design="0">
+                    <button type="button" class="panel-action preset-btn design-btn" data-design-slot="7" aria-label="Save design to slot 7">+</button>
+                    <div class="design-slot-actions">
+                      <button type="button" class="panel-action ghost design-slot-overwrite" data-design-slot-overwrite="7" title="Overwrite design 7">♻️</button>
+                      <button type="button" class="panel-action ghost design-slot-delete" data-design-slot-delete="7" title="Delete design 7">🗑️</button>
+                    </div>
+                  </div>
+                  <div class="design-slot user-design-slot" data-design-slot-wrap="8" data-has-design="0">
+                    <button type="button" class="panel-action preset-btn design-btn" data-design-slot="8" aria-label="Save design to slot 8">+</button>
+                    <div class="design-slot-actions">
+                      <button type="button" class="panel-action ghost design-slot-overwrite" data-design-slot-overwrite="8" title="Overwrite design 8">♻️</button>
+                      <button type="button" class="panel-action ghost design-slot-delete" data-design-slot-delete="8" title="Delete design 8">🗑️</button>
+                    </div>
+                  </div>
+                  <div class="design-slot user-design-slot" data-design-slot-wrap="9" data-has-design="0">
+                    <button type="button" class="panel-action preset-btn design-btn" data-design-slot="9" aria-label="Save design to slot 9">+</button>
+                    <div class="design-slot-actions">
+                      <button type="button" class="panel-action ghost design-slot-overwrite" data-design-slot-overwrite="9" title="Overwrite design 9">♻️</button>
+                      <button type="button" class="panel-action ghost design-slot-delete" data-design-slot-delete="9" title="Delete design 9">🗑️</button>
+                    </div>
+                  </div>
+                  <div class="design-slot user-design-slot" data-design-slot-wrap="10" data-has-design="0">
+                    <button type="button" class="panel-action preset-btn design-btn" data-design-slot="10" aria-label="Save design to slot 10">+</button>
+                    <div class="design-slot-actions">
+                      <button type="button" class="panel-action ghost design-slot-overwrite" data-design-slot-overwrite="10" title="Overwrite design 10">♻️</button>
+                      <button type="button" class="panel-action ghost design-slot-delete" data-design-slot-delete="10" title="Delete design 10">🗑️</button>
+                    </div>
                   </div>
                 </div>
               </div>
 
               <div class="templates-section">
-                <div class="local-templates-head">Template File</div>
-                <div class="template-json-actions">
-                  <button id="importBtn" type="button" class="panel-action">IMPORT</button>
-                  <button id="exportBtn" type="button" class="panel-action">EXPORT</button>
-                  <input id="importFile" type="file" accept="application/json,.json" class="hidden" />
-                </div>
-              </div>
-
-              <div class="templates-section">
-              <div class="local-templates">
-                <div class="local-templates-head">Local Templates</div>
-                <div class="local-template-create">
+                <div class="local-templates">
+                  <div class="local-templates-head">Local Templates</div>
+                  <div class="template-json-actions local-template-primary-actions">
+                    <button id="saveLocalTemplateBtn" type="button" class="panel-action">SAVE CURRENT</button>
+                    <button id="importLocalTemplateBtn" type="button" class="panel-action">IMPORT FROM FILE</button>
+                  </div>
+                  <input id="importLocalTemplateFile" type="file" accept="application/json,.json" class="hidden" />
                   <input
-                    id="localTemplateName"
+                    id="localTemplateSearch"
                     type="text"
                     class="local-template-name"
-                    placeholder="Template name"
+                    placeholder="Search local templates..."
                     autocomplete="off"
                     spellcheck="false"
                   />
-                  <button id="saveLocalTemplateBtn" type="button" class="panel-action">SAVE CURRENT</button>
+                  <div id="localTemplateList" class="local-template-list" aria-live="polite"></div>
                 </div>
-                <div id="localTemplateList" class="local-template-list" aria-live="polite"></div>
-              </div>
               </div>
             </div>
           </section>
@@ -269,6 +308,16 @@
               </div>
 
               <div class="templates-section settings-section">
+                <div class="settings-section-head">
+                  <div class="local-templates-head">Demo Templates</div>
+                </div>
+                <label class="settings-switch-row">
+                  <input id="settingsRestoreDemoTemplates" type="checkbox" />
+                  <span>Restore hidden demo templates</span>
+                </label>
+              </div>
+
+              <div class="templates-section settings-section">
                 <div class="local-templates-head">Settings Backup</div>
                 <div class="template-json-actions">
                   <button id="exportStorageBtn" type="button" class="panel-action">EXPORT</button>
@@ -314,7 +363,10 @@
         <section class="panel panel-form">
         <div class="subtitle-row">
           <p class="subtitle">Generate Proxmox Notes with per-row layout and formatting controls.</p>
-          <button id="clearBtn" type="button" class="panel-action">CLEAR</button>
+          <div class="subtitle-actions">
+            <button id="initBtn" type="button" class="panel-action">INIT</button>
+            <button id="clearBtn" type="button" class="panel-action">CLEAR</button>
+          </div>
         </div>
 
         <form id="noteForm">
@@ -539,7 +591,7 @@
               <div class="preview-title">
                 <span>Notes</span>
                 <button id="themeToggleBtn" type="button" class="theme-toggle" aria-label="Toggle preview theme" title="Toggle preview theme">
-                  <span id="themeIcon" class="theme-icon">🌙</span>
+                  <span id="themeIcon" class="theme-icon theme-icon-dark" aria-hidden="true"></span>
                 </button>
               </div>
               <div class="preview-body">
@@ -561,6 +613,18 @@
           </div>
         </section>
       </aside>
+    </div>
+
+    <div id="templateNameModal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="templateNameModalTitle">
+      <div class="modal-card">
+        <h3 id="templateNameModalTitle" class="modal-title">Template Name</h3>
+        <p id="templateNameModalMessage" class="modal-message"></p>
+        <input id="templateNameModalInput" type="text" class="local-template-name modal-input" autocomplete="off" spellcheck="false" />
+        <div class="modal-actions">
+          <button id="templateNameModalCancelBtn" type="button" class="panel-action ghost">CANCEL</button>
+          <button id="templateNameModalConfirmBtn" type="button" class="panel-action">SAVE</button>
+        </div>
+      </div>
     </div>
 
     <script type="module" src="./resources/js/main.js"></script>

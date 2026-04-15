@@ -5,26 +5,195 @@ export function createTemplateManagerFeature({
   normalizeLocalTemplateCatalog,
   escapeHtml,
   collectSettings,
+  collectDesignSettings,
   applySettings,
+  applyDesignSettings,
+  fetchAndApplyDesign,
   validateSettingsSchema,
   assertFileSizeWithinLimit,
   assertTextSizeWithinLimit,
   maxImportFileBytes,
 }) {
-  let localTemplateCatalog = [];
-  let activeTemplateId = "";
+  const DESIGN_SLOTS = [6, 7, 8, 9, 10];
+  const DEMO_TEMPLATE_SOURCES = [
+    { id: "demo-template-1", name: "Demo Template 1", file: "./templates/app/demo-template-1.json" },
+    { id: "demo-template-2", name: "Demo Template 2", file: "./templates/app/demo-template-2.json" },
+  ];
 
-  function loadLocalTemplateCatalog() {
-    localTemplateCatalog = normalizeLocalTemplateCatalog(getState().templates.localCatalog);
-    if (!localTemplateCatalog.some((entry) => entry.id === activeTemplateId)) {
-      activeTemplateId = "";
+  const designLoadFlashTimers = new WeakMap();
+  let interactionsBound = false;
+  let designEditMode = false;
+  let userDesignSlots = {};
+  let localTemplateCatalog = [];
+  let demoTemplates = [];
+  let hiddenDemoTemplateIds = [];
+  let activeTemplateKey = "";
+  let localTemplateSearchQuery = "";
+
+  function normalizeUserDesignSlots(value) {
+    if (!value || typeof value !== "object") {
+      return {};
+    }
+    const next = {};
+    for (const slot of DESIGN_SLOTS) {
+      const key = String(slot);
+      if (value[key] && typeof value[key] === "object") {
+        next[key] = value[key];
+      }
+    }
+    return next;
+  }
+
+  function normalizeHiddenDemoTemplateIds(value) {
+    if (!Array.isArray(value)) {
+      return [];
+    }
+    const allowed = new Set(DEMO_TEMPLATE_SOURCES.map((item) => item.id));
+    const seen = new Set();
+    const out = [];
+    for (const item of value) {
+      const id = String(item || "");
+      if (!allowed.has(id) || seen.has(id)) {
+        continue;
+      }
+      seen.add(id);
+      out.push(id);
+    }
+    return out;
+  }
+
+  function persistTemplateState() {
+    patchState((state) => {
+      state.templates.localCatalog = normalizeLocalTemplateCatalog(localTemplateCatalog);
+      state.templates.userDesignSlots = normalizeUserDesignSlots(userDesignSlots);
+      state.templates.hiddenDemoTemplateIds = normalizeHiddenDemoTemplateIds(hiddenDemoTemplateIds);
+    });
+  }
+
+  function loadFromState() {
+    const state = getState();
+    localTemplateCatalog = normalizeLocalTemplateCatalog(state.templates.localCatalog);
+    userDesignSlots = normalizeUserDesignSlots(state.templates.userDesignSlots);
+    hiddenDemoTemplateIds = normalizeHiddenDemoTemplateIds(state.templates.hiddenDemoTemplateIds);
+  }
+
+  function setDesignEditMode(enabled) {
+    designEditMode = Boolean(enabled);
+    document.body.classList.toggle("design-edit-mode", designEditMode);
+    if (refs.designEditBtnEl) {
+      refs.designEditBtnEl.textContent = designEditMode ? "DONE" : "EDIT";
     }
   }
 
-  function persistLocalTemplateCatalog() {
-    patchState((state) => {
-      state.templates.localCatalog = normalizeLocalTemplateCatalog(localTemplateCatalog);
+  function flashLoadedDesignButton(buttonEl) {
+    if (!(buttonEl instanceof HTMLButtonElement)) {
+      return;
+    }
+
+    const existing = designLoadFlashTimers.get(buttonEl);
+    if (existing) {
+      window.clearTimeout(existing);
+    }
+
+    buttonEl.classList.remove("template-loaded");
+    window.requestAnimationFrame(() => {
+      buttonEl.classList.add("template-loaded");
+      const timer = window.setTimeout(() => {
+        buttonEl.classList.remove("template-loaded");
+        designLoadFlashTimers.delete(buttonEl);
+      }, 900);
+      designLoadFlashTimers.set(buttonEl, timer);
     });
+  }
+
+  function renderDesignSlots() {
+    for (const slot of DESIGN_SLOTS) {
+      const slotKey = String(slot);
+      const hasDesign = Boolean(userDesignSlots[slotKey]);
+      const wrapEl = refs.designButtonGridEl?.querySelector(`[data-design-slot-wrap="${slotKey}"]`);
+      const slotBtn = refs.designButtonGridEl?.querySelector(`button[data-design-slot="${slotKey}"]`);
+      const overwriteBtn = refs.designButtonGridEl?.querySelector(`button[data-design-slot-overwrite="${slotKey}"]`);
+      const deleteBtn = refs.designButtonGridEl?.querySelector(`button[data-design-slot-delete="${slotKey}"]`);
+      if (wrapEl instanceof HTMLElement) {
+        wrapEl.setAttribute("data-has-design", hasDesign ? "1" : "0");
+      }
+      if (slotBtn instanceof HTMLButtonElement) {
+        slotBtn.textContent = hasDesign ? slotKey : "+";
+        slotBtn.setAttribute(
+          "aria-label",
+          hasDesign ? `Load user design ${slotKey}` : `Save current design to slot ${slotKey}`
+        );
+      }
+      if (overwriteBtn instanceof HTMLButtonElement) {
+        overwriteBtn.disabled = !hasDesign;
+        overwriteBtn.setAttribute(
+          "aria-label",
+          hasDesign ? `Overwrite design ${slotKey}` : `Overwrite design ${slotKey} (disabled)`
+        );
+      }
+      if (deleteBtn instanceof HTMLButtonElement) {
+        deleteBtn.disabled = !hasDesign;
+        deleteBtn.setAttribute(
+          "aria-label",
+          hasDesign ? `Delete design ${slotKey}` : `Delete design ${slotKey} (disabled)`
+        );
+      }
+    }
+  }
+
+  async function loadDefaultDesign(designNumber) {
+    const design = Number.parseInt(String(designNumber), 10);
+    if (!Number.isFinite(design) || design < 1 || design > 5) {
+      return false;
+    }
+    return fetchAndApplyDesign(
+      `./templates/app/design-default-${design}.json`,
+      "design",
+      `Could not load default design ${design}.`
+    );
+  }
+
+  function saveCurrentDesignToSlot(slot) {
+    const slotKey = String(slot);
+    if (!DESIGN_SLOTS.includes(Number.parseInt(slotKey, 10))) {
+      return false;
+    }
+    userDesignSlots[slotKey] = collectDesignSettings();
+    persistTemplateState();
+    renderDesignSlots();
+    return true;
+  }
+
+  async function loadUserDesignSlot(slot) {
+    const slotKey = String(slot);
+    const settings = userDesignSlots[slotKey];
+    if (!settings || typeof settings !== "object") {
+      return false;
+    }
+    await applyDesignSettings(settings, { source: "design" });
+    return true;
+  }
+
+  function overwriteUserDesignSlot(slot) {
+    const slotKey = String(slot);
+    if (!userDesignSlots[slotKey]) {
+      return false;
+    }
+    userDesignSlots[slotKey] = collectDesignSettings();
+    persistTemplateState();
+    renderDesignSlots();
+    return true;
+  }
+
+  function deleteUserDesignSlot(slot) {
+    const slotKey = String(slot);
+    if (!userDesignSlots[slotKey]) {
+      return false;
+    }
+    delete userDesignSlots[slotKey];
+    persistTemplateState();
+    renderDesignSlots();
+    return true;
   }
 
   function formatLocalTemplateTime(timestamp) {
@@ -38,36 +207,11 @@ export function createTemplateManagerFeature({
     }
   }
 
-  function renderLocalTemplateCatalog() {
-    if (!refs.localTemplateListEl) {
-      return;
-    }
-    if (localTemplateCatalog.length === 0) {
-      refs.localTemplateListEl.innerHTML = '<div class="local-template-empty">No local templates yet.</div>';
-      return;
-    }
-
-    const sorted = [...localTemplateCatalog].sort((a, b) => b.updatedAt - a.updatedAt || a.name.localeCompare(b.name));
-    refs.localTemplateListEl.innerHTML = sorted
-      .map((entry) => {
-        const updated = formatLocalTemplateTime(entry.updatedAt);
-        const isActive = entry.id === activeTemplateId;
-        return `<div class="local-template-item" data-local-template-id="${escapeHtml(entry.id)}">
-        <button type="button" class="local-template-load${isActive ? " active" : ""}" data-local-template-id="${escapeHtml(entry.id)}" title="Load local template">${escapeHtml(entry.name)}</button>
-        <div class="local-template-meta">${escapeHtml(updated)}</div>
-        <button type="button" class="local-template-delete" data-local-template-id="${escapeHtml(entry.id)}" aria-label="Delete ${escapeHtml(entry.name)}">✕</button>
-      </div>`;
-      })
-      .join("");
+  function findLocalTemplateById(templateId) {
+    return localTemplateCatalog.find((entry) => entry.id === templateId) || null;
   }
 
-  function setTemplateNameInput(name) {
-    if (refs.localTemplateNameEl) {
-      refs.localTemplateNameEl.value = String(name || "");
-    }
-  }
-
-  function findTemplateByName(name) {
+  function findLocalTemplateByName(name) {
     const normalized = String(name || "").trim().toLowerCase();
     if (!normalized) {
       return null;
@@ -75,55 +219,23 @@ export function createTemplateManagerFeature({
     return localTemplateCatalog.find((entry) => entry.name.toLowerCase() === normalized) || null;
   }
 
-  function saveCurrentLocalTemplate() {
-    if (!refs.localTemplateNameEl) {
-      return;
-    }
-    const name = refs.localTemplateNameEl.value.trim();
-    if (!name) {
-      return;
+  function ensureUniqueLocalTemplateName(baseName, excludeId = "") {
+    const normalizedBase = String(baseName || "Local Template").trim() || "Local Template";
+    const occupied = new Set(
+      localTemplateCatalog
+        .filter((entry) => entry.id !== excludeId)
+        .map((entry) => entry.name.toLowerCase())
+    );
+
+    if (!occupied.has(normalizedBase.toLowerCase())) {
+      return normalizedBase;
     }
 
-    const existing = findTemplateByName(name);
-    const snapshot = collectSettings();
-    const now = Date.now();
-    if (existing) {
-      existing.settings = snapshot;
-      existing.updatedAt = now;
-      existing.name = name;
-      activeTemplateId = existing.id;
-    } else {
-      const id = `${now}-${Math.random().toString(16).slice(2, 8)}`;
-      localTemplateCatalog.push({ id, name, settings: snapshot, updatedAt: now });
-      activeTemplateId = id;
+    let suffix = 2;
+    while (occupied.has(`${normalizedBase} (${suffix})`.toLowerCase())) {
+      suffix += 1;
     }
-
-    persistLocalTemplateCatalog();
-    renderLocalTemplateCatalog();
-  }
-
-  async function loadLocalTemplateById(templateId) {
-    const entry = localTemplateCatalog.find((item) => item.id === templateId);
-    if (!entry || !entry.settings) {
-      return;
-    }
-    activeTemplateId = entry.id;
-    setTemplateNameInput(entry.name);
-    renderLocalTemplateCatalog();
-    await applySettings(entry.settings, { source: "template" });
-  }
-
-  function deleteLocalTemplateById(templateId) {
-    const before = localTemplateCatalog.length;
-    localTemplateCatalog = localTemplateCatalog.filter((entry) => entry.id !== templateId);
-    if (localTemplateCatalog.length === before) {
-      return;
-    }
-    if (activeTemplateId === templateId) {
-      activeTemplateId = "";
-    }
-    persistLocalTemplateCatalog();
-    renderLocalTemplateCatalog();
+    return `${normalizedBase} (${suffix})`;
   }
 
   function toTemplateFileName(name) {
@@ -147,36 +259,13 @@ export function createTemplateManagerFeature({
     URL.revokeObjectURL(url);
   }
 
-  function resolveExportTemplate() {
-    const byActiveId = localTemplateCatalog.find((entry) => entry.id === activeTemplateId) || null;
-    if (byActiveId) {
-      return byActiveId;
-    }
-
-    const byInputName = findTemplateByName(refs.localTemplateNameEl?.value || "");
-    if (byInputName) {
-      return byInputName;
-    }
-
-    if (localTemplateCatalog.length === 1) {
-      return localTemplateCatalog[0];
-    }
-
-    if (localTemplateCatalog.length > 1) {
-      return [...localTemplateCatalog].sort((a, b) => b.updatedAt - a.updatedAt)[0];
-    }
-
-    return null;
-  }
-
-  function exportTemplateToFile() {
-    const entry = resolveExportTemplate();
-    if (!entry || !entry.settings) {
-      return;
-    }
-    // Keep template export compatible with legacy single-template JSON files.
-    const payload = JSON.stringify(entry.settings, null, 2);
-    triggerJsonDownload(payload, toTemplateFileName(entry.name));
+  function toLocalTemplateRecord(name, settings, now = Date.now()) {
+    return {
+      id: `${now}-${Math.random().toString(16).slice(2, 8)}`,
+      name,
+      settings,
+      updatedAt: now,
+    };
   }
 
   function getBaseNameFromFileName(fileName) {
@@ -185,23 +274,7 @@ export function createTemplateManagerFeature({
       return "Imported Template";
     }
     const withoutExt = trimmed.replace(/\.[^.]+$/, "").trim();
-    if (!withoutExt) {
-      return "Imported Template";
-    }
-    return withoutExt;
-  }
-
-  function ensureUniqueImportedName(baseName) {
-    const normalizedBase = String(baseName || "Imported Template").trim() || "Imported Template";
-    const lower = normalizedBase.toLowerCase();
-    if (!localTemplateCatalog.some((entry) => entry.name.toLowerCase() === lower)) {
-      return normalizedBase;
-    }
-    let suffix = 2;
-    while (localTemplateCatalog.some((entry) => entry.name.toLowerCase() === `${normalizedBase} (${suffix})`.toLowerCase())) {
-      suffix += 1;
-    }
-    return `${normalizedBase} (${suffix})`;
+    return withoutExt || "Imported Template";
   }
 
   function parseImportedTemplatePayload(parsed, fallbackName) {
@@ -215,6 +288,267 @@ export function createTemplateManagerFeature({
       name: fallbackName,
       settings: parsed,
     };
+  }
+
+  function getFilteredTemplateEntries() {
+    const normalizedQuery = localTemplateSearchQuery.trim().toLowerCase();
+
+    const visibleDemoTemplates = demoTemplates
+      .filter((entry) => !hiddenDemoTemplateIds.includes(entry.id))
+      .map((entry) => ({
+        kind: "demo",
+        id: entry.id,
+        name: entry.name,
+        settings: entry.settings,
+        updatedAt: 0,
+        metaText: "Read-only demo template",
+      }));
+
+    const localEntries = [...localTemplateCatalog]
+      .sort((a, b) => b.updatedAt - a.updatedAt || a.name.localeCompare(b.name))
+      .map((entry) => ({
+        kind: "local",
+        id: entry.id,
+        name: entry.name,
+        settings: entry.settings,
+        updatedAt: entry.updatedAt,
+        metaText: formatLocalTemplateTime(entry.updatedAt),
+      }));
+
+    const allEntries = [...visibleDemoTemplates, ...localEntries];
+    if (!normalizedQuery) {
+      return allEntries;
+    }
+    return allEntries.filter((entry) => entry.name.toLowerCase().includes(normalizedQuery));
+  }
+
+  function getEntryActiveClass(entry) {
+    const key = `${entry.kind}:${entry.id}`;
+    return key === activeTemplateKey ? " active" : "";
+  }
+
+  function renderLocalTemplateCatalog() {
+    if (!refs.localTemplateListEl) {
+      return;
+    }
+
+    const entries = getFilteredTemplateEntries();
+    if (entries.length === 0) {
+      refs.localTemplateListEl.innerHTML = '<div class="local-template-empty">No matching local templates.</div>';
+      return;
+    }
+
+    refs.localTemplateListEl.innerHTML = entries
+      .map((entry) => {
+        if (entry.kind === "demo") {
+          return `<div class="local-template-item" data-template-kind="demo" data-template-id="${escapeHtml(entry.id)}">
+        <div class="local-template-main">
+          <button type="button" class="local-template-load demo${getEntryActiveClass(entry)}" data-demo-template-load="${escapeHtml(entry.id)}" title="Load demo template">${escapeHtml(entry.name)}</button>
+          <div class="local-template-actions">
+            <span class="local-template-tag">DEMO</span>
+            <button type="button" class="local-template-action" data-demo-template-hide="${escapeHtml(entry.id)}" title="Hide demo template">👁️</button>
+          </div>
+        </div>
+        <div class="local-template-meta">${escapeHtml(entry.metaText)}</div>
+      </div>`;
+        }
+
+        return `<div class="local-template-item" data-template-kind="local" data-template-id="${escapeHtml(entry.id)}">
+        <div class="local-template-main">
+          <button type="button" class="local-template-load${getEntryActiveClass(entry)}" data-local-template-load="${escapeHtml(entry.id)}" title="Load local template">${escapeHtml(entry.name)}</button>
+          <div class="local-template-actions">
+            <button type="button" class="local-template-action" data-local-template-rename="${escapeHtml(entry.id)}" title="Rename">✏️</button>
+            <button type="button" class="local-template-action" data-local-template-export="${escapeHtml(entry.id)}" title="Export">📤</button>
+            <button type="button" class="local-template-action" data-local-template-overwrite="${escapeHtml(entry.id)}" title="Overwrite">♻️</button>
+            <button type="button" class="local-template-action" data-local-template-delete="${escapeHtml(entry.id)}" title="Delete">🗑️</button>
+          </div>
+        </div>
+        <div class="local-template-meta">${escapeHtml(entry.metaText)}</div>
+      </div>`;
+      })
+      .join("");
+  }
+
+  async function loadTemplateEntry(kind, templateId) {
+    if (kind === "demo") {
+      const entry = demoTemplates.find((item) => item.id === templateId);
+      if (!entry) {
+        return;
+      }
+      activeTemplateKey = `demo:${entry.id}`;
+      renderLocalTemplateCatalog();
+      await applySettings(entry.settings, { source: "template" });
+      return;
+    }
+
+    const entry = findLocalTemplateById(templateId);
+    if (!entry || !entry.settings) {
+      return;
+    }
+    activeTemplateKey = `local:${entry.id}`;
+    renderLocalTemplateCatalog();
+    await applySettings(entry.settings, { source: "template" });
+  }
+
+  function promptTemplateName({ title, message, defaultValue = "", confirmLabel = "SAVE" }) {
+    const modalEl = refs.templateNameModalEl;
+    const titleEl = refs.templateNameModalTitleEl;
+    const messageEl = refs.templateNameModalMessageEl;
+    const inputEl = refs.templateNameModalInputEl;
+    const cancelBtnEl = refs.templateNameModalCancelBtnEl;
+    const confirmBtnEl = refs.templateNameModalConfirmBtnEl;
+
+    if (
+      !(modalEl instanceof HTMLElement) ||
+      !(titleEl instanceof HTMLElement) ||
+      !(messageEl instanceof HTMLElement) ||
+      !(inputEl instanceof HTMLInputElement) ||
+      !(cancelBtnEl instanceof HTMLButtonElement) ||
+      !(confirmBtnEl instanceof HTMLButtonElement)
+    ) {
+      return Promise.resolve(window.prompt(message, defaultValue));
+    }
+
+    titleEl.textContent = title;
+    messageEl.textContent = message;
+    inputEl.value = String(defaultValue || "");
+    confirmBtnEl.textContent = confirmLabel;
+    modalEl.classList.remove("hidden");
+
+    return new Promise((resolve) => {
+      let settled = false;
+      function cleanup() {
+        if (settled) {
+          return;
+        }
+        settled = true;
+        modalEl.classList.add("hidden");
+        cancelBtnEl.removeEventListener("click", onCancel);
+        confirmBtnEl.removeEventListener("click", onConfirm);
+        modalEl.removeEventListener("click", onBackdropClick);
+        inputEl.removeEventListener("keydown", onInputKeydown);
+      }
+      function onCancel() {
+        cleanup();
+        resolve(null);
+      }
+      function onConfirm() {
+        const value = inputEl.value;
+        cleanup();
+        resolve(value);
+      }
+      function onBackdropClick(event) {
+        if (event.target === modalEl) {
+          onCancel();
+        }
+      }
+      function onInputKeydown(event) {
+        if (event.key === "Enter") {
+          event.preventDefault();
+          onConfirm();
+          return;
+        }
+        if (event.key === "Escape") {
+          event.preventDefault();
+          onCancel();
+        }
+      }
+
+      cancelBtnEl.addEventListener("click", onCancel);
+      confirmBtnEl.addEventListener("click", onConfirm);
+      modalEl.addEventListener("click", onBackdropClick);
+      inputEl.addEventListener("keydown", onInputKeydown);
+      window.setTimeout(() => {
+        inputEl.focus();
+        inputEl.select();
+      }, 0);
+    });
+  }
+
+  async function saveCurrentLocalTemplate() {
+    const baseName = `Local Template ${localTemplateCatalog.length + 1}`;
+    const suggestedName = ensureUniqueLocalTemplateName(baseName);
+    const inputName = await promptTemplateName({
+      title: "Save Current Template",
+      message: "Enter a name for the new template",
+      defaultValue: suggestedName,
+      confirmLabel: "SAVE",
+    });
+    if (inputName === null) {
+      return;
+    }
+
+    const finalName = ensureUniqueLocalTemplateName(inputName.trim() || suggestedName);
+    const snapshot = collectSettings();
+    const entry = toLocalTemplateRecord(finalName, snapshot);
+
+    localTemplateCatalog.push(entry);
+    activeTemplateKey = `local:${entry.id}`;
+    persistTemplateState();
+    renderLocalTemplateCatalog();
+  }
+
+  function exportLocalTemplateById(templateId) {
+    const entry = findLocalTemplateById(templateId);
+    if (!entry || !entry.settings) {
+      return;
+    }
+    const payload = JSON.stringify(entry.settings, null, 2);
+    triggerJsonDownload(payload, toTemplateFileName(entry.name));
+  }
+
+  function overwriteLocalTemplateById(templateId) {
+    const entry = findLocalTemplateById(templateId);
+    if (!entry) {
+      return;
+    }
+    entry.settings = collectSettings();
+    entry.updatedAt = Date.now();
+    activeTemplateKey = `local:${entry.id}`;
+    persistTemplateState();
+    renderLocalTemplateCatalog();
+  }
+
+  async function renameLocalTemplateById(templateId) {
+    const entry = findLocalTemplateById(templateId);
+    if (!entry) {
+      return;
+    }
+
+    const inputName = await promptTemplateName({
+      title: "Rename Template",
+      message: `Edit the name of the existing template "${entry.name}"`,
+      defaultValue: entry.name,
+      confirmLabel: "RENAME",
+    });
+    if (inputName === null) {
+      return;
+    }
+
+    const candidate = inputName.trim() || entry.name;
+    entry.name = ensureUniqueLocalTemplateName(candidate, entry.id);
+    entry.updatedAt = Date.now();
+    persistTemplateState();
+    renderLocalTemplateCatalog();
+  }
+
+  function deleteLocalTemplateById(templateId) {
+    const existing = findLocalTemplateById(templateId);
+    if (!existing) {
+      return;
+    }
+
+    const shouldDelete = window.confirm(`Delete local template \"${existing.name}\"?`);
+    if (!shouldDelete) {
+      return;
+    }
+
+    localTemplateCatalog = localTemplateCatalog.filter((entry) => entry.id !== templateId);
+    if (activeTemplateKey === `local:${templateId}`) {
+      activeTemplateKey = "";
+    }
+    persistTemplateState();
+    renderLocalTemplateCatalog();
   }
 
   async function importTemplateFromFile(event) {
@@ -232,87 +566,244 @@ export function createTemplateManagerFeature({
       const imported = parseImportedTemplatePayload(parsed, fallbackName);
       validateSettingsSchema(imported.settings, "template import");
 
-      const uniqueName = ensureUniqueImportedName(imported.name);
-      const now = Date.now();
-      const id = `${now}-${Math.random().toString(16).slice(2, 8)}`;
-      localTemplateCatalog.push({
-        id,
-        name: uniqueName,
-        settings: imported.settings,
-        updatedAt: now,
-      });
-      activeTemplateId = id;
-      setTemplateNameInput(uniqueName);
-      persistLocalTemplateCatalog();
+      const suggested = ensureUniqueLocalTemplateName(imported.name);
+      const inputName = window.prompt("Imported template name:", suggested);
+      if (inputName === null) {
+        return;
+      }
+      const finalName = ensureUniqueLocalTemplateName(inputName.trim() || suggested);
+
+      const entry = toLocalTemplateRecord(finalName, imported.settings);
+      localTemplateCatalog.push(entry);
+      activeTemplateKey = `local:${entry.id}`;
+      persistTemplateState();
       renderLocalTemplateCatalog();
 
       await applySettings(imported.settings, { source: "import" });
     } catch (error) {
       console.error(error instanceof Error ? `Template import failed: ${error.message}` : "Template import failed.");
     } finally {
-      if (refs.importFileEl) {
-        refs.importFileEl.value = "";
+      if (refs.importLocalTemplateFileEl) {
+        refs.importLocalTemplateFileEl.value = "";
       }
     }
   }
 
-  function syncFromState() {
-    loadLocalTemplateCatalog();
+  function hideDemoTemplateById(templateId) {
+    if (!demoTemplates.some((entry) => entry.id === templateId)) {
+      return;
+    }
+    if (hiddenDemoTemplateIds.includes(templateId)) {
+      return;
+    }
+    hiddenDemoTemplateIds.push(templateId);
+    hiddenDemoTemplateIds = normalizeHiddenDemoTemplateIds(hiddenDemoTemplateIds);
+    if (activeTemplateKey === `demo:${templateId}`) {
+      activeTemplateKey = "";
+    }
+    persistTemplateState();
     renderLocalTemplateCatalog();
   }
 
-  function initTemplateManager() {
-    if (refs.saveLocalTemplateBtn) {
-      refs.saveLocalTemplateBtn.addEventListener("click", saveCurrentLocalTemplate);
-    }
-    if (refs.localTemplateNameEl) {
-      refs.localTemplateNameEl.addEventListener("keydown", (event) => {
-        if (event.key !== "Enter") {
-          return;
+  function restoreDemoTemplates() {
+    hiddenDemoTemplateIds = [];
+    persistTemplateState();
+    renderLocalTemplateCatalog();
+  }
+
+  async function loadDemoTemplates() {
+    const loaded = [];
+    for (const source of DEMO_TEMPLATE_SOURCES) {
+      try {
+        const res = await fetch(source.file, { cache: "no-store" });
+        if (!res.ok) {
+          throw new Error(`HTTP ${res.status}`);
         }
-        event.preventDefault();
-        saveCurrentLocalTemplate();
-      });
+        const parsed = await res.json();
+        validateSettingsSchema(parsed, `demo template ${source.id}`);
+        loaded.push({
+          id: source.id,
+          name: source.name,
+          settings: parsed,
+        });
+      } catch {
+        // Keep app functional even if one demo template is missing.
+      }
+    }
+    demoTemplates = loaded;
+  }
+
+  function bindDesignInteractions() {
+    if (!refs.designButtonGridEl) {
+      return;
     }
 
-    if (refs.localTemplateListEl) {
-      refs.localTemplateListEl.addEventListener("click", async (event) => {
-        const target = event.target;
-        if (!(target instanceof HTMLElement)) {
+    refs.designButtonGridEl.addEventListener("click", async (event) => {
+      const target = event.target;
+      if (!(target instanceof HTMLElement)) {
+        return;
+      }
+
+      const defaultBtn = target.closest("button[data-design-default]");
+      if (defaultBtn instanceof HTMLButtonElement) {
+        const didLoad = await loadDefaultDesign(defaultBtn.getAttribute("data-design-default"));
+        if (didLoad) {
+          flashLoadedDesignButton(defaultBtn);
+        }
+        return;
+      }
+
+      const overwriteBtn = target.closest("button[data-design-slot-overwrite]");
+      if (overwriteBtn instanceof HTMLButtonElement) {
+        if (overwriteBtn.disabled) {
           return;
         }
-        const loadBtn = target.closest(".local-template-load");
-        if (loadBtn instanceof HTMLElement) {
-          const id = loadBtn.getAttribute("data-local-template-id") || "";
-          if (id) {
-            await loadLocalTemplateById(id);
+        const slot = overwriteBtn.getAttribute("data-design-slot-overwrite") || "";
+        overwriteUserDesignSlot(slot);
+        flashLoadedDesignButton(
+          refs.designButtonGridEl.querySelector(`button[data-design-slot="${slot}"]`)
+        );
+        return;
+      }
+
+      const deleteBtn = target.closest("button[data-design-slot-delete]");
+      if (deleteBtn instanceof HTMLButtonElement) {
+        if (deleteBtn.disabled) {
+          return;
+        }
+        const slot = deleteBtn.getAttribute("data-design-slot-delete") || "";
+        deleteUserDesignSlot(slot);
+        return;
+      }
+
+      const slotBtn = target.closest("button[data-design-slot]");
+      if (slotBtn instanceof HTMLButtonElement) {
+        const slot = slotBtn.getAttribute("data-design-slot") || "";
+        const hasDesign = Boolean(userDesignSlots[slot]);
+        if (hasDesign) {
+          const didLoad = await loadUserDesignSlot(slot);
+          if (didLoad) {
+            flashLoadedDesignButton(slotBtn);
           }
-          return;
+        } else if (saveCurrentDesignToSlot(slot)) {
+          flashLoadedDesignButton(slotBtn);
         }
+      }
+    });
 
-        const deleteBtn = target.closest(".local-template-delete");
-        if (deleteBtn instanceof HTMLElement) {
-          const id = deleteBtn.getAttribute("data-local-template-id") || "";
-          if (id) {
-            deleteLocalTemplateById(id);
-          }
+    refs.designEditBtnEl?.addEventListener("click", () => {
+      setDesignEditMode(!designEditMode);
+    });
+  }
+
+  function bindLocalTemplateInteractions() {
+    refs.saveLocalTemplateBtn?.addEventListener("click", async () => {
+      await saveCurrentLocalTemplate();
+    });
+
+    refs.importLocalTemplateBtn?.addEventListener("click", () => {
+      refs.importLocalTemplateFileEl?.click();
+    });
+
+    refs.importLocalTemplateFileEl?.addEventListener("change", importTemplateFromFile);
+
+    refs.localTemplateSearchEl?.addEventListener("input", () => {
+      localTemplateSearchQuery = refs.localTemplateSearchEl?.value || "";
+      renderLocalTemplateCatalog();
+    });
+
+    refs.localTemplateListEl?.addEventListener("click", async (event) => {
+      const target = event.target;
+      if (!(target instanceof HTMLElement)) {
+        return;
+      }
+
+      const loadLocalBtn = target.closest("button[data-local-template-load]");
+      if (loadLocalBtn instanceof HTMLButtonElement) {
+        const id = loadLocalBtn.getAttribute("data-local-template-load") || "";
+        if (id) {
+          await loadTemplateEntry("local", id);
         }
-      });
-    }
+        return;
+      }
 
-    if (refs.exportBtn) {
-      refs.exportBtn.addEventListener("click", exportTemplateToFile);
+      const loadDemoBtn = target.closest("button[data-demo-template-load]");
+      if (loadDemoBtn instanceof HTMLButtonElement) {
+        const id = loadDemoBtn.getAttribute("data-demo-template-load") || "";
+        if (id) {
+          await loadTemplateEntry("demo", id);
+        }
+        return;
+      }
+
+      const renameBtn = target.closest("button[data-local-template-rename]");
+      if (renameBtn instanceof HTMLButtonElement) {
+        const id = renameBtn.getAttribute("data-local-template-rename") || "";
+        if (id) {
+          await renameLocalTemplateById(id);
+        }
+        return;
+      }
+
+      const exportBtn = target.closest("button[data-local-template-export]");
+      if (exportBtn instanceof HTMLButtonElement) {
+        const id = exportBtn.getAttribute("data-local-template-export") || "";
+        if (id) {
+          exportLocalTemplateById(id);
+        }
+        return;
+      }
+
+      const overwriteBtn = target.closest("button[data-local-template-overwrite]");
+      if (overwriteBtn instanceof HTMLButtonElement) {
+        const id = overwriteBtn.getAttribute("data-local-template-overwrite") || "";
+        if (id) {
+          overwriteLocalTemplateById(id);
+        }
+        return;
+      }
+
+      const deleteBtn = target.closest("button[data-local-template-delete]");
+      if (deleteBtn instanceof HTMLButtonElement) {
+        const id = deleteBtn.getAttribute("data-local-template-delete") || "";
+        if (id) {
+          deleteLocalTemplateById(id);
+        }
+        return;
+      }
+
+      const hideDemoBtn = target.closest("button[data-demo-template-hide]");
+      if (hideDemoBtn instanceof HTMLButtonElement) {
+        const id = hideDemoBtn.getAttribute("data-demo-template-hide") || "";
+        if (id) {
+          hideDemoTemplateById(id);
+        }
+      }
+    });
+  }
+
+  function syncFromState() {
+    loadFromState();
+    renderDesignSlots();
+    renderLocalTemplateCatalog();
+  }
+
+  async function initTemplateManager() {
+    if (interactionsBound) {
+      return;
     }
-    if (refs.importBtn && refs.importFileEl) {
-      refs.importBtn.addEventListener("click", () => refs.importFileEl.click());
-    }
-    if (refs.importFileEl) {
-      refs.importFileEl.addEventListener("change", importTemplateFromFile);
-    }
+    interactionsBound = true;
+
+    setDesignEditMode(false);
+    bindDesignInteractions();
+    bindLocalTemplateInteractions();
+    await loadDemoTemplates();
+    syncFromState();
   }
 
   return {
     syncFromState,
     initTemplateManager,
+    restoreDemoTemplates,
   };
 }

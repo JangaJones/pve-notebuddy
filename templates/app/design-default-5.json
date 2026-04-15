@@ -1,0 +1,58 @@
+{
+  "version": "2",
+  "rowOrder": {
+    "icon": "1",
+    "title": "1",
+    "fqdn": "1",
+    "network": "1",
+    "config": "1",
+    "custom1": "0"
+  },
+  "theme": "dark",
+  "icon": {
+    "align": "center",
+    "scale": "100"
+  },
+  "rows": {
+    "title": {
+      "align": "center",
+      "heading": "h2",
+      "bold": false,
+      "italic": false,
+      "strong": false,
+      "code": false
+    },
+    "fqdn": {
+      "align": "center",
+      "heading": "h3",
+      "bold": false,
+      "italic": false,
+      "strong": false,
+      "code": false
+    },
+    "network": {
+      "align": "center",
+      "heading": "h3",
+      "bold": false,
+      "italic": false,
+      "strong": false,
+      "code": false
+    },
+    "config": {
+      "align": "center",
+      "heading": "",
+      "bold": false,
+      "italic": true,
+      "strong": true,
+      "code": true
+    },
+    "custom1": {
+      "align": "left",
+      "heading": "",
+      "bold": false,
+      "italic": false,
+      "strong": false,
+      "code": false
+    }
+  }
+}

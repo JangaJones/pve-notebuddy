@@ -48,7 +48,8 @@ export function createAppShellFeature({
       refs.themeToggleBtn.setAttribute("title", activeTheme === "dark" ? "Switch to light mode" : "Switch to dark mode");
     }
     if (refs.themeIconEl) {
-      refs.themeIconEl.textContent = activeTheme === "dark" ? "🌙" : "☀️";
+      refs.themeIconEl.classList.toggle("theme-icon-dark", activeTheme === "dark");
+      refs.themeIconEl.classList.toggle("theme-icon-light", activeTheme === "light");
     }
   }
 

@@ -50,12 +50,7 @@ export function getAppDomRefs() {
       emojiRailListEl: document.getElementById("emojiRailList"),
     },
     templateManagerRefs: {
-      designEditBtnEl: document.getElementById("designEditBtn"),
       designButtonGridEl: document.getElementById("designButtonGrid"),
-      designDefaultBtnEls: document.querySelectorAll("button[data-design-default]"),
-      designSlotBtnEls: document.querySelectorAll("button[data-design-slot]"),
-      designSlotOverwriteBtnEls: document.querySelectorAll("button[data-design-slot-overwrite]"),
-      designSlotDeleteBtnEls: document.querySelectorAll("button[data-design-slot-delete]"),
       saveLocalTemplateBtn: document.getElementById("saveLocalTemplateBtn"),
       importLocalTemplateBtn: document.getElementById("importLocalTemplateBtn"),
       importLocalTemplateFileEl: document.getElementById("importLocalTemplateFile"),

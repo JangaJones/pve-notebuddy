@@ -84,12 +84,7 @@ const {
     emojiRailListEl,
   },
   templateManagerRefs: {
-    designEditBtnEl,
     designButtonGridEl,
-    designDefaultBtnEls,
-    designSlotBtnEls,
-    designSlotOverwriteBtnEls,
-    designSlotDeleteBtnEls,
     saveLocalTemplateBtn,
     importLocalTemplateBtn,
     importLocalTemplateFileEl,
@@ -637,12 +632,7 @@ function createFeatures() {
 
   templateManagerFeature = createTemplateManagerFeature({
     refs: {
-      designEditBtnEl,
       designButtonGridEl,
-      designDefaultBtnEls,
-      designSlotBtnEls,
-      designSlotOverwriteBtnEls,
-      designSlotDeleteBtnEls,
       saveLocalTemplateBtn,
       importLocalTemplateBtn,
       importLocalTemplateFileEl,

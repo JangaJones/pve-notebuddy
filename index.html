@@ -41,7 +41,7 @@
               autocomplete="off"
               spellcheck="false"
             />
-            <button id="templateSearchClear" class="template-search-clear" type="button" aria-label="Clear search">✕</button>
+            <button id="templateSearchClear" class="template-search-clear" type="button" aria-label="Clear search"><span class="action-icon action-icon-close" aria-hidden="true"></span><span class="sr-only">Clear search</span></button>
               <div id="templateSuggest" class="template-suggest hidden" role="listbox" aria-label="Template suggestions"></div>
           </div>
         </div>
@@ -160,10 +160,7 @@
             </div>
             <div class="sidebar-panel-body">
               <div class="templates-section design-section">
-                <div class="templates-head-row">
-                  <div class="local-templates-head">Design</div>
-                  <button id="designEditBtn" type="button" class="panel-action ghost">EDIT</button>
-                </div>
+                <div class="local-templates-head">Design</div>
                 <div class="preset-group sidebar-preset-group design-button-grid" id="designButtonGrid">
                   <div class="design-slot default-design-slot">
                     <button type="button" class="panel-action preset-btn design-btn" data-design-default="1">1</button>
@@ -182,38 +179,23 @@
                   </div>
                   <div class="design-slot user-design-slot" data-design-slot-wrap="6" data-has-design="0">
                     <button type="button" class="panel-action preset-btn design-btn" data-design-slot="6" aria-label="Save design to slot 6">+</button>
-                    <div class="design-slot-actions">
-                      <button type="button" class="panel-action ghost design-slot-overwrite" data-design-slot-overwrite="6" title="Overwrite design 6">♻️</button>
-                      <button type="button" class="panel-action ghost design-slot-delete" data-design-slot-delete="6" title="Delete design 6">🗑️</button>
-                    </div>
+                    <button type="button" class="design-slot-delete" data-design-slot-delete="6" title="Clear design 6"><span class="action-icon action-icon-close" aria-hidden="true"></span><span class="sr-only">Clear design 6</span></button>
                   </div>
                   <div class="design-slot user-design-slot" data-design-slot-wrap="7" data-has-design="0">
                     <button type="button" class="panel-action preset-btn design-btn" data-design-slot="7" aria-label="Save design to slot 7">+</button>
-                    <div class="design-slot-actions">
-                      <button type="button" class="panel-action ghost design-slot-overwrite" data-design-slot-overwrite="7" title="Overwrite design 7">♻️</button>
-                      <button type="button" class="panel-action ghost design-slot-delete" data-design-slot-delete="7" title="Delete design 7">🗑️</button>
-                    </div>
+                    <button type="button" class="design-slot-delete" data-design-slot-delete="7" title="Clear design 7"><span class="action-icon action-icon-close" aria-hidden="true"></span><span class="sr-only">Clear design 7</span></button>
                   </div>
                   <div class="design-slot user-design-slot" data-design-slot-wrap="8" data-has-design="0">
                     <button type="button" class="panel-action preset-btn design-btn" data-design-slot="8" aria-label="Save design to slot 8">+</button>
-                    <div class="design-slot-actions">
-                      <button type="button" class="panel-action ghost design-slot-overwrite" data-design-slot-overwrite="8" title="Overwrite design 8">♻️</button>
-                      <button type="button" class="panel-action ghost design-slot-delete" data-design-slot-delete="8" title="Delete design 8">🗑️</button>
-                    </div>
+                    <button type="button" class="design-slot-delete" data-design-slot-delete="8" title="Clear design 8"><span class="action-icon action-icon-close" aria-hidden="true"></span><span class="sr-only">Clear design 8</span></button>
                   </div>
                   <div class="design-slot user-design-slot" data-design-slot-wrap="9" data-has-design="0">
                     <button type="button" class="panel-action preset-btn design-btn" data-design-slot="9" aria-label="Save design to slot 9">+</button>
-                    <div class="design-slot-actions">
-                      <button type="button" class="panel-action ghost design-slot-overwrite" data-design-slot-overwrite="9" title="Overwrite design 9">♻️</button>
-                      <button type="button" class="panel-action ghost design-slot-delete" data-design-slot-delete="9" title="Delete design 9">🗑️</button>
-                    </div>
+                    <button type="button" class="design-slot-delete" data-design-slot-delete="9" title="Clear design 9"><span class="action-icon action-icon-close" aria-hidden="true"></span><span class="sr-only">Clear design 9</span></button>
                   </div>
                   <div class="design-slot user-design-slot" data-design-slot-wrap="10" data-has-design="0">
                     <button type="button" class="panel-action preset-btn design-btn" data-design-slot="10" aria-label="Save design to slot 10">+</button>
-                    <div class="design-slot-actions">
-                      <button type="button" class="panel-action ghost design-slot-overwrite" data-design-slot-overwrite="10" title="Overwrite design 10">♻️</button>
-                      <button type="button" class="panel-action ghost design-slot-delete" data-design-slot-delete="10" title="Delete design 10">🗑️</button>
-                    </div>
+                    <button type="button" class="design-slot-delete" data-design-slot-delete="10" title="Clear design 10"><span class="action-icon action-icon-close" aria-hidden="true"></span><span class="sr-only">Clear design 10</span></button>
                   </div>
                 </div>
               </div>
@@ -247,7 +229,7 @@
             <div class="sidebar-panel-body">
             <div id="emojiRail" class="emoji-rail" aria-label="Emoji copy bar">
               <button id="emojiRailToggle" type="button" class="emoji-rail-toggle hidden" aria-expanded="true" aria-controls="emojiRailPanel">
-                <span class="emoji-rail-toggle-close" aria-hidden="true">✕</span>
+                <span class="emoji-rail-toggle-close" aria-hidden="true"><span class="action-icon action-icon-close"></span></span>
                 <img
                   class="emoji-rail-toggle-open-icon hidden"
                   src="./resources/icons/add_reaction_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"
@@ -289,7 +271,7 @@
                   <button id="saveWeservDomainBtn" type="button" class="panel-action settings-icon-btn" aria-label="Save custom domain" title="Save custom domain">
                     <span class="settings-icon-btn-glyph" aria-hidden="true"></span>
                   </button>
-                  <button id="deleteWeservDomainBtn" type="button" class="panel-action ghost settings-icon-btn" aria-label="Delete custom domain" title="Delete custom domain">✕</button>
+                  <button id="deleteWeservDomainBtn" type="button" class="panel-action ghost settings-icon-btn" aria-label="Delete custom domain" title="Delete custom domain"><span class="action-icon action-icon-delete" aria-hidden="true"></span><span class="sr-only">Delete custom domain</span></button>
                 </div>
               </div>
 
@@ -395,8 +377,8 @@
               </div>
               <div class="row-reorder">
                 <button type="button" class="row-visibility" data-row-key="icon" title="Hide row" aria-label="Hide row" aria-pressed="false">◉</button>
-                <button type="button" class="row-move" data-row-key="icon" data-direction="up" title="Move up">↑</button>
-                <button type="button" class="row-move" data-row-key="icon" data-direction="down" title="Move down">↓</button>
+                <button type="button" class="row-move" data-row-key="icon" data-direction="up" title="Move up"><span class="move-icon move-icon-up" aria-hidden="true"></span><span class="sr-only">Move up</span></button>
+                <button type="button" class="row-move" data-row-key="icon" data-direction="down" title="Move down"><span class="move-icon move-icon-down" aria-hidden="true"></span><span class="sr-only">Move down</span></button>
               </div>
             </div>
 
@@ -420,14 +402,14 @@
               <div class="icon-gallery-controls">
                 <label>
                   <input id="iconGalleryColumns" type="number" min="1" max="8" step="1" value="4" />
-                  <span class="icon-gallery-label">Items per row</span>
+                  <span class="icon-gallery-label">Icons per row</span>
                 </label>
                 <span class="icon-gallery-controls-gap" aria-hidden="true"></span>
                 <div class="icon-gallery-spacing" aria-label="Gallery spacing size">
                   <span class="icon-gallery-label">Icon spacing</span>
-                  <label class="tool-chip"><input type="radio" name="iconGallerySpacing" value="s" checked /><span>S</span></label>
-                  <label class="tool-chip"><input type="radio" name="iconGallerySpacing" value="m" /><span>M</span></label>
-                  <label class="tool-chip"><input type="radio" name="iconGallerySpacing" value="l" /><span>L</span></label>
+                  <label class="tool-chip" title="Small spacing"><input type="radio" name="iconGallerySpacing" value="s" checked /><span class="chip-icon chip-icon-density-small" aria-hidden="true"></span><span class="sr-only">Small spacing</span></label>
+                  <label class="tool-chip" title="Medium spacing"><input type="radio" name="iconGallerySpacing" value="m" /><span class="chip-icon chip-icon-density-medium" aria-hidden="true"></span><span class="sr-only">Medium spacing</span></label>
+                  <label class="tool-chip" title="Large spacing"><input type="radio" name="iconGallerySpacing" value="l" /><span class="chip-icon chip-icon-density-large" aria-hidden="true"></span><span class="sr-only">Large spacing</span></label>
                 </div>
               </div>
             </div>
@@ -494,15 +476,15 @@
               <div class="style-tools" data-prefix="title"></div>
               <div class="row-reorder">
                 <button type="button" class="row-visibility" data-row-key="title" title="Hide row" aria-label="Hide row" aria-pressed="false">●</button>
-                <button type="button" class="row-move" data-row-key="title" data-direction="up" title="Move up">↑</button>
-                <button type="button" class="row-move" data-row-key="title" data-direction="down" title="Move down">↓</button>
+                <button type="button" class="row-move" data-row-key="title" data-direction="up" title="Move up"><span class="move-icon move-icon-up" aria-hidden="true"></span><span class="sr-only">Move up</span></button>
+                <button type="button" class="row-move" data-row-key="title" data-direction="down" title="Move down"><span class="move-icon move-icon-down" aria-hidden="true"></span><span class="sr-only">Move down</span></button>
               </div>
             </div>
             <div class="row-grid row-fields with-icon">
               <label class="icon-field">
                 <span class="icon-input-wrap">
                   <input id="titleEmoji" type="text" value="" maxlength="8" />
-                  <button type="button" class="icon-clear" data-target="titleEmoji" title="Clear icon">✕</button>
+                  <button type="button" class="icon-clear" data-target="titleEmoji" title="Clear icon"><span class="action-icon action-icon-close" aria-hidden="true"></span><span class="sr-only">Clear icon</span></button>
                 </span>
               </label>
               <div class="field-stack">
@@ -517,8 +499,8 @@
               <div class="style-tools" data-prefix="fqdn"></div>
               <div class="row-reorder">
                 <button type="button" class="row-visibility" data-row-key="fqdn" title="Hide row" aria-label="Hide row" aria-pressed="false">●</button>
-                <button type="button" class="row-move" data-row-key="fqdn" data-direction="up" title="Move up">↑</button>
-                <button type="button" class="row-move" data-row-key="fqdn" data-direction="down" title="Move down">↓</button>
+                <button type="button" class="row-move" data-row-key="fqdn" data-direction="up" title="Move up"><span class="move-icon move-icon-up" aria-hidden="true"></span><span class="sr-only">Move up</span></button>
+                <button type="button" class="row-move" data-row-key="fqdn" data-direction="down" title="Move down"><span class="move-icon move-icon-down" aria-hidden="true"></span><span class="sr-only">Move down</span></button>
               </div>
             </div>
             <div class="row-grid row-fields">
@@ -535,8 +517,8 @@
               <div class="style-tools" data-prefix="network"></div>
               <div class="row-reorder">
                 <button type="button" class="row-visibility" data-row-key="network" title="Hide row" aria-label="Hide row" aria-pressed="false">●</button>
-                <button type="button" class="row-move" data-row-key="network" data-direction="up" title="Move up">↑</button>
-                <button type="button" class="row-move" data-row-key="network" data-direction="down" title="Move down">↓</button>
+                <button type="button" class="row-move" data-row-key="network" data-direction="up" title="Move up"><span class="move-icon move-icon-up" aria-hidden="true"></span><span class="sr-only">Move up</span></button>
+                <button type="button" class="row-move" data-row-key="network" data-direction="down" title="Move down"><span class="move-icon move-icon-down" aria-hidden="true"></span><span class="sr-only">Move down</span></button>
               </div>
             </div>
             <div class="row-grid row-fields">
@@ -553,8 +535,8 @@
               <div class="style-tools" data-prefix="config"></div>
               <div class="row-reorder">
                 <button type="button" class="row-visibility" data-row-key="config" title="Hide row" aria-label="Hide row" aria-pressed="false">●</button>
-                <button type="button" class="row-move" data-row-key="config" data-direction="up" title="Move up">↑</button>
-                <button type="button" class="row-move" data-row-key="config" data-direction="down" title="Move down">↓</button>
+                <button type="button" class="row-move" data-row-key="config" data-direction="up" title="Move up"><span class="move-icon move-icon-up" aria-hidden="true"></span><span class="sr-only">Move up</span></button>
+                <button type="button" class="row-move" data-row-key="config" data-direction="down" title="Move down"><span class="move-icon move-icon-down" aria-hidden="true"></span><span class="sr-only">Move down</span></button>
               </div>
             </div>
             <div class="row-grid row-fields">

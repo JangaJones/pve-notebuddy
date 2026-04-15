@@ -398,8 +398,9 @@ export function createRowEditorFeature({
   function createStackRemoveButton(row) {
     const remove = document.createElement("button");
     remove.type = "button";
-    remove.className = "icon-clear";
-    remove.textContent = "✕";
+    remove.className = "icon-delete";
+    remove.title = "Delete entry";
+    remove.innerHTML = '<span class="action-icon action-icon-delete" aria-hidden="true"></span><span class="sr-only">Delete entry</span>';
     remove.addEventListener("click", () => {
       row.remove();
       renderOutput();
@@ -427,7 +428,7 @@ export function createRowEditorFeature({
     const iconClear = document.createElement("button");
     iconClear.type = "button";
     iconClear.className = "icon-clear";
-    iconClear.textContent = "✕";
+    iconClear.innerHTML = '<span class="action-icon action-icon-close" aria-hidden="true"></span><span class="sr-only">Clear icon</span>';
     iconClear.title = "Clear icon";
     iconClear.addEventListener("click", () => {
       iconInput.value = "";
@@ -490,7 +491,7 @@ export function createRowEditorFeature({
     const iconClear = document.createElement("button");
     iconClear.type = "button";
     iconClear.className = "icon-clear";
-    iconClear.textContent = "✕";
+    iconClear.innerHTML = '<span class="action-icon action-icon-close" aria-hidden="true"></span><span class="sr-only">Clear icon</span>';
     iconClear.title = "Clear icon";
     iconClear.addEventListener("click", () => {
       iconInput.value = "";
@@ -534,7 +535,7 @@ export function createRowEditorFeature({
     const iconClear = document.createElement("button");
     iconClear.type = "button";
     iconClear.className = "icon-clear";
-    iconClear.textContent = "✕";
+    iconClear.innerHTML = '<span class="action-icon action-icon-close" aria-hidden="true"></span><span class="sr-only">Clear icon</span>';
     iconClear.title = "Clear icon";
     iconClear.addEventListener("click", () => {
       iconInput.value = "";
@@ -679,10 +680,10 @@ export function createRowEditorFeature({
     const reorder = document.createElement("div");
     reorder.className = "row-reorder";
     reorder.innerHTML = `
-    <button type="button" class="row-remove" data-row-key="${key}" title="Remove row">✕</button>
+    <button type="button" class="row-remove" data-row-key="${key}" title="Delete row"><span class="action-icon action-icon-delete" aria-hidden="true"></span><span class="sr-only">Delete row</span></button>
     <button type="button" class="row-visibility" data-row-key="${key}" title="Hide row" aria-label="Hide row" aria-pressed="false">◉</button>
-    <button type="button" class="row-move" data-row-key="${key}" data-direction="up" title="Move up">↑</button>
-    <button type="button" class="row-move" data-row-key="${key}" data-direction="down" title="Move down">↓</button>
+    <button type="button" class="row-move" data-row-key="${key}" data-direction="up" title="Move up"><span class="move-icon move-icon-up" aria-hidden="true"></span><span class="sr-only">Move up</span></button>
+    <button type="button" class="row-move" data-row-key="${key}" data-direction="down" title="Move down"><span class="move-icon move-icon-down" aria-hidden="true"></span><span class="sr-only">Move down</span></button>
   `;
 
     controls.append(tools, reorder);

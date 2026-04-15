@@ -462,20 +462,20 @@ export function createAppIconsFeature({
     upBtn.type = "button";
     upBtn.className = "icon-gallery-btn icon-gallery-up";
     upBtn.title = "Move up";
-    upBtn.textContent = "↑";
+    upBtn.innerHTML = '<span class="move-icon move-icon-up" aria-hidden="true"></span><span class="sr-only">Move up</span>';
 
     const downBtn = document.createElement("button");
     downBtn.type = "button";
     downBtn.className = "icon-gallery-btn icon-gallery-down";
     downBtn.title = "Move down";
-    downBtn.textContent = "↓";
+    downBtn.innerHTML = '<span class="move-icon move-icon-down" aria-hidden="true"></span><span class="sr-only">Move down</span>';
 
     const grabBtn = document.createElement("button");
     grabBtn.type = "button";
     grabBtn.className = "icon-gallery-btn icon-gallery-grab";
     grabBtn.title = "Drag handle";
     grabBtn.setAttribute("draggable", "true");
-    grabBtn.textContent = "⋮⋮";
+    grabBtn.innerHTML = '<span class="move-icon move-icon-drag" aria-hidden="true"></span><span class="sr-only">Drag handle</span>';
 
     const input = document.createElement("input");
     input.type = "url";
@@ -490,8 +490,8 @@ export function createAppIconsFeature({
     const removeBtn = document.createElement("button");
     removeBtn.type = "button";
     removeBtn.className = "icon-gallery-btn icon-gallery-remove";
-    removeBtn.title = "Remove icon";
-    removeBtn.textContent = "✕";
+    removeBtn.title = "Delete icon";
+    removeBtn.innerHTML = '<span class="action-icon action-icon-delete" aria-hidden="true"></span><span class="sr-only">Delete icon</span>';
 
     row.append(upBtn, downBtn, grabBtn, input, variants, removeBtn);
     return row;

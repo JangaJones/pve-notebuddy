@@ -22,7 +22,6 @@ export function createTemplateManagerFeature({
 
   const designLoadFlashTimers = new WeakMap();
   let interactionsBound = false;
-  let designEditMode = false;
   let userDesignSlots = {};
   let localTemplateCatalog = [];
   let demoTemplates = [];
@@ -77,14 +76,6 @@ export function createTemplateManagerFeature({
     hiddenDemoTemplateIds = normalizeHiddenDemoTemplateIds(state.templates.hiddenDemoTemplateIds);
   }
 
-  function setDesignEditMode(enabled) {
-    designEditMode = Boolean(enabled);
-    document.body.classList.toggle("design-edit-mode", designEditMode);
-    if (refs.designEditBtnEl) {
-      refs.designEditBtnEl.textContent = designEditMode ? "DONE" : "EDIT";
-    }
-  }
-
   function flashLoadedDesignButton(buttonEl) {
     if (!(buttonEl instanceof HTMLButtonElement)) {
       return;
@@ -112,7 +103,6 @@ export function createTemplateManagerFeature({
       const hasDesign = Boolean(userDesignSlots[slotKey]);
       const wrapEl = refs.designButtonGridEl?.querySelector(`[data-design-slot-wrap="${slotKey}"]`);
       const slotBtn = refs.designButtonGridEl?.querySelector(`button[data-design-slot="${slotKey}"]`);
-      const overwriteBtn = refs.designButtonGridEl?.querySelector(`button[data-design-slot-overwrite="${slotKey}"]`);
       const deleteBtn = refs.designButtonGridEl?.querySelector(`button[data-design-slot-delete="${slotKey}"]`);
       if (wrapEl instanceof HTMLElement) {
         wrapEl.setAttribute("data-has-design", hasDesign ? "1" : "0");
@@ -124,18 +114,11 @@ export function createTemplateManagerFeature({
           hasDesign ? `Load user design ${slotKey}` : `Save current design to slot ${slotKey}`
         );
       }
-      if (overwriteBtn instanceof HTMLButtonElement) {
-        overwriteBtn.disabled = !hasDesign;
-        overwriteBtn.setAttribute(
-          "aria-label",
-          hasDesign ? `Overwrite design ${slotKey}` : `Overwrite design ${slotKey} (disabled)`
-        );
-      }
       if (deleteBtn instanceof HTMLButtonElement) {
         deleteBtn.disabled = !hasDesign;
         deleteBtn.setAttribute(
           "aria-label",
-          hasDesign ? `Delete design ${slotKey}` : `Delete design ${slotKey} (disabled)`
+          hasDesign ? `Clear design ${slotKey}` : `Clear design ${slotKey} (disabled)`
         );
       }
     }
@@ -171,17 +154,6 @@ export function createTemplateManagerFeature({
       return false;
     }
     await applyDesignSettings(settings, { source: "design" });
-    return true;
-  }
-
-  function overwriteUserDesignSlot(slot) {
-    const slotKey = String(slot);
-    if (!userDesignSlots[slotKey]) {
-      return false;
-    }
-    userDesignSlots[slotKey] = collectDesignSettings();
-    persistTemplateState();
-    renderDesignSlots();
     return true;
   }
 
@@ -360,7 +332,7 @@ export function createTemplateManagerFeature({
             <button type="button" class="local-template-action" data-local-template-rename="${escapeHtml(entry.id)}" title="Rename">✏️</button>
             <button type="button" class="local-template-action" data-local-template-export="${escapeHtml(entry.id)}" title="Export">📤</button>
             <button type="button" class="local-template-action" data-local-template-overwrite="${escapeHtml(entry.id)}" title="Overwrite">♻️</button>
-            <button type="button" class="local-template-action" data-local-template-delete="${escapeHtml(entry.id)}" title="Delete">🗑️</button>
+            <button type="button" class="local-template-action" data-local-template-delete="${escapeHtml(entry.id)}" title="Delete"><span class="action-icon action-icon-delete" aria-hidden="true"></span><span class="sr-only">Delete template</span></button>
           </div>
         </div>
         <div class="local-template-meta">${escapeHtml(entry.metaText)}</div>
@@ -653,19 +625,6 @@ export function createTemplateManagerFeature({
         return;
       }
 
-      const overwriteBtn = target.closest("button[data-design-slot-overwrite]");
-      if (overwriteBtn instanceof HTMLButtonElement) {
-        if (overwriteBtn.disabled) {
-          return;
-        }
-        const slot = overwriteBtn.getAttribute("data-design-slot-overwrite") || "";
-        overwriteUserDesignSlot(slot);
-        flashLoadedDesignButton(
-          refs.designButtonGridEl.querySelector(`button[data-design-slot="${slot}"]`)
-        );
-        return;
-      }
-
       const deleteBtn = target.closest("button[data-design-slot-delete]");
       if (deleteBtn instanceof HTMLButtonElement) {
         if (deleteBtn.disabled) {
@@ -689,10 +648,6 @@ export function createTemplateManagerFeature({
           flashLoadedDesignButton(slotBtn);
         }
       }
-    });
-
-    refs.designEditBtnEl?.addEventListener("click", () => {
-      setDesignEditMode(!designEditMode);
     });
   }
 
@@ -794,7 +749,6 @@ export function createTemplateManagerFeature({
     }
     interactionsBound = true;
 
-    setDesignEditMode(false);
     bindDesignInteractions();
     bindLocalTemplateInteractions();
     await loadDemoTemplates();

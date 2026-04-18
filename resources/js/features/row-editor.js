@@ -451,13 +451,13 @@ export function createRowEditorFeature({
 
     const labelInput = document.createElement("input");
     labelInput.type = "text";
-    labelInput.placeholder = "HOST";
+    labelInput.placeholder = "Text";
     labelInput.value = initialLabel;
     labelInput.setAttribute("data-host-label", "1");
 
     const urlInput = document.createElement("input");
     urlInput.type = "url";
-    urlInput.placeholder = "HOST URL";
+    urlInput.placeholder = "URL";
     urlInput.value = initialUrl;
     urlInput.setAttribute("data-host-url", "1");
     urlInput.addEventListener("blur", () => {
@@ -511,7 +511,7 @@ export function createRowEditorFeature({
 
     const input = document.createElement("input");
     input.type = "text";
-    input.placeholder = "NETWORK ADDRESS";
+    input.placeholder = "IPs, Ports, etc.";
     input.value = initialValue;
     input.setAttribute("data-network-value", "1");
 
@@ -555,7 +555,7 @@ export function createRowEditorFeature({
 
     const input = document.createElement("input");
     input.type = "text";
-    input.placeholder = "/ETC/APP/CONFIG.YML";
+    input.placeholder = "/etc/app/config.yml";
     input.value = initialValue;
     input.setAttribute("data-config-location", "1");
 
@@ -701,7 +701,7 @@ export function createRowEditorFeature({
     const textarea = document.createElement("textarea");
     textarea.className = "span-2";
     textarea.rows = 4;
-    textarea.placeholder = "Any additional note...";
+    textarea.placeholder = "Additional notes...";
     textarea.value = initialText;
     textarea.setAttribute("data-custom-text", "1");
 

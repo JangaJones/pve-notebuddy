@@ -1,4 +1,5 @@
 import { createTemplateSettingsSchema } from "./template-settings-schema.js";
+import { routeLegacyTemplateImport } from "./legacy-import.js";
 
 export function createTemplateSettingsFeature({
   appVersion,
@@ -130,6 +131,8 @@ export function createTemplateSettingsFeature({
   // Non-destructive apply: omitted properties are intentionally left untouched.
   async function applySettings(settings, options = {}) {
     const source = options && typeof options === "object" ? options.source : "";
+    const legacyRouted = routeLegacyTemplateImport(settings, { source: source || "settings" });
+    settings = legacyRouted.settings;
     validateSettingsSchema(settings, source || "settings");
     let blockedImportedInvalidIcon = false;
 

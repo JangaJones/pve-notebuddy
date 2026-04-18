@@ -1,3 +1,5 @@
+import { routeLegacyTemplateImport } from "./legacy-import.js";
+
 export function createTemplateManagerFeature({
   refs,
   getState,
@@ -554,7 +556,8 @@ export function createTemplateManagerFeature({
       const parsed = JSON.parse(text);
       const fallbackName = getBaseNameFromFileName(file.name);
       const imported = parseImportedTemplatePayload(parsed, fallbackName);
-      validateSettingsSchema(imported.settings, "template import");
+      const legacyRouted = routeLegacyTemplateImport(imported.settings, { source: "template import" });
+      validateSettingsSchema(legacyRouted.settings, "template import");
 
       const suggested = ensureUniqueLocalTemplateName(imported.name);
       const inputName = window.prompt("Imported template name:", suggested);
@@ -563,13 +566,13 @@ export function createTemplateManagerFeature({
       }
       const finalName = ensureUniqueLocalTemplateName(inputName.trim() || suggested);
 
-      const entry = toLocalTemplateRecord(finalName, imported.settings);
+      const entry = toLocalTemplateRecord(finalName, legacyRouted.settings);
       localTemplateCatalog.push(entry);
       activeTemplateKey = `local:${entry.id}`;
       persistTemplateState();
       renderLocalTemplateCatalog();
 
-      await applySettings(imported.settings, { source: "import" });
+      await applySettings(legacyRouted.settings, { source: "import" });
     } catch (error) {
       console.error(error instanceof Error ? `Template import failed: ${error.message}` : "Template import failed.");
     } finally {
@@ -602,11 +605,12 @@ export function createTemplateManagerFeature({
           throw new Error(`HTTP ${res.status}`);
         }
         const parsed = await res.json();
-        validateSettingsSchema(parsed, `demo template ${source.id}`);
+        const legacyRouted = routeLegacyTemplateImport(parsed, { source: `demo template ${source.id}` });
+        validateSettingsSchema(legacyRouted.settings, `demo template ${source.id}`);
         loaded.push({
           id: source.id,
           name: source.name,
-          settings: parsed,
+          settings: legacyRouted.settings,
         });
       } catch {
         // Keep app functional even if one demo template is missing.

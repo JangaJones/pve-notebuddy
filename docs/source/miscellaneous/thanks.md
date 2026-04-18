@@ -1,15 +1,15 @@
-# Thanks
+# Thank You!
 
-Thank you to everyone in the GitHub and Reddit communities who has suggested features, reported issues, and provided practical feedback.
+Thanks to everyone on GitHub and Reddit who have suggested features, reported issues and provided practical feedback.
 
-Special thanks to:
+## Recognition Board
 
-- **kenrmayfield** for continuous input and strong support around self-hosting documentation and operational clarity
-- virtualizationhowto for covering in their blog
-- youtuber for covering in their video
+Individuals that deserve a mention
 
-Additional thanks to:
+- Maintainers of other projects that are being utilized (**[community-scripts](https://github.com/community-scripts/ProxmoxVE)** and **[selfh.st](https://github.com/selfhst/icons)**)
+- **[kenrmayfield](https://github.com/kenrmayfield)** for promotional efforts, continuous creative input and helping with parts of the self-hosting documentation
+- **Brandon Lee** from **[VirtualizationHowTo](https://www.virtualizationhowto.com/)** for covering PVE NoteBuddy in his blog
+- **[Servers@Home](https://www.youtube.com/@ServersatHome)** for covering PVE NoteBuddy in their March 2026 roundup
 
-- contributors submitting template improvements
-- users reporting edge cases with icons, formatting, and deployment
-- maintainers of external ecosystems used by this project (community-scripts and selfh.st)
+
+

@@ -91,6 +91,8 @@ This project leverages AI to assist with development. Code contributions generat
 _PVE NoteBuddy is a fully client-side application with no backend & no telemetry. The live version is directly hosted on GitHub Pages. Based on its design and my own review, I consider it safe to use. Always be cautious about other distributed forks/clones that may contain malware. This project is actively maintained, there is no need to download or use it from another source._
 
 ## Project Statistics
+
+<p align="center">
 <a href="https://www.star-history.com/?repos=JangaJones%2Fpve-notebuddy&type=date&legend=top-left">
  <picture>
    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=JangaJones/pve-notebuddy&type=date&theme=dark&legend=top-left" />
@@ -98,3 +100,11 @@ _PVE NoteBuddy is a fully client-side application with no backend & no telemetry
    <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=JangaJones/pve-notebuddy&type=date&legend=top-left" />
  </picture>
 </a>
+</p>
+
+
+---
+
+<div align="center">
+  <sub><i>Proxmox® is a registered trademark of <a href="https://www.proxmox.com/en/about/company">Proxmox Server Solutions GmbH</a></i></sub>
+</div>

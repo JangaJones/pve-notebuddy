@@ -605,7 +605,11 @@ h2 {
 .panel-form-actions {
   margin-top: 0.75rem;
   display: flex;
-  justify-content: flex-end;
+  justify-content: stretch;
+}
+
+#addCustomRowBtn {
+  width: 100%;
 }
 
 .panel-action {

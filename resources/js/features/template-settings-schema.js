@@ -102,6 +102,8 @@ export function createTemplateSettingsSchema({
         "galleryItems",
         "galleryColumns",
         "gallerySpacing",
+        "linkUrls",
+        "linkTexts",
       ]);
       for (const key of Object.keys(settings.icon)) {
         if (!iconAllowed.has(key)) {
@@ -128,6 +130,28 @@ export function createTemplateSettingsSchema({
         }
         for (const item of settings.icon.galleryItems) {
           assertMaxTextBytes(String(item || ""), 4096, `${source} icon.galleryItems item`);
+        }
+      }
+      if (settings.icon.linkUrls !== undefined) {
+        if (!Array.isArray(settings.icon.linkUrls)) {
+          throw new Error(`${source} icon.linkUrls must be an array.`);
+        }
+        if (settings.icon.linkUrls.length > 20) {
+          throw new Error(`${source} icon.linkUrls exceeds maximum entries.`);
+        }
+        for (const item of settings.icon.linkUrls) {
+          assertMaxTextBytes(String(item || ""), 4096, `${source} icon.linkUrls item`);
+        }
+      }
+      if (settings.icon.linkTexts !== undefined) {
+        if (!Array.isArray(settings.icon.linkTexts)) {
+          throw new Error(`${source} icon.linkTexts must be an array.`);
+        }
+        if (settings.icon.linkTexts.length > 20) {
+          throw new Error(`${source} icon.linkTexts exceeds maximum entries.`);
+        }
+        for (const item of settings.icon.linkTexts) {
+          assertMaxTextBytes(String(item || ""), 2048, `${source} icon.linkTexts item`);
         }
       }
       if (settings.icon.embedSvg !== undefined && typeof settings.icon.embedSvg !== "boolean") {
@@ -185,7 +209,7 @@ export function createTemplateSettingsSchema({
           if (!isPlainObject(entry)) {
             throw new Error(`${source} custom row must be an object.`);
           }
-          const allowedKeys = new Set(["id", "text"]);
+          const allowedKeys = new Set(["id", "text", "kind"]);
           for (const key of Object.keys(entry)) {
             if (!allowedKeys.has(key)) {
               throw new Error(`${source} custom row contains unsupported key "${key}".`);
@@ -198,6 +222,7 @@ export function createTemplateSettingsSchema({
             }
           }
           if (entry.text !== undefined) assertMaxTextBytes(entry.text, maxImportFileBytes, `${source} custom row text`);
+          assertEnumValue(entry.kind, ["custom-note", "design-note"], `${source} custom row kind`);
         }
       }
 

@@ -1,58 +1,83 @@
 {
-  "version": "2",
-  "rowOrder": {
-    "title": "1",
-    "icon": "1",
-    "fqdn": "1",
-    "network": "0",
-    "config": "0",
-    "custom1": "0"
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "design",
+    "createdAt": "2026-04-18T23:24:44.441Z",
+    "name": "Default Design 1"
   },
-  "theme": "dark",
-  "icon": {
-    "align": "center",
-    "scale": "160"
-  },
-  "rows": {
-    "title": {
-      "align": "center",
-      "heading": "h2",
-      "bold": false,
-      "italic": false,
-      "strong": false,
-      "code": false
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "layout": {
+      "blockOrder": [
+        "row:title",
+        "row:icon",
+        "row:fqdn"
+      ]
     },
-    "fqdn": {
-      "align": "center",
-      "heading": "h2",
-      "bold": false,
-      "italic": false,
-      "strong": false,
-      "code": false
-    },
-    "network": {
-      "align": "center",
-      "heading": "h3",
-      "bold": false,
-      "italic": false,
-      "strong": false,
-      "code": false
-    },
-    "config": {
-      "align": "center",
-      "heading": "",
-      "bold": false,
-      "italic": true,
-      "strong": true,
-      "code": true
-    },
-    "custom1": {
-      "align": "left",
-      "heading": "",
-      "bold": false,
-      "italic": false,
-      "strong": false,
-      "code": false
+    "customBlocks": [
+      {
+        "id": "custom1",
+        "kind": "custom-note",
+        "text": "",
+        "style": {
+          "align": "left",
+          "heading": "",
+          "bold": false,
+          "italic": false,
+          "strong": false,
+          "code": false
+        }
+      }
+    ],
+    "styling": {
+      "theme": "dark",
+      "icon": {
+        "align": "center",
+        "scale": "160"
+      },
+      "rows": {
+        "title": {
+          "align": "center",
+          "heading": "h2",
+          "bold": false,
+          "italic": false,
+          "strong": false,
+          "code": false
+        },
+        "fqdn": {
+          "align": "center",
+          "heading": "h2",
+          "bold": false,
+          "italic": false,
+          "strong": false,
+          "code": false
+        },
+        "network": {
+          "align": "center",
+          "heading": "h3",
+          "bold": false,
+          "italic": false,
+          "strong": false,
+          "code": false
+        },
+        "config": {
+          "align": "center",
+          "heading": "",
+          "bold": false,
+          "italic": true,
+          "strong": true,
+          "code": true
+        },
+        "custom1": {
+          "align": "left",
+          "heading": "",
+          "bold": false,
+          "italic": false,
+          "strong": false,
+          "code": false
+        }
+      }
     }
   }
 }

@@ -632,6 +632,7 @@ function createFeatures() {
   });
 
   templateManagerFeature = createTemplateManagerFeature({
+    appVersion: APP_VERSION,
     refs: {
       designButtonGridEl,
       saveLocalTemplateBtn,

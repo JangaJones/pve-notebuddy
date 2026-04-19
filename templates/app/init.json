@@ -1,99 +1,125 @@
 {
-  "version": "2",
-  "rowOrder": {
-    "icon": "1",
-    "title": "1",
-    "fqdn": "1",
-    "network": "1",
-    "config": "1",
-    "custom1": "1"
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "snapshot",
+    "createdAt": "2026-04-18T23:24:44.427Z",
+    "name": "Init Snapshot"
   },
-  "theme": "dark",
-  "icon": {
-    "mode": "external",
-    "align": "center",
-    "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/proxmox.svg",
-    "embedSvg": true,
-    "resizeWithWsrv": false,
-    "scale": "100",
-    "colorVariant": "original",
-    "galleryItems": [],
-    "galleryColumns": 4,
-    "gallerySpacing": "s"
-  },
-  "fields": {
-    "titleText": "Proxmox VE",
-    "hostEntries": [
-      {
-        "icon": "🔗",
-        "label": "www.proxmox.com",
-        "url": "https://www.proxmox.com/"
-      }
-    ],
-    "networkEntries": [
-      {
-        "icon": "🖥️",
-        "value": "10.2.0.40:8443"
-      }
-    ],
-    "configLocations": [
-      {
-        "icon": "📁",
-        "value": "/etc/app/config.yml"
-      }
-    ],
-    "customRows": [
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "layout": {
+      "blockOrder": [
+        "row:icon",
+        "row:title",
+        "row:fqdn",
+        "row:network",
+        "row:config",
+        "custom:custom1"
+      ]
+    },
+    "customBlocks": [
       {
         "id": "custom1",
-        "text": ""
+        "kind": "custom-note",
+        "text": "",
+        "style": {
+          "emoji": "",
+          "align": "left",
+          "heading": "",
+          "bold": false,
+          "italic": false,
+          "strong": false,
+          "code": false
+        }
       }
-    ]
-  },
-  "rows": {
-    "title": {
-      "emoji": "",
-      "align": "center",
-      "heading": "h2",
-      "bold": false,
-      "italic": false,
-      "strong": false,
-      "code": false
+    ],
+    "styling": {
+      "theme": "dark",
+      "icon": {
+        "mode": "external",
+        "align": "center",
+        "resizeWithWsrv": false,
+        "scale": "100",
+        "colorVariant": "original",
+        "galleryColumns": 4,
+        "gallerySpacing": "s"
+      },
+      "rows": {
+        "title": {
+          "emoji": "",
+          "align": "center",
+          "heading": "h2",
+          "bold": false,
+          "italic": false,
+          "strong": false,
+          "code": false
+        },
+        "fqdn": {
+          "emoji": "🔗",
+          "align": "center",
+          "heading": "h3",
+          "bold": false,
+          "italic": false,
+          "strong": false,
+          "code": false
+        },
+        "network": {
+          "emoji": "🖥️",
+          "align": "center",
+          "heading": "h3",
+          "bold": false,
+          "italic": false,
+          "strong": false,
+          "code": false
+        },
+        "config": {
+          "emoji": "",
+          "align": "center",
+          "heading": "",
+          "bold": false,
+          "italic": true,
+          "strong": true,
+          "code": true
+        },
+        "custom1": {
+          "emoji": "",
+          "align": "left",
+          "heading": "",
+          "bold": false,
+          "italic": false,
+          "strong": false,
+          "code": false
+        }
+      }
     },
-    "fqdn": {
-      "emoji": "🔗",
-      "align": "center",
-      "heading": "h3",
-      "bold": false,
-      "italic": false,
-      "strong": false,
-      "code": false
-    },
-    "network": {
-      "emoji": "🖥️",
-      "align": "center",
-      "heading": "h3",
-      "bold": false,
-      "italic": false,
-      "strong": false,
-      "code": false
-    },
-    "config": {
-      "emoji": "",
-      "align": "center",
-      "heading": "",
-      "bold": false,
-      "italic": true,
-      "strong": true,
-      "code": true
-    },
-    "custom1": {
-      "emoji": "",
-      "align": "left",
-      "heading": "",
-      "bold": false,
-      "italic": false,
-      "strong": false,
-      "code": false
+    "content": {
+      "titleText": "Proxmox VE",
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "www.proxmox.com",
+          "url": "https://www.proxmox.com/"
+        }
+      ],
+      "networkEntries": [
+        {
+          "icon": "🖥️",
+          "value": "10.2.0.40:8443"
+        }
+      ],
+      "configLocations": [
+        {
+          "icon": "📁",
+          "value": "/etc/app/config.yml"
+        }
+      ],
+      "icon": {
+        "urls": {
+          "URL1": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/proxmox.svg"
+        },
+        "align": "center"
+      }
     }
   }
 }

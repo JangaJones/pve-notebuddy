@@ -6,7 +6,7 @@ Template generation lives under `templates/scripts/`.
 
 - `auto-template.mjs`: interactive runner for template scripts
 - `community-scripts.mjs`: crawls community-scripts source data
-- `generate-templates.mjs`: generates normalized template JSON and `templates/index.json`
+- `generate-templates.mjs`: generates data-only TemplateDocument (`content-template`) JSON and `templates/index.json`
 
 ## Typical Workflow
 
@@ -29,6 +29,8 @@ node generate-templates.mjs
 - generated templates: `templates/community-scripts/`
 - template index: `templates/index.json`
 - reports/temp data: `templates/scripts/*-temp` and logs
+
+Generated `community-scripts` templates only contain content data (`payload.content`, including `iconUrl`) and no styling payload.
 
 ## Recommendation
 

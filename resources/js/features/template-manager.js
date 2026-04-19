@@ -1,6 +1,12 @@
 import { routeLegacyTemplateImport } from "./legacy-import.js";
+import {
+  toTemplateDocumentFromSettings,
+  toRuntimeSettingsFromTemplateDocument,
+} from "./template-document-adapter.js";
+import { TEMPLATE_DOCUMENT_TYPES, isTemplateDocument } from "./template-document-schema.js";
 
 export function createTemplateManagerFeature({
+  appVersion,
   refs,
   getState,
   patchState,
@@ -18,8 +24,8 @@ export function createTemplateManagerFeature({
 }) {
   const DESIGN_SLOTS = [6, 7, 8, 9, 10];
   const DEMO_TEMPLATE_SOURCES = [
-    { id: "demo-template-1", name: "Demo Template 1", file: "./templates/app/demo-template-1.json" },
-    { id: "demo-template-2", name: "Demo Template 2", file: "./templates/app/demo-template-2.json" },
+    { id: "snapshot-demo1", name: "Snapshot Demo 1", file: "./templates/app/snapshot-demo1.json" },
+    { id: "snapshot-demo2", name: "Snapshot Demo 2", file: "./templates/app/snapshot-demo2.json" },
   ];
 
   const designLoadFlashTimers = new WeakMap();
@@ -212,7 +218,7 @@ export function createTemplateManagerFeature({
   }
 
   function ensureUniqueLocalTemplateName(baseName, excludeId = "") {
-    const normalizedBase = String(baseName || "Local Template").trim() || "Local Template";
+    const normalizedBase = String(baseName || "Snapshot").trim() || "Snapshot";
     const occupied = new Set(
       localTemplateCatalog
         .filter((entry) => entry.id !== excludeId)
@@ -263,13 +269,22 @@ export function createTemplateManagerFeature({
   function getBaseNameFromFileName(fileName) {
     const trimmed = String(fileName || "").trim();
     if (!trimmed) {
-      return "Imported Template";
+      return "Imported Snapshot";
     }
     const withoutExt = trimmed.replace(/\.[^.]+$/, "").trim();
-    return withoutExt || "Imported Template";
+    return withoutExt || "Imported Snapshot";
   }
 
   function parseImportedTemplatePayload(parsed, fallbackName) {
+    if (isTemplateDocument(parsed)) {
+      if (parsed.meta.type !== TEMPLATE_DOCUMENT_TYPES.SNAPSHOT) {
+        throw new Error(`Unsupported template document type "${parsed.meta.type}" for snapshot import.`);
+      }
+      return {
+        name: typeof parsed.meta.name === "string" && parsed.meta.name.trim() ? parsed.meta.name.trim() : fallbackName,
+        settings: toRuntimeSettingsFromTemplateDocument(parsed),
+      };
+    }
     if (parsed && typeof parsed === "object" && parsed.settings && typeof parsed.settings === "object") {
       return {
         name: typeof parsed.name === "string" && parsed.name.trim() ? parsed.name.trim() : fallbackName,
@@ -327,7 +342,7 @@ export function createTemplateManagerFeature({
 
     const entries = getFilteredTemplateEntries();
     if (entries.length === 0) {
-      refs.localTemplateListEl.innerHTML = '<div class="local-template-empty">No matching local templates.</div>';
+      refs.localTemplateListEl.innerHTML = '<div class="local-template-empty">No matching snapshots.</div>';
       return;
     }
 
@@ -347,7 +362,7 @@ export function createTemplateManagerFeature({
 
         return `<div class="local-template-item" data-template-kind="local" data-template-id="${escapeHtml(entry.id)}">
         <div class="local-template-main">
-          <button type="button" class="local-template-load${getEntryActiveClass(entry)}" data-local-template-load="${escapeHtml(entry.id)}" title="Load local template">${escapeHtml(entry.name)}</button>
+          <button type="button" class="local-template-load${getEntryActiveClass(entry)}" data-local-template-load="${escapeHtml(entry.id)}" title="Load snapshot">${escapeHtml(entry.name)}</button>
           <div class="local-template-actions">
             <button type="button" class="local-template-action" data-local-template-rename="${escapeHtml(entry.id)}" title="Rename">✏️</button>
             <button type="button" class="local-template-action" data-local-template-export="${escapeHtml(entry.id)}" title="Export">📤</button>
@@ -458,11 +473,11 @@ export function createTemplateManagerFeature({
   }
 
   async function saveCurrentLocalTemplate() {
-    const baseName = `Local Template ${localTemplateCatalog.length + 1}`;
+    const baseName = `Snapshot ${localTemplateCatalog.length + 1}`;
     const suggestedName = ensureUniqueLocalTemplateName(baseName);
     const inputName = await promptTemplateName({
-      title: "Save Current Template",
-      message: "Enter a name for the new template",
+      title: "Save Current Snapshot",
+      message: "Enter a name for the new snapshot",
       defaultValue: suggestedName,
       confirmLabel: "SAVE",
     });
@@ -485,7 +500,12 @@ export function createTemplateManagerFeature({
     if (!entry || !entry.settings) {
       return;
     }
-    const payload = JSON.stringify(entry.settings, null, 2);
+    const snapshotDocument = toTemplateDocumentFromSettings(entry.settings, {
+      appVersion,
+      type: TEMPLATE_DOCUMENT_TYPES.SNAPSHOT,
+      name: entry.name,
+    });
+    const payload = JSON.stringify(snapshotDocument, null, 2);
     triggerJsonDownload(payload, toTemplateFileName(entry.name));
   }
 
@@ -530,7 +550,7 @@ export function createTemplateManagerFeature({
       return;
     }
 
-    const shouldDelete = window.confirm(`Delete local template \"${existing.name}\"?`);
+    const shouldDelete = window.confirm(`Delete snapshot \"${existing.name}\"?`);
     if (!shouldDelete) {
       return;
     }
@@ -560,7 +580,7 @@ export function createTemplateManagerFeature({
       validateSettingsSchema(legacyRouted.settings, "template import");
 
       const suggested = ensureUniqueLocalTemplateName(imported.name);
-      const inputName = window.prompt("Imported template name:", suggested);
+      const inputName = window.prompt("Imported snapshot name:", suggested);
       if (inputName === null) {
         return;
       }
@@ -605,12 +625,26 @@ export function createTemplateManagerFeature({
           throw new Error(`HTTP ${res.status}`);
         }
         const parsed = await res.json();
-        const legacyRouted = routeLegacyTemplateImport(parsed, { source: `demo template ${source.id}` });
-        validateSettingsSchema(legacyRouted.settings, `demo template ${source.id}`);
+        let settingsForDemo = null;
+        if (isTemplateDocument(parsed)) {
+          if (parsed.meta.type === TEMPLATE_DOCUMENT_TYPES.SNAPSHOT) {
+            settingsForDemo = toRuntimeSettingsFromTemplateDocument(parsed, { mode: "snapshot" });
+          } else if (parsed.meta.type === TEMPLATE_DOCUMENT_TYPES.CONTENT_TEMPLATE) {
+            settingsForDemo = toRuntimeSettingsFromTemplateDocument(parsed, { mode: "content" });
+          } else if (parsed.meta.type === TEMPLATE_DOCUMENT_TYPES.DESIGN) {
+            settingsForDemo = toRuntimeSettingsFromTemplateDocument(parsed, { mode: "design" });
+          } else {
+            throw new Error(`Unsupported template document type "${parsed.meta.type}" in demo template.`);
+          }
+        } else {
+          const legacyRouted = routeLegacyTemplateImport(parsed, { source: `demo template ${source.id}` });
+          settingsForDemo = legacyRouted.settings;
+        }
+        validateSettingsSchema(settingsForDemo, `demo template ${source.id}`);
         loaded.push({
           id: source.id,
           name: source.name,
-          settings: legacyRouted.settings,
+          settings: settingsForDemo,
         });
       } catch {
         // Keep app functional even if one demo template is missing.

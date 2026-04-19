@@ -33,6 +33,10 @@ export function createRowEditorFeature({
     return CUSTOM_ROW_KEY_RE.test(raw) ? raw : "";
   }
 
+  function normalizeCustomRowKind(value) {
+    return String(value || "").trim().toLowerCase() === "design-note" ? "design-note" : "custom-note";
+  }
+
   function isCustomRowKey(value) {
     return Boolean(normalizeCustomRowKey(value));
   }
@@ -613,12 +617,43 @@ export function createRowEditorFeature({
       .map((fieldset) => {
         const key = normalizeCustomRowKey(fieldset.getAttribute("data-row-key"));
         const textarea = fieldset.querySelector('textarea[data-custom-text="1"]');
+        const kind = normalizeCustomRowKind(fieldset.getAttribute("data-custom-kind"));
         return {
           id: key,
           text: textarea ? textarea.value : "",
+          kind,
         };
       })
       .filter((entry) => entry.id);
+  }
+
+  function setCustomRowKind(fieldset, rawKind) {
+    if (!(fieldset instanceof HTMLFieldSetElement)) {
+      return;
+    }
+    const kind = normalizeCustomRowKind(rawKind);
+    fieldset.setAttribute("data-custom-kind", kind);
+
+    const legendTitle = fieldset.querySelector(":scope > legend .custom-row-legend-title");
+    if (legendTitle instanceof HTMLElement) {
+      legendTitle.textContent = kind === "design-note" ? "Custom Design Code" : "Custom Note";
+    }
+
+    const toggle = fieldset.querySelector('button[data-custom-kind-toggle="1"]');
+    const icon = fieldset.querySelector('[data-custom-kind-icon="1"]');
+    const srLabel = fieldset.querySelector('[data-custom-kind-sr="1"]');
+    if (toggle instanceof HTMLButtonElement) {
+      const nextAction = kind === "design-note" ? "Switch to Custom Note" : "Switch to Custom Design Code";
+      toggle.setAttribute("aria-label", nextAction);
+      toggle.setAttribute("title", nextAction);
+    }
+    if (srLabel instanceof HTMLElement) {
+      srLabel.textContent = kind === "design-note" ? "Switch to Custom Note" : "Switch to Custom Design Code";
+    }
+    if (icon instanceof HTMLElement) {
+      icon.classList.toggle("action-icon-format-paint", kind === "design-note");
+      icon.classList.toggle("action-icon-format-paint-off", kind !== "design-note");
+    }
   }
 
   function clearTextFields() {
@@ -661,7 +696,7 @@ export function createRowEditorFeature({
     };
   }
 
-  function createCustomRowFieldset(rowKey, initialText = "") {
+  function createCustomRowFieldset(rowKey, initialText = "", initialKind = "custom-note") {
     const key = normalizeCustomRowKey(rowKey);
     if (!key) {
       return null;
@@ -673,9 +708,17 @@ export function createRowEditorFeature({
     fieldset.setAttribute("data-row-visible", "1");
 
     const legend = document.createElement("legend");
-    legend.textContent = "Custom Note";
     legend.className = "row-drag-handle";
     legend.setAttribute("title", "Drag to reorder row");
+    const legendTitle = document.createElement("span");
+    legendTitle.className = "custom-row-legend-title";
+    legendTitle.textContent = "Custom Note";
+    const dragHotspot = document.createElement("span");
+    dragHotspot.className = "row-drag-hotspot";
+    dragHotspot.draggable = true;
+    dragHotspot.setAttribute("aria-hidden", "true");
+    dragHotspot.setAttribute("title", "Drag to reorder row");
+    legend.append(legendTitle, dragHotspot);
 
     const controls = document.createElement("div");
     controls.className = "row-grid row-controls no-icon";
@@ -708,6 +751,27 @@ export function createRowEditorFeature({
     const editor = document.createElement("div");
     editor.className = "custom-note-editor span-2";
 
+    const controlsWrap = document.createElement("div");
+    controlsWrap.className = "custom-note-controls";
+
+    const kindToggleWrap = document.createElement("div");
+    kindToggleWrap.className = "custom-kind-toggle";
+
+    const kindToggle = document.createElement("button");
+    kindToggle.type = "button";
+    kindToggle.className = "row-remove custom-kind-toggle-btn";
+    kindToggle.setAttribute("data-custom-kind-toggle", "1");
+    const kindIcon = document.createElement("span");
+    kindIcon.className = "action-icon action-icon-format-paint-off";
+    kindIcon.setAttribute("data-custom-kind-icon", "1");
+    kindIcon.setAttribute("aria-hidden", "true");
+    const kindSr = document.createElement("span");
+    kindSr.className = "sr-only";
+    kindSr.setAttribute("data-custom-kind-sr", "1");
+    kindSr.textContent = "Switch to Custom Design Code";
+    kindToggle.append(kindIcon, kindSr);
+    kindToggleWrap.append(kindToggle);
+
     const remove = document.createElement("button");
     remove.type = "button";
     remove.className = "row-remove icon-delete custom-note-delete";
@@ -715,19 +779,26 @@ export function createRowEditorFeature({
     remove.title = "Delete row";
     remove.innerHTML = '<span class="action-icon action-icon-delete" aria-hidden="true"></span><span class="sr-only">Delete row</span>';
 
-    editor.append(textarea, remove);
+    controlsWrap.append(kindToggleWrap, remove);
+    editor.append(textarea, controlsWrap);
     fields.append(editor);
     fieldset.append(legend, controls, fields);
+    kindToggle.addEventListener("click", () => {
+      const current = normalizeCustomRowKind(fieldset.getAttribute("data-custom-kind"));
+      setCustomRowKind(fieldset, current === "design-note" ? "custom-note" : "design-note");
+      renderOutput();
+    });
+    setCustomRowKind(fieldset, initialKind);
     bindStyleConflictsForPrefix(key);
     return fieldset;
   }
 
-  function addCustomRow(initialText = "", explicitKey = "") {
+  function addCustomRow(initialText = "", explicitKey = "", initialKind = "custom-note") {
     const key = explicitKey ? normalizeCustomRowKey(explicitKey) : getNextCustomRowKey();
     if (!key || getRowFieldset(key)) {
       return null;
     }
-    const fieldset = createCustomRowFieldset(key, initialText);
+    const fieldset = createCustomRowFieldset(key, initialText, initialKind);
     if (!fieldset) {
       return null;
     }
@@ -740,9 +811,9 @@ export function createRowEditorFeature({
     for (const fieldset of getCustomRowFieldsets()) {
       fieldset.remove();
     }
-    const rows = customRows.length > 0 ? customRows : [{ id: "custom1", text: "" }];
+    const rows = customRows.length > 0 ? customRows : [{ id: "custom1", text: "", kind: "custom-note" }];
     for (const row of rows) {
-      addCustomRow(row.text || "", row.id || "");
+      addCustomRow(row.text || "", row.id || "", row.kind || "custom-note");
     }
   }
 

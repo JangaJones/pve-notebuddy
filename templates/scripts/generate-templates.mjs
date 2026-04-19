@@ -12,9 +12,12 @@ import {
 } from "./lib/script-utils.mjs";
 
 const SOURCE_ENDPOINT = "https://db.community-scripts.org/api/collections/script_scripts/";
+const TEMPLATE_DOCUMENT_FORMAT_VERSION = 1;
+const TEMPLATE_DOCUMENT_TYPE_CONTENT = "content-template";
 
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const TEMPLATES_DIR = path.resolve(SCRIPT_DIR, "..");
+const REPO_DIR = path.resolve(TEMPLATES_DIR, "..");
 const COMMUNITY_SCRIPTS_DIR = path.join(TEMPLATES_DIR, "community-scripts");
 const SELFHST_DIR = path.join(TEMPLATES_DIR, "selfhst");
 const CUSTOM_DIR = path.join(TEMPLATES_DIR, "custom");
@@ -59,7 +62,6 @@ const BLACKLIST_NAMES = new Set(
 );
 
 const DRY_RUN = process.argv.includes("--dry-run");
-const MAX_SVG_CHARS = 6500;
 
 function prettyNameFromPath(relPath) {
   const base = relPath.replace(/\\/g, "/").replace(/\.json$/i, "").split("/").pop() || "template";
@@ -117,106 +119,53 @@ function normalizePortText(rawPort) {
   return value;
 }
 
-function toCandidateSvgUrl(logo) {
-  const raw = ensureString(logo);
-  if (!raw) {
-    return "";
-  }
-
-  let converted = raw;
-  converted = converted.replace(/\/(webp|png|jpg|jpeg|avif)\//i, "/svg/");
-  converted = converted.replace(/\.(webp|png|jpg|jpeg|avif)([?#].*)?$/i, ".svg$2");
-  return converted;
-}
-
 function toConfigLocations(configPath) {
   return splitConfigPaths(configPath).map((value) => ({ icon: "📁", value }));
 }
 
-function isSvgUrl(url) {
-  return /\.svg($|[?#])/i.test(String(url || "").trim());
-}
-
-async function fetchText(url) {
-  const res = await fetch(url, {
-    headers: {
-      "User-Agent": "pve-notebuddy-template-generator",
+function toHostEntries(website) {
+  const normalized = normalizeWebsite(website);
+  if (!normalized) {
+    return [];
+  }
+  return [
+    {
+      icon: "🔗",
+      label: websiteToLabel(normalized),
+      url: normalized,
     },
-  });
-  if (!res.ok) {
-    throw new Error(`HTTP ${res.status}`);
-  }
-  return res.text();
+  ];
 }
 
-async function resolveLogoUrl(logo, logoDecisionCache) {
-  const raw = ensureString(logo);
-  if (!raw) {
-    return { url: "", fallbackToOriginal: false };
+function toNetworkEntries(rawPort) {
+  const portText = normalizePortText(rawPort);
+  if (!portText) {
+    return [];
   }
-
-  const candidateSvgUrl = toCandidateSvgUrl(raw);
-  if (!candidateSvgUrl || candidateSvgUrl === raw) {
-    return { url: raw, fallbackToOriginal: false };
-  }
-
-  if (logoDecisionCache.has(candidateSvgUrl)) {
-    const shouldUseSvg = logoDecisionCache.get(candidateSvgUrl);
-    return {
-      url: shouldUseSvg ? candidateSvgUrl : raw,
-      fallbackToOriginal: !shouldUseSvg,
-    };
-  }
-
-  try {
-    const svgText = await fetchText(candidateSvgUrl);
-    const shouldUseSvg = svgText.length <= MAX_SVG_CHARS;
-    logoDecisionCache.set(candidateSvgUrl, shouldUseSvg);
-    return {
-      url: shouldUseSvg ? candidateSvgUrl : raw,
-      fallbackToOriginal: !shouldUseSvg,
-    };
-  } catch {
-    logoDecisionCache.set(candidateSvgUrl, false);
-    return { url: raw, fallbackToOriginal: true };
-  }
+  return [{ icon: "🖥️", value: `Default Port: ${portText}` }];
 }
 
-async function buildTemplate(source, logoDecisionCache) {
+function toContentPayload(source) {
   const name = ensureString(source.name);
   const slug = sanitizeSlug(ensureString(source.slug) || name);
-  const website = normalizeWebsite(source.website);
-  const logoResolution = await resolveLogoUrl(source.logo, logoDecisionCache);
-  const iconUrl = logoResolution.url;
-  const portText = normalizePortText(source.port);
-  const networkText = portText ? `Default Port: ${portText}` : "";
-
-  const icon = isSvgUrl(iconUrl)
-    ? {
-        mode: "external",
-        url: iconUrl,
-        embedSvg: true,
-        resizeWithWsrv: false,
-        colorVariant: "original",
-      }
-    : {
-        mode: "external",
-        url: iconUrl,
-      };
-  if (!isSvgUrl(iconUrl) && logoResolution.fallbackToOriginal) {
-    icon.resizeWithWsrv = true;
-  }
-
+  const iconUrl = ensureString(source.logo);
   return {
     slug,
     template: {
-      icon,
-      fields: {
-        titleText: name,
-        fqdnLabel: websiteToLabel(website),
-        fqdnUrl: website,
-        networkText,
-        configLocations: toConfigLocations(source.config_path),
+      meta: {
+        formatVersion: TEMPLATE_DOCUMENT_FORMAT_VERSION,
+        appVersion: "dev",
+        type: TEMPLATE_DOCUMENT_TYPE_CONTENT,
+      },
+      payload: {
+        schema: "template-document-payload-v1",
+        content: {
+          titleText: name,
+          iconUrl,
+          hostEntries: toHostEntries(source.website),
+          networkEntries: toNetworkEntries(source.port),
+          configLocations: toConfigLocations(source.config_path),
+        },
       },
     },
   };
@@ -231,6 +180,14 @@ function isBlacklistedTemplateName(name) {
 }
 
 function deriveTemplateDisplayName(parsed, relPath) {
+  const payloadTitleText = ensureString(parsed?.payload?.content?.titleText);
+  if (payloadTitleText) {
+    return payloadTitleText;
+  }
+  const metaName = ensureString(parsed?.meta?.name);
+  if (metaName) {
+    return metaName;
+  }
   const titleText = ensureString(parsed?.fields?.titleText);
   if (titleText) {
     return titleText;
@@ -298,6 +255,18 @@ async function collectDatasetIndexEntries(dataset, report) {
   return entries;
 }
 
+async function loadAppVersion() {
+  const packageJsonPath = path.join(REPO_DIR, "package.json");
+  try {
+    const raw = await fs.readFile(packageJsonPath, "utf8");
+    const parsed = JSON.parse(raw);
+    const version = ensureString(parsed?.version);
+    return version || "dev";
+  } catch {
+    return "dev";
+  }
+}
+
 async function main() {
   await fs.mkdir(COMMUNITY_SCRIPTS_DIR, { recursive: true });
   await fs.mkdir(CRAWL_TEMP_DIR, { recursive: true });
@@ -334,7 +303,7 @@ async function main() {
   };
 
   const slugUseCount = new Map();
-  const logoDecisionCache = new Map();
+  const appVersion = await loadAppVersion();
 
   for (const file of crawledFiles) {
     const sourcePath = file.relPath.split(path.sep).join("/");
@@ -357,7 +326,9 @@ async function main() {
       continue;
     }
 
-    const built = await buildTemplate(parsed, logoDecisionCache);
+    const built = toContentPayload(parsed);
+    built.template.meta.appVersion = appVersion;
+    built.template.meta.name = ensureString(parsed.name) || built.template.payload.content.titleText;
     const baseSlug = built.slug;
     const currentCount = slugUseCount.get(baseSlug) || 0;
     slugUseCount.set(baseSlug, currentCount + 1);

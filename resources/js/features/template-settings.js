@@ -1,5 +1,12 @@
 import { createTemplateSettingsSchema } from "./template-settings-schema.js";
 import { routeLegacyTemplateImport } from "./legacy-import.js";
+import {
+  fromTemplateDocument,
+  mergeDesignDocumentIntoSnapshot,
+  toRuntimeSettingsFromTemplateDocument,
+  toTemplateDocumentFromSettings,
+} from "./template-document-adapter.js";
+import { isTemplateDocument, TEMPLATE_DOCUMENT_TYPES } from "./template-document-schema.js";
 
 export function createTemplateSettingsFeature({
   appVersion,
@@ -49,6 +56,9 @@ export function createTemplateSettingsFeature({
   setIconStatus,
   getEl,
 }) {
+  let retainedIconLinkUrls = [];
+  let retainedIconLinkTexts = [];
+
   const { validateSettingsSchema } = createTemplateSettingsSchema({
     assertTextSizeWithinLimit,
     maxUploadSvgBytes,
@@ -89,6 +99,8 @@ export function createTemplateSettingsFeature({
         galleryItems: getIconMode() === "gallery" ? getIconGalleryItems() : [],
         galleryColumns: getIconGalleryColumns(),
         gallerySpacing: getIconGallerySpacing(),
+        linkUrls: retainedIconLinkUrls.slice(),
+        linkTexts: retainedIconLinkTexts.slice(),
       },
       fields: {
         titleText: getEl("titleText").value,
@@ -131,6 +143,11 @@ export function createTemplateSettingsFeature({
   // Non-destructive apply: omitted properties are intentionally left untouched.
   async function applySettings(settings, options = {}) {
     const source = options && typeof options === "object" ? options.source : "";
+    const preserveDesignNotes =
+      options && typeof options === "object" ? options.preserveDesignNotes === true : false;
+    const preserveVisibilityOnIconModeChange =
+      options && typeof options === "object" ? options.preserveVisibilityOnIconModeChange === true : false;
+    const preserveDesignRowPresentation = preserveDesignNotes && settings && settings.rowOrder === undefined;
     const legacyRouted = routeLegacyTemplateImport(settings, { source: source || "settings" });
     settings = legacyRouted.settings;
     validateSettingsSchema(settings, source || "settings");
@@ -147,10 +164,14 @@ export function createTemplateSettingsFeature({
           if (!id) {
             continue;
           }
-          importedCustomRows.push({ id, text: String(row.text || "") });
+          importedCustomRows.push({
+            id,
+            text: String(row.text || ""),
+            kind: String(row.kind || "").trim().toLowerCase() === "design-note" ? "design-note" : "custom-note",
+          });
         }
       } else if (typeof settings.fields.customText === "string") {
-        importedCustomRows.push({ id: "custom1", text: settings.fields.customText });
+        importedCustomRows.push({ id: "custom1", text: settings.fields.customText, kind: "custom-note" });
       }
     }
 
@@ -158,7 +179,7 @@ export function createTemplateSettingsFeature({
       for (const key of Object.keys(settings.rows)) {
         const normalized = normalizeCustomRowKey(key);
         if (normalized && !importedCustomRows.some((row) => row.id === normalized)) {
-          importedCustomRows.push({ id: normalized, text: "" });
+          importedCustomRows.push({ id: normalized, text: "", kind: "custom-note" });
         }
       }
     }
@@ -168,14 +189,87 @@ export function createTemplateSettingsFeature({
       for (const key of keys) {
         const normalized = normalizeCustomRowKey(key);
         if (normalized && !importedCustomRows.some((row) => row.id === normalized)) {
-          importedCustomRows.push({ id: normalized, text: "" });
+          importedCustomRows.push({ id: normalized, text: "", kind: "custom-note" });
         }
       }
     }
+
+    const preservedDesignRowStateById = new Map();
+    const preservedRowOrder = preserveDesignRowPresentation ? getOrderedRowKeys().slice() : [];
+    if (preserveDesignRowPresentation) {
+      const currentCustomRows = getCustomRowEntries();
+      const designNoteIds = new Set(
+        currentCustomRows
+          .filter((row) => String(row.kind || "").trim().toLowerCase() === "design-note")
+          .map((row) => row.id)
+      );
+      for (const rowId of designNoteIds) {
+        preservedDesignRowStateById.set(rowId, {
+          style: collectRowState(rowId),
+          visible: isRowVisible(rowId),
+        });
+      }
+    }
+
+    if (preserveDesignNotes) {
+      const existingRows = getCustomRowEntries();
+      const importedById = new Map(importedCustomRows.map((row) => [row.id, row]));
+      const mergedRows = [];
+      const mergedIds = new Set();
+      const usedImportedIds = new Set();
+
+      for (const row of existingRows) {
+        const kind = String(row.kind || "").trim().toLowerCase() === "design-note" ? "design-note" : "custom-note";
+        if (kind === "design-note") {
+          if (!mergedIds.has(row.id)) {
+            mergedRows.push({
+              id: row.id,
+              text: String(row.text || ""),
+              kind: "design-note",
+            });
+            mergedIds.add(row.id);
+          }
+          continue;
+        }
+
+        if (importedById.has(row.id) && !mergedIds.has(row.id)) {
+          mergedRows.push(importedById.get(row.id));
+          mergedIds.add(row.id);
+          usedImportedIds.add(row.id);
+        }
+      }
+
+      for (const row of importedCustomRows) {
+        if (usedImportedIds.has(row.id) || mergedIds.has(row.id)) {
+          continue;
+        }
+        mergedRows.push(row);
+        mergedIds.add(row.id);
+      }
+
+      importedCustomRows.length = 0;
+      importedCustomRows.push(...mergedRows);
+    }
+
     setBlockImportedRemoteCustomImages(
       source === "import" && importedCustomRows.some((row) => /<img\b/i.test(String(row.text || "")))
     );
     syncCustomRows(importedCustomRows);
+
+    if (preserveDesignRowPresentation) {
+      const activeKeys = new Set(getOrderedRowKeys());
+      const reorderKeys = preservedRowOrder.filter((key) => activeKeys.has(key));
+      if (reorderKeys.length > 0) {
+        reorderFieldsets(reorderKeys);
+      }
+      for (const [rowId, preserved] of preservedDesignRowStateById.entries()) {
+        if (!activeKeys.has(rowId)) {
+          continue;
+        }
+        applyRowState(rowId, preserved.style);
+        setRowVisibility(rowId, preserved.visible);
+      }
+    }
 
     if (Array.isArray(settings.rowOrder)) {
       const requestedOrder = settings.rowOrder.map((k) => normalizeRowKey(k)).filter(Boolean);
@@ -203,6 +297,12 @@ export function createTemplateSettingsFeature({
       if (typeof settings.icon.align === "string") {
         setSelectedRadioValue("iconAlign", settings.icon.align);
       }
+      if (Array.isArray(settings.icon.linkUrls)) {
+        retainedIconLinkUrls = settings.icon.linkUrls.map((item) => String(item || "").trim()).filter(Boolean);
+      }
+      if (Array.isArray(settings.icon.linkTexts)) {
+        retainedIconLinkTexts = settings.icon.linkTexts.map((item) => String(item || "").trim()).filter(Boolean);
+      }
       if (typeof settings.icon.mode === "string") {
         if (settings.icon.mode === "none") {
           // Legacy compatibility: the NONE mode was removed from the UI.
@@ -211,7 +311,7 @@ export function createTemplateSettingsFeature({
           setRowVisibility("icon", false);
         } else {
           setIconMode(settings.icon.mode);
-          if (settings.rowOrder === undefined) {
+          if (settings.rowOrder === undefined && !preserveVisibilityOnIconModeChange) {
             setRowVisibility("icon", true);
           }
         }
@@ -318,7 +418,36 @@ export function createTemplateSettingsFeature({
         throw new Error(`HTTP ${res.status}`);
       }
       const parsed = await res.json();
-      await applySettings(parsed, { source });
+      if (isTemplateDocument(parsed)) {
+        const { meta } = fromTemplateDocument(parsed, { source: source || "template document" });
+        if (meta.type === TEMPLATE_DOCUMENT_TYPES.SNAPSHOT) {
+          const runtimeSettings = toRuntimeSettingsFromTemplateDocument(parsed, { mode: "snapshot" });
+          await applySettings(runtimeSettings, { source });
+        } else if (meta.type === TEMPLATE_DOCUMENT_TYPES.CONTENT_TEMPLATE) {
+          const runtimeSettings = toRuntimeSettingsFromTemplateDocument(parsed, { mode: "content" });
+          await applySettings(runtimeSettings, {
+            source,
+            preserveDesignNotes: true,
+            preserveVisibilityOnIconModeChange: true,
+          });
+        } else if (meta.type === TEMPLATE_DOCUMENT_TYPES.DESIGN) {
+          const currentSnapshotDocument = toTemplateDocumentFromSettings(collectSettings(), {
+            appVersion,
+            type: TEMPLATE_DOCUMENT_TYPES.SNAPSHOT,
+            name: "Current Snapshot",
+          });
+          const mergedDocument = mergeDesignDocumentIntoSnapshot(currentSnapshotDocument, parsed, {
+            createMissingDesignNotes: true,
+            createMissingCustomNotes: false,
+          });
+          const runtimeSettings = toRuntimeSettingsFromTemplateDocument(mergedDocument, { mode: "snapshot" });
+          await applySettings(runtimeSettings, { source });
+        } else {
+          throw new Error(`Unsupported template document type "${meta.type}".`);
+        }
+      } else {
+        await applySettings(parsed, { source });
+      }
       return true;
     } catch {
       console.error(errorMessage);
@@ -354,10 +483,7 @@ export function createTemplateSettingsFeature({
       return undefined;
     }
     const nextIcon = {};
-    if (typeof icon.mode === "string") nextIcon.mode = icon.mode;
     if (typeof icon.align === "string") nextIcon.align = icon.align;
-    if (typeof icon.embedSvg === "boolean") nextIcon.embedSvg = icon.embedSvg;
-    if (typeof icon.resizeWithWsrv === "boolean") nextIcon.resizeWithWsrv = icon.resizeWithWsrv;
     if (typeof icon.scale === "string" || typeof icon.scale === "number") nextIcon.scale = icon.scale;
     if (typeof icon.colorVariant === "string") nextIcon.colorVariant = icon.colorVariant;
     if (icon.galleryColumns !== undefined) nextIcon.galleryColumns = icon.galleryColumns;
@@ -385,6 +511,32 @@ export function createTemplateSettingsFeature({
     if (rows) {
       next.rows = rows;
     }
+    if (source.fields && typeof source.fields === "object" && Array.isArray(source.fields.customRows)) {
+      const designRows = [];
+      for (const row of source.fields.customRows) {
+        if (!row || typeof row !== "object") {
+          continue;
+        }
+        const id = normalizeCustomRowKey(row.id || "");
+        if (!id) {
+          continue;
+        }
+        const kind = String(row.kind || "").trim().toLowerCase() === "design-note" ? "design-note" : "custom-note";
+        if (kind !== "design-note") {
+          continue;
+        }
+        designRows.push({
+          id,
+          text: typeof row.text === "string" ? row.text : "",
+          kind: "design-note",
+        });
+      }
+      if (designRows.length > 0) {
+        next.fields = {
+          customRows: designRows,
+        };
+      }
+    }
     return next;
   }
 
@@ -395,7 +547,22 @@ export function createTemplateSettingsFeature({
   async function applyDesignSettings(settings, options = {}) {
     const source = options && typeof options === "object" ? options.source : "design";
     const designSettings = toDesignSettings(settings);
-    await applySettings(designSettings, { source });
+    const currentSnapshotDocument = toTemplateDocumentFromSettings(collectSettings(), {
+      appVersion,
+      type: TEMPLATE_DOCUMENT_TYPES.SNAPSHOT,
+      name: "Current Snapshot",
+    });
+    const designDocument = toTemplateDocumentFromSettings(designSettings, {
+      appVersion,
+      type: TEMPLATE_DOCUMENT_TYPES.DESIGN,
+      name: "Current Design",
+    });
+    const mergedDocument = mergeDesignDocumentIntoSnapshot(currentSnapshotDocument, designDocument, {
+      createMissingDesignNotes: true,
+      createMissingCustomNotes: false,
+    });
+    const runtimeSettings = toRuntimeSettingsFromTemplateDocument(mergedDocument, { mode: "snapshot" });
+    await applySettings(runtimeSettings, { source });
   }
 
   async function fetchAndApplyDesign(path, source, errorMessage) {
@@ -405,7 +572,16 @@ export function createTemplateSettingsFeature({
         throw new Error(`HTTP ${res.status}`);
       }
       const parsed = await res.json();
-      await applyDesignSettings(parsed, { source });
+      if (isTemplateDocument(parsed)) {
+        const { meta } = fromTemplateDocument(parsed, { source: source || "design document" });
+        if (meta.type !== TEMPLATE_DOCUMENT_TYPES.DESIGN) {
+          throw new Error(`Unsupported design document type "${meta.type}".`);
+        }
+        const runtimeDesignSettings = toRuntimeSettingsFromTemplateDocument(parsed, { mode: "design" });
+        await applyDesignSettings(runtimeDesignSettings, { source });
+      } else {
+        await applyDesignSettings(parsed, { source });
+      }
       return true;
     } catch {
       console.error(errorMessage);

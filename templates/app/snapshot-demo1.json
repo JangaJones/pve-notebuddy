@@ -2,16 +2,18 @@
   "meta": {
     "formatVersion": 1,
     "appVersion": "1.5.0",
-    "type": "design",
-    "createdAt": "2026-04-18T23:24:44.455Z",
-    "name": "Default Design 2"
+    "type": "snapshot",
+    "createdAt": "2026-04-18T23:24:44.510Z",
+    "name": "Snapshot Demo 1"
   },
   "payload": {
     "schema": "template-document-payload-v1",
     "layout": {
       "blockOrder": [
         "row:icon",
+        "row:title",
         "row:fqdn",
+        "custom:custom1",
         "row:network",
         "row:config"
       ]
@@ -20,8 +22,9 @@
       {
         "id": "custom1",
         "kind": "custom-note",
-        "text": "",
+        "text": "<br><br><br>",
         "style": {
+          "emoji": "",
           "align": "left",
           "heading": "",
           "bold": false,
@@ -34,43 +37,49 @@
     "styling": {
       "theme": "dark",
       "icon": {
+        "mode": "external",
         "align": "center",
-        "scale": "146"
+        "scale": "60"
       },
       "rows": {
         "title": {
+          "emoji": "",
           "align": "center",
           "heading": "h2",
           "bold": false,
-          "italic": false,
+          "italic": true,
           "strong": false,
-          "code": false
+          "code": true
         },
         "fqdn": {
+          "emoji": "🔗",
           "align": "center",
-          "heading": "h2",
+          "heading": "h3",
           "bold": false,
           "italic": false,
           "strong": false,
           "code": false
         },
         "network": {
-          "align": "center",
-          "heading": "h2",
+          "emoji": "🖥️",
+          "align": "left",
+          "heading": "h3",
           "bold": false,
           "italic": false,
           "strong": false,
           "code": false
         },
         "config": {
-          "align": "center",
-          "heading": "h3",
+          "emoji": "",
+          "align": "left",
+          "heading": "",
           "bold": false,
           "italic": true,
-          "strong": false,
+          "strong": true,
           "code": true
         },
         "custom1": {
+          "emoji": "",
           "align": "left",
           "heading": "",
           "bold": false,
@@ -78,6 +87,31 @@
           "strong": false,
           "code": false
         }
+      }
+    },
+    "content": {
+      "titleText": "Demo Template 1",
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Demo Host",
+          "url": "https://example.local/"
+        }
+      ],
+      "networkEntries": [
+        {
+          "icon": "🖥️",
+          "value": "10.0.0.25:8443"
+        }
+      ],
+      "configLocations": [
+        {
+          "icon": "📁",
+          "value": "/etc/demo/service.yml"
+        }
+      ],
+      "icon": {
+        "align": "center"
       }
     }
   }

@@ -42,11 +42,16 @@ export function normalizeHiddenDemoTemplateIds(value) {
   if (!Array.isArray(value)) {
     return [];
   }
-  const allowed = new Set(["demo-template-1", "demo-template-2"]);
+  const idAlias = new Map([
+    ["demo-template-1", "snapshot-demo1"],
+    ["demo-template-2", "snapshot-demo2"],
+  ]);
+  const allowed = new Set(["snapshot-demo1", "snapshot-demo2"]);
   const seen = new Set();
   const out = [];
   for (const item of value) {
-    const id = String(item || "");
+    const rawId = String(item || "");
+    const id = idAlias.get(rawId) || rawId;
     if (!allowed.has(id) || seen.has(id)) {
       continue;
     }

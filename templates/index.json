@@ -2185,12 +2185,6 @@
       "tag": "PVE Scripts"
     },
     {
-      "name": "PVE LXC Execute",
-      "file": "community-scripts/execute.json",
-      "source": "community-scripts/execute.json",
-      "tag": "PVE Scripts"
-    },
-    {
       "name": "PVE Netdata",
       "file": "community-scripts/netdata.json",
       "source": "community-scripts/netdata.json",

@@ -2,26 +2,28 @@
   "meta": {
     "formatVersion": 1,
     "appVersion": "1.5.0",
-    "type": "design",
-    "createdAt": "2026-04-18T23:24:44.455Z",
-    "name": "Default Design 2"
+    "type": "snapshot",
+    "createdAt": "2026-04-18T23:24:44.523Z",
+    "name": "Snapshot Demo 2"
   },
   "payload": {
     "schema": "template-document-payload-v1",
     "layout": {
       "blockOrder": [
-        "row:icon",
+        "row:title",
         "row:fqdn",
         "row:network",
-        "row:config"
+        "row:config",
+        "custom:custom1"
       ]
     },
     "customBlocks": [
       {
         "id": "custom1",
         "kind": "custom-note",
-        "text": "",
+        "text": "<br>This is a demonstrative note.<p>You can use <code>HTML</code> tags and links in custom rows.</p>",
         "style": {
+          "emoji": "",
           "align": "left",
           "heading": "",
           "bold": false,
@@ -34,12 +36,12 @@
     "styling": {
       "theme": "dark",
       "icon": {
-        "align": "center",
-        "scale": "146"
+        "mode": "external"
       },
       "rows": {
         "title": {
-          "align": "center",
+          "emoji": "",
+          "align": "left",
           "heading": "h2",
           "bold": false,
           "italic": false,
@@ -47,30 +49,34 @@
           "code": false
         },
         "fqdn": {
-          "align": "center",
-          "heading": "h2",
+          "emoji": "🔗",
+          "align": "left",
+          "heading": "h3",
           "bold": false,
           "italic": false,
           "strong": false,
           "code": false
         },
         "network": {
-          "align": "center",
-          "heading": "h2",
+          "emoji": "🖥️",
+          "align": "left",
+          "heading": "h3",
           "bold": false,
           "italic": false,
           "strong": false,
           "code": false
         },
         "config": {
-          "align": "center",
-          "heading": "h3",
+          "emoji": "",
+          "align": "left",
+          "heading": "",
           "bold": false,
           "italic": true,
-          "strong": false,
+          "strong": true,
           "code": true
         },
         "custom1": {
+          "emoji": "",
           "align": "left",
           "heading": "",
           "bold": false,
@@ -78,6 +84,31 @@
           "strong": false,
           "code": false
         }
+      }
+    },
+    "content": {
+      "titleText": "Demo Template 2",
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Project Page",
+          "url": "https://www.markdownguide.org/basic-syntax/"
+        }
+      ],
+      "networkEntries": [
+        {
+          "icon": "🖥️",
+          "value": "192.168.1.50"
+        }
+      ],
+      "configLocations": [
+        {
+          "icon": "📁",
+          "value": "/opt/demo/settings.env"
+        }
+      ],
+      "icon": {
+        "align": "center"
       }
     }
   }

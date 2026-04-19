@@ -206,6 +206,46 @@ function normalizeRowOrderObject(rawRowOrder) {
   return out;
 }
 
+function filterLayoutRowsByCustomBlocks(rowOrder = {}, customBlocks = []) {
+  const out = {};
+  const customIds = new Set(
+    Array.isArray(customBlocks)
+      ? customBlocks.map((block) => normalizeCustomRowKey(block && block.id)).filter(Boolean)
+      : []
+  );
+  for (const [rawRowKey, rawVisible] of Object.entries(rowOrder || {})) {
+    const rowKey = blockIdToRowKey(rowKeyToBlockId(rawRowKey));
+    if (!rowKey) {
+      continue;
+    }
+    if (!isStaticRowKey(rowKey) && !customIds.has(rowKey)) {
+      continue;
+    }
+    out[rowKey] = rawVisible === "0" || rawVisible === 0 || rawVisible === false ? "0" : "1";
+  }
+  return out;
+}
+
+function filterRowsByCustomBlocks(rows = {}, customBlocks = []) {
+  const out = {};
+  const customIds = new Set(
+    Array.isArray(customBlocks)
+      ? customBlocks.map((block) => normalizeCustomRowKey(block && block.id)).filter(Boolean)
+      : []
+  );
+  for (const [rawRowKey, rawRowStyle] of Object.entries(rows || {})) {
+    const rowKey = blockIdToRowKey(rowKeyToBlockId(rawRowKey));
+    if (!rowKey) {
+      continue;
+    }
+    if (!isStaticRowKey(rowKey) && !customIds.has(rowKey)) {
+      continue;
+    }
+    out[rowKey] = pickRowStyle(rawRowStyle);
+  }
+  return out;
+}
+
 function orderCustomRowsByLayout(rowOrder = {}, customRows = []) {
   const indexById = new Map();
   let index = 0;
@@ -418,10 +458,11 @@ function normalizePayload(payload, type = TEMPLATE_DOCUMENT_TYPES.SNAPSHOT) {
         : customBlocksAll;
   const rawLayoutOrder = isPlainObject(source.layout) && Array.isArray(source.layout.blockOrder) ? source.layout.blockOrder : [];
   const rawLayoutRowOrder = isPlainObject(source.layout) ? source.layout.rowOrder : undefined;
-  const normalizedRowOrder = normalizeRowOrderObject(rawLayoutRowOrder !== undefined ? rawLayoutRowOrder : source.rowOrder);
+  const normalizedRowOrderRaw = normalizeRowOrderObject(rawLayoutRowOrder !== undefined ? rawLayoutRowOrder : source.rowOrder);
+  const normalizedRowOrder = filterLayoutRowsByCustomBlocks(normalizedRowOrderRaw, customBlocks);
   const hasExplicitLegacyRowOrder =
     Object.keys(normalizedRowOrder).length > 0;
-  const blockOrder = normalizeBlockOrder(
+  const blockOrderRaw = normalizeBlockOrder(
     rawLayoutOrder,
     normalizedRowOrder,
     customBlocks,
@@ -432,8 +473,16 @@ function normalizePayload(payload, type = TEMPLATE_DOCUMENT_TYPES.SNAPSHOT) {
         !hasExplicitLegacyRowOrder,
     }
   );
+  const customBlockIds = new Set(customBlocks.map((block) => block.id));
+  const blockOrder = blockOrderRaw.filter((blockId) => {
+    const rowKey = blockIdToRowKey(blockId);
+    if (!rowKey) {
+      return false;
+    }
+    return isStaticRowKey(rowKey) || customBlockIds.has(rowKey);
+  });
 
-  const stylingRows = normalizeRowsObject(rows);
+  const stylingRows = filterRowsByCustomBlocks(normalizeRowsObject(rows), customBlocks);
   for (const block of customBlocks) {
     if (!stylingRows[block.id]) {
       stylingRows[block.id] = pickRowStyle(block.style);
@@ -528,7 +577,17 @@ export function extractRuntimeSettingsFromTemplateDocument(document, options = {
     text: block.text || "",
     kind: block.kind === "design-note" ? "design-note" : "custom-note",
   }));
-  const layoutRowOrder = normalizeRowOrderObject(payload.layout?.rowOrder);
+  const customRowIdSet = new Set(allCustomRowsRaw.map((row) => row.id));
+  for (const rowKey of Object.keys(rows)) {
+    const customId = normalizeCustomRowKey(rowKey);
+    if (!customId) {
+      continue;
+    }
+    if (!customRowIdSet.has(customId)) {
+      delete rows[rowKey];
+    }
+  }
+  const layoutRowOrder = filterLayoutRowsByCustomBlocks(normalizeRowOrderObject(payload.layout?.rowOrder), payload.customBlocks);
   const allCustomRows = orderCustomRowsByLayout(layoutRowOrder, allCustomRowsRaw);
   const rowOrder = {};
   const allKnownRowKeys = [...Object.keys(layoutRowOrder), ...STATIC_ROW_KEYS, ...allCustomRows.map((row) => row.id)];
@@ -621,7 +680,6 @@ export function mergeDesignIntoSnapshotDocument(snapshotDocument, designDocument
   assertTemplateDocument(designDocument, "design document");
 
   const createMissingDesignNotes = options.createMissingDesignNotes !== false;
-  const createMissingCustomNotes = options.createMissingCustomNotes === true;
 
   const snapshotPayload = normalizePayload(snapshotDocument.payload, TEMPLATE_DOCUMENT_TYPES.SNAPSHOT);
   const designPayload = normalizePayload(designDocument.payload, TEMPLATE_DOCUMENT_TYPES.DESIGN);
@@ -630,102 +688,150 @@ export function mergeDesignIntoSnapshotDocument(snapshotDocument, designDocument
   const designCustom = getCustomBlockMap(designPayload);
   const snapshotOrder = Array.isArray(snapshotPayload.layout.blockOrder) ? snapshotPayload.layout.blockOrder : [];
   const designOrder = Array.isArray(designPayload.layout.blockOrder) ? designPayload.layout.blockOrder : [];
+  const snapshotRowOrder = normalizeRowOrderObject(snapshotPayload.layout?.rowOrder);
+  const designRowOrder = normalizeRowOrderObject(designPayload.layout?.rowOrder);
+
+  // Preserve only non-design-note content rows from snapshot.
+  // Design-notes are fully replaced by the loaded design.
+  const mergedCustom = new Map();
+  for (const [id, block] of snapshotCustom.entries()) {
+    if (block.kind === "design-note") {
+      continue;
+    }
+    mergedCustom.set(id, cloneJson(block));
+  }
+
+  const occupiedCustomIds = new Set(mergedCustom.keys());
+  function getNextFreeCustomId() {
+    let index = 1;
+    while (occupiedCustomIds.has(`custom${index}`)) {
+      index += 1;
+    }
+    return `custom${index}`;
+  }
+
+  // Map design-note IDs into the merged snapshot.
+  // If a design-note ID collides with an existing custom-note, allocate a new ID
+  // so custom-note content text is never overwritten.
+  const designIdToMergedId = new Map();
+  if (createMissingDesignNotes) {
+    for (const [designId, designBlock] of designCustom.entries()) {
+      if (designBlock.kind !== "design-note") {
+        continue;
+      }
+      const targetId = occupiedCustomIds.has(designId) ? getNextFreeCustomId() : designId;
+      occupiedCustomIds.add(targetId);
+      designIdToMergedId.set(designId, targetId);
+      mergedCustom.set(targetId, {
+        ...cloneJson(designBlock),
+        id: targetId,
+      });
+    }
+  }
+
+  function normalizeMergedCustomRowKey(rawRowKey, source = "snapshot") {
+    const rowKey = blockIdToRowKey(rowKeyToBlockId(rawRowKey));
+    if (!rowKey) {
+      return "";
+    }
+    if (isStaticRowKey(rowKey)) {
+      return rowKey;
+    }
+    const id = normalizeCustomRowKey(rowKey);
+    if (!id) {
+      return "";
+    }
+    if (source === "design") {
+      if (designIdToMergedId.has(id)) {
+        return designIdToMergedId.get(id);
+      }
+      return mergedCustom.has(id) ? id : "";
+    }
+    return mergedCustom.has(id) ? id : "";
+  }
+
+  const mergedRowOrder = {};
+  function setMergedRowOrder(rawRowKey, rawVisible, source = "snapshot") {
+    const rowKey = normalizeMergedCustomRowKey(rawRowKey, source);
+    if (!rowKey || rowKey in mergedRowOrder) {
+      return;
+    }
+    mergedRowOrder[rowKey] = rawVisible === "0" || rawVisible === 0 || rawVisible === false ? "0" : "1";
+  }
+
+  for (const [rowKey, visible] of Object.entries(designRowOrder)) {
+    setMergedRowOrder(rowKey, visible, "design");
+  }
+  for (const [rowKey, visible] of Object.entries(snapshotRowOrder)) {
+    setMergedRowOrder(rowKey, visible, "snapshot");
+  }
+
+  // Ensure static rows are always represented in rowOrder.
+  for (const staticKey of STATIC_ROW_KEYS) {
+    if (staticKey in mergedRowOrder) {
+      continue;
+    }
+    if (staticKey in designRowOrder) {
+      mergedRowOrder[staticKey] = designRowOrder[staticKey];
+    } else if (staticKey in snapshotRowOrder) {
+      mergedRowOrder[staticKey] = snapshotRowOrder[staticKey];
+    } else {
+      mergedRowOrder[staticKey] = "1";
+    }
+  }
+
+  // Ensure all merged custom rows exist in rowOrder.
+  const designVisibleIds = new Set(
+    designOrder
+      .map((blockId) => blockIdToRowKey(blockId))
+      .map((rowKey) => normalizeCustomRowKey(rowKey))
+      .filter(Boolean)
+      .map((id) => designIdToMergedId.get(id) || id)
+  );
+  const snapshotVisibleIds = new Set(
+    snapshotOrder
+      .map((blockId) => blockIdToRowKey(blockId))
+      .map((rowKey) => normalizeCustomRowKey(rowKey))
+      .filter(Boolean)
+  );
+  for (const id of mergedCustom.keys()) {
+    if (id in mergedRowOrder) {
+      continue;
+    }
+    if (designVisibleIds.has(id)) {
+      mergedRowOrder[id] = "1";
+    } else if (id in snapshotRowOrder) {
+      mergedRowOrder[id] = snapshotRowOrder[id];
+    } else if (snapshotVisibleIds.has(id)) {
+      mergedRowOrder[id] = "1";
+    } else {
+      mergedRowOrder[id] = "0";
+    }
+  }
 
   const mergedOrder = [];
   const used = new Set();
-  const mergedCustom = new Map();
-
   function includeBlock(blockId) {
     const normalized = String(blockId || "").trim().toLowerCase();
     if (!normalized || used.has(normalized)) {
       return;
     }
+    const rowKey = blockIdToRowKey(normalized);
+    if (!rowKey) {
+      return;
+    }
     used.add(normalized);
     mergedOrder.push(normalized);
   }
-
-  for (const blockId of designOrder) {
-    const rowKey = blockIdToRowKey(blockId);
-    if (!rowKey) {
+  for (const [rowKey, visible] of Object.entries(mergedRowOrder)) {
+    const isVisible = !(visible === "0" || visible === 0 || visible === false);
+    if (!isVisible) {
       continue;
     }
-
-    if (isStaticRowKey(rowKey)) {
-      includeBlock(`row:${rowKey}`);
-      continue;
-    }
-
-    const id = normalizeCustomRowKey(rowKey);
-    if (!id) {
-      continue;
-    }
-    const existingSnapshot = snapshotCustom.get(id);
-    const existingDesign = designCustom.get(id);
-    if (existingSnapshot) {
-      if (existingDesign && existingDesign.kind === "design-note") {
-        mergedCustom.set(id, cloneJson(existingDesign));
-      } else {
-        mergedCustom.set(id, cloneJson(existingSnapshot));
-      }
-      includeBlock(`custom:${id}`);
-      continue;
-    }
-
-    if (!existingDesign) {
-      continue;
-    }
-
-    const isDesignNote = existingDesign.kind === "design-note";
-    if ((isDesignNote && createMissingDesignNotes) || (!isDesignNote && createMissingCustomNotes)) {
-      mergedCustom.set(id, cloneJson(existingDesign));
-      includeBlock(`custom:${id}`);
-    }
+    includeBlock(rowKeyToBlockId(rowKey));
   }
-
-  for (const blockId of snapshotOrder) {
-    const rowKey = blockIdToRowKey(blockId);
-    if (!rowKey || isStaticRowKey(rowKey)) {
-      continue;
-    }
-    const id = normalizeCustomRowKey(rowKey);
-    if (!id || mergedCustom.has(id)) {
-      continue;
-    }
-    const existing = snapshotCustom.get(id);
-    if (!existing) {
-      continue;
-    }
-    const designVersion = designCustom.get(id);
-    if (designVersion && designVersion.kind === "design-note") {
-      // This ID is owned by design-note data; keep it from design (possibly hidden),
-      // not from snapshot custom-note content.
-      continue;
-    }
-    if (existing.kind === "design-note") {
-      continue;
-    }
-    mergedCustom.set(id, cloneJson(existing));
-    includeBlock(`custom:${id}`);
-  }
-
-  // Preserve hidden design notes (or any design-note not present in design blockOrder)
-  // so they can still round-trip with rowOrder visibility "0".
-  for (const [id, designBlock] of designCustom.entries()) {
-    if (mergedCustom.has(id)) {
-      const existingMerged = mergedCustom.get(id);
-      if (existingMerged && existingMerged.kind !== "design-note") {
-        mergedCustom.set(id, cloneJson(designBlock));
-      }
-      continue;
-    }
-    if (designBlock.kind !== "design-note" || !createMissingDesignNotes) {
-      continue;
-    }
-    mergedCustom.set(id, cloneJson(designBlock));
-  }
-
   for (const blockId of DEFAULT_BLOCK_ORDER) {
-    if (!used.has(blockId)) {
+    if (!used.has(blockId) && mergedRowOrder[blockIdToRowKey(blockId)] !== "0") {
       includeBlock(blockId);
     }
   }
@@ -733,7 +839,12 @@ export function mergeDesignIntoSnapshotDocument(snapshotDocument, designDocument
   const mergedRows = cloneJson(snapshotPayload.styling.rows || {});
   const designRows = isPlainObject(designPayload.styling?.rows) ? designPayload.styling.rows : {};
   for (const [rawRowKey, rawRowStyle] of Object.entries(designRows)) {
-    const rowKey = blockIdToRowKey(rowKeyToBlockId(rawRowKey));
+    const sourceRowKey = blockIdToRowKey(rowKeyToBlockId(rawRowKey));
+    if (!sourceRowKey) {
+      continue;
+    }
+    const customId = normalizeCustomRowKey(sourceRowKey);
+    const rowKey = customId ? designIdToMergedId.get(customId) || sourceRowKey : sourceRowKey;
     if (!rowKey || !isPlainObject(rawRowStyle)) {
       continue;
     }
@@ -742,6 +853,15 @@ export function mergeDesignIntoSnapshotDocument(snapshotDocument, designDocument
   for (const block of mergedCustom.values()) {
     if (!isPlainObject(mergedRows[block.id])) {
       mergedRows[block.id] = pickRowStyle(block.style);
+    }
+  }
+  for (const rowKey of Object.keys(mergedRows)) {
+    const customId = normalizeCustomRowKey(rowKey);
+    if (!customId) {
+      continue;
+    }
+    if (!mergedCustom.has(customId)) {
+      delete mergedRows[rowKey];
     }
   }
 
@@ -760,39 +880,6 @@ export function mergeDesignIntoSnapshotDocument(snapshotDocument, designDocument
       rows: mergedRows,
     },
   };
-
-  const designRowOrder = normalizeRowOrderObject(designPayload.layout?.rowOrder);
-  const snapshotRowOrder = normalizeRowOrderObject(snapshotPayload.layout?.rowOrder);
-  const visibleSet = new Set(
-    mergedOrder
-      .map((blockId) => blockIdToRowKey(blockId))
-      .filter(Boolean)
-  );
-  const orderedKeys = [];
-  const seenKeys = new Set();
-  function pushRowKey(rowKey) {
-    if (!rowKey || seenKeys.has(rowKey)) {
-      return;
-    }
-    seenKeys.add(rowKey);
-    orderedKeys.push(rowKey);
-  }
-  for (const rowKey of Object.keys(designRowOrder)) pushRowKey(rowKey);
-  for (const rowKey of Object.keys(snapshotRowOrder)) pushRowKey(rowKey);
-  for (const blockId of mergedOrder) pushRowKey(blockIdToRowKey(blockId));
-
-  const mergedRowOrder = {};
-  for (const rowKey of orderedKeys) {
-    if (visibleSet.has(rowKey)) {
-      mergedRowOrder[rowKey] = "1";
-    } else if (rowKey in designRowOrder) {
-      mergedRowOrder[rowKey] = designRowOrder[rowKey];
-    } else if (rowKey in snapshotRowOrder) {
-      mergedRowOrder[rowKey] = snapshotRowOrder[rowKey];
-    } else {
-      mergedRowOrder[rowKey] = "0";
-    }
-  }
   if (Object.keys(mergedRowOrder).length > 0) {
     mergedPayload.layout.rowOrder = mergedRowOrder;
   }

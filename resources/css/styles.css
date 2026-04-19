@@ -89,10 +89,57 @@
   --ctrl-bg: rgba(13, 24, 43, 0.78);
   --ctrl-bg-hover: rgba(18, 31, 55, 0.9);
   --ctrl-text: #c8d8f1;
+  --ctrl-border-hover: #63b7ee;
+  --scrollbar-size: 10px;
+  --scrollbar-track: transparent;
+  --scrollbar-thumb: var(--ctrl-border);
+  --scrollbar-thumb-hover: var(--ctrl-border-hover);
 }
 
 * {
   box-sizing: border-box;
+}
+
+.workspace-shell * {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+.workspace-shell *:hover {
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+.workspace-shell *::-webkit-scrollbar {
+  width: var(--scrollbar-size);
+  height: var(--scrollbar-size);
+}
+
+.workspace-shell *::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 999px;
+}
+
+.workspace-shell *:hover::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+.workspace-shell *::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  background-color: transparent;
+}
+
+.workspace-shell *:hover::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb);
+}
+
+.workspace-shell *:hover::-webkit-scrollbar-thumb:hover {
+  background-color: var(--scrollbar-thumb-hover);
+}
+
+.workspace-shell *::-webkit-scrollbar-corner {
+  background: transparent;
 }
 
 /* ===== App Shell & Page Layout ===== */
@@ -1528,7 +1575,7 @@ textarea:focus {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 6px;
-  align-items: start;
+  align-items: center;
 }
 
 .custom-note-editor textarea {
@@ -1539,6 +1586,7 @@ textarea:focus {
   display: grid;
   gap: 6px;
   align-content: center;
+  align-self: center;
   justify-items: stretch;
 }
 
@@ -1860,6 +1908,64 @@ button:disabled {
   font-size: 13px;
   font-weight: 300;
   line-height: 18.2px;
+}
+
+.preview-shell.dark .preview-card {
+  scrollbar-width: auto;
+  scrollbar-color: #404040 #333333;
+}
+
+.preview-shell.dark .preview-card::-webkit-scrollbar {
+  width: 15px;
+  height: 15px;
+}
+
+.preview-shell.dark .preview-card::-webkit-scrollbar-track {
+  background: #333333;
+}
+
+.preview-shell.dark .preview-card::-webkit-scrollbar-thumb {
+  background-color: #404040;
+  border: 0;
+  filter: brightness(1);
+}
+
+.preview-shell.dark .preview-card::-webkit-scrollbar-thumb:hover {
+  background-color: #404040;
+  filter: brightness(2);
+}
+
+.preview-shell.dark .preview-card::-webkit-scrollbar-corner {
+  background: #333333;
+}
+
+.preview-shell.light .preview-card {
+  scrollbar-width: auto;
+  scrollbar-color: #cfcfcf #f5f5f5;
+}
+
+.preview-shell.light .preview-card::-webkit-scrollbar {
+  width: 15px;
+  height: 15px;
+}
+
+.preview-shell.light .preview-card::-webkit-scrollbar-track {
+  background: #f5f5f5;
+}
+
+.preview-shell.light .preview-card::-webkit-scrollbar-thumb {
+  background-color: #cfcfcf;
+  border: 0;
+  filter: brightness(1);
+}
+
+.preview-shell.light .preview-card::-webkit-scrollbar-thumb:hover {
+  background-color: #cfcfcf;
+  filter: brightness(0.7);
+}
+
+.preview-shell.light .preview-card::-webkit-scrollbar-corner {
+  background: #f5f5f5;
 }
 
 .preview-shell.dark .preview-card {
@@ -2408,6 +2514,27 @@ body.sidebar-collapsed .sidebar-icon-rail .sidebar-tab.active .sidebar-tab-icon 
   overflow: visible;
 }
 
+#sidebarPanelTemplates .sidebar-panel-body {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding-bottom: 0;
+}
+
+#sidebarPanelTemplates .templates-section:last-child {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+#sidebarPanelTemplates .templates-section:last-child .local-templates {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
 .sidebar-preset-group {
   margin-bottom: 0;
 }
@@ -2577,9 +2704,13 @@ button.design-slot-delete:not(:disabled):hover {
 .local-template-list {
   display: grid;
   gap: 0.38rem;
-  max-height: 38vh;
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: none;
   overflow: auto;
-  padding-right: 0.1rem;
+  margin-right: -0.78rem;
+  padding-right: 0;
+  padding-bottom: 0.36rem;
 }
 
 .local-template-empty {
@@ -2970,8 +3101,11 @@ body.preview-resizing {
   border: 0;
   border-radius: 0;
   background: transparent;
-  padding: 0.9rem var(--preview-panel-padding-x) 1rem;
-  overflow: auto;
+  padding: 0.9rem;
+  padding-right: 0.1rem;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
 }
 
 .workspace-preview-sidebar .preview-wrap {
@@ -2988,7 +3122,7 @@ body.preview-resizing {
 
 .workspace-preview-sidebar #output {
   flex: 1 1 auto;
-  min-height: 220px;
+  min-height: 0;
   border-radius: 0;
 }
 

@@ -352,7 +352,7 @@ export function createRowEditorFeature({
       if (!(control instanceof HTMLInputElement || control instanceof HTMLSelectElement || control instanceof HTMLTextAreaElement || control instanceof HTMLButtonElement)) {
         continue;
       }
-      if (control.classList.contains("row-move") || control.classList.contains("row-visibility") || control.classList.contains("row-remove")) {
+      if (control.classList.contains("row-move") || control.classList.contains("row-visibility")) {
         control.disabled = false;
         continue;
       }

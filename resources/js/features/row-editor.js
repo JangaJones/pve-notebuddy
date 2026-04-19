@@ -168,7 +168,8 @@ export function createRowEditorFeature({
     return `custom${maxExisting + 1}`;
   }
 
-  function styleToolbarHtml(prefix, defaults) {
+  function styleToolbarHtml(prefix, defaults, options = {}) {
+    const includeCustomKindToggle = options.includeCustomKindToggle === true;
     const headingOptions = [
       { tag: "h1", iconClass: "chip-icon-h1" },
       { tag: "h2", iconClass: "chip-icon-h2" },
@@ -206,11 +207,25 @@ export function createRowEditorFeature({
       })
       .join("");
 
+    const customKindToggle = includeCustomKindToggle
+      ? `
+    <div class="tool-set custom-kind-toggle-set">
+      <div class="tool-group">
+        <button type="button" class="tool-chip format-chip custom-kind-toggle-btn" data-custom-kind-toggle="1" aria-label="Switch to Custom Design Code" title="Switch to Custom Design Code" aria-pressed="false">
+          <span class="action-icon action-icon-format-paint-off" data-custom-kind-icon="1" aria-hidden="true"></span>
+          <span class="sr-only" data-custom-kind-sr="1">Switch to Custom Design Code</span>
+        </button>
+      </div>
+    </div>
+  `
+      : "";
+
     return `
-    <div class="tool-set">
+    <div class="tool-set align-tool-set">
       <div class="tool-group">${align}</div>
     </div>
-    <div class="tool-set">
+    ${customKindToggle}
+    <div class="tool-set format-tool-set">
       <div class="tool-group">${heading}${toggles}</div>
     </div>
   `;
@@ -357,6 +372,9 @@ export function createRowEditorFeature({
         continue;
       }
       control.disabled = !visible;
+    }
+    if (isCustomRowKey(rowKey)) {
+      setCustomRowKind(fieldset, fieldset.getAttribute("data-custom-kind"));
     }
   }
 
@@ -642,10 +660,13 @@ export function createRowEditorFeature({
     const toggle = fieldset.querySelector('button[data-custom-kind-toggle="1"]');
     const icon = fieldset.querySelector('[data-custom-kind-icon="1"]');
     const srLabel = fieldset.querySelector('[data-custom-kind-sr="1"]');
+    const isDesignNote = kind === "design-note";
     if (toggle instanceof HTMLButtonElement) {
       const nextAction = kind === "design-note" ? "Switch to Custom Note" : "Switch to Custom Design Code";
       toggle.setAttribute("aria-label", nextAction);
       toggle.setAttribute("title", nextAction);
+      toggle.setAttribute("aria-pressed", isDesignNote ? "true" : "false");
+      toggle.classList.toggle("is-active", isDesignNote);
     }
     if (srLabel instanceof HTMLElement) {
       srLabel.textContent = kind === "design-note" ? "Switch to Custom Note" : "Switch to Custom Design Code";
@@ -653,6 +674,13 @@ export function createRowEditorFeature({
     if (icon instanceof HTMLElement) {
       icon.classList.toggle("action-icon-format-paint", kind === "design-note");
       icon.classList.toggle("action-icon-format-paint-off", kind !== "design-note");
+    }
+    const isRowVisible = fieldset.getAttribute("data-row-visible") !== "0";
+    const styleInputs = fieldset.querySelectorAll(".format-tool-set input");
+    for (const input of styleInputs) {
+      if (input instanceof HTMLInputElement) {
+        input.disabled = isDesignNote || !isRowVisible;
+      }
     }
   }
 
@@ -724,9 +752,9 @@ export function createRowEditorFeature({
     controls.className = "row-grid row-controls no-icon";
 
     const tools = document.createElement("div");
-    tools.className = "style-tools";
+    tools.className = "style-tools custom-row-style-tools";
     tools.setAttribute("data-prefix", key);
-    tools.innerHTML = styleToolbarHtml(key, customRowDefaults);
+    tools.innerHTML = styleToolbarHtml(key, customRowDefaults, { includeCustomKindToggle: true });
 
     const reorder = document.createElement("div");
     reorder.className = "row-reorder";
@@ -754,24 +782,6 @@ export function createRowEditorFeature({
     const controlsWrap = document.createElement("div");
     controlsWrap.className = "custom-note-controls";
 
-    const kindToggleWrap = document.createElement("div");
-    kindToggleWrap.className = "custom-kind-toggle";
-
-    const kindToggle = document.createElement("button");
-    kindToggle.type = "button";
-    kindToggle.className = "row-remove custom-kind-toggle-btn";
-    kindToggle.setAttribute("data-custom-kind-toggle", "1");
-    const kindIcon = document.createElement("span");
-    kindIcon.className = "action-icon action-icon-format-paint-off";
-    kindIcon.setAttribute("data-custom-kind-icon", "1");
-    kindIcon.setAttribute("aria-hidden", "true");
-    const kindSr = document.createElement("span");
-    kindSr.className = "sr-only";
-    kindSr.setAttribute("data-custom-kind-sr", "1");
-    kindSr.textContent = "Switch to Custom Design Code";
-    kindToggle.append(kindIcon, kindSr);
-    kindToggleWrap.append(kindToggle);
-
     const remove = document.createElement("button");
     remove.type = "button";
     remove.className = "row-remove icon-delete custom-note-delete";
@@ -779,17 +789,19 @@ export function createRowEditorFeature({
     remove.title = "Delete row";
     remove.innerHTML = '<span class="action-icon action-icon-delete" aria-hidden="true"></span><span class="sr-only">Delete row</span>';
 
-    controlsWrap.append(kindToggleWrap, remove);
+    controlsWrap.append(remove);
     editor.append(textarea, controlsWrap);
     fields.append(editor);
     fieldset.append(legend, controls, fields);
-    kindToggle.addEventListener("click", () => {
-      const current = normalizeCustomRowKind(fieldset.getAttribute("data-custom-kind"));
-      setCustomRowKind(fieldset, current === "design-note" ? "custom-note" : "design-note");
-      renderOutput();
-    });
+    const kindToggle = tools.querySelector('button[data-custom-kind-toggle="1"]');
+    if (kindToggle instanceof HTMLButtonElement) {
+      kindToggle.addEventListener("click", () => {
+        const current = normalizeCustomRowKind(fieldset.getAttribute("data-custom-kind"));
+        setCustomRowKind(fieldset, current === "design-note" ? "custom-note" : "design-note");
+        renderOutput();
+      });
+    }
     setCustomRowKind(fieldset, initialKind);
-    bindStyleConflictsForPrefix(key);
     return fieldset;
   }
 
@@ -803,6 +815,7 @@ export function createRowEditorFeature({
       return null;
     }
     form.append(fieldset);
+    bindStyleConflictsForPrefix(key);
     updateRowVisibilityUi(key);
     return fieldset;
   }

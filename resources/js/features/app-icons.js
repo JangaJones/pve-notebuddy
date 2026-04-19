@@ -480,7 +480,7 @@ export function createAppIconsFeature({
     const input = document.createElement("input");
     input.type = "url";
     input.className = "icon-gallery-url";
-    input.placeholder = "ICON IMAGE URL";
+    input.placeholder = "Image URL";
     input.value = String(initialValue || "").trim();
 
     const variants = document.createElement("span");
@@ -940,7 +940,7 @@ export function createAppIconsFeature({
       const items = getGalleryItems().filter((value) => isAllowedIconImageUrl(value));
       if (items.length === 0) {
         setIconResolvedSrc("");
-        setIconStatus("Gallery mode: add one or more external image URLs.");
+        setIconStatus("Add a collection of external images.");
         renderOutput();
         return;
       }
@@ -1000,7 +1000,7 @@ export function createAppIconsFeature({
     clearEmbedOversizeLockIfUrlChanged(url);
     if (!url) {
       setIconResolvedSrc("");
-      setIconStatus("Add an external image URL.");
+      setIconStatus("Add an external image.");
       renderOutput();
       return;
     }

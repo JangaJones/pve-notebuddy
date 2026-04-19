@@ -409,7 +409,11 @@ export function createNoteBuilderFeature({
         continue;
       }
       const format = getFormat(customRow.id);
-      byKey[customRow.id] = [buildTextRow({ align: format.align, icon: "", textHtml: sanitizeCustomHtml(text, true), format })];
+      const effectiveFormat =
+        String(customRow.kind || "").trim().toLowerCase() === "design-note"
+          ? { ...format, tag: "none", bold: false, italic: false, strong: false, code: false }
+          : format;
+      byKey[customRow.id] = [buildTextRow({ align: effectiveFormat.align, icon: "", textHtml: sanitizeCustomHtml(text, true), format: effectiveFormat })];
     }
 
     for (const key of getOrderedRowKeys()) {

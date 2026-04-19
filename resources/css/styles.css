@@ -1038,6 +1038,10 @@ textarea:focus {
   align-items: start;
 }
 
+.custom-row-style-tools {
+  position: relative;
+}
+
 .style-tools .tool-set:first-child {
   justify-self: start;
 }
@@ -1052,6 +1056,22 @@ textarea:focus {
 
 .style-tools .tool-set:last-child .tool-group {
   justify-content: center;
+}
+
+.custom-row-style-tools .custom-kind-toggle-set {
+  position: absolute;
+  top: 0;
+  left: 21%;
+  z-index: 1;
+}
+
+.custom-row-style-tools .custom-kind-toggle-set .tool-group {
+  justify-content: center;
+}
+
+.group[data-custom-kind="design-note"] .custom-row-style-tools .format-tool-set {
+  visibility: hidden;
+  pointer-events: none;
 }
 
 .tool-set {
@@ -1330,7 +1350,8 @@ textarea:focus {
   cursor: pointer;
 }
 
-.tool-chip:has(input:checked) {
+.tool-chip:has(input:checked),
+.tool-chip.is-active {
   background: linear-gradient(130deg, #63c2ff, #8ce5c4);
   color: #052132;
   border-color: transparent;
@@ -1583,32 +1604,22 @@ textarea:focus {
 }
 
 .custom-note-controls {
-  display: grid;
-  gap: 6px;
-  align-content: center;
-  align-self: center;
-  justify-items: stretch;
-}
-
-.custom-kind-toggle {
   display: flex;
+  align-items: center;
   justify-content: center;
+  align-self: center;
 }
 
 .custom-kind-toggle-btn {
   align-self: center;
 }
 
-.custom-kind-toggle-btn:not(:disabled):hover {
-  border-color: #63b7ee;
-  color: #d2ebff;
-  background:
-    linear-gradient(180deg, rgba(99, 183, 238, 0.14), rgba(255, 255, 255, 0.01)),
-    var(--ctrl-bg);
-}
-
-.custom-kind-toggle .action-icon {
-  margin: 0;
+button.custom-kind-toggle-btn.is-active:not(:disabled):hover,
+button.custom-kind-toggle-btn.is-active:focus-visible {
+  background: linear-gradient(130deg, #63c2ff, #8ce5c4);
+  color: #052132;
+  border-color: transparent;
+  filter: none;
 }
 
 .custom-note-controls .custom-note-delete {

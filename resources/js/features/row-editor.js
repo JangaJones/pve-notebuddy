@@ -686,6 +686,9 @@ export function createRowEditorFeature({
 
   function clearTextFields() {
     refs.iconUrlEl.value = "";
+    if (refs.iconLinkUrlEl) {
+      refs.iconLinkUrlEl.value = "";
+    }
     setUploadSvgText("");
     setUploadImageDataUrl("");
     if (refs.iconUploadEl) {

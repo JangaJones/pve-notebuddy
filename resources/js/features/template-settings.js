@@ -30,9 +30,13 @@ export function createTemplateSettingsFeature({
   collectRowState,
   getSelectedRadioValue,
   getIconMode,
+  getIconLinkUrl,
+  setIconLinkUrl,
   isWsrvResizeEnabled,
   getIconColorVariant,
   getIconGalleryItems,
+  getIconGalleryLinkUrls,
+  setIconGalleryLinkUrls,
   setIconGalleryItems,
   getIconGalleryColumns,
   setIconGalleryColumns,
@@ -56,9 +60,6 @@ export function createTemplateSettingsFeature({
   setIconStatus,
   getEl,
 }) {
-  let retainedIconLinkUrls = [];
-  let retainedIconLinkTexts = [];
-
   const { validateSettingsSchema } = createTemplateSettingsSchema({
     assertTextSizeWithinLimit,
     maxUploadSvgBytes,
@@ -69,6 +70,13 @@ export function createTemplateSettingsFeature({
   });
 
   function collectSettings() {
+    const iconMode = getIconMode();
+    const singleIconLinkUrl = typeof getIconLinkUrl === "function" ? String(getIconLinkUrl() || "").trim() : "";
+    const galleryIconLinkUrls =
+      iconMode === "gallery" && typeof getIconGalleryLinkUrls === "function"
+        ? getIconGalleryLinkUrls().map((item) => String(item || "").trim())
+        : [];
+
     const rows = {};
     for (const key of getOrderedRowKeys()) {
       if (key === "icon") {
@@ -87,7 +95,7 @@ export function createTemplateSettingsFeature({
       rowOrder,
       theme: getTheme(),
       icon: {
-        mode: getIconMode(),
+        mode: iconMode,
         align: getSelectedRadioValue("iconAlign", "center"),
         url: refs.iconUrlEl.value,
         embedSvg: refs.iconEmbedSvgEl.checked,
@@ -96,11 +104,10 @@ export function createTemplateSettingsFeature({
         colorVariant: getIconColorVariant(),
         uploadSvgText: getUploadSvgText(),
         uploadImageDataUrl: getUploadImageDataUrl(),
-        galleryItems: getIconMode() === "gallery" ? getIconGalleryItems() : [],
+        galleryItems: iconMode === "gallery" ? getIconGalleryItems() : [],
         galleryColumns: getIconGalleryColumns(),
         gallerySpacing: getIconGallerySpacing(),
-        linkUrls: retainedIconLinkUrls.slice(),
-        linkTexts: retainedIconLinkTexts.slice(),
+        linkUrls: iconMode === "gallery" ? galleryIconLinkUrls : singleIconLinkUrl ? [singleIconLinkUrl] : [],
       },
       fields: {
         titleText: getEl("titleText").value,
@@ -294,14 +301,11 @@ export function createTemplateSettingsFeature({
     }
 
     if (settings.icon && typeof settings.icon === "object") {
+      const importedIconLinkUrls = Array.isArray(settings.icon.linkUrls)
+        ? settings.icon.linkUrls.map((item) => String(item || "").trim())
+        : [];
       if (typeof settings.icon.align === "string") {
         setSelectedRadioValue("iconAlign", settings.icon.align);
-      }
-      if (Array.isArray(settings.icon.linkUrls)) {
-        retainedIconLinkUrls = settings.icon.linkUrls.map((item) => String(item || "").trim()).filter(Boolean);
-      }
-      if (Array.isArray(settings.icon.linkTexts)) {
-        retainedIconLinkTexts = settings.icon.linkTexts.map((item) => String(item || "").trim()).filter(Boolean);
       }
       if (typeof settings.icon.mode === "string") {
         if (settings.icon.mode === "none") {
@@ -345,11 +349,17 @@ export function createTemplateSettingsFeature({
       if (Array.isArray(settings.icon.galleryItems)) {
         setIconGalleryItems(settings.icon.galleryItems.map((item) => String(item || "")));
       }
+      if (typeof setIconGalleryLinkUrls === "function") {
+        setIconGalleryLinkUrls(importedIconLinkUrls);
+      }
       if (settings.icon.galleryColumns !== undefined) {
         setIconGalleryColumns(settings.icon.galleryColumns);
       }
       if (settings.icon.gallerySpacing !== undefined) {
         setIconGallerySpacing(settings.icon.gallerySpacing);
+      }
+      if (typeof setIconLinkUrl === "function") {
+        setIconLinkUrl(importedIconLinkUrls[0] || "");
       }
     }
 

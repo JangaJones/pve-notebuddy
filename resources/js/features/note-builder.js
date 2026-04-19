@@ -7,8 +7,10 @@ export function createNoteBuilderFeature({
   escapeHtml,
   getIconAlign,
   getIconMode,
+  getIconLinkUrl,
   getIconResolvedSrc,
   getIconGalleryItems,
+  getIconGalleryLinkUrls,
   getIconGalleryColumns,
   getIconGallerySpacing,
   getWeservBaseUrl,
@@ -285,6 +287,14 @@ export function createNoteBuilderFeature({
     return `<img src="${escapeHtml(src)}" alt="${escapeHtml(alt)}" referrerpolicy="no-referrer" />`;
   }
 
+  function wrapImageWithOptionalLink(imageHtml, href) {
+    const safeHref = sanitizeHref(href);
+    if (!safeHref) {
+      return imageHtml;
+    }
+    return `<a href="${escapeHtml(safeHref)}" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">${imageHtml}</a>`;
+  }
+
   function buildWsrvUrl(url, width) {
     return `${getWeservBaseUrl()}/?url=${encodeURIComponent(String(url || "").trim())}&w=${encodeURIComponent(String(width || ""))}`;
   }
@@ -322,9 +332,13 @@ export function createNoteBuilderFeature({
     }
 
     const rawItems = Array.isArray(getIconGalleryItems()) ? getIconGalleryItems() : [];
+    const rawLinkUrls = Array.isArray(getIconGalleryLinkUrls()) ? getIconGalleryLinkUrls() : [];
     const items = rawItems
-      .map((value) => String(value || "").trim())
-      .filter((value) => value && isAllowedIconImageUrl(value))
+      .map((value, index) => ({
+        url: String(value || "").trim(),
+        linkUrl: String(rawLinkUrls[index] || "").trim(),
+      }))
+      .filter((entry) => entry.url && isAllowedIconImageUrl(entry.url))
       .slice(0, 20);
     if (items.length === 0) {
       return "";
@@ -341,8 +355,9 @@ export function createNoteBuilderFeature({
       const rowItems = scopedItems.slice(index, index + columns);
       const images = rowItems
         .map((item) => {
-          const src = isWsrvResizeEnabled() ? buildWsrvUrl(item, getEl("iconScale")?.value || "100") : item;
-          return buildSafeImageTag(src, "App icon");
+          const src = isWsrvResizeEnabled() ? buildWsrvUrl(item.url, getEl("iconScale")?.value || "100") : item.url;
+          const imageHtml = buildSafeImageTag(src, "App icon");
+          return wrapImageWithOptionalLink(imageHtml, item.linkUrl);
         })
         .join(spacer);
       lines.push(images);
@@ -364,7 +379,9 @@ export function createNoteBuilderFeature({
     } else {
       const iconResolvedSrc = getIconResolvedSrc();
       if (iconResolvedSrc) {
-        byKey.icon = [buildRowDiv({ align: getIconAlign(), contentHtml: buildSafeImageTag(iconResolvedSrc, "App icon") })];
+        const imageHtml = buildSafeImageTag(iconResolvedSrc, "App icon");
+        const iconHtml = wrapImageWithOptionalLink(imageHtml, typeof getIconLinkUrl === "function" ? getIconLinkUrl() : "");
+        byKey.icon = [buildRowDiv({ align: getIconAlign(), contentHtml: iconHtml })];
       }
     }
 

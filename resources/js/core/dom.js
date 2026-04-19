@@ -11,6 +11,7 @@ export function getAppDomRefs() {
   const clearBtn = document.getElementById("clearBtn");
   const emojiRailToggleEl = document.getElementById("emojiRailToggle");
   const iconUrlEl = document.getElementById("iconUrl");
+  const iconLinkUrlEl = document.getElementById("iconLinkUrl");
   const iconUploadEl = document.getElementById("iconUpload");
   const iconScaleEl = document.getElementById("iconScale");
   const iconScaleValueEl = document.getElementById("iconScaleValue");
@@ -91,6 +92,7 @@ export function getAppDomRefs() {
     iconRefs: {
       iconModeRadios: form.querySelectorAll('input[name="iconMode"]'),
       iconUrlWrap: document.getElementById("iconUrlWrap"),
+      iconLinkUrlWrap: document.getElementById("iconLinkUrlWrap"),
       iconUploadWrap: document.getElementById("iconUploadWrap"),
       iconGalleryWrap: document.getElementById("iconGalleryWrap"),
       iconGalleryListEl: document.getElementById("iconGalleryList"),
@@ -101,6 +103,7 @@ export function getAppDomRefs() {
       iconEmbedSvgControlEl: document.getElementById("iconEmbedSvgControl"),
       iconSelfhstWrap: document.getElementById("iconSelfhstWrap"),
       iconUrlEl,
+      iconLinkUrlEl,
       iconUrlRowEl: iconUrlEl?.closest(".icon-url-row") || null,
       iconCdnVariantsEl: document.getElementById("iconCdnVariants"),
       iconEmbedSvgEl: document.getElementById("iconEmbedSvg"),
@@ -115,6 +118,7 @@ export function getAppDomRefs() {
     },
     rowEditorRefs: {
       iconUrlEl,
+      iconLinkUrlEl,
       iconUploadEl,
       configLocationsEl: document.getElementById("configLocations"),
       addConfigBtn: document.getElementById("addConfigBtn"),

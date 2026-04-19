@@ -131,6 +131,7 @@ const {
   iconRefs: {
     iconModeRadios,
     iconUrlWrap,
+    iconLinkUrlWrap,
     iconUploadWrap,
     iconGalleryWrap,
     iconGalleryListEl,
@@ -141,6 +142,7 @@ const {
     iconEmbedSvgControlEl,
     iconSelfhstWrap,
     iconUrlEl,
+    iconLinkUrlEl,
     iconUrlRowEl,
     iconCdnVariantsEl,
     iconEmbedSvgEl,
@@ -375,6 +377,7 @@ function createFeatures() {
     getEl,
     refs: {
       iconUrlEl,
+      iconLinkUrlEl,
       iconUploadEl,
       configLocationsEl,
       hostEntriesEl,
@@ -438,6 +441,7 @@ function createFeatures() {
     refs: {
       iconStatusEl,
       iconUrlWrap,
+      iconLinkUrlWrap,
       iconUploadWrap,
       iconGalleryWrap,
       iconGalleryListEl,
@@ -450,6 +454,7 @@ function createFeatures() {
       iconVariantWrapEl,
       iconScaleWrapEl,
       iconUrlEl,
+      iconLinkUrlEl,
       iconUrlRowEl,
       iconCdnVariantsEl,
       iconEmbedSvgEl,
@@ -532,7 +537,9 @@ function createFeatures() {
     getIconAlign,
     getIconResolvedSrc: () => runtime.iconResolvedSrc,
     getIconMode,
+    getIconLinkUrl: () => (appIconsFeature?.getSingleLinkUrl ? appIconsFeature.getSingleLinkUrl() : ""),
     getIconGalleryItems: () => (appIconsFeature?.getGalleryItems ? appIconsFeature.getGalleryItems() : []),
+    getIconGalleryLinkUrls: () => (appIconsFeature?.getGalleryLinkUrls ? appIconsFeature.getGalleryLinkUrls() : []),
     getIconGalleryColumns: () => (appIconsFeature?.getGalleryColumns ? appIconsFeature.getGalleryColumns() : 4),
     getIconGallerySpacing: () => (appIconsFeature?.getGallerySpacing ? appIconsFeature.getGallerySpacing() : "s"),
     getWeservBaseUrl,
@@ -598,9 +605,17 @@ function createFeatures() {
     collectRowState: rowEditorFeature.collectRowState,
     getSelectedRadioValue: rowEditorFeature.getSelectedRadioValue,
     getIconMode,
+    getIconLinkUrl: () => (appIconsFeature?.getSingleLinkUrl ? appIconsFeature.getSingleLinkUrl() : ""),
+    setIconLinkUrl: (value) => {
+      appIconsFeature?.setSingleLinkUrl?.(value);
+    },
     isWsrvResizeEnabled,
     getIconColorVariant,
     getIconGalleryItems: () => (appIconsFeature?.getGalleryItems ? appIconsFeature.getGalleryItems() : []),
+    getIconGalleryLinkUrls: () => (appIconsFeature?.getGalleryLinkUrls ? appIconsFeature.getGalleryLinkUrls() : []),
+    setIconGalleryLinkUrls: (items) => {
+      appIconsFeature?.setGalleryLinkUrls?.(items);
+    },
     setIconGalleryItems: (items) => {
       appIconsFeature?.setGalleryItems?.(items);
     },

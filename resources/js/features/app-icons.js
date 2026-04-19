@@ -454,7 +454,7 @@ export function createAppIconsFeature({
     return normalized;
   }
 
-  function createGalleryRow(initialValue = "") {
+  function createGalleryRow(initialValue = "", initialLinkUrl = "") {
     const row = document.createElement("div");
     row.className = "icon-gallery-row";
 
@@ -477,15 +477,29 @@ export function createAppIconsFeature({
     grabBtn.setAttribute("draggable", "true");
     grabBtn.innerHTML = '<span class="move-icon move-icon-drag" aria-hidden="true"></span><span class="sr-only">Drag handle</span>';
 
+    const inputsWrap = document.createElement("div");
+    inputsWrap.className = "icon-gallery-inputs";
+
     const input = document.createElement("input");
     input.type = "url";
     input.className = "icon-gallery-url";
     input.placeholder = "Image URL";
     input.value = String(initialValue || "").trim();
 
+    const linkInput = document.createElement("input");
+    linkInput.type = "url";
+    linkInput.className = "icon-gallery-link-url";
+    linkInput.placeholder = "Link URL";
+    linkInput.value = String(initialLinkUrl || "").trim();
+
     const variants = document.createElement("span");
     variants.className = "icon-gallery-variants hidden";
     variants.setAttribute("aria-label", "selfh.st icon variants");
+
+    const topRow = document.createElement("div");
+    topRow.className = "icon-gallery-top";
+    topRow.append(input, variants);
+    inputsWrap.append(topRow, linkInput);
 
     const removeBtn = document.createElement("button");
     removeBtn.type = "button";
@@ -493,7 +507,7 @@ export function createAppIconsFeature({
     removeBtn.title = "Delete icon";
     removeBtn.innerHTML = '<span class="action-icon action-icon-delete" aria-hidden="true"></span><span class="sr-only">Delete icon</span>';
 
-    row.append(upBtn, downBtn, grabBtn, input, variants, removeBtn);
+    row.append(upBtn, downBtn, grabBtn, inputsWrap, removeBtn);
     return row;
   }
 
@@ -533,17 +547,46 @@ export function createAppIconsFeature({
     }
   }
 
-  function getGalleryItems() {
-    if (!refs.iconGalleryListEl) {
-      return [];
+  function getGalleryEntries() {
+    const entries = [];
+    for (const row of getGalleryRowsCollection()) {
+      const input = row.querySelector(".icon-gallery-url");
+      if (!(input instanceof HTMLInputElement)) {
+        continue;
+      }
+      const url = input.value.trim();
+      if (!url) {
+        continue;
+      }
+      const linkInput = row.querySelector(".icon-gallery-link-url");
+      const linkUrl = linkInput instanceof HTMLInputElement ? linkInput.value.trim() : "";
+      entries.push({ url, linkUrl });
+      if (entries.length >= MAX_GALLERY_ITEMS) {
+        break;
+      }
     }
-    return Array.from(refs.iconGalleryListEl.querySelectorAll(".icon-gallery-url"))
-      .map((input) => (input instanceof HTMLInputElement ? input.value.trim() : ""))
-      .filter(Boolean)
-      .slice(0, MAX_GALLERY_ITEMS);
+    return entries;
   }
 
-  function getGalleryFirstInput() {
+  function getGalleryItems() {
+    return getGalleryEntries().map((entry) => entry.url);
+  }
+
+  function getGalleryLinkUrls() {
+    return getGalleryEntries().map((entry) => entry.linkUrl);
+  }
+
+  function getSingleLinkUrl() {
+    return refs.iconLinkUrlEl?.value?.trim() || "";
+  }
+
+  function setSingleLinkUrl(value) {
+    if (refs.iconLinkUrlEl) {
+      refs.iconLinkUrlEl.value = String(value || "").trim();
+    }
+  }
+
+  function getGalleryFirstUrlInput() {
     if (!refs.iconGalleryListEl) {
       return null;
     }
@@ -555,41 +598,93 @@ export function createAppIconsFeature({
     return firstInput instanceof HTMLInputElement ? firstInput : null;
   }
 
+  function getGalleryFirstLinkInput() {
+    if (!refs.iconGalleryListEl) {
+      return null;
+    }
+    const firstRow = refs.iconGalleryListEl.querySelector(".icon-gallery-row");
+    if (!(firstRow instanceof HTMLElement)) {
+      return null;
+    }
+    const firstInput = firstRow.querySelector(".icon-gallery-link-url");
+    return firstInput instanceof HTMLInputElement ? firstInput : null;
+  }
+
   function syncGalleryFirstFromSingleUrl() {
     const singleUrl = refs.iconUrlEl?.value?.trim() || "";
-    const firstInput = getGalleryFirstInput();
+    const firstInput = getGalleryFirstUrlInput();
     if (firstInput) {
       firstInput.value = singleUrl;
       return;
     }
     if (refs.iconGalleryListEl) {
-      refs.iconGalleryListEl.append(createGalleryRow(singleUrl));
+      refs.iconGalleryListEl.append(createGalleryRow(singleUrl, getSingleLinkUrl()));
       refreshGalleryButtons();
       scheduleGalleryVariantButtonsRefresh();
     }
   }
 
+  function syncGalleryFirstFromSingleLinkUrl() {
+    const singleLinkUrl = getSingleLinkUrl();
+    const firstInput = getGalleryFirstLinkInput();
+    if (firstInput) {
+      firstInput.value = singleLinkUrl;
+    }
+  }
+
   function syncSingleUrlFromGalleryFirst() {
-    const firstInput = getGalleryFirstInput();
+    const firstInput = getGalleryFirstUrlInput();
     if (refs.iconUrlEl && firstInput) {
       refs.iconUrlEl.value = firstInput.value.trim();
     }
   }
 
-  function setGalleryItems(items) {
+  function syncSingleLinkUrlFromGalleryFirst() {
+    const firstInput = getGalleryFirstLinkInput();
+    if (firstInput) {
+      setSingleLinkUrl(firstInput.value.trim());
+    }
+  }
+
+  function setGalleryEntries(items, linkUrls = []) {
     if (!refs.iconGalleryListEl) {
       return;
     }
     refs.iconGalleryListEl.innerHTML = "";
     const normalized = normalizeGalleryItems(items);
+    const normalizedLinkUrls = Array.isArray(linkUrls) ? linkUrls.map((item) => String(item || "").trim()) : [];
     if (normalized.length === 0) {
       normalized.push(refs.iconUrlEl?.value?.trim() || "");
+      normalizedLinkUrls.unshift(getSingleLinkUrl());
     }
-    for (const value of normalized) {
-      refs.iconGalleryListEl.append(createGalleryRow(value));
+    for (let index = 0; index < normalized.length; index += 1) {
+      refs.iconGalleryListEl.append(createGalleryRow(normalized[index], normalizedLinkUrls[index] || ""));
     }
     refreshGalleryButtons();
     scheduleGalleryVariantButtonsRefresh();
+  }
+
+  function setGalleryItems(items) {
+    setGalleryEntries(items, []);
+  }
+
+  function setGalleryLinkUrls(linkUrls) {
+    const normalized = Array.isArray(linkUrls) ? linkUrls.map((item) => String(item || "").trim()) : [];
+    let index = 0;
+    for (const row of getGalleryRowsCollection()) {
+      const urlInput = row.querySelector(".icon-gallery-url");
+      const linkInput = row.querySelector(".icon-gallery-link-url");
+      if (!(urlInput instanceof HTMLInputElement) || !(linkInput instanceof HTMLInputElement)) {
+        continue;
+      }
+      if (!urlInput.value.trim()) {
+        linkInput.value = "";
+        continue;
+      }
+      linkInput.value = normalized[index] || "";
+      index += 1;
+    }
+    syncSingleLinkUrlFromGalleryFirst();
   }
 
   function getGalleryColumns() {
@@ -870,6 +965,7 @@ export function createAppIconsFeature({
     const mode = getIconMode();
     refs.iconUrlWrap.classList.toggle("hidden", mode !== "external");
     refs.iconUploadWrap.classList.toggle("hidden", mode !== "upload");
+    refs.iconLinkUrlWrap?.classList.toggle("hidden", mode === "gallery" || mode === "none");
     refs.iconGalleryWrap?.classList.toggle("hidden", mode !== "gallery");
     refs.iconSelfhstWrap.classList.toggle("hidden", !(mode === "external" || mode === "gallery"));
     refs.iconEmbedWrap.classList.toggle("hidden", mode !== "external" && mode !== "gallery");
@@ -1155,6 +1251,7 @@ export function createAppIconsFeature({
               setGalleryItems([]);
             }
             syncGalleryFirstFromSingleUrl();
+            syncGalleryFirstFromSingleLinkUrl();
             scheduleGalleryVariantButtonsRefresh();
           } else if (nextMode === "external") {
             if (refs.iconResizeWsrvEl) {
@@ -1164,6 +1261,7 @@ export function createAppIconsFeature({
               refs.iconEmbedSvgEl.checked = externalModePreference.resizeWithWsrv ? false : externalModePreference.embedSvg;
             }
             syncSingleUrlFromGalleryFirst();
+            syncSingleLinkUrlFromGalleryFirst();
           } else if (previousIconMode === "external") {
             externalModePreference.resizeWithWsrv = Boolean(refs.iconResizeWsrvEl?.checked);
             externalModePreference.embedSvg = externalModePreference.resizeWithWsrv ? false : Boolean(refs.iconEmbedSvgEl?.checked);
@@ -1185,6 +1283,11 @@ export function createAppIconsFeature({
       }
       syncGalleryFirstFromSingleUrl();
       scheduleGalleryVariantButtonsRefresh();
+      prepareIcon();
+    });
+
+    refs.iconLinkUrlEl?.addEventListener("input", () => {
+      syncGalleryFirstFromSingleLinkUrl();
       prepareIcon();
     });
 
@@ -1223,14 +1326,17 @@ export function createAppIconsFeature({
       if (!refs.iconGalleryListEl || getGalleryRowsCollection().length >= MAX_GALLERY_ITEMS) {
         return;
       }
-      refs.iconGalleryListEl.append(createGalleryRow(""));
+      refs.iconGalleryListEl.append(createGalleryRow("", ""));
       refreshGalleryButtons();
       prepareIcon();
     });
 
     refs.iconGalleryListEl?.addEventListener("input", (event) => {
       const target = event.target;
-      if (target instanceof HTMLInputElement && target.classList.contains("icon-gallery-url")) {
+      if (!(target instanceof HTMLInputElement)) {
+        return;
+      }
+      if (target.classList.contains("icon-gallery-url")) {
         const row = target.closest(".icon-gallery-row");
         const firstRow = refs.iconGalleryListEl?.querySelector(".icon-gallery-row");
         if (row && firstRow && row === firstRow) {
@@ -1240,6 +1346,15 @@ export function createAppIconsFeature({
         if (row instanceof HTMLElement) {
           refreshGalleryRowVariantButtons(row);
         }
+        return;
+      }
+      if (target.classList.contains("icon-gallery-link-url")) {
+        const row = target.closest(".icon-gallery-row");
+        const firstRow = refs.iconGalleryListEl?.querySelector(".icon-gallery-row");
+        if (row && firstRow && row === firstRow) {
+          syncSingleLinkUrlFromGalleryFirst();
+        }
+        prepareIcon();
       }
     });
     refs.iconGalleryListEl?.addEventListener("click", (event) => {
@@ -1259,6 +1374,7 @@ export function createAppIconsFeature({
         }
         refreshGalleryButtons();
         syncSingleUrlFromGalleryFirst();
+        syncSingleLinkUrlFromGalleryFirst();
         scheduleGalleryVariantButtonsRefresh();
         prepareIcon();
         return;
@@ -1271,6 +1387,7 @@ export function createAppIconsFeature({
         }
         refreshGalleryButtons();
         syncSingleUrlFromGalleryFirst();
+        syncSingleLinkUrlFromGalleryFirst();
         scheduleGalleryVariantButtonsRefresh();
         prepareIcon();
         return;
@@ -1302,10 +1419,11 @@ export function createAppIconsFeature({
       if (target.closest(".icon-gallery-remove")) {
         row.remove();
         if (getGalleryRowsCollection().length === 0) {
-          refs.iconGalleryListEl.append(createGalleryRow(""));
+          refs.iconGalleryListEl.append(createGalleryRow("", ""));
         }
         refreshGalleryButtons();
         syncSingleUrlFromGalleryFirst();
+        syncSingleLinkUrlFromGalleryFirst();
         scheduleGalleryVariantButtonsRefresh();
         prepareIcon();
       }
@@ -1361,6 +1479,7 @@ export function createAppIconsFeature({
       clearGalleryDragState();
       refreshGalleryButtons();
       syncSingleUrlFromGalleryFirst();
+      syncSingleLinkUrlFromGalleryFirst();
       scheduleGalleryVariantButtonsRefresh();
       if (moved) {
         prepareIcon();
@@ -1387,17 +1506,20 @@ export function createAppIconsFeature({
         return;
       }
       refs.iconUrlEl.value = nextUrl;
+      syncGalleryFirstFromSingleUrl();
       prepareIcon();
     });
 
     scheduleGalleryVariantButtonsRefresh();
     syncSingleUrlFromGalleryFirst();
+    syncSingleLinkUrlFromGalleryFirst();
   }
 
   function clearIconEditor() {
     if (refs.iconUrlEl) {
       refs.iconUrlEl.value = "";
     }
+    setSingleLinkUrl("");
     if (refs.iconUploadEl) {
       refs.iconUploadEl.value = "";
     }
@@ -1417,7 +1539,11 @@ export function createAppIconsFeature({
     setIconStatus,
     initIconInteractions,
     clearIconEditor,
+    getSingleLinkUrl,
+    setSingleLinkUrl,
     getGalleryItems,
+    getGalleryLinkUrls,
+    setGalleryLinkUrls,
     setGalleryItems,
     getGalleryColumns,
     setGalleryColumns,

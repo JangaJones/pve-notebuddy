@@ -287,7 +287,8 @@ function normalizeIconMode(value, fallback = "external") {
   return ICON_MODE_VALUES.has(raw) ? raw : fallback;
 }
 
-function readIndexedTextMap(source, keyPrefix) {
+function readIndexedTextMap(source, keyPrefix, options = {}) {
+  const preservePositions = options && options.preservePositions === true;
   if (!isPlainObject(source)) {
     return [];
   }
@@ -308,11 +309,30 @@ function readIndexedTextMap(source, keyPrefix) {
     pairs.push([index, value]);
   }
   pairs.sort((a, b) => a[0] - b[0]);
+  if (preservePositions) {
+    const maxIndex = pairs.reduce((max, [index]) => Math.max(max, index), 0);
+    const out = Array.from({ length: maxIndex }, () => "");
+    for (const [index, value] of pairs) {
+      out[index - 1] = value;
+    }
+    return out;
+  }
   return pairs.map((entry) => entry[1]);
 }
 
-function toIndexedTextMap(values, keyPrefix) {
+function toIndexedTextMap(values, keyPrefix, options = {}) {
+  const preservePositions = options && options.preservePositions === true;
   const out = {};
+  if (preservePositions) {
+    for (let index = 0; index < values.length; index += 1) {
+      const text = String(values[index] || "").trim();
+      if (!text) {
+        continue;
+      }
+      out[`${keyPrefix}${index + 1}`] = text;
+    }
+    return out;
+  }
   let index = 1;
   for (const value of values) {
     const text = String(value || "").trim();
@@ -332,8 +352,8 @@ function normalizeIconDataContent(contentSource = {}) {
   if (urls.length === 0 && typeof content.iconUrl === "string" && content.iconUrl.trim()) {
     urls.push(content.iconUrl.trim());
   }
-  const linkUrls = readIndexedTextMap(icon.linkUrls, "url");
-  const linkTexts = readIndexedTextMap(icon.linkTexts, "text");
+  const linkUrls = readIndexedTextMap(icon.linkUrls, "url", { preservePositions: true });
+  const linkTexts = readIndexedTextMap(icon.linkTexts, "text", { preservePositions: true });
   return {
     urls,
     linkUrls,
@@ -358,8 +378,8 @@ function normalizeIconDataFromLegacyIcon(iconSource = {}) {
   return {
     mode,
     urls,
-    linkUrls: Array.isArray(icon.linkUrls) ? icon.linkUrls.map((item) => String(item || "").trim()).filter(Boolean) : [],
-    linkTexts: Array.isArray(icon.linkTexts) ? icon.linkTexts.map((item) => String(item || "").trim()).filter(Boolean) : [],
+    linkUrls: Array.isArray(icon.linkUrls) ? icon.linkUrls.map((item) => String(item || "").trim()) : [],
+    linkTexts: Array.isArray(icon.linkTexts) ? icon.linkTexts.map((item) => String(item || "").trim()) : [],
     imageFileBase64: typeof icon.uploadImageDataUrl === "string" ? icon.uploadImageDataUrl : "",
     uploadSvgText: typeof icon.uploadSvgText === "string" ? icon.uploadSvgText : "",
     align: typeof icon.align === "string" ? icon.align : "",
@@ -378,29 +398,19 @@ function buildIconContent({ contentSource = {}, legacyIconSource = {}, type }) {
   const modeForPersistence = type === TEMPLATE_DOCUMENT_TYPES.SNAPSHOT ? mode : "external";
   const urls =
     modeForPersistence === "upload" ? [] : modeForPersistence === "gallery" ? urlsRaw : urlsRaw.slice(0, 1);
-  const linkUrls =
-    modeForPersistence === "upload"
-      ? []
-      : modeForPersistence === "gallery"
-        ? linkUrlsRaw
-        : linkUrlsRaw.slice(0, 1);
-  const linkTexts =
-    modeForPersistence === "upload"
-      ? []
-      : modeForPersistence === "gallery"
-        ? linkTextsRaw
-        : linkTextsRaw.slice(0, 1);
+  const linkUrls = modeForPersistence === "gallery" ? linkUrlsRaw : linkUrlsRaw.slice(0, 1);
+  const linkTexts = modeForPersistence === "gallery" ? linkTextsRaw : linkTextsRaw.slice(0, 1);
 
   const iconOut = {};
   const urlMap = toIndexedTextMap(urls, "URL");
   if (Object.keys(urlMap).length > 0) {
     iconOut.urls = urlMap;
   }
-  const linkUrlMap = toIndexedTextMap(linkUrls, "URL");
+  const linkUrlMap = toIndexedTextMap(linkUrls, "URL", { preservePositions: true });
   if (Object.keys(linkUrlMap).length > 0) {
     iconOut.linkUrls = linkUrlMap;
   }
-  const linkTextMap = toIndexedTextMap(linkTexts, "TEXT");
+  const linkTextMap = toIndexedTextMap(linkTexts, "TEXT", { preservePositions: true });
   if (Object.keys(linkTextMap).length > 0) {
     iconOut.linkTexts = linkTextMap;
   }

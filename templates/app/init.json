@@ -3,8 +3,8 @@
     "formatVersion": 1,
     "appVersion": "1.5.0",
     "type": "snapshot",
-    "createdAt": "2026-04-18T23:24:44.427Z",
-    "name": "Init Snapshot"
+    "createdAt": "2026-05-01T22:56:08.461Z",
+    "name": "init"
   },
   "payload": {
     "schema": "template-document-payload-v1",
@@ -16,7 +16,15 @@
         "row:network",
         "row:config",
         "custom:custom1"
-      ]
+      ],
+      "rowOrder": {
+        "icon": "1",
+        "title": "1",
+        "fqdn": "1",
+        "network": "1",
+        "config": "1",
+        "custom1": "1"
+      }
     },
     "customBlocks": [
       {
@@ -37,13 +45,14 @@
     "styling": {
       "theme": "dark",
       "icon": {
-        "mode": "external",
         "align": "center",
-        "resizeWithWsrv": false,
         "scale": "100",
-        "colorVariant": "original",
         "galleryColumns": 4,
-        "gallerySpacing": "s"
+        "gallerySpacing": "s",
+        "colorVariant": "original",
+        "mode": "external",
+        "embedSvg": true,
+        "resizeWithWsrv": false
       },
       "rows": {
         "title": {
@@ -56,7 +65,7 @@
           "code": false
         },
         "fqdn": {
-          "emoji": "🔗",
+          "emoji": "",
           "align": "center",
           "heading": "h3",
           "bold": false,
@@ -65,7 +74,7 @@
           "code": false
         },
         "network": {
-          "emoji": "🖥️",
+          "emoji": "",
           "align": "center",
           "heading": "h3",
           "bold": false,
@@ -98,14 +107,14 @@
       "hostEntries": [
         {
           "icon": "🔗",
-          "label": "www.proxmox.com",
-          "url": "https://www.proxmox.com/"
+          "label": "Proxmox Releases",
+          "url": "https://www.proxmox.com/en/downloads"
         }
       ],
       "networkEntries": [
         {
           "icon": "🖥️",
-          "value": "10.2.0.40:8443"
+          "value": "10.10.10.100:8006"
         }
       ],
       "configLocations": [
@@ -117,6 +126,9 @@
       "icon": {
         "urls": {
           "URL1": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/proxmox.svg"
+        },
+        "linkUrls": {
+          "URL1": "https://www.proxmox.com/"
         },
         "align": "center"
       }

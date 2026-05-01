@@ -67,11 +67,11 @@ async function askSelection(files) {
 async function askPostRunAction(selectedFile, exitCode) {
   const rl = createInterface({ input: stdin, output: stdout });
   try {
-    const isCommunityScripts = selectedFile === "community-scripts.mjs";
-    const choices = isCommunityScripts
+    const canRunGenerate = selectedFile === "community-scripts.mjs" || selectedFile === "app-update.mjs";
+    const choices = canRunGenerate
       ? ["1) Run Generate Index Files", "2) Back to menu", "3) Quit"]
       : ["1) Back to menu", "2) Quit"];
-    const question = isCommunityScripts ? "Next action [1-3]: " : "Next action [1-2]: ";
+    const question = canRunGenerate ? "Next action [1-3]: " : "Next action [1-2]: ";
 
     stdout.write(`\nFinished ${selectedFile} with exit code ${exitCode}.\n`);
     for (const choice of choices) {
@@ -79,7 +79,7 @@ async function askPostRunAction(selectedFile, exitCode) {
     }
     const answer = await rl.question(question);
     const selected = Number.parseInt(String(answer).trim(), 10);
-    if (isCommunityScripts) {
+    if (canRunGenerate) {
       if (selected === 1) return "RUN_GENERATE";
       if (selected === 2) return "MENU";
       if (selected === 3) return "QUIT";

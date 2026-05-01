@@ -441,6 +441,7 @@ function buildIconStyling({ stylingSource = {}, legacyIconSource = {}, type }) {
 
   if (type === TEMPLATE_DOCUMENT_TYPES.SNAPSHOT) {
     out.mode = normalizeIconMode(source.mode, "external");
+    if (typeof source.embedSvg === "boolean") out.embedSvg = source.embedSvg;
     if (typeof source.resizeWithWsrv === "boolean") out.resizeWithWsrv = source.resizeWithWsrv;
   }
 
@@ -661,17 +662,21 @@ export function extractRuntimeSettingsFromTemplateDocument(document, options = {
     icon: (() => {
       const stylingIcon = cloneJson(payload.styling?.icon || {});
       const contentIcon = normalizeIconDataContent(payload.content);
+      const legacyStylingIcon = normalizeIconDataFromLegacyIcon(stylingIcon);
       const mode = normalizeIconMode(stylingIcon.mode, "external");
+      const iconUrls = contentIcon.urls.length > 0 ? contentIcon.urls : legacyStylingIcon.urls;
+      const iconLinkUrls = contentIcon.linkUrls.length > 0 ? contentIcon.linkUrls : legacyStylingIcon.linkUrls;
+      const iconLinkTexts = contentIcon.linkTexts.length > 0 ? contentIcon.linkTexts : legacyStylingIcon.linkTexts;
       return {
         ...stylingIcon,
         mode,
-        url: contentIcon.urls[0] || "",
-        galleryItems: cloneJson(contentIcon.urls),
-        linkUrls: cloneJson(contentIcon.linkUrls),
-        linkTexts: cloneJson(contentIcon.linkTexts),
-        uploadImageDataUrl: contentIcon.imageFileBase64 || "",
-        uploadSvgText: contentIcon.uploadSvgText || "",
-        align: contentIcon.align || stylingIcon.align || "center",
+        url: iconUrls[0] || "",
+        galleryItems: cloneJson(iconUrls),
+        linkUrls: cloneJson(iconLinkUrls),
+        linkTexts: cloneJson(iconLinkTexts),
+        uploadImageDataUrl: contentIcon.imageFileBase64 || legacyStylingIcon.imageFileBase64 || "",
+        uploadSvgText: contentIcon.uploadSvgText || legacyStylingIcon.uploadSvgText || "",
+        align: contentIcon.align || legacyStylingIcon.align || stylingIcon.align || "center",
       };
     })(),
     fields: {

@@ -82,13 +82,13 @@ Please refer to the documentation.
 
 ## Frequently Asked: API & Automation
 
-Currently API & Automation (e.g. automatic publishing to Proxmox or fetching the HTML Output with a GET Request) is not planned, since this would only weaken robustness and security. PVE NoteBuddy will remain separate from Proxmox or automation/deployment tools.
+Currently API & Automation (e.g. automatic publishing to Proxmox or fetching the HTML Output via request) is not planned, since this would require a backend and therefore only weaken robustness and security. For the time being, PVE NoteBuddy will definitely remain separate from Proxmox VE or any automation/deployment tools.
 
 ## AI Disclaimer & Security
 
 This project leverages AI to assist with development. Code contributions generated or modified with the help of AI tools are thoroughly reviewed and tested by myself before release.
 
-_PVE NoteBuddy is a fully client-side application with no backend & no telemetry. The live version is directly hosted on GitHub Pages. Based on its design and my own review, I consider it safe to use. Always be cautious about other distributed forks/clones that may contain malware. This project is actively maintained, there is no need to download or use it from another source._
+_PVE NoteBuddy is a fully client-side application with no backend & no telemetry. The live version is directly hosted on GitHub Pages. Based on its design and my own review, I consider it safe to use. Be cautious about other distributed forks/clones (as with any other repo) that may contain malware. This project is actively maintained, the latest releases will exclusively be available through this GitHub repository._
 
 ## Project Statistics
 

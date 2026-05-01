@@ -2792,6 +2792,7 @@ button.design-slot-delete:not(:disabled):hover {
   min-height: 0;
   max-height: none;
   overflow: auto;
+  scrollbar-gutter: stable;
   margin-right: -0.78rem;
   padding-right: 0;
   padding-bottom: 0.36rem;

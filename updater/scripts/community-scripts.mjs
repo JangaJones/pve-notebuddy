@@ -175,7 +175,7 @@ async function main() {
   console.log(`Crawled files: ${report.crawledFiles}`);
   console.log(`Errors: ${report.errors.length}`);
   if (DRY_RUN) {
-    console.log("Dry run mode: no files written to /template-updater/temp/community-scripts.");
+    console.log("Dry run mode: no files written to /updater/temp/community-scripts.");
   }
   console.log(`Wrote crawl report: ${REPORT_PATH}`);
 }

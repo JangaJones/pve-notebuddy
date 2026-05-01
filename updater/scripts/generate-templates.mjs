@@ -193,7 +193,7 @@ async function resolvePreferredIconUrl(iconUrl) {
     const res = await fetch(svgCandidate, {
       headers: {
         Accept: "image/svg+xml,text/plain;q=0.9,*/*;q=0.1",
-        "User-Agent": "pve-notebuddy-template-updater",
+        "User-Agent": "pve-notebuddy-updater",
       },
     });
     if (!res.ok) {

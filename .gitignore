@@ -4,6 +4,6 @@ docs/node_modules/
 docs/.vitepress/cache/
 docs/.vitepress/dist/
 .preview/
-template-updater/temp/
+updater/temp/
 testing/
 doc-backup/

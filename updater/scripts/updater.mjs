@@ -9,7 +9,9 @@ import { fileURLToPath } from "node:url";
 
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const ENTRY_BASENAME = path.basename(fileURLToPath(import.meta.url));
+const APP_UPDATE_SCRIPT = path.resolve(SCRIPT_DIR, "..", "app-update.mjs");
 const MENU_LABELS = new Map([
+  ["app-update.mjs", "Update NoteBuddy App from GitHub Release"],
   ["community-scripts.mjs", "Update Templates from Community-Scripts"],
   ["generate-templates.mjs", "Generate Index Files"],
 ]);
@@ -21,15 +23,24 @@ function toDisplayName(filePath) {
 
 async function listScripts(dir) {
   const entries = await fs.readdir(dir, { withFileTypes: true });
-  return entries
+  const scripts = entries
     .filter((entry) => entry.isFile() && entry.name.toLowerCase().endsWith(".mjs") && entry.name !== ENTRY_BASENAME)
     .map((entry) => path.join(dir, entry.name))
     .sort((a, b) => a.localeCompare(b));
+
+  try {
+    await fs.access(APP_UPDATE_SCRIPT);
+    scripts.unshift(APP_UPDATE_SCRIPT);
+  } catch {
+    // optional external script
+  }
+
+  return scripts;
 }
 
 async function askSelection(files) {
   stdout.write("========================================\n");
-  stdout.write("   PVE NoteBuddy Template Updater CLI\n");
+  stdout.write("   PVE NoteBuddy Updater CLI\n");
   stdout.write("========================================\n");
   stdout.write("Select an action:\n");
   files.forEach((file, index) => {

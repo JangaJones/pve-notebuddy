@@ -1,0 +1,81 @@
+name: Build Release Package
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Existing release tag to upload package to (optional)"
+        required: false
+
+permissions:
+  contents: write
+
+jobs:
+  package:
+    name: Build and attach deployment zip
+    runs-on: ubuntu-latest
+    if: github.event_name != 'release' || github.event.release.target_commitish == 'main'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Resolve package metadata
+        id: meta
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [[ "${GITHUB_EVENT_NAME}" == "release" ]]; then
+            TAG="${{ github.event.release.tag_name }}"
+          else
+            TAG="${{ inputs.tag }}"
+            if [[ -z "$TAG" ]]; then
+              TAG="manual-${GITHUB_SHA::7}"
+            fi
+          fi
+
+          ARCHIVE="pve-notebuddy-${TAG}-selfhosted.zip"
+          STAGE_DIR="pve-notebuddy-${TAG}-selfhosted"
+
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          echo "archive=$ARCHIVE" >> "$GITHUB_OUTPUT"
+          echo "stage_dir=$STAGE_DIR" >> "$GITHUB_OUTPUT"
+
+      - name: Assemble deployment payload
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          rm -rf "${{ steps.meta.outputs.stage_dir }}"
+          mkdir -p "${{ steps.meta.outputs.stage_dir }}"
+
+          cp LICENSE index.html "${{ steps.meta.outputs.stage_dir }}/"
+          cp -R templates updater resources "${{ steps.meta.outputs.stage_dir }}/"
+
+          find "${{ steps.meta.outputs.stage_dir }}" -name '.DS_Store' -delete
+
+      - name: Create deployment zip
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          zip -r "${{ steps.meta.outputs.archive }}" "${{ steps.meta.outputs.stage_dir }}"
+
+      - name: Upload package to existing release
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.meta.outputs.tag }}
+          files: ${{ steps.meta.outputs.archive }}
+          fail_on_unmatched_files: true
+
+      - name: Upload package as workflow artifact (manual runs)
+        if: github.event_name == 'workflow_dispatch'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.meta.outputs.archive }}
+          path: ${{ steps.meta.outputs.archive }}
+          if-no-files-found: error

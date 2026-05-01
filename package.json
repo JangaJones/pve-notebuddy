@@ -7,6 +7,6 @@
     "vendor:dompurify": "mkdir -p resources/js/vendor && cp node_modules/dompurify/dist/purify.es.mjs resources/js/vendor/purify.es.mjs"
   },
   "dependencies": {
-    "dompurify": "3.3.3"
+    "dompurify": "3.4.2"
   }
 }

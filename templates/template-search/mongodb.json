@@ -1,0 +1,36 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "MongoDB"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "MongoDB",
+      "icon": {
+        "urls": {
+          "URL1": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/mongodb.svg"
+        },
+        "linkUrls": {
+          "URL1": "https://www.mongodb.com/"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://www.mongodb.com/docs/manual/"
+        }
+      ],
+      "networkEntries": [
+        {
+          "icon": "🖥️",
+          "value": "Default Port: 27017"
+        }
+      ],
+      "configLocations": []
+    }
+  }
+}

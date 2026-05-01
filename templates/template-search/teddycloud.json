@@ -1,0 +1,41 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "TeddyCloud"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "TeddyCloud",
+      "icon": {
+        "urls": {
+          "URL1": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/teddycloud.webp"
+        },
+        "linkUrls": {
+          "URL1": "https://tonies-wiki.revvox.de/docs/tools/teddycloud/"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://tonies-wiki.revvox.de/docs/tools/teddycloud/"
+        },
+        {
+          "icon": "🔗",
+          "label": "GitHub",
+          "url": "https://github.com/toniebox-reverse-engineering/teddycloud"
+        }
+      ],
+      "networkEntries": [
+        {
+          "icon": "🖥️",
+          "value": "Default Port: 80"
+        }
+      ],
+      "configLocations": []
+    }
+  }
+}

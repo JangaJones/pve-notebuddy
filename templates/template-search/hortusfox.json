@@ -1,0 +1,41 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "HortusFox"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "HortusFox",
+      "icon": {
+        "urls": {
+          "URL1": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/hortusfox.svg"
+        },
+        "linkUrls": {
+          "URL1": "https://www.hortusfox.com/"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://github.com/danielbrendel/hortusfox-web"
+        }
+      ],
+      "networkEntries": [
+        {
+          "icon": "🖥️",
+          "value": "Default Port: 80"
+        }
+      ],
+      "configLocations": [
+        {
+          "icon": "📁",
+          "value": "/opt/hortusfox/.env"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "Zitadel"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "Zitadel",
+      "icon": {
+        "urls": {
+          "URL1": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/zitadel.webp"
+        },
+        "linkUrls": {
+          "URL1": "https://zitadel.com"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://zitadel.com/docs/guides/overview"
+        },
+        {
+          "icon": "🔗",
+          "label": "GitHub",
+          "url": "https://github.com/zitadel/zitadel"
+        }
+      ],
+      "networkEntries": [
+        {
+          "icon": "🖥️",
+          "value": "Default Port: 8080"
+        }
+      ],
+      "configLocations": [
+        {
+          "icon": "📁",
+          "value": "/opt/zitadel/config.yaml"
+        }
+      ]
+    }
+  }
+}

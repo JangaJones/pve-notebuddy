@@ -1,0 +1,36 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "garmin-grafana"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "garmin-grafana",
+      "icon": {
+        "urls": {
+          "URL1": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/garmin-grafana.svg"
+        },
+        "linkUrls": {
+          "URL1": "https://github.com/arpanghosh8453/garmin-grafana"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://github.com/arpanghosh8453/garmin-grafana"
+        }
+      ],
+      "networkEntries": [
+        {
+          "icon": "🖥️",
+          "value": "Default Port: 3000"
+        }
+      ],
+      "configLocations": []
+    }
+  }
+}

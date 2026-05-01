@@ -1,0 +1,41 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "Tandoor Recipes"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "Tandoor Recipes",
+      "icon": {
+        "urls": {
+          "URL1": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/tandoor-recipes.svg"
+        },
+        "linkUrls": {
+          "URL1": "https://tandoor.dev/"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://docs.tandoor.dev/"
+        }
+      ],
+      "networkEntries": [
+        {
+          "icon": "🖥️",
+          "value": "Default Port: 8002"
+        }
+      ],
+      "configLocations": [
+        {
+          "icon": "📁",
+          "value": "/opt/tandoor/.env"
+        }
+      ]
+    }
+  }
+}

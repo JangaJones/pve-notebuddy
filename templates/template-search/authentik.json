@@ -1,0 +1,46 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "authentik"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "authentik",
+      "icon": {
+        "urls": {
+          "URL1": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/authentik.svg"
+        },
+        "linkUrls": {
+          "URL1": "https://goauthentik.io/"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://docs.goauthentik.io/"
+        },
+        {
+          "icon": "🔗",
+          "label": "GitHub",
+          "url": "https://github.com/goauthentik/authentik"
+        }
+      ],
+      "networkEntries": [
+        {
+          "icon": "🖥️",
+          "value": "Default Port: 9000"
+        }
+      ],
+      "configLocations": [
+        {
+          "icon": "📁",
+          "value": "/etc/authentik/config.yml"
+        }
+      ]
+    }
+  }
+}

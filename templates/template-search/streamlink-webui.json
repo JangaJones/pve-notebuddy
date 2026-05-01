@@ -1,0 +1,41 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "Streamlink WebUI"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "Streamlink WebUI",
+      "icon": {
+        "urls": {
+          "URL1": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/streamlink.webp"
+        },
+        "linkUrls": {
+          "URL1": "https://github.com/CrazyWolf13/streamlink-webui"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://github.com/CrazyWolf13/streamlink-webui"
+        }
+      ],
+      "networkEntries": [
+        {
+          "icon": "🖥️",
+          "value": "Default Port: 8000"
+        }
+      ],
+      "configLocations": [
+        {
+          "icon": "📁",
+          "value": "/opt/streamlink-webui.env"
+        }
+      ]
+    }
+  }
+}

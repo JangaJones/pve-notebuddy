@@ -1,0 +1,46 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "LinkStack"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "LinkStack",
+      "icon": {
+        "urls": {
+          "URL1": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/linkstack.svg"
+        },
+        "linkUrls": {
+          "URL1": "https://linkstack.org/"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://docs.linkstack.org/"
+        },
+        {
+          "icon": "🔗",
+          "label": "GitHub",
+          "url": "https://github.com/LinkStackOrg/LinkStack"
+        }
+      ],
+      "networkEntries": [
+        {
+          "icon": "🖥️",
+          "value": "Default Port: 80"
+        }
+      ],
+      "configLocations": [
+        {
+          "icon": "📁",
+          "value": "/var/www/html/linkstack/.env"
+        }
+      ]
+    }
+  }
+}

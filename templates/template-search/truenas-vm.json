@@ -1,0 +1,31 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "TrueNAS Community Edition"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "TrueNAS Community Edition",
+      "icon": {
+        "urls": {
+          "URL1": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/truenas-core.svg"
+        },
+        "linkUrls": {
+          "URL1": "https://www.truenas.com/truenas-community-edition/"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://www.truenas.com/docs/"
+        }
+      ],
+      "networkEntries": [],
+      "configLocations": []
+    }
+  }
+}

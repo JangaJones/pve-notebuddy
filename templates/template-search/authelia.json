@@ -1,0 +1,46 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "Authelia"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "Authelia",
+      "icon": {
+        "urls": {
+          "URL1": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/authelia.svg"
+        },
+        "linkUrls": {
+          "URL1": "https://www.authelia.com/"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://www.authelia.com/integration/deployment/bare-metal/"
+        },
+        {
+          "icon": "🔗",
+          "label": "GitHub",
+          "url": "https://github.com/authelia/authelia"
+        }
+      ],
+      "networkEntries": [
+        {
+          "icon": "🖥️",
+          "value": "Default Port: 443"
+        }
+      ],
+      "configLocations": [
+        {
+          "icon": "📁",
+          "value": "/etc/authelia/configuration.yml"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "Pelican Panel"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "Pelican Panel",
+      "icon": {
+        "urls": {
+          "URL1": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/pelican-panel.webp"
+        },
+        "linkUrls": {
+          "URL1": "https://pelican.dev/"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://pelican.dev/docs/panel/getting-started"
+        }
+      ],
+      "networkEntries": [
+        {
+          "icon": "🖥️",
+          "value": "Default Port: 80"
+        }
+      ],
+      "configLocations": []
+    }
+  }
+}

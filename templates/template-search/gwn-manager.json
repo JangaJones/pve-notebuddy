@@ -1,0 +1,41 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "GWN Manager"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "GWN Manager",
+      "icon": {
+        "urls": {
+          "URL1": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/gwn-manager.webp"
+        },
+        "linkUrls": {
+          "URL1": "https://www.grandstream.com/products/networking-solutions/wi-fi-management/product/gwn-manager"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://documentation.grandstream.com/article-categories/gwn-mgmt/"
+        }
+      ],
+      "networkEntries": [
+        {
+          "icon": "🖥️",
+          "value": "Default Port: 8443"
+        }
+      ],
+      "configLocations": [
+        {
+          "icon": "📁",
+          "value": "/gwn/conf/gwn.conf"
+        }
+      ]
+    }
+  }
+}

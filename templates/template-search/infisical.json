@@ -1,0 +1,46 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "Infisical"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "Infisical",
+      "icon": {
+        "urls": {
+          "URL1": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/infisical.svg"
+        },
+        "linkUrls": {
+          "URL1": "https://infisical.com/"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://infisical.com/docs/documentation/getting-started/overview"
+        },
+        {
+          "icon": "🔗",
+          "label": "GitHub",
+          "url": "https://github.com/Infisical/infisical"
+        }
+      ],
+      "networkEntries": [
+        {
+          "icon": "🖥️",
+          "value": "Default Port: 8080"
+        }
+      ],
+      "configLocations": [
+        {
+          "icon": "📁",
+          "value": "/etc/infisical/infisical.rb"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "Loki"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "Loki",
+      "icon": {
+        "urls": {
+          "URL1": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/loki.webp"
+        },
+        "linkUrls": {
+          "URL1": "https://github.com/grafana/loki"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://grafana.com/docs/loki/latest/"
+        }
+      ],
+      "networkEntries": [
+        {
+          "icon": "🖥️",
+          "value": "Default Port: 3100"
+        }
+      ],
+      "configLocations": [
+        {
+          "icon": "📁",
+          "value": "Debian: /etc/loki/config.yml"
+        },
+        {
+          "icon": "📁",
+          "value": "Alpine: /etc/loki/loki-local-config.yaml"
+        }
+      ]
+    }
+  }
+}

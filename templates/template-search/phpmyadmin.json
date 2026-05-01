@@ -1,0 +1,45 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "PhpMyAdmin"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "PhpMyAdmin",
+      "icon": {
+        "urls": {
+          "URL1": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/phpmyadmin.svg"
+        },
+        "linkUrls": {
+          "URL1": "https://www.phpmyadmin.net/"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://www.phpmyadmin.net/docs/"
+        },
+        {
+          "icon": "🔗",
+          "label": "GitHub",
+          "url": "https://github.com/phpmyadmin/phpmyadmin"
+        }
+      ],
+      "networkEntries": [],
+      "configLocations": [
+        {
+          "icon": "📁",
+          "value": "Debian/Ubuntu: /var/www/html/phpMyAdmin"
+        },
+        {
+          "icon": "📁",
+          "value": "Alpine: /usr/share/phpmyadmin"
+        }
+      ]
+    }
+  }
+}

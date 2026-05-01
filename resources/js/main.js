@@ -187,6 +187,7 @@ let githubMetadataService = null;
 let rowEditorFeature = null;
 let draftPersistenceEnabled = false;
 let draftPersistTimer = null;
+let lastDraftSnapshotRaw = "";
 const NOTE_DRAFT_CACHE_KEY = "pve-notebuddy:note-draft-v1";
 
 const appStateStore = createAppStateStore({
@@ -276,7 +277,12 @@ function persistDraftSnapshotToCache() {
   }
   try {
     const snapshot = templateSettingsFeature.collectSettings();
-    cacheSetItem(NOTE_DRAFT_CACHE_KEY, JSON.stringify(snapshot));
+    const raw = JSON.stringify(snapshot);
+    if (raw === lastDraftSnapshotRaw) {
+      return;
+    }
+    cacheSetItem(NOTE_DRAFT_CACHE_KEY, raw);
+    lastDraftSnapshotRaw = raw;
   } catch {
     // Keep live editing functional even if cache write fails.
   }
@@ -298,12 +304,19 @@ function queueDraftPersistence() {
 function readDraftSnapshotFromCache() {
   const raw = cacheGetItem(NOTE_DRAFT_CACHE_KEY);
   if (!raw) {
+    lastDraftSnapshotRaw = "";
     return null;
   }
   try {
     const parsed = JSON.parse(raw);
-    return parsed && typeof parsed === "object" ? parsed : null;
+    if (parsed && typeof parsed === "object") {
+      lastDraftSnapshotRaw = raw;
+      return parsed;
+    }
+    lastDraftSnapshotRaw = "";
+    return null;
   } catch {
+    lastDraftSnapshotRaw = "";
     return null;
   }
 }
@@ -313,11 +326,11 @@ function renderOutput() {
   queueDraftPersistence();
 }
 
-async function prepareIcon() {
+async function prepareIcon(options = {}) {
   if (!appIconsFeature) {
     return;
   }
-  await appIconsFeature.prepareIcon();
+  await appIconsFeature.prepareIcon(options);
 }
 
 async function applyInitTemplateFromFile() {
@@ -344,6 +357,7 @@ async function applyCachedDraftOrInitTemplate() {
       return true;
     } catch {
       cacheRemoveItem(NOTE_DRAFT_CACHE_KEY);
+      lastDraftSnapshotRaw = "";
     }
   }
   return applyInitTemplateFromFile();
@@ -416,7 +430,7 @@ function createFeatures() {
       if (!templateSettingsFeature) {
         return;
       }
-      await templateSettingsFeature.fetchAndApplySettings(path, "template", "Could not load selected public template.");
+      await templateSettingsFeature.fetchAndApplySettings(path, "template-search", "Could not load selected public template.");
     },
   });
 

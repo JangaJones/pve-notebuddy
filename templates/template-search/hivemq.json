@@ -1,0 +1,36 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "HiveMQ CE"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "HiveMQ CE",
+      "icon": {
+        "urls": {
+          "URL1": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/hivemq.svg"
+        },
+        "linkUrls": {
+          "URL1": "https://www.hivemq.com/"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://github.com/hivemq/hivemq-community-edition/wiki"
+        }
+      ],
+      "networkEntries": [
+        {
+          "icon": "🖥️",
+          "value": "Default Port: 1883"
+        }
+      ],
+      "configLocations": []
+    }
+  }
+}

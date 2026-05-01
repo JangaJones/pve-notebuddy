@@ -1,5 +1,8 @@
 function inferTagFromFile(file) {
   const clean = String(file || "").trim().toLowerCase();
+  if (clean.startsWith("template-search/")) {
+    return "PVE Scripts";
+  }
   if (clean.startsWith("community-scripts/")) {
     return "PVE Scripts";
   }
@@ -52,7 +55,7 @@ export function normalizeTemplateCatalog(payload) {
 
 export async function loadPublicTemplateCatalog(fetchImpl = fetch) {
   try {
-    const res = await fetchImpl("./templates/index.json", { cache: "no-store" });
+    const res = await fetchImpl("./templates/template-search-index.json", { cache: "no-store" });
     if (!res.ok) {
       return [];
     }

@@ -1,0 +1,46 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "Nginx UI"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "Nginx UI",
+      "icon": {
+        "urls": {
+          "URL1": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/nginx-ui.svg"
+        },
+        "linkUrls": {
+          "URL1": "https://nginxui.com"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://nginxui.com/guide/"
+        },
+        {
+          "icon": "🔗",
+          "label": "GitHub",
+          "url": "https://github.com/0xJacky/nginx-ui"
+        }
+      ],
+      "networkEntries": [
+        {
+          "icon": "🖥️",
+          "value": "Default Port: 9000"
+        }
+      ],
+      "configLocations": [
+        {
+          "icon": "📁",
+          "value": "/usr/local/etc/nginx-ui/app.ini"
+        }
+      ]
+    }
+  }
+}

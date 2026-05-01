@@ -1,0 +1,36 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "iSponsorBlockTV"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "iSponsorBlockTV",
+      "icon": {
+        "urls": {
+          "URL1": "https://raw.githubusercontent.com/ajayyy/SponsorBlock/master/public/icons/IconSponsorBlocker512px.png"
+        },
+        "linkUrls": {
+          "URL1": "https://github.com/dmunozv04/iSponsorBlockTV"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://github.com/dmunozv04/iSponsorBlockTV/wiki"
+        }
+      ],
+      "networkEntries": [],
+      "configLocations": [
+        {
+          "icon": "📁",
+          "value": "/var/lib/isponsorblocktv/config.json"
+        }
+      ]
+    }
+  }
+}

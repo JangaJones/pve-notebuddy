@@ -1,0 +1,36 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "SQL Server 2022"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "SQL Server 2022",
+      "icon": {
+        "urls": {
+          "URL1": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/microsoft-sql-server.webp"
+        },
+        "linkUrls": {
+          "URL1": "https://www.microsoft.com/en-us/sql-server/sql-server-2022"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://learn.microsoft.com/en-us/sql/sql-server/?view=sql-server-ver16"
+        }
+      ],
+      "networkEntries": [
+        {
+          "icon": "🖥️",
+          "value": "Default Port: 1433"
+        }
+      ],
+      "configLocations": []
+    }
+  }
+}

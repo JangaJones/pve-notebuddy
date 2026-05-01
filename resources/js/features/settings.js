@@ -76,7 +76,7 @@ export function createSettingsFeature({
       state.settings.svgPreferredMode = next;
     });
     syncSettingsPaneFromState();
-    prepareIcon();
+    prepareIcon({ respectPreferredSvgMode: true });
   }
 
   function saveWeservDomainSetting() {

@@ -1,0 +1,45 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "Mail-Archiver"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "Mail-Archiver",
+      "icon": {
+        "urls": {
+          "URL1": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/mail-archiver.svg"
+        },
+        "linkUrls": {
+          "URL1": "https://github.com/s1t5/mail-archiver"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://github.com/s1t5/mail-archiver/blob/main/doc/Index.md"
+        }
+      ],
+      "networkEntries": [
+        {
+          "icon": "🖥️",
+          "value": "Default Port: 5000"
+        }
+      ],
+      "configLocations": [
+        {
+          "icon": "📁",
+          "value": "/opt/mail-archiver/.env"
+        },
+        {
+          "icon": "📁",
+          "value": "/opt/mail-archiver/appsettings.json"
+        }
+      ]
+    }
+  }
+}

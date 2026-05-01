@@ -1,0 +1,41 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "Ollama"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "Ollama",
+      "icon": {
+        "urls": {
+          "URL1": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/ollama.webp"
+        },
+        "linkUrls": {
+          "URL1": "https://ollama.com/"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://github.com/ollama/ollama/tree/main/docs"
+        }
+      ],
+      "networkEntries": [
+        {
+          "icon": "🖥️",
+          "value": "Default Port: 11434"
+        }
+      ],
+      "configLocations": [
+        {
+          "icon": "📁",
+          "value": "/usr/local/lib/ollama"
+        }
+      ]
+    }
+  }
+}

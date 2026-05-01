@@ -1,0 +1,46 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "Transmute"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "Transmute",
+      "icon": {
+        "urls": {
+          "URL1": "https://raw.githubusercontent.com/transmute-app/transmute/main/frontend/public/transmute-logo.svg"
+        },
+        "linkUrls": {
+          "URL1": "https://transmute.sh"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://transmute.sh/docs/getting-started/"
+        },
+        {
+          "icon": "🔗",
+          "label": "GitHub",
+          "url": "https://github.com/transmute-app/transmute"
+        }
+      ],
+      "networkEntries": [
+        {
+          "icon": "🖥️",
+          "value": "Default Port: 3313"
+        }
+      ],
+      "configLocations": [
+        {
+          "icon": "📁",
+          "value": "/opt/transmute/backend/.env"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "ddclient"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "ddclient",
+      "icon": {
+        "urls": {
+          "URL1": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/ddclient.svg"
+        },
+        "linkUrls": {
+          "URL1": "https://ddclient.net/"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://ddclient.net/"
+        },
+        {
+          "icon": "🔗",
+          "label": "GitHub",
+          "url": "https://github.com/ddclient/ddclient"
+        }
+      ],
+      "networkEntries": [],
+      "configLocations": [
+        {
+          "icon": "📁",
+          "value": "/etc/ddclient.conf"
+        }
+      ]
+    }
+  }
+}

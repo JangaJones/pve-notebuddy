@@ -1,0 +1,41 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "degoog"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "degoog",
+      "icon": {
+        "urls": {
+          "URL1": "https://raw.githubusercontent.com/fccview/degoog/main/src/public/images/degoog-logo.png"
+        },
+        "linkUrls": {
+          "URL1": "https://github.com/fccview/degoog"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://fccview.github.io/degoog/"
+        }
+      ],
+      "networkEntries": [
+        {
+          "icon": "🖥️",
+          "value": "Default Port: 4444"
+        }
+      ],
+      "configLocations": [
+        {
+          "icon": "📁",
+          "value": "/opt/degoog/.env"
+        }
+      ]
+    }
+  }
+}

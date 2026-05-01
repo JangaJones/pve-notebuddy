@@ -1,0 +1,46 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "Bitmagnet"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "Bitmagnet",
+      "icon": {
+        "urls": {
+          "URL1": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/bitmagnet.webp"
+        },
+        "linkUrls": {
+          "URL1": "https://bitmagnet.io/"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://bitmagnet.io/setup.html"
+        },
+        {
+          "icon": "🔗",
+          "label": "GitHub",
+          "url": "https://github.com/bitmagnet-io/bitmagnet"
+        }
+      ],
+      "networkEntries": [
+        {
+          "icon": "🖥️",
+          "value": "Default Port: 3333"
+        }
+      ],
+      "configLocations": [
+        {
+          "icon": "📁",
+          "value": "`/opt/bitmagnet/config.yml` or `/opt/bitmagnet/.env`"
+        }
+      ]
+    }
+  }
+}

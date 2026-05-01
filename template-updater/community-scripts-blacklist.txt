@@ -1,0 +1,25 @@
+All Templates
+Intel e1000e NIC Offloading Fix
+PBS 4 Upgrade
+PBS Post Install
+PBS Processor Microcode
+PMG Post Install
+PVE Clean Orphaned LVM
+PVE CPU Scaling Governor
+PVE Cron LXC Updater
+PVE Host Backup
+PVE Kernel Clean
+PVE Kernel Pin
+PVE LXC Apps Updater
+PVE LXC Cleaner
+PVE LXC Deletion
+PVE LXC Execute Command
+PVE LXC Filesystem Trim
+PVE LXC Tag
+PVE LXC Updater
+PVE Monitor-All
+PVE Post Install
+PVE Privilege Converter
+PVE Processor Microcode
+PVE Update Repositories
+PVE LXC Execute

@@ -1,0 +1,45 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "Scanopy"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "Scanopy",
+      "icon": {
+        "urls": {
+          "URL1": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/scanopy.svg"
+        },
+        "linkUrls": {
+          "URL1": "https://scanopy.net"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://github.com/scanopy/scanopy"
+        }
+      ],
+      "networkEntries": [
+        {
+          "icon": "🖥️",
+          "value": "Default Port: 60072"
+        }
+      ],
+      "configLocations": [
+        {
+          "icon": "📁",
+          "value": "/opt/scanopy/.env"
+        },
+        {
+          "icon": "📁",
+          "value": "OIDC: /opt/scanopy/oidc.toml"
+        }
+      ]
+    }
+  }
+}

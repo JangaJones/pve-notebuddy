@@ -1,0 +1,50 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "Grafana"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "Grafana",
+      "icon": {
+        "urls": {
+          "URL1": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/grafana.webp"
+        },
+        "linkUrls": {
+          "URL1": "https://grafana.com/"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://grafana.com/docs/grafana/latest/"
+        },
+        {
+          "icon": "🔗",
+          "label": "GitHub",
+          "url": "https://github.com/grafana/grafana"
+        }
+      ],
+      "networkEntries": [
+        {
+          "icon": "🖥️",
+          "value": "Default Port: 3000"
+        }
+      ],
+      "configLocations": [
+        {
+          "icon": "📁",
+          "value": "Debian: /etc/grafana/grafana.ini"
+        },
+        {
+          "icon": "📁",
+          "value": "Alpine: /etc/grafana.ini"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "Transmission"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "Transmission",
+      "icon": {
+        "urls": {
+          "URL1": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/transmission.svg"
+        },
+        "linkUrls": {
+          "URL1": "https://transmissionbt.com/"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://github.com/transmission/transmission/blob/main/docs/README.md"
+        }
+      ],
+      "networkEntries": [
+        {
+          "icon": "🖥️",
+          "value": "Default Port: 9091"
+        }
+      ],
+      "configLocations": [
+        {
+          "icon": "📁",
+          "value": "Debian `/etc/transmission-daemon/settings.json`"
+        },
+        {
+          "icon": "📁",
+          "value": "Alpine `/var/lib/transmission/config/settings.json`"
+        }
+      ]
+    }
+  }
+}

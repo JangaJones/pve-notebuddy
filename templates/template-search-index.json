@@ -1,0 +1,3316 @@
+{
+  "templates": [
+    {
+      "name": "2FAuth",
+      "file": "template-search/2fauth.json",
+      "source": "template-search/2fauth.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Actual Budget",
+      "file": "template-search/actualbudget.json",
+      "source": "template-search/actualbudget.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "AdGuard Home",
+      "file": "template-search/adguard.json",
+      "source": "template-search/adguard.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "AdGuardHome-Sync",
+      "file": "template-search/adguardhome-sync.json",
+      "source": "template-search/adguardhome-sync.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "AdventureLog",
+      "file": "template-search/adventurelog.json",
+      "source": "template-search/adventurelog.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "AgentDVR",
+      "file": "template-search/agentdvr.json",
+      "source": "template-search/agentdvr.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "AllStarLink",
+      "file": "template-search/allstarlink-vm.json",
+      "source": "template-search/allstarlink-vm.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "AlmaLinux 10",
+      "file": "template-search/almalinux-10-vm.json",
+      "source": "template-search/almalinux-10-vm.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Alpine Linux",
+      "file": "template-search/alpine.json",
+      "source": "template-search/alpine.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Alpine-BorgBackup-Server",
+      "file": "template-search/alpine-borgbackup-server.json",
+      "source": "template-search/alpine-borgbackup-server.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Alpine-Cinny",
+      "file": "template-search/alpine-cinny.json",
+      "source": "template-search/alpine-cinny.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Alpine-IT-Tools",
+      "file": "template-search/alpine-it-tools.json",
+      "source": "template-search/alpine-it-tools.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Alpine-Nextcloud",
+      "file": "template-search/alpine-nextcloud.json",
+      "source": "template-search/alpine-nextcloud.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Alpine-ntfy",
+      "file": "template-search/alpine-ntfy.json",
+      "source": "template-search/alpine-ntfy.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Alpine-Wakapi",
+      "file": "template-search/alpine-wakapi.json",
+      "source": "template-search/alpine-wakapi.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Ampache",
+      "file": "template-search/ampache.json",
+      "source": "template-search/ampache.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Anchor",
+      "file": "template-search/anchor.json",
+      "source": "template-search/anchor.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Anytype",
+      "file": "template-search/anytype.json",
+      "source": "template-search/anytype.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Anytype Server",
+      "file": "template-search/anytype-server.json",
+      "source": "template-search/anytype-server.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Apache CouchDB",
+      "file": "template-search/apache-couchdb.json",
+      "source": "template-search/apache-couchdb.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Apache Guacamole",
+      "file": "template-search/apache-guacamole.json",
+      "source": "template-search/apache-guacamole.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Apache Tika",
+      "file": "template-search/apache-tika.json",
+      "source": "template-search/apache-tika.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Apache Tomcat",
+      "file": "template-search/apache-tomcat.json",
+      "source": "template-search/apache-tomcat.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Apache-Cassandra",
+      "file": "template-search/apache-cassandra.json",
+      "source": "template-search/apache-cassandra.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Apprise API",
+      "file": "template-search/apprise-api.json",
+      "source": "template-search/apprise-api.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Apt-Cacher-NG",
+      "file": "template-search/apt-cacher-ng.json",
+      "source": "template-search/apt-cacher-ng.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Arcane",
+      "file": "template-search/arcane.json",
+      "source": "template-search/arcane.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Arch Linux",
+      "file": "template-search/archlinux-vm.json",
+      "source": "template-search/archlinux-vm.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "ArchiveBox",
+      "file": "template-search/archivebox.json",
+      "source": "template-search/archivebox.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Argus",
+      "file": "template-search/argus.json",
+      "source": "template-search/argus.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Aria2",
+      "file": "template-search/aria2.json",
+      "source": "template-search/aria2.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Asterisk",
+      "file": "template-search/asterisk.json",
+      "source": "template-search/asterisk.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Audiobookshelf",
+      "file": "template-search/audiobookshelf.json",
+      "source": "template-search/audiobookshelf.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Authelia",
+      "file": "template-search/authelia.json",
+      "source": "template-search/authelia.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "authentik",
+      "file": "template-search/authentik.json",
+      "source": "template-search/authentik.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Autobrr",
+      "file": "template-search/autobrr.json",
+      "source": "template-search/autobrr.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Autocaliweb",
+      "file": "template-search/autocaliweb.json",
+      "source": "template-search/autocaliweb.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Baby Buddy",
+      "file": "template-search/babybuddy.json",
+      "source": "template-search/babybuddy.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Backrest",
+      "file": "template-search/backrest.json",
+      "source": "template-search/backrest.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Baïkal",
+      "file": "template-search/baikal.json",
+      "source": "template-search/baikal.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Bambuddy",
+      "file": "template-search/bambuddy.json",
+      "source": "template-search/bambuddy.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Bar-Assistant",
+      "file": "template-search/bar-assistant.json",
+      "source": "template-search/bar-assistant.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Baserow",
+      "file": "template-search/baserow.json",
+      "source": "template-search/baserow.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Bazarr",
+      "file": "template-search/bazarr.json",
+      "source": "template-search/bazarr.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "BentoPDF",
+      "file": "template-search/bentopdf.json",
+      "source": "template-search/bentopdf.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Beszel",
+      "file": "template-search/beszel.json",
+      "source": "template-search/beszel.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Bichon",
+      "file": "template-search/bichon.json",
+      "source": "template-search/bichon.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "BirdNET-Go",
+      "file": "template-search/birdnet-go.json",
+      "source": "template-search/birdnet-go.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Bitfocus Companion",
+      "file": "template-search/bitfocus-companion.json",
+      "source": "template-search/bitfocus-companion.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Bitmagnet",
+      "file": "template-search/bitmagnet.json",
+      "source": "template-search/bitmagnet.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Blinko",
+      "file": "template-search/blinko.json",
+      "source": "template-search/blinko.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Blocky",
+      "file": "template-search/blocky.json",
+      "source": "template-search/blocky.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "BookLore",
+      "file": "template-search/booklore.json",
+      "source": "template-search/booklore.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "BookStack",
+      "file": "template-search/bookstack.json",
+      "source": "template-search/bookstack.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "BunkerWeb",
+      "file": "template-search/bunkerweb.json",
+      "source": "template-search/bunkerweb.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Byparr",
+      "file": "template-search/byparr.json",
+      "source": "template-search/byparr.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "ByteStash",
+      "file": "template-search/bytestash.json",
+      "source": "template-search/bytestash.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Caddy",
+      "file": "template-search/caddy.json",
+      "source": "template-search/caddy.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Calibre-Web",
+      "file": "template-search/calibre-web.json",
+      "source": "template-search/calibre-web.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "CasaOS",
+      "file": "template-search/casaos.json",
+      "source": "template-search/casaos.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Certimate",
+      "file": "template-search/certimate.json",
+      "source": "template-search/certimate.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Change Detection",
+      "file": "template-search/changedetection.json",
+      "source": "template-search/changedetection.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Channels DVR Server",
+      "file": "template-search/channels.json",
+      "source": "template-search/channels.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Checkmate",
+      "file": "template-search/checkmate.json",
+      "source": "template-search/checkmate.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Checkmk",
+      "file": "template-search/checkmk.json",
+      "source": "template-search/checkmk.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Cleanuparr",
+      "file": "template-search/cleanuparr.json",
+      "source": "template-search/cleanuparr.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "ClickHouse",
+      "file": "template-search/clickhouse.json",
+      "source": "template-search/clickhouse.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "CLIProxyAPI",
+      "file": "template-search/cliproxyapi.json",
+      "source": "template-search/cliproxyapi.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Cloudflare-DDNS",
+      "file": "template-search/cloudflare-ddns.json",
+      "source": "template-search/cloudflare-ddns.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Cloudflared",
+      "file": "template-search/cloudflared.json",
+      "source": "template-search/cloudflared.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Cloudreve",
+      "file": "template-search/cloudreve.json",
+      "source": "template-search/cloudreve.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Cockpit",
+      "file": "template-search/cockpit.json",
+      "source": "template-search/cockpit.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Coder Code Server",
+      "file": "template-search/coder-code-server.json",
+      "source": "template-search/coder-code-server.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "ComfyUI",
+      "file": "template-search/comfyui.json",
+      "source": "template-search/comfyui.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "CommaFeed",
+      "file": "template-search/commafeed.json",
+      "source": "template-search/commafeed.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Configarr",
+      "file": "template-search/configarr.json",
+      "source": "template-search/configarr.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "ConvertX",
+      "file": "template-search/convertx.json",
+      "source": "template-search/convertx.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Coolify",
+      "file": "template-search/coolify.json",
+      "source": "template-search/coolify.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Copyparty",
+      "file": "template-search/copyparty.json",
+      "source": "template-search/copyparty.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "CoreDNS",
+      "file": "template-search/coredns.json",
+      "source": "template-search/coredns.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Cosmos",
+      "file": "template-search/cosmos.json",
+      "source": "template-search/cosmos.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Crafty Controller",
+      "file": "template-search/crafty-controller.json",
+      "source": "template-search/crafty-controller.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Cronicle Primary",
+      "file": "template-search/cronicle.json",
+      "source": "template-search/cronicle.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "CronMaster",
+      "file": "template-search/cronmaster.json",
+      "source": "template-search/cronmaster.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "cross-seed",
+      "file": "template-search/cross-seed.json",
+      "source": "template-search/cross-seed.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "CrowdSec",
+      "file": "template-search/crowdsec.json",
+      "source": "template-search/crowdsec.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "CryptPad",
+      "file": "template-search/cryptpad.json",
+      "source": "template-search/cryptpad.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Dagu",
+      "file": "template-search/dagu.json",
+      "source": "template-search/dagu.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Dashy",
+      "file": "template-search/dashy.json",
+      "source": "template-search/dashy.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Databasus",
+      "file": "template-search/databasus.json",
+      "source": "template-search/databasus.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Dawarich",
+      "file": "template-search/dawarich.json",
+      "source": "template-search/dawarich.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "ddclient",
+      "file": "template-search/ddclient.json",
+      "source": "template-search/ddclient.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Debian",
+      "file": "template-search/debian.json",
+      "source": "template-search/debian.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Debian 12",
+      "file": "template-search/debian-vm.json",
+      "source": "template-search/debian-vm.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Debian 13",
+      "file": "template-search/debian-13-vm.json",
+      "source": "template-search/debian-13-vm.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "deCONZ",
+      "file": "template-search/deconz.json",
+      "source": "template-search/deconz.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "degoog",
+      "file": "template-search/degoog.json",
+      "source": "template-search/degoog.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Deluge",
+      "file": "template-search/deluge.json",
+      "source": "template-search/deluge.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "DiscoPanel",
+      "file": "template-search/discopanel.json",
+      "source": "template-search/discopanel.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Discourse",
+      "file": "template-search/discourse.json",
+      "source": "template-search/discourse.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Dispatcharr",
+      "file": "template-search/dispatcharr.json",
+      "source": "template-search/dispatcharr.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Docker",
+      "file": "template-search/docker-vm.json",
+      "source": "template-search/docker-vm.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Docker",
+      "file": "template-search/docker.json",
+      "source": "template-search/docker.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Dockge",
+      "file": "template-search/dockge.json",
+      "source": "template-search/dockge.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Docmost",
+      "file": "template-search/docmost.json",
+      "source": "template-search/docmost.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Dokploy",
+      "file": "template-search/dokploy.json",
+      "source": "template-search/dokploy.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Dolibarr",
+      "file": "template-search/dolibarr.json",
+      "source": "template-search/dolibarr.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Domain Locker",
+      "file": "template-search/domain-locker.json",
+      "source": "template-search/domain-locker.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Domain Monitor",
+      "file": "template-search/domain-monitor.json",
+      "source": "template-search/domain-monitor.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Donetick",
+      "file": "template-search/donetick.json",
+      "source": "template-search/donetick.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Dotnet ASP Web API",
+      "file": "template-search/dotnetaspwebapi.json",
+      "source": "template-search/dotnetaspwebapi.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Draw.IO",
+      "file": "template-search/drawio.json",
+      "source": "template-search/drawio.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "DrawDB",
+      "file": "template-search/drawdb.json",
+      "source": "template-search/drawdb.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Duplicati",
+      "file": "template-search/duplicati.json",
+      "source": "template-search/duplicati.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "ebusd",
+      "file": "template-search/ebusd.json",
+      "source": "template-search/ebusd.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Element Synapse",
+      "file": "template-search/elementsynapse.json",
+      "source": "template-search/elementsynapse.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Emby Media Server",
+      "file": "template-search/emby.json",
+      "source": "template-search/emby.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "EMQX",
+      "file": "template-search/emqx.json",
+      "source": "template-search/emqx.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Endurain",
+      "file": "template-search/endurain.json",
+      "source": "template-search/endurain.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Ente",
+      "file": "template-search/ente.json",
+      "source": "template-search/ente.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "ERPNext",
+      "file": "template-search/erpnext.json",
+      "source": "template-search/erpnext.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "ErsatzTV",
+      "file": "template-search/ersatztv.json",
+      "source": "template-search/ersatztv.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "ESPConnect",
+      "file": "template-search/espconnect.json",
+      "source": "template-search/espconnect.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "ESPHome",
+      "file": "template-search/esphome.json",
+      "source": "template-search/esphome.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "evcc",
+      "file": "template-search/evcc.json",
+      "source": "template-search/evcc.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Excalidraw",
+      "file": "template-search/excalidraw.json",
+      "source": "template-search/excalidraw.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "FHEM",
+      "file": "template-search/fhem.json",
+      "source": "template-search/fhem.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "File Browser",
+      "file": "template-search/filebrowser.json",
+      "source": "template-search/filebrowser.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "FileBrowser Quantum",
+      "file": "template-search/filebrowser-quantum.json",
+      "source": "template-search/filebrowser-quantum.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "FileFlows",
+      "file": "template-search/fileflows.json",
+      "source": "template-search/fileflows.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Firefly III",
+      "file": "template-search/firefly.json",
+      "source": "template-search/firefly.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "fireshare",
+      "file": "template-search/fireshare.json",
+      "source": "template-search/fireshare.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Fladder",
+      "file": "template-search/fladder.json",
+      "source": "template-search/fladder.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "FlareSolverr",
+      "file": "template-search/flaresolverr.json",
+      "source": "template-search/flaresolverr.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Flatnotes",
+      "file": "template-search/flatnotes.json",
+      "source": "template-search/flatnotes.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "FlowiseAI",
+      "file": "template-search/flowiseai.json",
+      "source": "template-search/flowiseai.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Fluid-Calendar",
+      "file": "template-search/fluid-calendar.json",
+      "source": "template-search/fluid-calendar.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Foldergram",
+      "file": "template-search/foldergram.json",
+      "source": "template-search/foldergram.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Forgejo",
+      "file": "template-search/forgejo.json",
+      "source": "template-search/forgejo.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Forgejo Runner",
+      "file": "template-search/forgejo-runner.json",
+      "source": "template-search/forgejo-runner.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "FreePBX",
+      "file": "template-search/freepbx.json",
+      "source": "template-search/freepbx.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "FreshRSS",
+      "file": "template-search/freshrss.json",
+      "source": "template-search/freshrss.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Frigate",
+      "file": "template-search/frigate.json",
+      "source": "template-search/frigate.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Fumadocs",
+      "file": "template-search/fumadocs.json",
+      "source": "template-search/fumadocs.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Garage",
+      "file": "template-search/garage.json",
+      "source": "template-search/garage.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "garmin-grafana",
+      "file": "template-search/garmin-grafana.json",
+      "source": "template-search/garmin-grafana.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "gatus",
+      "file": "template-search/gatus.json",
+      "source": "template-search/gatus.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "GeoPulse",
+      "file": "template-search/geopulse.json",
+      "source": "template-search/geopulse.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Ghost",
+      "file": "template-search/ghost.json",
+      "source": "template-search/ghost.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Ghostfolio",
+      "file": "template-search/ghostfolio.json",
+      "source": "template-search/ghostfolio.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Gitea",
+      "file": "template-search/gitea.json",
+      "source": "template-search/gitea.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Gitea-Mirror",
+      "file": "template-search/gitea-mirror.json",
+      "source": "template-search/gitea-mirror.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "GitHub Runner",
+      "file": "template-search/github-runner.json",
+      "source": "template-search/github-runner.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Glance",
+      "file": "template-search/glance.json",
+      "source": "template-search/glance.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Glances",
+      "file": "template-search/glances.json",
+      "source": "template-search/glances.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "GlobaLeaks",
+      "file": "template-search/globaleaks.json",
+      "source": "template-search/globaleaks.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "GLPI",
+      "file": "template-search/glpi.json",
+      "source": "template-search/glpi.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Gluetun",
+      "file": "template-search/gluetun.json",
+      "source": "template-search/gluetun.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "go2rtc",
+      "file": "template-search/go2rtc.json",
+      "source": "template-search/go2rtc.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Gogs",
+      "file": "template-search/gogs.json",
+      "source": "template-search/gogs.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Gokapi",
+      "file": "template-search/gokapi.json",
+      "source": "template-search/gokapi.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Gotify",
+      "file": "template-search/gotify.json",
+      "source": "template-search/gotify.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Grafana",
+      "file": "template-search/grafana.json",
+      "source": "template-search/grafana.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Gramps Web",
+      "file": "template-search/gramps-web.json",
+      "source": "template-search/gramps-web.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Graylog",
+      "file": "template-search/graylog.json",
+      "source": "template-search/graylog.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Grist",
+      "file": "template-search/grist.json",
+      "source": "template-search/grist.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "grocy",
+      "file": "template-search/grocy.json",
+      "source": "template-search/grocy.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Guardian",
+      "file": "template-search/guardian.json",
+      "source": "template-search/guardian.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "GWN Manager",
+      "file": "template-search/gwn-manager.json",
+      "source": "template-search/gwn-manager.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Headscale",
+      "file": "template-search/headscale.json",
+      "source": "template-search/headscale.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Healthchecks",
+      "file": "template-search/healthchecks.json",
+      "source": "template-search/healthchecks.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Heimdall Dashboard",
+      "file": "template-search/heimdall-dashboard.json",
+      "source": "template-search/heimdall-dashboard.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "hev-socks5-server",
+      "file": "template-search/hev-socks5-server.json",
+      "source": "template-search/hev-socks5-server.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "HiveMQ CE",
+      "file": "template-search/hivemq.json",
+      "source": "template-search/hivemq.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Homarr",
+      "file": "template-search/homarr.json",
+      "source": "template-search/homarr.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Home Assistant Container",
+      "file": "template-search/homeassistant.json",
+      "source": "template-search/homeassistant.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Home Assistant OS",
+      "file": "template-search/haos-vm.json",
+      "source": "template-search/haos-vm.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "HomeBox",
+      "file": "template-search/homebox.json",
+      "source": "template-search/homebox.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Homebrew (Linuxbrew)",
+      "file": "template-search/homebrew.json",
+      "source": "template-search/homebrew.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Homebridge",
+      "file": "template-search/homebridge.json",
+      "source": "template-search/homebridge.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Homelable",
+      "file": "template-search/homelable.json",
+      "source": "template-search/homelable.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Homepage",
+      "file": "template-search/homepage.json",
+      "source": "template-search/homepage.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Homer",
+      "file": "template-search/homer.json",
+      "source": "template-search/homer.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "HortusFox",
+      "file": "template-search/hortusfox.json",
+      "source": "template-search/hortusfox.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "HyperHDR",
+      "file": "template-search/hyperhdr.json",
+      "source": "template-search/hyperhdr.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Hyperion",
+      "file": "template-search/hyperion.json",
+      "source": "template-search/hyperion.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "iGotify",
+      "file": "template-search/igotify.json",
+      "source": "template-search/igotify.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Immich",
+      "file": "template-search/immich.json",
+      "source": "template-search/immich.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Immich Public Proxy",
+      "file": "template-search/immich-public-proxy.json",
+      "source": "template-search/immich-public-proxy.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "ImmichFrame",
+      "file": "template-search/immichframe.json",
+      "source": "template-search/immichframe.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Infisical",
+      "file": "template-search/infisical.json",
+      "source": "template-search/infisical.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "InfluxDB",
+      "file": "template-search/influxdb.json",
+      "source": "template-search/influxdb.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "InspIRCd 4",
+      "file": "template-search/inspircd.json",
+      "source": "template-search/inspircd.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "InvenTree",
+      "file": "template-search/inventree.json",
+      "source": "template-search/inventree.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Investbrain",
+      "file": "template-search/investbrain.json",
+      "source": "template-search/investbrain.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "InvoiceNinja",
+      "file": "template-search/invoiceninja.json",
+      "source": "template-search/invoiceninja.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "InvoiceShelf",
+      "file": "template-search/invoiceshelf.json",
+      "source": "template-search/invoiceshelf.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "ioBroker",
+      "file": "template-search/iobroker.json",
+      "source": "template-search/iobroker.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "IronClaw",
+      "file": "template-search/ironclaw.json",
+      "source": "template-search/ironclaw.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "iSponsorBlockTV",
+      "file": "template-search/isponsorblocktv.json",
+      "source": "template-search/isponsorblocktv.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "ITSM-NG",
+      "file": "template-search/itsm-ng.json",
+      "source": "template-search/itsm-ng.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Jackett",
+      "file": "template-search/jackett.json",
+      "source": "template-search/jackett.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Jeedom",
+      "file": "template-search/jeedom.json",
+      "source": "template-search/jeedom.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Jellyfin Media Server",
+      "file": "template-search/jellyfin.json",
+      "source": "template-search/jellyfin.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Jellystat",
+      "file": "template-search/jellystat.json",
+      "source": "template-search/jellystat.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Jenkins",
+      "file": "template-search/jenkins.json",
+      "source": "template-search/jenkins.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Jitsi Meet",
+      "file": "template-search/jitsi-meet.json",
+      "source": "template-search/jitsi-meet.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Joplin Server",
+      "file": "template-search/joplin-server.json",
+      "source": "template-search/joplin-server.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "jotty",
+      "file": "template-search/jotty.json",
+      "source": "template-search/jotty.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Jupyter Notebook",
+      "file": "template-search/jupyternotebook.json",
+      "source": "template-search/jupyternotebook.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Kan",
+      "file": "template-search/kan.json",
+      "source": "template-search/kan.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Kapowarr",
+      "file": "template-search/kapowarr.json",
+      "source": "template-search/kapowarr.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "karakeep",
+      "file": "template-search/karakeep.json",
+      "source": "template-search/karakeep.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Kasm",
+      "file": "template-search/kasm.json",
+      "source": "template-search/kasm.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Kavita",
+      "file": "template-search/kavita.json",
+      "source": "template-search/kavita.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Keycloak",
+      "file": "template-search/keycloak.json",
+      "source": "template-search/keycloak.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Kima-Hub",
+      "file": "template-search/kima-hub.json",
+      "source": "template-search/kima-hub.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Kimai",
+      "file": "template-search/kimai.json",
+      "source": "template-search/kimai.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "KitchenOwl",
+      "file": "template-search/kitchenowl.json",
+      "source": "template-search/kitchenowl.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Koel",
+      "file": "template-search/koel.json",
+      "source": "template-search/koel.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Koillection",
+      "file": "template-search/koillection.json",
+      "source": "template-search/koillection.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Kometa",
+      "file": "template-search/kometa.json",
+      "source": "template-search/kometa.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Komga",
+      "file": "template-search/komga.json",
+      "source": "template-search/komga.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Komodo",
+      "file": "template-search/komodo.json",
+      "source": "template-search/komodo.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Kubo",
+      "file": "template-search/kubo.json",
+      "source": "template-search/kubo.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Kutt",
+      "file": "template-search/kutt.json",
+      "source": "template-search/kutt.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "LabCA",
+      "file": "template-search/labca.json",
+      "source": "template-search/labca.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "LanguageTool",
+      "file": "template-search/languagetool.json",
+      "source": "template-search/languagetool.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "LazyLibrarian",
+      "file": "template-search/lazylibrarian.json",
+      "source": "template-search/lazylibrarian.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Leantime",
+      "file": "template-search/leantime.json",
+      "source": "template-search/leantime.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "LibreChat",
+      "file": "template-search/librechat.json",
+      "source": "template-search/librechat.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "LibreNMS",
+      "file": "template-search/librenms.json",
+      "source": "template-search/librenms.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Librespeed Rust",
+      "file": "template-search/librespeed-rust.json",
+      "source": "template-search/librespeed-rust.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "LibreTranslate",
+      "file": "template-search/libretranslate.json",
+      "source": "template-search/libretranslate.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Lidarr",
+      "file": "template-search/lidarr.json",
+      "source": "template-search/lidarr.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "LimeSurvey",
+      "file": "template-search/limesurvey.json",
+      "source": "template-search/limesurvey.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "linkding",
+      "file": "template-search/linkding.json",
+      "source": "template-search/linkding.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "LinkStack",
+      "file": "template-search/linkstack.json",
+      "source": "template-search/linkstack.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Linkwarden",
+      "file": "template-search/linkwarden.json",
+      "source": "template-search/linkwarden.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "listmonk",
+      "file": "template-search/listmonk.json",
+      "source": "template-search/listmonk.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "LiteLLM",
+      "file": "template-search/litellm.json",
+      "source": "template-search/litellm.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Livebook",
+      "file": "template-search/livebook.json",
+      "source": "template-search/livebook.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "lldap",
+      "file": "template-search/lldap.json",
+      "source": "template-search/lldap.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "LobeHub",
+      "file": "template-search/lobehub.json",
+      "source": "template-search/lobehub.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "LocalAGI",
+      "file": "template-search/localagi.json",
+      "source": "template-search/localagi.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Loki",
+      "file": "template-search/loki.json",
+      "source": "template-search/loki.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "LubeLogger",
+      "file": "template-search/lubelogger.json",
+      "source": "template-search/lubelogger.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Lychee",
+      "file": "template-search/lychee.json",
+      "source": "template-search/lychee.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Lyrion Music Server",
+      "file": "template-search/lyrionmusicserver.json",
+      "source": "template-search/lyrionmusicserver.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Mafl",
+      "file": "template-search/mafl.json",
+      "source": "template-search/mafl.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "MagicMirror Server",
+      "file": "template-search/magicmirror.json",
+      "source": "template-search/magicmirror.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Mail-Archiver",
+      "file": "template-search/mail-archiver.json",
+      "source": "template-search/mail-archiver.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Manage My Damn Life",
+      "file": "template-search/managemydamnlife.json",
+      "source": "template-search/managemydamnlife.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Manyfold",
+      "file": "template-search/manyfold.json",
+      "source": "template-search/manyfold.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Mariadb",
+      "file": "template-search/mariadb.json",
+      "source": "template-search/mariadb.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Matomo",
+      "file": "template-search/matomo.json",
+      "source": "template-search/matomo.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Matter Server",
+      "file": "template-search/matter-server.json",
+      "source": "template-search/matter-server.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Matterbridge",
+      "file": "template-search/matterbridge.json",
+      "source": "template-search/matterbridge.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Mattermost",
+      "file": "template-search/mattermost.json",
+      "source": "template-search/mattermost.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Mealie",
+      "file": "template-search/mealie.json",
+      "source": "template-search/mealie.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "MediaManager",
+      "file": "template-search/mediamanager.json",
+      "source": "template-search/mediamanager.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "MediaMTX",
+      "file": "template-search/mediamtx.json",
+      "source": "template-search/mediamtx.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Medusa",
+      "file": "template-search/medusa.json",
+      "source": "template-search/medusa.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Meilisearch",
+      "file": "template-search/meilisearch.json",
+      "source": "template-search/meilisearch.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Memos",
+      "file": "template-search/memos.json",
+      "source": "template-search/memos.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "MeshCentral",
+      "file": "template-search/meshcentral.json",
+      "source": "template-search/meshcentral.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Metabase",
+      "file": "template-search/metabase.json",
+      "source": "template-search/metabase.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "MeTube",
+      "file": "template-search/metube.json",
+      "source": "template-search/metube.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Mikrotik RouterOS CHR",
+      "file": "template-search/mikrotik-routeros.json",
+      "source": "template-search/mikrotik-routeros.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Minarca",
+      "file": "template-search/minarca.json",
+      "source": "template-search/minarca.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Mini QR",
+      "file": "template-search/mini-qr.json",
+      "source": "template-search/mini-qr.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Miniflux",
+      "file": "template-search/miniflux.json",
+      "source": "template-search/miniflux.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "MinIO",
+      "file": "template-search/minio.json",
+      "source": "template-search/minio.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "MintHCM",
+      "file": "template-search/minthcm.json",
+      "source": "template-search/minthcm.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "MongoDB",
+      "file": "template-search/mongodb.json",
+      "source": "template-search/mongodb.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Monica",
+      "file": "template-search/monica.json",
+      "source": "template-search/monica.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "MotionEye NVR",
+      "file": "template-search/motioneye.json",
+      "source": "template-search/motioneye.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "MQTT",
+      "file": "template-search/mqtt.json",
+      "source": "template-search/mqtt.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "MyIP",
+      "file": "template-search/myip.json",
+      "source": "template-search/myip.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Mylar3",
+      "file": "template-search/mylar3.json",
+      "source": "template-search/mylar3.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "MySpeed",
+      "file": "template-search/myspeed.json",
+      "source": "template-search/myspeed.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "n8n",
+      "file": "template-search/n8n.json",
+      "source": "template-search/n8n.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Nagios Core",
+      "file": "template-search/nagios.json",
+      "source": "template-search/nagios.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Nametag",
+      "file": "template-search/nametag.json",
+      "source": "template-search/nametag.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Navidrome",
+      "file": "template-search/navidrome.json",
+      "source": "template-search/navidrome.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Neko",
+      "file": "template-search/neko.json",
+      "source": "template-search/neko.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Neo4j",
+      "file": "template-search/neo4j.json",
+      "source": "template-search/neo4j.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "NetBird",
+      "file": "template-search/add-netbird-lxc.json",
+      "source": "template-search/add-netbird-lxc.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "NetBird",
+      "file": "template-search/netbird.json",
+      "source": "template-search/netbird.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "netboot.xyz",
+      "file": "template-search/netboot-xyz.json",
+      "source": "template-search/netboot-xyz.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "NetBox",
+      "file": "template-search/netbox.json",
+      "source": "template-search/netbox.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Nextcloud",
+      "file": "template-search/nextcloud-vm.json",
+      "source": "template-search/nextcloud-vm.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Nextcloud Exporter",
+      "file": "template-search/nextcloud-exporter.json",
+      "source": "template-search/nextcloud-exporter.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "NextcloudPi",
+      "file": "template-search/nextcloudpi.json",
+      "source": "template-search/nextcloudpi.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "nextExplorer",
+      "file": "template-search/nextexplorer.json",
+      "source": "template-search/nextexplorer.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "NextPVR",
+      "file": "template-search/nextpvr.json",
+      "source": "template-search/nextpvr.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Nginx Proxy Manager",
+      "file": "template-search/nginxproxymanager.json",
+      "source": "template-search/nginxproxymanager.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Nginx UI",
+      "file": "template-search/nginx-ui.json",
+      "source": "template-search/nginx-ui.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Nightscout",
+      "file": "template-search/nightscout.json",
+      "source": "template-search/nightscout.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "NocoDB",
+      "file": "template-search/nocodb.json",
+      "source": "template-search/nocodb.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Node-Red",
+      "file": "template-search/node-red.json",
+      "source": "template-search/node-red.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "NodeBB",
+      "file": "template-search/nodebb.json",
+      "source": "template-search/nodebb.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "nodecast-tv",
+      "file": "template-search/nodecast-tv.json",
+      "source": "template-search/nodecast-tv.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Notifiarr",
+      "file": "template-search/notifiarr.json",
+      "source": "template-search/notifiarr.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "NPMplus",
+      "file": "template-search/npmplus.json",
+      "source": "template-search/npmplus.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "ntfy",
+      "file": "template-search/ntfy.json",
+      "source": "template-search/ntfy.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Nx Witness",
+      "file": "template-search/nxwitness.json",
+      "source": "template-search/nxwitness.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "NZBGet",
+      "file": "template-search/nzbget.json",
+      "source": "template-search/nzbget.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "OAuth2-Proxy",
+      "file": "template-search/oauth2-proxy.json",
+      "source": "template-search/oauth2-proxy.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "OctoPrint",
+      "file": "template-search/octoprint.json",
+      "source": "template-search/octoprint.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Odoo",
+      "file": "template-search/odoo.json",
+      "source": "template-search/odoo.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "OliveTin",
+      "file": "template-search/olivetin.json",
+      "source": "template-search/olivetin.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Ollama",
+      "file": "template-search/ollama.json",
+      "source": "template-search/ollama.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Omada Controller",
+      "file": "template-search/omada.json",
+      "source": "template-search/omada.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Ombi",
+      "file": "template-search/ombi.json",
+      "source": "template-search/ombi.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "OneDev",
+      "file": "template-search/onedev.json",
+      "source": "template-search/onedev.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "ONLYOFFICE Docs",
+      "file": "template-search/onlyoffice.json",
+      "source": "template-search/onlyoffice.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Open WebUI",
+      "file": "template-search/openwebui.json",
+      "source": "template-search/openwebui.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Open-Archiver",
+      "file": "template-search/open-archiver.json",
+      "source": "template-search/open-archiver.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "OpenCloud",
+      "file": "template-search/opencloud.json",
+      "source": "template-search/opencloud.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Opengist",
+      "file": "template-search/opengist.json",
+      "source": "template-search/opengist.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "openHAB",
+      "file": "template-search/openhab.json",
+      "source": "template-search/openhab.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "OpenMediaVault",
+      "file": "template-search/omv.json",
+      "source": "template-search/omv.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "OpenObserve",
+      "file": "template-search/openobserve.json",
+      "source": "template-search/openobserve.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "OpenProject",
+      "file": "template-search/openproject.json",
+      "source": "template-search/openproject.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "OpenThread Border Router",
+      "file": "template-search/openthread-br.json",
+      "source": "template-search/openthread-br.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "OpenWrt",
+      "file": "template-search/openwrt-vm.json",
+      "source": "template-search/openwrt-vm.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "openziti-controller",
+      "file": "template-search/openziti-controller.json",
+      "source": "template-search/openziti-controller.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "openziti-tunnel",
+      "file": "template-search/openziti-tunnel.json",
+      "source": "template-search/openziti-tunnel.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "OPNsense",
+      "file": "template-search/opnsense-vm.json",
+      "source": "template-search/opnsense-vm.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "OTS",
+      "file": "template-search/ots.json",
+      "source": "template-search/ots.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Outline",
+      "file": "template-search/outline.json",
+      "source": "template-search/outline.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Owncast",
+      "file": "template-search/owncast.json",
+      "source": "template-search/owncast.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "ownCloud",
+      "file": "template-search/owncloud-vm.json",
+      "source": "template-search/owncloud-vm.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "OxiCloud",
+      "file": "template-search/oxicloud.json",
+      "source": "template-search/oxicloud.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "PairDrop",
+      "file": "template-search/pairdrop.json",
+      "source": "template-search/pairdrop.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Pangolin",
+      "file": "template-search/pangolin.json",
+      "source": "template-search/pangolin.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Paperclip",
+      "file": "template-search/paperclip.json",
+      "source": "template-search/paperclip.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Paperless-GPT",
+      "file": "template-search/paperless-gpt.json",
+      "source": "template-search/paperless-gpt.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Paperless-ngx",
+      "file": "template-search/paperless-ngx.json",
+      "source": "template-search/paperless-ngx.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "PaperlessAI",
+      "file": "template-search/paperless-ai.json",
+      "source": "template-search/paperless-ai.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Papra",
+      "file": "template-search/papra.json",
+      "source": "template-search/papra.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Part-DB",
+      "file": "template-search/part-db.json",
+      "source": "template-search/part-db.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Passbolt",
+      "file": "template-search/passbolt.json",
+      "source": "template-search/passbolt.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "PatchMon",
+      "file": "template-search/patchmon.json",
+      "source": "template-search/patchmon.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Paymenter",
+      "file": "template-search/paymenter.json",
+      "source": "template-search/paymenter.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "PeaNUT",
+      "file": "template-search/peanut.json",
+      "source": "template-search/peanut.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Pelican Panel",
+      "file": "template-search/pelican-panel.json",
+      "source": "template-search/pelican-panel.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Pelican Wings",
+      "file": "template-search/pelican-wings.json",
+      "source": "template-search/pelican-wings.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Pf2eTools",
+      "file": "template-search/pf2etools.json",
+      "source": "template-search/pf2etools.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "PhotoPrism",
+      "file": "template-search/photoprism.json",
+      "source": "template-search/photoprism.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "PhpMyAdmin",
+      "file": "template-search/phpmyadmin.json",
+      "source": "template-search/phpmyadmin.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Pi-Hole",
+      "file": "template-search/pihole.json",
+      "source": "template-search/pihole.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Pi-Hole Exporter",
+      "file": "template-search/pihole-exporter.json",
+      "source": "template-search/pihole-exporter.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Pi.Alert",
+      "file": "template-search/pialert.json",
+      "source": "template-search/pialert.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "PiMox HAOS",
+      "file": "template-search/pimox-haos-vm.json",
+      "source": "template-search/pimox-haos-vm.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Pixelfed",
+      "file": "template-search/pixelfed.json",
+      "source": "template-search/pixelfed.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Plane",
+      "file": "template-search/plane.json",
+      "source": "template-search/plane.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "PLANKA",
+      "file": "template-search/planka.json",
+      "source": "template-search/planka.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Plant-it",
+      "file": "template-search/plant-it.json",
+      "source": "template-search/plant-it.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Plex Media Server",
+      "file": "template-search/plex.json",
+      "source": "template-search/plex.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Pocket ID",
+      "file": "template-search/pocketid.json",
+      "source": "template-search/pocketid.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Pocketbase",
+      "file": "template-search/pocketbase.json",
+      "source": "template-search/pocketbase.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Podman",
+      "file": "template-search/podman.json",
+      "source": "template-search/podman.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Podman Home Assistant Container",
+      "file": "template-search/podman-homeassistant.json",
+      "source": "template-search/podman-homeassistant.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "PostgreSQL",
+      "file": "template-search/postgresql.json",
+      "source": "template-search/postgresql.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Postiz",
+      "file": "template-search/postiz.json",
+      "source": "template-search/postiz.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "PowerDNS",
+      "file": "template-search/powerdns.json",
+      "source": "template-search/powerdns.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "PrivateBin",
+      "file": "template-search/privatebin.json",
+      "source": "template-search/privatebin.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Profilarr",
+      "file": "template-search/profilarr.json",
+      "source": "template-search/profilarr.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "ProjectSend",
+      "file": "template-search/projectsend.json",
+      "source": "template-search/projectsend.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Prometheus",
+      "file": "template-search/prometheus.json",
+      "source": "template-search/prometheus.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Prometheus Alertmanager",
+      "file": "template-search/prometheus-alertmanager.json",
+      "source": "template-search/prometheus-alertmanager.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Prometheus Blackbox Exporter",
+      "file": "template-search/prometheus-blackbox-exporter.json",
+      "source": "template-search/prometheus-blackbox-exporter.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Prometheus Paperless NGX Exporter",
+      "file": "template-search/prometheus-paperless-ngx-exporter.json",
+      "source": "template-search/prometheus-paperless-ngx-exporter.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Prometheus Proxmox VE Exporter",
+      "file": "template-search/prometheus-pve-exporter.json",
+      "source": "template-search/prometheus-pve-exporter.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Proton Mail Bridge",
+      "file": "template-search/protonmail-bridge.json",
+      "source": "template-search/protonmail-bridge.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Prowlarr",
+      "file": "template-search/prowlarr.json",
+      "source": "template-search/prowlarr.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Proxmox Backup Server (PBS)",
+      "file": "template-search/proxmox-backup-server.json",
+      "source": "template-search/proxmox-backup-server.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Proxmox Datacenter Manager (PDM)",
+      "file": "template-search/proxmox-datacenter-manager.json",
+      "source": "template-search/proxmox-datacenter-manager.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Proxmox Mail Gateway (PMG)",
+      "file": "template-search/proxmox-mail-gateway.json",
+      "source": "template-search/proxmox-mail-gateway.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "PS5-MQTT",
+      "file": "template-search/ps5-mqtt.json",
+      "source": "template-search/ps5-mqtt.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Pterodactyl Panel",
+      "file": "template-search/pterodactyl-panel.json",
+      "source": "template-search/pterodactyl-panel.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Pterodactyl Wings",
+      "file": "template-search/pterodactyl-wings.json",
+      "source": "template-search/pterodactyl-wings.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Pulse",
+      "file": "template-search/pulse.json",
+      "source": "template-search/pulse.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "PVE LXC Apps Update",
+      "file": "template-search/update-apps.json",
+      "source": "template-search/update-apps.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "PVE Netdata",
+      "file": "template-search/netdata.json",
+      "source": "template-search/netdata.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "PVE NoteBuddy",
+      "file": "custom/pve-notebuddy.json",
+      "source": "custom/pve-notebuddy.json",
+      "tag": "Custom"
+    },
+    {
+      "name": "PVE Startup Dependency Check",
+      "file": "template-search/dependency-check.json",
+      "source": "template-search/dependency-check.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "PVEScriptsLocal",
+      "file": "template-search/pve-scripts-local.json",
+      "source": "template-search/pve-scripts-local.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "qBittorrent",
+      "file": "template-search/qbittorrent.json",
+      "source": "template-search/qbittorrent.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "qbittorrent Exporter",
+      "file": "template-search/qbittorrent-exporter.json",
+      "source": "template-search/qbittorrent-exporter.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Qdrant",
+      "file": "template-search/qdrant.json",
+      "source": "template-search/qdrant.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Qui",
+      "file": "template-search/qui.json",
+      "source": "template-search/qui.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "RabbitMQ",
+      "file": "template-search/rabbitmq.json",
+      "source": "template-search/rabbitmq.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Radarr",
+      "file": "template-search/radarr.json",
+      "source": "template-search/radarr.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Radicale",
+      "file": "template-search/radicale.json",
+      "source": "template-search/radicale.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Rclone",
+      "file": "template-search/rclone.json",
+      "source": "template-search/rclone.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Reactive Resume",
+      "file": "template-search/reactive-resume.json",
+      "source": "template-search/reactive-resume.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Readeck",
+      "file": "template-search/readeck.json",
+      "source": "template-search/readeck.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Real-Debrid Torrent Client",
+      "file": "template-search/rdtclient.json",
+      "source": "template-search/rdtclient.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Recyclarr",
+      "file": "template-search/recyclarr.json",
+      "source": "template-search/recyclarr.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Redis",
+      "file": "template-search/redis.json",
+      "source": "template-search/redis.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Redlib",
+      "file": "template-search/alpine-redlib.json",
+      "source": "template-search/alpine-redlib.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Reitti",
+      "file": "template-search/reitti.json",
+      "source": "template-search/reitti.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Resilio Sync",
+      "file": "template-search/resiliosync.json",
+      "source": "template-search/resiliosync.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "RevealJS",
+      "file": "template-search/revealjs.json",
+      "source": "template-search/revealjs.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "RomM",
+      "file": "template-search/romm.json",
+      "source": "template-search/romm.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "RSS-Bridge",
+      "file": "template-search/rss-bridge.json",
+      "source": "template-search/rss-bridge.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Runtipi",
+      "file": "template-search/runtipi.json",
+      "source": "template-search/runtipi.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "RustDesk Server",
+      "file": "template-search/rustdeskserver.json",
+      "source": "template-search/rustdeskserver.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "RustyPaste",
+      "file": "template-search/rustypaste.json",
+      "source": "template-search/rustypaste.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "SABnzbd",
+      "file": "template-search/sabnzbd.json",
+      "source": "template-search/sabnzbd.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Salt",
+      "file": "template-search/salt.json",
+      "source": "template-search/salt.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Scanopy",
+      "file": "template-search/scanopy.json",
+      "source": "template-search/scanopy.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Scraparr",
+      "file": "template-search/scraparr.json",
+      "source": "template-search/scraparr.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "SearXNG",
+      "file": "template-search/searxng.json",
+      "source": "template-search/searxng.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "SeaweedFS",
+      "file": "template-search/seaweedfs.json",
+      "source": "template-search/seaweedfs.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "seelf",
+      "file": "template-search/seelf.json",
+      "source": "template-search/seelf.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Seerr",
+      "file": "template-search/seerr.json",
+      "source": "template-search/seerr.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Semaphore",
+      "file": "template-search/semaphore.json",
+      "source": "template-search/semaphore.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "SFTPGo",
+      "file": "template-search/sftpgo.json",
+      "source": "template-search/sftpgo.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Shelfmark",
+      "file": "template-search/shelfmark.json",
+      "source": "template-search/shelfmark.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Shinobi NVR",
+      "file": "template-search/shinobi.json",
+      "source": "template-search/shinobi.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Shlink",
+      "file": "template-search/shlink.json",
+      "source": "template-search/shlink.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "SigNoz",
+      "file": "template-search/signoz.json",
+      "source": "template-search/signoz.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Silverbullet",
+      "file": "template-search/silverbullet.json",
+      "source": "template-search/silverbullet.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Slskd",
+      "file": "template-search/slskd.json",
+      "source": "template-search/slskd.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "SmokePing",
+      "file": "template-search/smokeping.json",
+      "source": "template-search/smokeping.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "SnipeIT",
+      "file": "template-search/snipeit.json",
+      "source": "template-search/snipeit.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "SnowShare",
+      "file": "template-search/snowshare.json",
+      "source": "template-search/snowshare.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "SolidTime",
+      "file": "template-search/solidtime.json",
+      "source": "template-search/solidtime.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "sonarqube",
+      "file": "template-search/sonarqube.json",
+      "source": "template-search/sonarqube.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Sonarr",
+      "file": "template-search/sonarr.json",
+      "source": "template-search/sonarr.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Sonobarr",
+      "file": "template-search/sonobarr.json",
+      "source": "template-search/sonobarr.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "SoulSync",
+      "file": "template-search/soulsync.json",
+      "source": "template-search/soulsync.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "SparkyFitness",
+      "file": "template-search/sparkyfitness.json",
+      "source": "template-search/sparkyfitness.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "SparkyFitness Garmin Microservice",
+      "file": "template-search/sparkyfitness-garmin.json",
+      "source": "template-search/sparkyfitness-garmin.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Speedtest-Tracker",
+      "file": "template-search/speedtest-tracker.json",
+      "source": "template-search/speedtest-tracker.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Split Pro",
+      "file": "template-search/split-pro.json",
+      "source": "template-search/split-pro.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Splunk Enterprise",
+      "file": "template-search/splunk-enterprise.json",
+      "source": "template-search/splunk-enterprise.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Spoolman",
+      "file": "template-search/spoolman.json",
+      "source": "template-search/spoolman.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Sportarr",
+      "file": "template-search/sportarr.json",
+      "source": "template-search/sportarr.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "SQL Server 2022",
+      "file": "template-search/sqlserver2022.json",
+      "source": "template-search/sqlserver2022.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "SQL Server 2025",
+      "file": "template-search/sqlserver2025.json",
+      "source": "template-search/sqlserver2025.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "step-ca",
+      "file": "template-search/step-ca.json",
+      "source": "template-search/step-ca.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Stirling-PDF",
+      "file": "template-search/stirling-pdf.json",
+      "source": "template-search/stirling-pdf.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Storybook",
+      "file": "template-search/storybook.json",
+      "source": "template-search/storybook.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Storyteller",
+      "file": "template-search/storyteller.json",
+      "source": "template-search/storyteller.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Strapi",
+      "file": "template-search/strapi.json",
+      "source": "template-search/strapi.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Streamlink WebUI",
+      "file": "template-search/streamlink-webui.json",
+      "source": "template-search/streamlink-webui.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Stylus",
+      "file": "template-search/stylus.json",
+      "source": "template-search/stylus.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Sure",
+      "file": "template-search/sure.json",
+      "source": "template-search/sure.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "SurrealDB",
+      "file": "template-search/surrealdb.json",
+      "source": "template-search/surrealdb.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Suwayomi-Server",
+      "file": "template-search/suwayomi-server.json",
+      "source": "template-search/suwayomi-server.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Swizzin",
+      "file": "template-search/swizzin.json",
+      "source": "template-search/swizzin.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Syncthing",
+      "file": "template-search/syncthing.json",
+      "source": "template-search/syncthing.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Tailscale",
+      "file": "template-search/add-tailscale-lxc.json",
+      "source": "template-search/add-tailscale-lxc.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Tandoor Recipes",
+      "file": "template-search/tandoor.json",
+      "source": "template-search/tandoor.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "TasmoAdmin",
+      "file": "template-search/tasmoadmin.json",
+      "source": "template-search/tasmoadmin.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "TasmoCompiler",
+      "file": "template-search/tasmocompiler.json",
+      "source": "template-search/tasmocompiler.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Tautulli",
+      "file": "template-search/tautulli.json",
+      "source": "template-search/tautulli.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Tdarr",
+      "file": "template-search/tdarr.json",
+      "source": "template-search/tdarr.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Teable",
+      "file": "template-search/teable.json",
+      "source": "template-search/teable.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Teamspeak-Server",
+      "file": "template-search/teamspeak-server.json",
+      "source": "template-search/teamspeak-server.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Technitium DNS",
+      "file": "template-search/technitiumdns.json",
+      "source": "template-search/technitiumdns.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "TeddyCloud",
+      "file": "template-search/teddycloud.json",
+      "source": "template-search/teddycloud.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Telegraf",
+      "file": "template-search/telegraf.json",
+      "source": "template-search/telegraf.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Teleport",
+      "file": "template-search/teleport.json",
+      "source": "template-search/teleport.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Termix",
+      "file": "template-search/termix.json",
+      "source": "template-search/termix.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "The Lounge",
+      "file": "template-search/the-lounge.json",
+      "source": "template-search/the-lounge.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "ThingsBoard",
+      "file": "template-search/thingsboard.json",
+      "source": "template-search/thingsboard.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Threadfin",
+      "file": "template-search/threadfin.json",
+      "source": "template-search/threadfin.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Tianji",
+      "file": "template-search/tianji.json",
+      "source": "template-search/tianji.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Tinyauth",
+      "file": "template-search/tinyauth.json",
+      "source": "template-search/tinyauth.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Tor Snowflake",
+      "file": "template-search/tor-snowflake.json",
+      "source": "template-search/tor-snowflake.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Traccar",
+      "file": "template-search/traccar.json",
+      "source": "template-search/traccar.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Tracearr",
+      "file": "template-search/tracearr.json",
+      "source": "template-search/tracearr.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Tracktor",
+      "file": "template-search/tracktor.json",
+      "source": "template-search/tracktor.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Traefik",
+      "file": "template-search/traefik.json",
+      "source": "template-search/traefik.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Transmission",
+      "file": "template-search/transmission.json",
+      "source": "template-search/transmission.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Transmute",
+      "file": "template-search/transmute.json",
+      "source": "template-search/transmute.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "TREK",
+      "file": "template-search/trek.json",
+      "source": "template-search/trek.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Trilium Notes",
+      "file": "template-search/trilium.json",
+      "source": "template-search/trilium.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "TRIP",
+      "file": "template-search/trip.json",
+      "source": "template-search/trip.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "TrueNAS Community Edition",
+      "file": "template-search/truenas-vm.json",
+      "source": "template-search/truenas-vm.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Tube Archivist",
+      "file": "template-search/tubearchivist.json",
+      "source": "template-search/tubearchivist.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Tududi",
+      "file": "template-search/tududi.json",
+      "source": "template-search/tududi.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Tunarr",
+      "file": "template-search/tunarr.json",
+      "source": "template-search/tunarr.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "TurnKey",
+      "file": "template-search/turnkey.json",
+      "source": "template-search/turnkey.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Twenty",
+      "file": "template-search/twenty.json",
+      "source": "template-search/twenty.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "twingate-connector",
+      "file": "template-search/twingate-connector.json",
+      "source": "template-search/twingate-connector.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "TypeSense",
+      "file": "template-search/typesense.json",
+      "source": "template-search/typesense.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Ubuntu",
+      "file": "template-search/ubuntu.json",
+      "source": "template-search/ubuntu.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Ubuntu 22.04",
+      "file": "template-search/ubuntu2204-vm.json",
+      "source": "template-search/ubuntu2204-vm.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Ubuntu 24.04",
+      "file": "template-search/ubuntu2404-vm.json",
+      "source": "template-search/ubuntu2404-vm.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Ubuntu 25.04",
+      "file": "template-search/ubuntu2504-vm.json",
+      "source": "template-search/ubuntu2504-vm.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "UHF Server",
+      "file": "template-search/uhf.json",
+      "source": "template-search/uhf.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Umami",
+      "file": "template-search/umami.json",
+      "source": "template-search/umami.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Umbrel OS",
+      "file": "template-search/umbrel-os-vm.json",
+      "source": "template-search/umbrel-os-vm.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "UmlautAdaptarr",
+      "file": "template-search/umlautadaptarr.json",
+      "source": "template-search/umlautadaptarr.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Unbound",
+      "file": "template-search/unbound.json",
+      "source": "template-search/unbound.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Unifi OS Server",
+      "file": "template-search/unifi-os-server.json",
+      "source": "template-search/unifi-os-server.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Unifi OS Server VM",
+      "file": "template-search/unifi-os-server-vm.json",
+      "source": "template-search/unifi-os-server-vm.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Unmanic",
+      "file": "template-search/unmanic.json",
+      "source": "template-search/unmanic.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Upgopher",
+      "file": "template-search/upgopher.json",
+      "source": "template-search/upgopher.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "UpSnap",
+      "file": "template-search/upsnap.json",
+      "source": "template-search/upsnap.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Uptime Kuma",
+      "file": "template-search/uptimekuma.json",
+      "source": "template-search/uptimekuma.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "UrBackup Server",
+      "file": "template-search/urbackupserver.json",
+      "source": "template-search/urbackupserver.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Valkey",
+      "file": "template-search/alpine-valkey.json",
+      "source": "template-search/alpine-valkey.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Valkey",
+      "file": "template-search/valkey.json",
+      "source": "template-search/valkey.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Vaultwarden",
+      "file": "template-search/vaultwarden.json",
+      "source": "template-search/vaultwarden.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Verdaccio",
+      "file": "template-search/verdaccio.json",
+      "source": "template-search/verdaccio.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "VersityGW",
+      "file": "template-search/versitygw.json",
+      "source": "template-search/versitygw.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "VictoriaMetrics",
+      "file": "template-search/victoriametrics.json",
+      "source": "template-search/victoriametrics.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Vikunja",
+      "file": "template-search/vikunja.json",
+      "source": "template-search/vikunja.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Wallabag",
+      "file": "template-search/wallabag.json",
+      "source": "template-search/wallabag.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Wallos",
+      "file": "template-search/wallos.json",
+      "source": "template-search/wallos.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Wanderer",
+      "file": "template-search/wanderer.json",
+      "source": "template-search/wanderer.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Warracker",
+      "file": "template-search/warracker.json",
+      "source": "template-search/warracker.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Wastebin",
+      "file": "template-search/wastebin.json",
+      "source": "template-search/wastebin.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Watcharr",
+      "file": "template-search/watcharr.json",
+      "source": "template-search/watcharr.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "WatchYourLAN",
+      "file": "template-search/watchyourlan.json",
+      "source": "template-search/watchyourlan.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Wavelog",
+      "file": "template-search/wavelog.json",
+      "source": "template-search/wavelog.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Wazuh",
+      "file": "template-search/wazuh.json",
+      "source": "template-search/wazuh.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Wealthfolio",
+      "file": "template-search/wealthfolio.json",
+      "source": "template-search/wealthfolio.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Web-Check",
+      "file": "template-search/web-check.json",
+      "source": "template-search/web-check.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Webmin System Administration",
+      "file": "template-search/webmin.json",
+      "source": "template-search/webmin.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "wger",
+      "file": "template-search/wger.json",
+      "source": "template-search/wger.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Whisparr",
+      "file": "template-search/whisparr.json",
+      "source": "template-search/whisparr.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "WhoDB",
+      "file": "template-search/whodb.json",
+      "source": "template-search/whodb.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Wiki.js",
+      "file": "template-search/wikijs.json",
+      "source": "template-search/wikijs.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "WireGuard",
+      "file": "template-search/wireguard.json",
+      "source": "template-search/wireguard.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Wishlist",
+      "file": "template-search/wishlist.json",
+      "source": "template-search/wishlist.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Wizarr",
+      "file": "template-search/wizarr.json",
+      "source": "template-search/wizarr.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Wordpress",
+      "file": "template-search/wordpress.json",
+      "source": "template-search/wordpress.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "WriteFreely",
+      "file": "template-search/writefreely.json",
+      "source": "template-search/writefreely.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Yamtrack",
+      "file": "template-search/yamtrack.json",
+      "source": "template-search/yamtrack.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "YOURLS",
+      "file": "template-search/yourls.json",
+      "source": "template-search/yourls.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "yt-dlp-webui",
+      "file": "template-search/yt-dlp-webui.json",
+      "source": "template-search/yt-dlp-webui.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Yubal",
+      "file": "template-search/yubal.json",
+      "source": "template-search/yubal.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "YunoHost",
+      "file": "template-search/yunohost.json",
+      "source": "template-search/yunohost.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Z-Wave JS UI",
+      "file": "template-search/zwave-js-ui.json",
+      "source": "template-search/zwave-js-ui.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Zabbix",
+      "file": "template-search/zabbix.json",
+      "source": "template-search/zabbix.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Zammad",
+      "file": "template-search/zammad.json",
+      "source": "template-search/zammad.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Zerobyte",
+      "file": "template-search/zerobyte.json",
+      "source": "template-search/zerobyte.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Zerotier-One",
+      "file": "template-search/zerotier-one.json",
+      "source": "template-search/zerotier-one.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Zigbee2MQTT",
+      "file": "template-search/zigbee2mqtt.json",
+      "source": "template-search/zigbee2mqtt.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Zipline",
+      "file": "template-search/zipline.json",
+      "source": "template-search/zipline.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Zitadel",
+      "file": "template-search/zitadel.json",
+      "source": "template-search/zitadel.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Zoraxy",
+      "file": "template-search/zoraxy.json",
+      "source": "template-search/zoraxy.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "Zot Registry",
+      "file": "template-search/zot-registry.json",
+      "source": "template-search/zot-registry.json",
+      "tag": "PVE Scripts"
+    }
+  ]
+}

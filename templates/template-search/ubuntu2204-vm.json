@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "Ubuntu 22.04"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "Ubuntu 22.04",
+      "icon": {
+        "urls": {
+          "URL1": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/ubuntu.svg"
+        },
+        "linkUrls": {
+          "URL1": "https://ubuntu.com/"
+        }
+      },
+      "hostEntries": [],
+      "networkEntries": [],
+      "configLocations": []
+    }
+  }
+}

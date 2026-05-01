@@ -1,0 +1,31 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "Mikrotik RouterOS CHR"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "Mikrotik RouterOS CHR",
+      "icon": {
+        "urls": {
+          "URL1": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/mikrotik.svg"
+        },
+        "linkUrls": {
+          "URL1": "https://mikrotik.com"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://help.mikrotik.com/docs/spaces/ROS/pages/18350234/Cloud+Hosted+Router+CHR"
+        }
+      ],
+      "networkEntries": [],
+      "configLocations": []
+    }
+  }
+}

@@ -147,6 +147,8 @@ export function createAppStateStore({
     return normalized;
   }
 
+  let lastPersistedRaw = "";
+
   function readLegacySidebarCollapsed() {
     if (!legacyKeys.sidebarCollapsed) {
       return false;
@@ -186,12 +188,16 @@ export function createAppStateStore({
     try {
       const raw = storageGetItem(storageKey);
       if (!raw) {
+        lastPersistedRaw = "";
         defaults.ui.sidebarCollapsed = readLegacySidebarCollapsed();
         defaults.templates.localCatalog = readLegacyLocalTemplateCatalog();
         return defaults;
       }
-      return normalizeAppState(JSON.parse(raw));
+      const normalized = normalizeAppState(JSON.parse(raw));
+      lastPersistedRaw = raw;
+      return normalized;
     } catch {
+      lastPersistedRaw = "";
       return defaults;
     }
   }
@@ -203,7 +209,11 @@ export function createAppStateStore({
   }
 
   function persist() {
-    storageSetItem(storageKey, JSON.stringify(appState));
+    const raw = JSON.stringify(appState);
+    if (raw !== lastPersistedRaw) {
+      storageSetItem(storageKey, raw);
+      lastPersistedRaw = raw;
+    }
     clearLegacyStorageKeys();
   }
 

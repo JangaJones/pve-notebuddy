@@ -1,0 +1,31 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "Proton Mail Bridge"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "Proton Mail Bridge",
+      "icon": {
+        "urls": {
+          "URL1": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/proton-mail.svg"
+        },
+        "linkUrls": {
+          "URL1": "https://proton.me/mail/bridge"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://proton.me/support/bridge-cli-guide"
+        }
+      ],
+      "networkEntries": [],
+      "configLocations": []
+    }
+  }
+}

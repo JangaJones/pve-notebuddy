@@ -1,0 +1,36 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "Kometa"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "Kometa",
+      "icon": {
+        "urls": {
+          "URL1": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/kometa.svg"
+        },
+        "linkUrls": {
+          "URL1": "https://github.com/Kometa-Team/Kometa"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://kometa.wiki/en/latest/"
+        }
+      ],
+      "networkEntries": [],
+      "configLocations": [
+        {
+          "icon": "📁",
+          "value": "/opt/kometa/config/config.yml"
+        }
+      ]
+    }
+  }
+}

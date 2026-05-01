@@ -1,0 +1,36 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "Headscale"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "Headscale",
+      "icon": {
+        "urls": {
+          "URL1": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/headscale.svg"
+        },
+        "linkUrls": {
+          "URL1": "https://github.com/juanfont/headscale"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://headscale.net/"
+        }
+      ],
+      "networkEntries": [],
+      "configLocations": [
+        {
+          "icon": "📁",
+          "value": "/etc/headscale/config.yaml"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "Home Assistant Container"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "Home Assistant Container",
+      "icon": {
+        "urls": {
+          "URL1": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/home-assistant.svg"
+        },
+        "linkUrls": {
+          "URL1": "https://www.home-assistant.io/"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://www.home-assistant.io/docs/"
+        }
+      ],
+      "networkEntries": [
+        {
+          "icon": "🖥️",
+          "value": "Default Port: 8123"
+        }
+      ],
+      "configLocations": [
+        {
+          "icon": "📁",
+          "value": "/var/lib/docker/volumes/hass_config/_data"
+        }
+      ]
+    }
+  }
+}

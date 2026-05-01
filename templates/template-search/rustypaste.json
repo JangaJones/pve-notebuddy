@@ -1,0 +1,41 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "RustyPaste"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "RustyPaste",
+      "icon": {
+        "urls": {
+          "URL1": "https://github.com/orhun/rustypaste/raw/master/img/rustypaste_logo.png"
+        },
+        "linkUrls": {
+          "URL1": "https://github.com/orhun/rustypaste"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://github.com/orhun/rustypaste"
+        }
+      ],
+      "networkEntries": [
+        {
+          "icon": "🖥️",
+          "value": "Default Port: 8000"
+        }
+      ],
+      "configLocations": [
+        {
+          "icon": "📁",
+          "value": "/opt/rustypaste/config.toml"
+        }
+      ]
+    }
+  }
+}

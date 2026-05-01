@@ -147,6 +147,10 @@ export function createTemplateSettingsFeature({
     if (code) code.checked = Boolean(rowState.code);
   }
 
+  function shouldRespectPreferredSvgModeForSource(source) {
+    return String(source || "").trim().toLowerCase() === "template-search";
+  }
+
   // Non-destructive apply: omitted properties are intentionally left untouched.
   async function applySettings(settings, options = {}) {
     const source = options && typeof options === "object" ? options.source : "";
@@ -415,7 +419,9 @@ export function createTemplateSettingsFeature({
       }
     }
 
-    await prepareIcon();
+    await prepareIcon({
+      respectPreferredSvgMode: shouldRespectPreferredSvgModeForSource(source),
+    });
     if (blockedImportedInvalidIcon) {
       setIconStatus("Imported icon URL blocked. Allowed image types: .svg .gif .jpeg .jpg .png .tif .webp", true);
     }

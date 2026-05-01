@@ -1,0 +1,41 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "NextPVR"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "NextPVR",
+      "icon": {
+        "urls": {
+          "URL1": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/nextpvr.svg"
+        },
+        "linkUrls": {
+          "URL1": "https://nextpvr.com/"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://github.com/sub3/NextPVR/wiki"
+        }
+      ],
+      "networkEntries": [
+        {
+          "icon": "🖥️",
+          "value": "Default Port: 8866"
+        }
+      ],
+      "configLocations": [
+        {
+          "icon": "📁",
+          "value": "/var/opt/nextpvr/config.xml"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "ESPConnect"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "ESPConnect",
+      "icon": {
+        "urls": {
+          "URL1": "https://avatars.githubusercontent.com/u/127616157?s=200&v=4"
+        },
+        "linkUrls": {
+          "URL1": "https://github.com/thelastoutpostworkshop/ESPConnect"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://github.com/thelastoutpostworkshop/ESPConnect"
+        }
+      ],
+      "networkEntries": [
+        {
+          "icon": "🖥️",
+          "value": "Default Port: 443"
+        }
+      ],
+      "configLocations": []
+    }
+  }
+}

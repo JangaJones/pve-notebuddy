@@ -414,8 +414,6 @@ export function createAppIconsFeature({
     embedSvg: Boolean(refs.iconEmbedSvgEl?.checked),
   };
   let oversizeEmbedLockedUrl = "";
-  let lastExternalUrlApplied = "";
-  let lastAppliedPreferredMode = "";
   const externalSvgCache = new Map();
   const selfhstVariantExistsCache = new Map();
   const svgColorCanvasCtx = document.createElement("canvas").getContext("2d");
@@ -1008,19 +1006,26 @@ export function createAppIconsFeature({
     }
   }
 
-  async function prepareIcon() {
+  async function prepareIcon(options = {}) {
     const token = ++prepareToken;
     const mode = getIconMode();
     if (mode === "external") {
       const currentUrl = refs.iconUrlEl.value.trim();
-      const preferredMode = getEffectivePreferredMode();
       const isLocked = Boolean(oversizeEmbedLockedUrl) && currentUrl === oversizeEmbedLockedUrl;
-      const shouldApplyPreferred = (!isLocked && currentUrl !== lastExternalUrlApplied) || preferredMode !== lastAppliedPreferredMode;
-      if (shouldApplyPreferred) {
-        applyPreferredExternalMode();
-        lastExternalUrlApplied = currentUrl;
+      if (!isLocked && options && options.respectPreferredSvgMode === true) {
+        if (isSvgUrl(currentUrl)) {
+          applyPreferredExternalMode();
+        } else if (currentUrl) {
+          // For non-SVG template icons, default to WSRV resize mode.
+          if (refs.iconResizeWsrvEl) {
+            refs.iconResizeWsrvEl.checked = true;
+          }
+          if (refs.iconEmbedSvgEl) {
+            refs.iconEmbedSvgEl.checked = false;
+          }
+          syncExternalModePreferenceFromControls();
+        }
       }
-      lastAppliedPreferredMode = preferredMode;
     }
 
     if (getIconMode() === "external") {
@@ -1244,9 +1249,6 @@ export function createAppIconsFeature({
           if (nextMode === "gallery") {
             externalModePreference.resizeWithWsrv = Boolean(refs.iconResizeWsrvEl?.checked);
             externalModePreference.embedSvg = externalModePreference.resizeWithWsrv ? false : Boolean(refs.iconEmbedSvgEl?.checked);
-            if (refs.iconResizeWsrvEl && !refs.iconResizeWsrvEl.checked) {
-              refs.iconResizeWsrvEl.checked = true;
-            }
             if (getGalleryRowsCollection().length === 0) {
               setGalleryItems([]);
             }
@@ -1274,16 +1276,11 @@ export function createAppIconsFeature({
 
     refs.iconUrlEl?.addEventListener("input", () => {
       if (getIconMode() === "external") {
-        const nextUrl = refs.iconUrlEl.value.trim();
-        clearEmbedOversizeLockIfUrlChanged(nextUrl);
-        if (nextUrl !== lastExternalUrlApplied) {
-          applyPreferredExternalMode();
-          lastExternalUrlApplied = nextUrl;
-        }
+        clearEmbedOversizeLockIfUrlChanged(refs.iconUrlEl.value.trim());
       }
       syncGalleryFirstFromSingleUrl();
       scheduleGalleryVariantButtonsRefresh();
-      prepareIcon();
+      prepareIcon({ respectPreferredSvgMode: true });
     });
 
     refs.iconLinkUrlEl?.addEventListener("input", () => {

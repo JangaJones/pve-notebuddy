@@ -1,0 +1,41 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "Apache CouchDB"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "Apache CouchDB",
+      "icon": {
+        "urls": {
+          "URL1": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/couchdb.svg"
+        },
+        "linkUrls": {
+          "URL1": "https://couchdb.apache.org/"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://docs.couchdb.org/en/stable/"
+        }
+      ],
+      "networkEntries": [
+        {
+          "icon": "🖥️",
+          "value": "Default Port: 5984"
+        }
+      ],
+      "configLocations": [
+        {
+          "icon": "📁",
+          "value": "etc/default.ini"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "Alpine-Cinny"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "Alpine-Cinny",
+      "icon": {
+        "urls": {
+          "URL1": "https://cinny.in/assets/cinny.svg"
+        },
+        "linkUrls": {
+          "URL1": "https://cinny.in/"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://github.com/cinnyapp/cinny"
+        }
+      ],
+      "networkEntries": [
+        {
+          "icon": "🖥️",
+          "value": "Default Port: 8080"
+        }
+      ],
+      "configLocations": []
+    }
+  }
+}

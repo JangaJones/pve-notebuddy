@@ -1,0 +1,46 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "cross-seed"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "cross-seed",
+      "icon": {
+        "urls": {
+          "URL1": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/cross-seed.svg"
+        },
+        "linkUrls": {
+          "URL1": "https://www.cross-seed.org/"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://www.cross-seed.org/docs/category/basics"
+        },
+        {
+          "icon": "🔗",
+          "label": "GitHub",
+          "url": "https://github.com/cross-seed/cross-seed"
+        }
+      ],
+      "networkEntries": [
+        {
+          "icon": "🖥️",
+          "value": "Default Port: 2468"
+        }
+      ],
+      "configLocations": [
+        {
+          "icon": "📁",
+          "value": "~/.cross-seed/config.js"
+        }
+      ]
+    }
+  }
+}

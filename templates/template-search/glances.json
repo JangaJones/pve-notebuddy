@@ -1,0 +1,46 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "Glances"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "Glances",
+      "icon": {
+        "urls": {
+          "URL1": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/glances.svg"
+        },
+        "linkUrls": {
+          "URL1": "https://nicolargo.github.io/glances/"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://glances.readthedocs.io/en/latest/"
+        },
+        {
+          "icon": "🔗",
+          "label": "GitHub",
+          "url": "https://github.com/nicolargo/glances"
+        }
+      ],
+      "networkEntries": [
+        {
+          "icon": "🖥️",
+          "value": "Default Port: 61208"
+        }
+      ],
+      "configLocations": [
+        {
+          "icon": "📁",
+          "value": "/usr/local/share/doc/glances/glances.conf"
+        }
+      ]
+    }
+  }
+}

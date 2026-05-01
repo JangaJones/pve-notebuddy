@@ -1,0 +1,41 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "UmlautAdaptarr"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "UmlautAdaptarr",
+      "icon": {
+        "urls": {
+          "URL1": "https://raw.githubusercontent.com/community-scripts/ProxmoxVE/refs/heads/main/misc/images/logo.png"
+        },
+        "linkUrls": {
+          "URL1": "https://github.com/PCJones/UmlautAdaptarr"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://github.com/PCJones/UmlautAdaptarr/blob/master/README.md"
+        }
+      ],
+      "networkEntries": [
+        {
+          "icon": "🖥️",
+          "value": "Default Port: 5005"
+        }
+      ],
+      "configLocations": [
+        {
+          "icon": "📁",
+          "value": "/opt/UmlautAdaptarr/appsettings.json"
+        }
+      ]
+    }
+  }
+}

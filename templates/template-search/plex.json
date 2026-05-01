@@ -1,0 +1,41 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "Plex Media Server"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "Plex Media Server",
+      "icon": {
+        "urls": {
+          "URL1": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/plex.svg"
+        },
+        "linkUrls": {
+          "URL1": "https://www.plex.tv/"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://support.plex.tv/articles/"
+        }
+      ],
+      "networkEntries": [
+        {
+          "icon": "🖥️",
+          "value": "Default Port: 32400"
+        }
+      ],
+      "configLocations": [
+        {
+          "icon": "📁",
+          "value": "/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Preferences.xml"
+        }
+      ]
+    }
+  }
+}

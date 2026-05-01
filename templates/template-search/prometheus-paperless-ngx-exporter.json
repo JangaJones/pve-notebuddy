@@ -1,0 +1,41 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "Prometheus Paperless NGX Exporter"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "Prometheus Paperless NGX Exporter",
+      "icon": {
+        "urls": {
+          "URL1": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/paperless-ngx.svg"
+        },
+        "linkUrls": {
+          "URL1": "https://github.com/hansmi/prometheus-paperless-exporter"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://github.com/hansmi/prometheus-paperless-exporter"
+        }
+      ],
+      "networkEntries": [
+        {
+          "icon": "🖥️",
+          "value": "Default Port: 8081"
+        }
+      ],
+      "configLocations": [
+        {
+          "icon": "📁",
+          "value": "/etc/prometheus-paperless-ngx-exporter/config.env"
+        }
+      ]
+    }
+  }
+}

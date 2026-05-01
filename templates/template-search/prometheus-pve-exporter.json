@@ -1,0 +1,41 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "Prometheus Proxmox VE Exporter"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "Prometheus Proxmox VE Exporter",
+      "icon": {
+        "urls": {
+          "URL1": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/proxmox.svg"
+        },
+        "linkUrls": {
+          "URL1": "https://github.com/prometheus-pve/prometheus-pve-exporter"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://github.com/prometheus-pve/prometheus-pve-exporter"
+        }
+      ],
+      "networkEntries": [
+        {
+          "icon": "🖥️",
+          "value": "Default Port: 9221"
+        }
+      ],
+      "configLocations": [
+        {
+          "icon": "📁",
+          "value": "/opt/prometheus-pve-exporter/pve.yml"
+        }
+      ]
+    }
+  }
+}

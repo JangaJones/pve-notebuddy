@@ -384,7 +384,7 @@ export function createTemplateManagerFeature({
       }
       activeTemplateKey = `demo:${entry.id}`;
       renderLocalTemplateCatalog();
-      await applySettings(entry.settings, { source: "template" });
+      await applySettings(entry.settings, { source: "template-manager" });
       return;
     }
 
@@ -394,7 +394,7 @@ export function createTemplateManagerFeature({
     }
     activeTemplateKey = `local:${entry.id}`;
     renderLocalTemplateCatalog();
-    await applySettings(entry.settings, { source: "template" });
+    await applySettings(entry.settings, { source: "template-manager" });
   }
 
   function promptTemplateName({ title, message, defaultValue = "", confirmLabel = "SAVE" }) {

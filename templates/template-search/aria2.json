@@ -1,0 +1,46 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "Aria2"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "Aria2",
+      "icon": {
+        "urls": {
+          "URL1": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/aria2.svg"
+        },
+        "linkUrls": {
+          "URL1": "https://aria2.github.io/"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://aria2.github.io/manual/en/html/index.html"
+        },
+        {
+          "icon": "🔗",
+          "label": "GitHub",
+          "url": "https://github.com/aria2/aria2.github.io"
+        }
+      ],
+      "networkEntries": [
+        {
+          "icon": "🖥️",
+          "value": "Default Port: 6880"
+        }
+      ],
+      "configLocations": [
+        {
+          "icon": "📁",
+          "value": "/root/aria2.daemon"
+        }
+      ]
+    }
+  }
+}

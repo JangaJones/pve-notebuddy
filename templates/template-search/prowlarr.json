@@ -1,0 +1,41 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "Prowlarr"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "Prowlarr",
+      "icon": {
+        "urls": {
+          "URL1": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/prowlarr.webp"
+        },
+        "linkUrls": {
+          "URL1": "https://github.com/Prowlarr/Prowlarr"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://wiki.servarr.com/prowlarr"
+        }
+      ],
+      "networkEntries": [
+        {
+          "icon": "🖥️",
+          "value": "Default Port: 9696"
+        }
+      ],
+      "configLocations": [
+        {
+          "icon": "📁",
+          "value": "/var/lib/prowlarr/"
+        }
+      ]
+    }
+  }
+}

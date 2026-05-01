@@ -1,0 +1,22 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "PVE LXC Apps Update"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "PVE LXC Apps Update",
+      "icon": {
+        "urls": {
+          "URL1": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/proxmox.svg"
+        }
+      },
+      "hostEntries": [],
+      "networkEntries": [],
+      "configLocations": []
+    }
+  }
+}

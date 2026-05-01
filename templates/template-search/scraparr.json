@@ -1,0 +1,41 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "Scraparr"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "Scraparr",
+      "icon": {
+        "urls": {
+          "URL1": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/scraparr-dark.webp"
+        },
+        "linkUrls": {
+          "URL1": "https://github.com/thecfu/scraparr"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://github.com/thecfu/scraparr/blob/main/README.md"
+        }
+      ],
+      "networkEntries": [
+        {
+          "icon": "🖥️",
+          "value": "Default Port: 7100"
+        }
+      ],
+      "configLocations": [
+        {
+          "icon": "📁",
+          "value": "/scraparr/config/config.yaml"
+        }
+      ]
+    }
+  }
+}

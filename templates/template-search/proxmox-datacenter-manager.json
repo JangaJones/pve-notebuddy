@@ -1,0 +1,36 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "Proxmox Datacenter Manager (PDM)"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "Proxmox Datacenter Manager (PDM)",
+      "icon": {
+        "urls": {
+          "URL1": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/proxmox.svg"
+        },
+        "linkUrls": {
+          "URL1": "https://pve.proxmox.com/wiki/Proxmox_Datacenter_Manager_Roadmap"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://pve.proxmox.com/wiki/Proxmox_Datacenter_Manager_Roadmap"
+        }
+      ],
+      "networkEntries": [
+        {
+          "icon": "🖥️",
+          "value": "Default Port: 8443"
+        }
+      ],
+      "configLocations": []
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "NZBGet"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "NZBGet",
+      "icon": {
+        "urls": {
+          "URL1": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/nzbget.webp"
+        },
+        "linkUrls": {
+          "URL1": "https://nzbget.com/"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://nzbget.com/documentation/"
+        },
+        {
+          "icon": "🔗",
+          "label": "GitHub",
+          "url": "https://github.com/nzbget/nzbget"
+        }
+      ],
+      "networkEntries": [
+        {
+          "icon": "🖥️",
+          "value": "Default Port: 6789"
+        }
+      ],
+      "configLocations": [
+        {
+          "icon": "📁",
+          "value": "/usr/share/nzbget/nzbget.conf"
+        }
+      ]
+    }
+  }
+}

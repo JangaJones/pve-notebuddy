@@ -4,7 +4,6 @@ docs/node_modules/
 docs/.vitepress/cache/
 docs/.vitepress/dist/
 .preview/
-templates/scripts/community-scripts-temp
-templates/scripts/selfhst-temp
+template-updater/temp/
 testing/
 doc-backup/

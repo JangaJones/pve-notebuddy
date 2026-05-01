@@ -1,0 +1,41 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "OAuth2-Proxy"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "OAuth2-Proxy",
+      "icon": {
+        "urls": {
+          "URL1": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/oauth2-proxy.svg"
+        },
+        "linkUrls": {
+          "URL1": "https://oauth2-proxy.github.io/oauth2-proxy/"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://oauth2-proxy.github.io/oauth2-proxy/configuration/overview"
+        },
+        {
+          "icon": "🔗",
+          "label": "GitHub",
+          "url": "https://github.com/oauth2-proxy/oauth2-proxy"
+        }
+      ],
+      "networkEntries": [],
+      "configLocations": [
+        {
+          "icon": "📁",
+          "value": "/opt/oauth2-proxy/config.toml"
+        }
+      ]
+    }
+  }
+}

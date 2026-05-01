@@ -1,0 +1,36 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "Nx Witness"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "Nx Witness",
+      "icon": {
+        "urls": {
+          "URL1": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/nx-witness.svg"
+        },
+        "linkUrls": {
+          "URL1": "https://www.networkoptix.com/nx-witness"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://support.networkoptix.com/hc/en-us/articles/360006863413-Access-the-Nx-Witness-User-Manual"
+        }
+      ],
+      "networkEntries": [
+        {
+          "icon": "🖥️",
+          "value": "Default Port: 7001"
+        }
+      ],
+      "configLocations": []
+    }
+  }
+}

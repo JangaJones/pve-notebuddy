@@ -1,0 +1,31 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "Arch Linux"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "Arch Linux",
+      "icon": {
+        "urls": {
+          "URL1": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/arch-linux.svg"
+        },
+        "linkUrls": {
+          "URL1": "https://archlinux.org/"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://wiki.archlinux.org/title/Main_page"
+        }
+      ],
+      "networkEntries": [],
+      "configLocations": []
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "meta": {
+    "formatVersion": 1,
+    "appVersion": "1.5.0",
+    "type": "content-template",
+    "name": "Apache-Cassandra"
+  },
+  "payload": {
+    "schema": "template-document-payload-v1",
+    "content": {
+      "titleText": "Apache-Cassandra",
+      "icon": {
+        "urls": {
+          "URL1": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/apache-cassandra.webp"
+        },
+        "linkUrls": {
+          "URL1": "https://cassandra.apache.org/"
+        }
+      },
+      "hostEntries": [
+        {
+          "icon": "🔗",
+          "label": "Documentation",
+          "url": "https://cassandra.apache.org/doc/latest/"
+        }
+      ],
+      "networkEntries": [],
+      "configLocations": []
+    }
+  }
+}

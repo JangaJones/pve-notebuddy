@@ -108,5 +108,3 @@ _PVE NoteBuddy is a fully client-side application with no backend & no telemetry
 <div align="center">
   <sub><i>Proxmox® is a registered trademark of <a href="https://www.proxmox.com/en/about/company">Proxmox Server Solutions GmbH</a></i></sub>
 </div>
-
----

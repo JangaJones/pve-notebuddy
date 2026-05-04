@@ -2794,7 +2794,7 @@ button.design-slot-delete:not(:disabled):hover {
   overflow: auto;
   scrollbar-gutter: stable;
   margin-right: -0.78rem;
-  padding-right: 0;
+  padding-right: 0.78rem;
   padding-bottom: 0.36rem;
 }
 
@@ -3187,10 +3187,9 @@ body.preview-resizing {
   border-radius: 0;
   background: transparent;
   padding: 0.9rem;
-  padding-right: 0.1rem;
   overflow-x: hidden;
   overflow-y: auto;
-  scrollbar-gutter: stable;
+  scrollbar-gutter: stable both-edges;
 }
 
 .workspace-preview-sidebar .preview-wrap {

@@ -286,7 +286,7 @@ export function createSettingsFeature({
       refs.resetStorageBtnEl.addEventListener("click", async () => {
         const action = await promptConfirm({
           title: "Reset Settings",
-          message: "This will wipe all NoteBuddy settings and local NoteBuddy data (including snapshots/designs). Continue?",
+          message: "This will wipe all NoteBuddy settings and local NoteBuddy data.",
           confirmLabel: "YES",
           cancelLabel: "NO",
           extraLabel: "EXPORT AND RESET",

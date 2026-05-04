@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob: https: http:; connect-src 'self' https: http:; form-action 'self';"
+      content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob: https: http:; connect-src 'self' https: http:; form-action 'self';"
     />
     <meta name="app-version" content="1.5.0" />
     <title>PVE NoteBuddy</title>
@@ -184,7 +184,7 @@
             </div>
             <div class="sidebar-panel-body">
               <div class="templates-section design-section">
-                <div class="local-templates-head">Design</div>
+                <div class="local-templates-head">Designs</div>
                 <div class="preset-group sidebar-preset-group design-button-grid" id="designButtonGrid">
                   <div class="design-slot default-design-slot">
                     <button type="button" class="panel-action preset-btn design-btn" data-design-default="1">1</button>
@@ -343,16 +343,6 @@
 
               <div class="templates-section settings-section">
                 <div class="settings-section-head">
-                  <div class="local-templates-head">Demo Templates</div>
-                </div>
-                <label class="settings-switch-row">
-                  <input id="settingsShowDemoTemplates" type="checkbox" />
-                  <span>Show demo templates</span>
-                </label>
-              </div>
-
-              <div class="templates-section settings-section">
-                <div class="settings-section-head">
                   <div class="local-templates-head">Icon Search Thumbnails</div>
                 </div>
                 <div class="settings-field-row">
@@ -366,12 +356,24 @@
               </div>
 
               <div class="templates-section settings-section">
-                <div class="local-templates-head">Settings Backup</div>
+                <div class="settings-section-head">
+                  <div class="local-templates-head">Demo Templates</div>
+                </div>
+                <label class="settings-switch-row">
+                  <input id="settingsShowDemoTemplates" type="checkbox" />
+                  <span>Show demo templates</span>
+                </label>
+              </div>
+
+              <div class="templates-section settings-section">
+                <div class="local-templates-head">Backup & Restore</div>
                 <div class="template-json-actions">
                   <button id="exportStorageBtn" type="button" class="panel-action">EXPORT</button>
                   <button id="importStorageBtn" type="button" class="panel-action ghost">IMPORT</button>
                 </div>
                 <input id="importStorageFile" type="file" accept="application/json,.json" class="hidden" />
+              </div>
+              <div class="templates-section settings-section">
                 <button id="resetStorageBtn" type="button" class="panel-action ghost settings-reset-btn">RESET NOTEBUDDY</button>
               </div>
             </div>
@@ -684,8 +686,8 @@
         <p id="confirmModalMessage" class="modal-message"></p>
         <div class="modal-actions">
           <button id="confirmModalCancelBtn" type="button" class="panel-action ghost">NO</button>
-          <button id="confirmModalExtraBtn" type="button" class="panel-action ghost hidden">EXPORT AND RESET</button>
           <button id="confirmModalConfirmBtn" type="button" class="panel-action">YES</button>
+          <button id="confirmModalExtraBtn" type="button" class="panel-action ghost hidden">EXPORT AND RESET</button>
         </div>
       </div>
     </div>

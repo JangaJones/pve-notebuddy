@@ -3068,7 +3068,7 @@ button.design-slot-delete:not(:disabled):hover {
 
 .settings-reset-btn {
   width: 100%;
-  margin-top: 0.45rem;
+  margin-top: 0;
 }
 
 .info-wrap.tooltip-below .tooltip {

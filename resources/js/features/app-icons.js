@@ -744,6 +744,17 @@ export function createAppIconsFeature({
     syncExternalModePreferenceFromControls();
   }
 
+  function applyPreferredGalleryMode() {
+    const preferredMode = getEffectivePreferredMode();
+    if (refs.iconResizeWsrvEl) {
+      refs.iconResizeWsrvEl.checked = preferredMode === "resize";
+    }
+    if (refs.iconEmbedSvgEl) {
+      refs.iconEmbedSvgEl.checked = false;
+    }
+    syncExternalModePreferenceFromControls();
+  }
+
   function lockEmbedForOversize(url) {
     oversizeEmbedLockedUrl = String(url || "").trim();
     if (refs.iconResizeWsrvEl) {
@@ -1009,6 +1020,9 @@ export function createAppIconsFeature({
   async function prepareIcon(options = {}) {
     const token = ++prepareToken;
     const mode = getIconMode();
+    if (mode === "gallery" && options && options.respectPreferredSvgMode === true) {
+      applyPreferredGalleryMode();
+    }
     if (mode === "external") {
       const currentUrl = refs.iconUrlEl.value.trim();
       const isLocked = Boolean(oversizeEmbedLockedUrl) && currentUrl === oversizeEmbedLockedUrl;
@@ -1247,8 +1261,14 @@ export function createAppIconsFeature({
         radio.addEventListener("change", () => {
           const nextMode = getIconMode();
           if (nextMode === "gallery") {
-            externalModePreference.resizeWithWsrv = Boolean(refs.iconResizeWsrvEl?.checked);
-            externalModePreference.embedSvg = externalModePreference.resizeWithWsrv ? false : Boolean(refs.iconEmbedSvgEl?.checked);
+            const hadSingleResize = Boolean(refs.iconResizeWsrvEl?.checked) || Boolean(refs.iconEmbedSvgEl?.checked);
+            if (refs.iconResizeWsrvEl) {
+              refs.iconResizeWsrvEl.checked = hadSingleResize;
+            }
+            if (refs.iconEmbedSvgEl) {
+              refs.iconEmbedSvgEl.checked = false;
+            }
+            syncExternalModePreferenceFromControls();
             if (getGalleryRowsCollection().length === 0) {
               setGalleryItems([]);
             }
@@ -1256,12 +1276,7 @@ export function createAppIconsFeature({
             syncGalleryFirstFromSingleLinkUrl();
             scheduleGalleryVariantButtonsRefresh();
           } else if (nextMode === "external") {
-            if (refs.iconResizeWsrvEl) {
-              refs.iconResizeWsrvEl.checked = externalModePreference.resizeWithWsrv;
-            }
-            if (refs.iconEmbedSvgEl) {
-              refs.iconEmbedSvgEl.checked = externalModePreference.resizeWithWsrv ? false : externalModePreference.embedSvg;
-            }
+            applyPreferredExternalMode();
             syncSingleUrlFromGalleryFirst();
             syncSingleLinkUrlFromGalleryFirst();
           } else if (previousIconMode === "external") {

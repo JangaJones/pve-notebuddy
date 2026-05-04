@@ -96,6 +96,12 @@ const {
     templateNameModalInputEl,
     templateNameModalCancelBtnEl,
     templateNameModalConfirmBtnEl,
+    confirmModalEl,
+    confirmModalTitleEl,
+    confirmModalMessageEl,
+    confirmModalCancelBtnEl,
+    confirmModalExtraBtnEl,
+    confirmModalConfirmBtnEl,
   },
   sidebarRefs: {
     sidebarTabTemplatesEl,
@@ -121,6 +127,12 @@ const {
     iconResizeLabelPrefixEl,
     iconResizeServiceLinkEl,
     iconResizeServiceTooltipEl,
+    confirmModalEl: settingsConfirmModalEl,
+    confirmModalTitleEl: settingsConfirmModalTitleEl,
+    confirmModalMessageEl: settingsConfirmModalMessageEl,
+    confirmModalCancelBtnEl: settingsConfirmModalCancelBtnEl,
+    confirmModalExtraBtnEl: settingsConfirmModalExtraBtnEl,
+    confirmModalConfirmBtnEl: settingsConfirmModalConfirmBtnEl,
   },
   previewRefs: {
     iconScaleEl,
@@ -189,6 +201,7 @@ let draftPersistenceEnabled = false;
 let draftPersistTimer = null;
 let lastDraftSnapshotRaw = "";
 const NOTE_DRAFT_CACHE_KEY = "pve-notebuddy:note-draft-v1";
+const APP_STORAGE_PREFIX = "pve-notebuddy:";
 
 const appStateStore = createAppStateStore({
   storageKey: APP_STATE_STORAGE_KEY,
@@ -299,6 +312,23 @@ function queueDraftPersistence() {
     draftPersistTimer = null;
     persistDraftSnapshotToCache();
   }, 140);
+}
+
+function clearAllAppStorage() {
+  try {
+    const keys = [];
+    for (let i = 0; i < localStorage.length; i += 1) {
+      const key = localStorage.key(i);
+      if (typeof key === "string" && key.startsWith(APP_STORAGE_PREFIX)) {
+        keys.push(key);
+      }
+    }
+    for (const key of keys) {
+      localStorage.removeItem(key);
+    }
+  } catch {
+    // Keep reset flow functional if storage is unavailable.
+  }
 }
 
 function readDraftSnapshotFromCache() {
@@ -518,10 +548,17 @@ function createFeatures() {
       iconResizeLabelPrefixEl,
       iconResizeServiceLinkEl,
       iconResizeServiceTooltipEl,
+      confirmModalEl: settingsConfirmModalEl,
+      confirmModalTitleEl: settingsConfirmModalTitleEl,
+      confirmModalMessageEl: settingsConfirmModalMessageEl,
+      confirmModalCancelBtnEl: settingsConfirmModalCancelBtnEl,
+      confirmModalExtraBtnEl: settingsConfirmModalExtraBtnEl,
+      confirmModalConfirmBtnEl: settingsConfirmModalConfirmBtnEl,
     },
     getState: getAppState,
     patchState: patchAppState,
     replaceState: replaceAppState,
+    clearAppStorage: clearAllAppStorage,
     prepareIcon,
     readTextFile,
     assertFileSizeWithinLimit,
@@ -675,6 +712,12 @@ function createFeatures() {
       templateNameModalInputEl,
       templateNameModalCancelBtnEl,
       templateNameModalConfirmBtnEl,
+      confirmModalEl,
+      confirmModalTitleEl,
+      confirmModalMessageEl,
+      confirmModalCancelBtnEl,
+      confirmModalExtraBtnEl,
+      confirmModalConfirmBtnEl,
     },
     getState: getAppState,
     patchState: patchAppState,

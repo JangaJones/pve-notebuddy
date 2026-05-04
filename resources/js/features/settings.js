@@ -5,6 +5,7 @@ export function createSettingsFeature({
   getState,
   patchState,
   replaceState,
+  clearAppStorage,
   prepareIcon,
   readTextFile,
   assertFileSizeWithinLimit,
@@ -135,8 +136,93 @@ export function createSettingsFeature({
   }
 
   function resetAppStateToDefaults(defaultState) {
+    clearAppStorage?.();
     replaceState(defaultState);
     onAfterStateApplied();
+  }
+
+  function promptConfirm({
+    title = "Confirm",
+    message,
+    confirmLabel = "YES",
+    cancelLabel = "NO",
+    extraLabel = "",
+  }) {
+    const modalEl = refs.confirmModalEl;
+    const titleEl = refs.confirmModalTitleEl;
+    const messageEl = refs.confirmModalMessageEl;
+    const cancelBtnEl = refs.confirmModalCancelBtnEl;
+    const extraBtnEl = refs.confirmModalExtraBtnEl;
+    const confirmBtnEl = refs.confirmModalConfirmBtnEl;
+
+    if (
+      !(modalEl instanceof HTMLElement) ||
+      !(titleEl instanceof HTMLElement) ||
+      !(messageEl instanceof HTMLElement) ||
+      !(cancelBtnEl instanceof HTMLButtonElement) ||
+      !(extraBtnEl instanceof HTMLButtonElement) ||
+      !(confirmBtnEl instanceof HTMLButtonElement)
+    ) {
+      if (extraLabel) {
+        return Promise.resolve(window.confirm(`${message}\n\nSelect OK to export and reset, Cancel to abort.`) ? "extra" : "cancel");
+      }
+      return Promise.resolve(window.confirm(message) ? "confirm" : "cancel");
+    }
+
+    titleEl.textContent = title;
+    messageEl.textContent = message;
+    cancelBtnEl.textContent = cancelLabel;
+    extraBtnEl.textContent = extraLabel;
+    confirmBtnEl.textContent = confirmLabel;
+    extraBtnEl.classList.toggle("hidden", !extraLabel);
+    modalEl.classList.remove("hidden");
+
+    return new Promise((resolve) => {
+      let settled = false;
+      function cleanup() {
+        if (settled) {
+          return;
+        }
+        settled = true;
+        modalEl.classList.add("hidden");
+        cancelBtnEl.removeEventListener("click", onCancel);
+        extraBtnEl.removeEventListener("click", onExtra);
+        confirmBtnEl.removeEventListener("click", onConfirm);
+        modalEl.removeEventListener("click", onBackdropClick);
+        window.removeEventListener("keydown", onWindowKeydown);
+      }
+      function onCancel() {
+        cleanup();
+        resolve("cancel");
+      }
+      function onExtra() {
+        cleanup();
+        resolve("extra");
+      }
+      function onConfirm() {
+        cleanup();
+        resolve("confirm");
+      }
+      function onBackdropClick(event) {
+        if (event.target === modalEl) {
+          onCancel();
+        }
+      }
+      function onWindowKeydown(event) {
+        if (event.key === "Escape") {
+          event.preventDefault();
+          onCancel();
+        }
+      }
+      cancelBtnEl.addEventListener("click", onCancel);
+      extraBtnEl.addEventListener("click", onExtra);
+      confirmBtnEl.addEventListener("click", onConfirm);
+      modalEl.addEventListener("click", onBackdropClick);
+      window.addEventListener("keydown", onWindowKeydown);
+      window.setTimeout(() => {
+        confirmBtnEl.focus();
+      }, 0);
+    });
   }
 
   function initSettingsPane(defaultState) {
@@ -170,7 +256,22 @@ export function createSettingsFeature({
       refs.importStorageFileEl.addEventListener("change", importAppStateFromFile);
     }
     if (refs.resetStorageBtnEl) {
-      refs.resetStorageBtnEl.addEventListener("click", () => resetAppStateToDefaults(defaultState));
+      refs.resetStorageBtnEl.addEventListener("click", async () => {
+        const action = await promptConfirm({
+          title: "Reset Settings",
+          message: "This will wipe all NoteBuddy settings and local NoteBuddy data (including snapshots/designs). Continue?",
+          confirmLabel: "YES",
+          cancelLabel: "NO",
+          extraLabel: "EXPORT AND RESET",
+        });
+        if (action === "cancel") {
+          return;
+        }
+        if (action === "extra") {
+          exportAppStateToFile();
+        }
+        resetAppStateToDefaults(defaultState);
+      });
     }
     if (refs.settingsShowDemoTemplatesEl) {
       refs.settingsShowDemoTemplatesEl.addEventListener("change", () => {

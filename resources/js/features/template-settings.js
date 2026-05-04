@@ -149,7 +149,7 @@ export function createTemplateSettingsFeature({
 
   function shouldRespectPreferredSvgModeForSource(source) {
     const normalized = String(source || "").trim().toLowerCase();
-    return normalized === "template-search" || normalized === "init";
+    return normalized === "template-search" || normalized === "init" || normalized === "design";
   }
 
   // Non-destructive apply: omitted properties are intentionally left untouched.

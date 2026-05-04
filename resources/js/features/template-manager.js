@@ -23,6 +23,7 @@ export function createTemplateManagerFeature({
   maxImportFileBytes,
 }) {
   const DESIGN_SLOTS = [6, 7, 8, 9, 10];
+  const DESIGN_SLOT_ADD_ICON_PATH = "./resources/icons/add_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg";
   const DEMO_TEMPLATE_SOURCES = [
     { id: "snapshot-demo1", name: "Snapshot Demo 1", file: "./templates/app/snapshot-demo1.json" },
     { id: "snapshot-demo2", name: "Snapshot Demo 2", file: "./templates/app/snapshot-demo2.json" },
@@ -134,7 +135,11 @@ export function createTemplateManagerFeature({
         wrapEl.setAttribute("data-has-design", hasDesign ? "1" : "0");
       }
       if (slotBtn instanceof HTMLButtonElement) {
-        slotBtn.textContent = hasDesign ? slotKey : "+";
+        if (hasDesign) {
+          slotBtn.textContent = slotKey;
+        } else {
+          slotBtn.innerHTML = `<img class="design-slot-add-icon" src="${DESIGN_SLOT_ADD_ICON_PATH}" alt="" aria-hidden="true" />`;
+        }
         slotBtn.setAttribute(
           "aria-label",
           hasDesign ? `Load user design ${slotKey}` : `Save current design to slot ${slotKey}`
@@ -349,28 +354,32 @@ export function createTemplateManagerFeature({
     refs.localTemplateListEl.innerHTML = entries
       .map((entry) => {
         if (entry.kind === "demo") {
-          return `<div class="local-template-item" data-template-kind="demo" data-template-id="${escapeHtml(entry.id)}">
-        <div class="local-template-main">
-          <button type="button" class="local-template-load demo${getEntryActiveClass(entry)}" data-demo-template-load="${escapeHtml(entry.id)}" title="Load demo template">${escapeHtml(entry.name)}</button>
-          <div class="local-template-actions">
+          return `<div class="local-template-item${getEntryActiveClass(entry)}" data-template-kind="demo" data-template-id="${escapeHtml(entry.id)}">
+        <div class="local-template-main local-template-main-top">
+          <button type="button" class="local-template-load demo" data-demo-template-load="${escapeHtml(entry.id)}" title="Load demo template">${escapeHtml(entry.name)}</button>
+          <div class="local-template-tags">
             <span class="local-template-tag">DEMO</span>
           </div>
         </div>
-        <div class="local-template-meta">${escapeHtml(entry.metaText)}</div>
+        <div class="local-template-main local-template-main-bottom">
+          <div class="local-template-meta">${escapeHtml(entry.metaText)}</div>
+        </div>
       </div>`;
         }
 
-        return `<div class="local-template-item" data-template-kind="local" data-template-id="${escapeHtml(entry.id)}">
-        <div class="local-template-main">
-          <button type="button" class="local-template-load${getEntryActiveClass(entry)}" data-local-template-load="${escapeHtml(entry.id)}" title="Load snapshot">${escapeHtml(entry.name)}</button>
+        return `<div class="local-template-item${getEntryActiveClass(entry)}" data-template-kind="local" data-template-id="${escapeHtml(entry.id)}">
+        <div class="local-template-main local-template-main-top">
+          <button type="button" class="local-template-load" data-local-template-load="${escapeHtml(entry.id)}" title="Load snapshot">${escapeHtml(entry.name)}</button>
+        </div>
+        <div class="local-template-main local-template-main-bottom">
+          <div class="local-template-meta">${escapeHtml(entry.metaText)}</div>
           <div class="local-template-actions">
-            <button type="button" class="local-template-action" data-local-template-rename="${escapeHtml(entry.id)}" title="Rename">✏️</button>
-            <button type="button" class="local-template-action" data-local-template-export="${escapeHtml(entry.id)}" title="Export">📤</button>
-            <button type="button" class="local-template-action" data-local-template-overwrite="${escapeHtml(entry.id)}" title="Overwrite">♻️</button>
+            <button type="button" class="local-template-action" data-local-template-rename="${escapeHtml(entry.id)}" title="Edit name"><span class="action-icon action-icon-edit" aria-hidden="true"></span><span class="sr-only">Edit name</span></button>
+            <button type="button" class="local-template-action" data-local-template-export="${escapeHtml(entry.id)}" title="Export snapshot"><span class="action-icon action-icon-ios-share" aria-hidden="true"></span><span class="sr-only">Export snapshot</span></button>
+            <button type="button" class="local-template-action" data-local-template-overwrite="${escapeHtml(entry.id)}" title="Overwrite snapshot"><span class="action-icon action-icon-save-as" aria-hidden="true"></span><span class="sr-only">Overwrite snapshot</span></button>
             <button type="button" class="local-template-action" data-local-template-delete="${escapeHtml(entry.id)}" title="Delete"><span class="action-icon action-icon-delete" aria-hidden="true"></span><span class="sr-only">Delete template</span></button>
           </div>
         </div>
-        <div class="local-template-meta">${escapeHtml(entry.metaText)}</div>
       </div>`;
       })
       .join("");
@@ -472,6 +481,75 @@ export function createTemplateManagerFeature({
     });
   }
 
+  function promptConfirm({ title = "Confirm", message, confirmLabel = "YES", cancelLabel = "NO" }) {
+    const modalEl = refs.confirmModalEl;
+    const titleEl = refs.confirmModalTitleEl;
+    const messageEl = refs.confirmModalMessageEl;
+    const cancelBtnEl = refs.confirmModalCancelBtnEl;
+    const extraBtnEl = refs.confirmModalExtraBtnEl;
+    const confirmBtnEl = refs.confirmModalConfirmBtnEl;
+
+    if (
+      !(modalEl instanceof HTMLElement) ||
+      !(titleEl instanceof HTMLElement) ||
+      !(messageEl instanceof HTMLElement) ||
+      !(cancelBtnEl instanceof HTMLButtonElement) ||
+      !(extraBtnEl instanceof HTMLButtonElement) ||
+      !(confirmBtnEl instanceof HTMLButtonElement)
+    ) {
+      return Promise.resolve(window.confirm(message));
+    }
+
+    titleEl.textContent = title;
+    messageEl.textContent = message;
+    cancelBtnEl.textContent = cancelLabel;
+    confirmBtnEl.textContent = confirmLabel;
+    extraBtnEl.classList.add("hidden");
+    modalEl.classList.remove("hidden");
+
+    return new Promise((resolve) => {
+      let settled = false;
+      function cleanup() {
+        if (settled) {
+          return;
+        }
+        settled = true;
+        modalEl.classList.add("hidden");
+        cancelBtnEl.removeEventListener("click", onCancel);
+        confirmBtnEl.removeEventListener("click", onConfirm);
+        modalEl.removeEventListener("click", onBackdropClick);
+        window.removeEventListener("keydown", onWindowKeydown);
+      }
+      function onCancel() {
+        cleanup();
+        resolve(false);
+      }
+      function onConfirm() {
+        cleanup();
+        resolve(true);
+      }
+      function onBackdropClick(event) {
+        if (event.target === modalEl) {
+          onCancel();
+        }
+      }
+      function onWindowKeydown(event) {
+        if (event.key === "Escape") {
+          event.preventDefault();
+          onCancel();
+        }
+      }
+
+      cancelBtnEl.addEventListener("click", onCancel);
+      confirmBtnEl.addEventListener("click", onConfirm);
+      modalEl.addEventListener("click", onBackdropClick);
+      window.addEventListener("keydown", onWindowKeydown);
+      window.setTimeout(() => {
+        confirmBtnEl.focus();
+      }, 0);
+    });
+  }
+
   async function saveCurrentLocalTemplate() {
     const baseName = `Snapshot ${localTemplateCatalog.length + 1}`;
     const suggestedName = ensureUniqueLocalTemplateName(baseName);
@@ -509,9 +587,18 @@ export function createTemplateManagerFeature({
     triggerJsonDownload(payload, toTemplateFileName(entry.name));
   }
 
-  function overwriteLocalTemplateById(templateId) {
+  async function overwriteLocalTemplateById(templateId) {
     const entry = findLocalTemplateById(templateId);
     if (!entry) {
+      return;
+    }
+    const shouldOverwrite = await promptConfirm({
+      title: "Overwrite Snapshot",
+      message: `Overwrite snapshot "${entry.name}"?`,
+      confirmLabel: "YES",
+      cancelLabel: "NO",
+    });
+    if (!shouldOverwrite) {
       return;
     }
     entry.settings = collectSettings();
@@ -544,13 +631,18 @@ export function createTemplateManagerFeature({
     renderLocalTemplateCatalog();
   }
 
-  function deleteLocalTemplateById(templateId) {
+  async function deleteLocalTemplateById(templateId) {
     const existing = findLocalTemplateById(templateId);
     if (!existing) {
       return;
     }
 
-    const shouldDelete = window.confirm(`Delete snapshot \"${existing.name}\"?`);
+    const shouldDelete = await promptConfirm({
+      title: "Delete Snapshot",
+      message: `Delete snapshot "${existing.name}"?`,
+      confirmLabel: "YES",
+      cancelLabel: "NO",
+    });
     if (!shouldDelete) {
       return;
     }
@@ -580,7 +672,12 @@ export function createTemplateManagerFeature({
       validateSettingsSchema(legacyRouted.settings, "template import");
 
       const suggested = ensureUniqueLocalTemplateName(imported.name);
-      const inputName = window.prompt("Imported snapshot name:", suggested);
+      const inputName = await promptTemplateName({
+        title: "Import Snapshot",
+        message: "Enter a name for the imported snapshot",
+        defaultValue: suggested,
+        confirmLabel: "IMPORT",
+      });
       if (inputName === null) {
         return;
       }
@@ -679,6 +776,15 @@ export function createTemplateManagerFeature({
           return;
         }
         const slot = deleteBtn.getAttribute("data-design-slot-delete") || "";
+        const shouldDelete = await promptConfirm({
+          title: "Delete Design",
+          message: "Delete this saved design?",
+          confirmLabel: "YES",
+          cancelLabel: "NO",
+        });
+        if (!shouldDelete) {
+          return;
+        }
         deleteUserDesignSlot(slot);
         return;
       }
@@ -761,7 +867,7 @@ export function createTemplateManagerFeature({
       if (overwriteBtn instanceof HTMLButtonElement) {
         const id = overwriteBtn.getAttribute("data-local-template-overwrite") || "";
         if (id) {
-          overwriteLocalTemplateById(id);
+          await overwriteLocalTemplateById(id);
         }
         return;
       }
@@ -770,9 +876,18 @@ export function createTemplateManagerFeature({
       if (deleteBtn instanceof HTMLButtonElement) {
         const id = deleteBtn.getAttribute("data-local-template-delete") || "";
         if (id) {
-          deleteLocalTemplateById(id);
+          await deleteLocalTemplateById(id);
         }
         return;
+      }
+
+      const item = target.closest(".local-template-item");
+      if (item instanceof HTMLElement) {
+        const id = item.getAttribute("data-template-id") || "";
+        const kind = item.getAttribute("data-template-kind") || "";
+        if (id && (kind === "local" || kind === "demo")) {
+          await loadTemplateEntry(kind, id);
+        }
       }
 
     });

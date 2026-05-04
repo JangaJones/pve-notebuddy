@@ -733,12 +733,6 @@
       "tag": "PVE Scripts"
     },
     {
-      "name": "ESPConnect",
-      "file": "template-search/espconnect.json",
-      "source": "template-search/espconnect.json",
-      "tag": "PVE Scripts"
-    },
-    {
       "name": "ESPHome",
       "file": "template-search/esphome.json",
       "source": "template-search/esphome.json",

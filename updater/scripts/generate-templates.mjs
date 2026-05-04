@@ -32,8 +32,6 @@ const DATASET_CONFIG = [
 
 const DRY_RUN = process.argv.includes("--dry-run");
 const MAX_TEMPLATE_ICON_SVG_CHARS = 4000;
-const SELFHST_CDN_HOST = "cdn.jsdelivr.net";
-const SELFHST_CDN_PATH_PREFIX = "/gh/selfhst/icons";
 const TEMPLATE_BUILD_CONCURRENCY = 12;
 const iconUrlResolutionCache = new Map();
 
@@ -84,20 +82,12 @@ function normalizeUrl(value) {
   return /^https?:\/\//i.test(text) ? text : "";
 }
 
-function isSelfhstCdnLogoUrl(value) {
+function hasAllowedIconImageExtension(value) {
   const text = normalizeUrl(value);
   if (!text) {
     return false;
   }
-  try {
-    const parsed = new URL(text);
-    return (
-      parsed.hostname.toLowerCase() === SELFHST_CDN_HOST &&
-      parsed.pathname.toLowerCase().startsWith(SELFHST_CDN_PATH_PREFIX)
-    );
-  } catch {
-    return false;
-  }
+  return /\.(svg|gif|jpe?g|png|tif|webp)($|[?#])/i.test(text);
 }
 
 function toIndexedTextMap(values, keyPrefix = "URL") {
@@ -411,7 +401,7 @@ async function main() {
     generatedTemplates: 0,
     blacklistedTemplates: 0,
     entriesWithoutIcon: 0,
-    entriesOutsideSelfhstCdn: 0,
+    entriesWithUnsupportedLogoUrl: 0,
     customTemplates: 0,
     indexedTemplates: 0,
     skippedFiles: 0,
@@ -453,8 +443,8 @@ async function main() {
     if (!ensureString(parsed.logo)) {
       return { kind: "missing-logo" };
     }
-    if (!isSelfhstCdnLogoUrl(parsed.logo)) {
-      return { kind: "non-selfhst-logo" };
+    if (!hasAllowedIconImageExtension(parsed.logo)) {
+      return { kind: "unsupported-logo-url" };
     }
 
     const built = await toContentPayload(parsed);
@@ -512,8 +502,8 @@ async function main() {
       report.skippedFiles += 1;
       continue;
     }
-    if (result.kind === "non-selfhst-logo") {
-      report.entriesOutsideSelfhstCdn += 1;
+    if (result.kind === "unsupported-logo-url") {
+      report.entriesWithUnsupportedLogoUrl += 1;
       report.skippedFiles += 1;
       continue;
     }
@@ -576,7 +566,7 @@ async function main() {
   console.log(`Generated Community-Script Templates: ${report.generatedTemplates}`);
   console.log(`Blacklisted Community-Script Templates: ${report.blacklistedTemplates}`);
   console.log(`Entries without Icon (skipped): ${report.entriesWithoutIcon}`);
-  console.log(`Entries outside selfh.st CDN (skipped): ${report.entriesOutsideSelfhstCdn}`);
+  console.log(`Entries with unsupported logo URL (skipped): ${report.entriesWithUnsupportedLogoUrl}`);
   console.log(`Found Custom Templates: ${report.customTemplates}`);
   console.log(`Indexed Templates: ${report.indexedTemplates}`);
   console.log(`Duplicate entries skipped: ${report.duplicateEntries}`);

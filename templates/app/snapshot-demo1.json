@@ -3,7 +3,7 @@
     "formatVersion": 1,
     "appVersion": "1.5.0",
     "type": "snapshot",
-    "createdAt": "2026-04-18T23:24:44.510Z",
+    "createdAt": "2026-05-04T14:33:16.745Z",
     "name": "Snapshot Demo 1"
   },
   "payload": {
@@ -13,16 +13,24 @@
         "row:icon",
         "row:title",
         "row:fqdn",
-        "custom:custom1",
         "row:network",
-        "row:config"
-      ]
+        "row:config",
+        "custom:custom1"
+      ],
+      "rowOrder": {
+        "icon": "1",
+        "title": "1",
+        "fqdn": "1",
+        "network": "1",
+        "config": "1",
+        "custom1": "1"
+      }
     },
     "customBlocks": [
       {
         "id": "custom1",
         "kind": "custom-note",
-        "text": "<br><br><br>",
+        "text": "",
         "style": {
           "emoji": "",
           "align": "left",
@@ -37,9 +45,14 @@
     "styling": {
       "theme": "dark",
       "icon": {
-        "mode": "external",
         "align": "center",
-        "scale": "60"
+        "scale": "80",
+        "galleryColumns": 4,
+        "gallerySpacing": "s",
+        "colorVariant": "original",
+        "mode": "external",
+        "embedSvg": true,
+        "resizeWithWsrv": false
       },
       "rows": {
         "title": {
@@ -47,12 +60,12 @@
           "align": "center",
           "heading": "h2",
           "bold": false,
-          "italic": true,
+          "italic": false,
           "strong": false,
-          "code": true
+          "code": false
         },
         "fqdn": {
-          "emoji": "🔗",
+          "emoji": "",
           "align": "center",
           "heading": "h3",
           "bold": false,
@@ -61,8 +74,8 @@
           "code": false
         },
         "network": {
-          "emoji": "🖥️",
-          "align": "left",
+          "emoji": "",
+          "align": "center",
           "heading": "h3",
           "bold": false,
           "italic": false,
@@ -71,7 +84,7 @@
         },
         "config": {
           "emoji": "",
-          "align": "left",
+          "align": "center",
           "heading": "",
           "bold": false,
           "italic": true,
@@ -90,27 +103,42 @@
       }
     },
     "content": {
-      "titleText": "Demo Template 1",
+      "titleText": "PVE NoteBuddy",
       "hostEntries": [
         {
           "icon": "🔗",
-          "label": "Demo Host",
-          "url": "https://example.local/"
+          "label": "GitHub",
+          "url": "https://github.com/JangaJones/pve-notebuddy"
+        },
+        {
+          "icon": "🔗",
+          "label": "Local Web App",
+          "url": "https://localhost:8080"
         }
       ],
       "networkEntries": [
         {
           "icon": "🖥️",
-          "value": "10.0.0.25:8443"
+          "value": "10.10.10.180:80"
         }
       ],
       "configLocations": [
         {
           "icon": "📁",
-          "value": "/etc/demo/service.yml"
+          "value": "/webroot/templates/custom/"
+        },
+        {
+          "icon": "📁",
+          "value": "/webroot/updater/updater.sh"
         }
       ],
       "icon": {
+        "urls": {
+          "URL1": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/pve-notebuddy.svg"
+        },
+        "linkUrls": {
+          "URL1": "https://jangajones.github.io/pve-notebuddy/"
+        },
         "align": "center"
       }
     }

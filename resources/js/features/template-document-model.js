@@ -287,6 +287,29 @@ function normalizeIconMode(value, fallback = "external") {
   return ICON_MODE_VALUES.has(raw) ? raw : fallback;
 }
 
+function mergeIconPresentationStyling(snapshotIcon = {}, designIcon = {}) {
+  const base = isPlainObject(snapshotIcon) ? cloneJson(snapshotIcon) : {};
+  if (!isPlainObject(designIcon)) {
+    return base;
+  }
+
+  // Design documents control icon presentation only, not icon source mode/data.
+  if (typeof designIcon.align === "string") {
+    base.align = designIcon.align;
+  }
+  if (typeof designIcon.scale === "string" || typeof designIcon.scale === "number") {
+    base.scale = designIcon.scale;
+  }
+  if (designIcon.galleryColumns !== undefined) {
+    base.galleryColumns = designIcon.galleryColumns;
+  }
+  if (typeof designIcon.gallerySpacing === "string") {
+    base.gallerySpacing = designIcon.gallerySpacing;
+  }
+
+  return base;
+}
+
 function readIndexedTextMap(source, keyPrefix, options = {}) {
   const preservePositions = options && options.preservePositions === true;
   if (!isPlainObject(source)) {
@@ -348,7 +371,7 @@ function toIndexedTextMap(values, keyPrefix, options = {}) {
 function normalizeIconDataContent(contentSource = {}) {
   const content = isPlainObject(contentSource) ? contentSource : {};
   const icon = isPlainObject(content.icon) ? content.icon : {};
-  const urls = readIndexedTextMap(icon.urls, "url");
+  const urls = readIndexedTextMap(icon.urls, "url", { preservePositions: true });
   if (urls.length === 0 && typeof content.iconUrl === "string" && content.iconUrl.trim()) {
     urls.push(content.iconUrl.trim());
   }
@@ -402,7 +425,7 @@ function buildIconContent({ contentSource = {}, legacyIconSource = {}, type }) {
   const linkTexts = modeForPersistence === "gallery" ? linkTextsRaw : linkTextsRaw.slice(0, 1);
 
   const iconOut = {};
-  const urlMap = toIndexedTextMap(urls, "URL");
+  const urlMap = toIndexedTextMap(urls, "URL", { preservePositions: true });
   if (Object.keys(urlMap).length > 0) {
     iconOut.urls = urlMap;
   }
@@ -521,7 +544,13 @@ function normalizePayload(payload, type = TEMPLATE_DOCUMENT_TYPES.SNAPSHOT) {
 
   if (type !== TEMPLATE_DOCUMENT_TYPES.DESIGN) {
     const content = normalizeContent(contentSource);
-    const icon = buildIconContent({ contentSource, legacyIconSource: source.icon, type });
+    const icon = buildIconContent({
+      contentSource,
+      // Prefer document styling.icon when present so snapshot mode ("gallery"/"upload")
+      // is preserved during document normalization.
+      legacyIconSource: isPlainObject(stylingSource.icon) ? stylingSource.icon : source.icon,
+      type,
+    });
     if (icon) {
       content.icon = icon;
     }
@@ -887,11 +916,7 @@ export function mergeDesignIntoSnapshotDocument(snapshotDocument, designDocument
     customBlocks: Array.from(mergedCustom.values()),
     styling: {
       theme: designPayload.styling?.theme || snapshotPayload.styling.theme || "dark",
-      icon: cloneJson(
-        isPlainObject(designPayload.styling?.icon) && Object.keys(designPayload.styling.icon).length > 0
-          ? designPayload.styling.icon
-          : snapshotPayload.styling.icon || {}
-      ),
+      icon: mergeIconPresentationStyling(snapshotPayload.styling.icon || {}, designPayload.styling?.icon || {}),
       rows: mergedRows,
     },
   };

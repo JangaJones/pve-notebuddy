@@ -3,30 +3,39 @@
     "formatVersion": 1,
     "appVersion": "1.5.0",
     "type": "snapshot",
-    "createdAt": "2026-04-18T23:24:44.523Z",
+    "createdAt": "2026-05-04T15:00:12.572Z",
     "name": "Snapshot Demo 2"
   },
   "payload": {
     "schema": "template-document-payload-v1",
     "layout": {
       "blockOrder": [
+        "row:icon",
         "row:title",
         "row:fqdn",
         "row:network",
         "row:config",
         "custom:custom1"
-      ]
+      ],
+      "rowOrder": {
+        "icon": "1",
+        "title": "1",
+        "fqdn": "1",
+        "network": "1",
+        "config": "1",
+        "custom1": "1"
+      }
     },
     "customBlocks": [
       {
         "id": "custom1",
         "kind": "custom-note",
-        "text": "<br>This is a demonstrative note.<p>You can use <code>HTML</code> tags and links in custom rows.</p>",
+        "text": "Docker Compose managed via Portainer",
         "style": {
           "emoji": "",
           "align": "left",
           "heading": "",
-          "bold": false,
+          "bold": true,
           "italic": false,
           "strong": false,
           "code": false
@@ -36,12 +45,19 @@
     "styling": {
       "theme": "dark",
       "icon": {
-        "mode": "external"
+        "align": "center",
+        "scale": "60",
+        "galleryColumns": 4,
+        "gallerySpacing": "m",
+        "colorVariant": "original",
+        "mode": "gallery",
+        "embedSvg": false,
+        "resizeWithWsrv": true
       },
       "rows": {
         "title": {
           "emoji": "",
-          "align": "left",
+          "align": "center",
           "heading": "h2",
           "bold": false,
           "italic": false,
@@ -49,8 +65,8 @@
           "code": false
         },
         "fqdn": {
-          "emoji": "🔗",
-          "align": "left",
+          "emoji": "",
+          "align": "center",
           "heading": "h3",
           "bold": false,
           "italic": false,
@@ -58,8 +74,8 @@
           "code": false
         },
         "network": {
-          "emoji": "🖥️",
-          "align": "left",
+          "emoji": "",
+          "align": "center",
           "heading": "h3",
           "bold": false,
           "italic": false,
@@ -69,17 +85,17 @@
         "config": {
           "emoji": "",
           "align": "left",
-          "heading": "",
+          "heading": "h5",
           "bold": false,
           "italic": true,
-          "strong": true,
+          "strong": false,
           "code": true
         },
         "custom1": {
           "emoji": "",
           "align": "left",
           "heading": "",
-          "bold": false,
+          "bold": true,
           "italic": false,
           "strong": false,
           "code": false
@@ -87,27 +103,32 @@
       }
     },
     "content": {
-      "titleText": "Demo Template 2",
+      "titleText": "ARR-Stack",
       "hostEntries": [
         {
           "icon": "🔗",
-          "label": "Project Page",
-          "url": "https://www.markdownguide.org/basic-syntax/"
+          "label": "Jellyfin",
+          "url": "https://jellyfin.local"
         }
       ],
-      "networkEntries": [
-        {
-          "icon": "🖥️",
-          "value": "192.168.1.50"
-        }
-      ],
+      "networkEntries": [],
       "configLocations": [
         {
           "icon": "📁",
-          "value": "/opt/demo/settings.env"
+          "value": "/arr/jellyseer/conf.yml"
         }
       ],
       "icon": {
+        "urls": {
+          "URL1": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/jellyfin-light.svg",
+          "URL2": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/jellyseerr-light.svg",
+          "URL3": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/ntfy-light.svg",
+          "URL4": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/radarr-light.svg",
+          "URL5": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/sonarr-light.svg",
+          "URL6": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/prowlarr-light.svg",
+          "URL7": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/profilarr-light.svg",
+          "URL8": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/sabnzbd-light.svg"
+        },
         "align": "center"
       }
     }

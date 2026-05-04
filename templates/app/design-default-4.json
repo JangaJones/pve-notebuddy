@@ -3,26 +3,52 @@
     "formatVersion": 1,
     "appVersion": "1.5.0",
     "type": "design",
-    "createdAt": "2026-04-18T23:24:44.482Z",
+    "createdAt": "2026-05-04T18:47:03.706Z",
     "name": "Default Design 4"
   },
   "payload": {
     "schema": "template-document-payload-v1",
     "layout": {
       "blockOrder": [
+        "row:icon",
         "row:title",
+        "custom:custom2",
         "row:fqdn",
+        "custom:custom1",
         "row:network",
-        "row:config",
-        "custom:custom1"
-      ]
+        "row:config"
+      ],
+      "rowOrder": {
+        "icon": "1",
+        "title": "1",
+        "custom2": "1",
+        "fqdn": "1",
+        "custom1": "1",
+        "network": "1",
+        "config": "1"
+      }
     },
     "customBlocks": [
       {
-        "id": "custom1",
-        "kind": "custom-note",
-        "text": "",
+        "id": "custom2",
+        "kind": "design-note",
+        "text": "<hr>",
         "style": {
+          "emoji": "",
+          "align": "left",
+          "heading": "",
+          "bold": false,
+          "italic": false,
+          "strong": false,
+          "code": false
+        }
+      },
+      {
+        "id": "custom1",
+        "kind": "design-note",
+        "text": "<hr>",
+        "style": {
+          "emoji": "",
           "align": "left",
           "heading": "",
           "bold": false,
@@ -34,47 +60,70 @@
     ],
     "styling": {
       "theme": "dark",
-      "icon": {},
+      "icon": {
+        "align": "center",
+        "scale": "50",
+        "galleryColumns": 4,
+        "gallerySpacing": "s",
+        "colorVariant": "original",
+        "mode": "external",
+        "embedSvg": true,
+        "resizeWithWsrv": false
+      },
       "rows": {
         "title": {
-          "align": "left",
+          "emoji": "",
+          "align": "center",
           "heading": "h2",
           "bold": false,
           "italic": false,
           "strong": false,
           "code": false
         },
-        "fqdn": {
+        "custom2": {
+          "emoji": "",
           "align": "left",
-          "heading": "h3",
+          "heading": "",
+          "bold": false,
+          "italic": false,
+          "strong": false,
+          "code": false
+        },
+        "fqdn": {
+          "emoji": "",
+          "align": "left",
+          "heading": "h4",
+          "bold": false,
+          "italic": false,
+          "strong": false,
+          "code": false
+        },
+        "custom1": {
+          "emoji": "",
+          "align": "left",
+          "heading": "",
           "bold": false,
           "italic": false,
           "strong": false,
           "code": false
         },
         "network": {
+          "emoji": "",
           "align": "left",
-          "heading": "h3",
+          "heading": "h4",
           "bold": false,
           "italic": false,
           "strong": false,
           "code": false
         },
         "config": {
+          "emoji": "",
           "align": "left",
           "heading": "",
           "bold": false,
           "italic": true,
           "strong": true,
           "code": true
-        },
-        "custom1": {
-          "align": "left",
-          "heading": "",
-          "bold": false,
-          "italic": false,
-          "strong": false,
-          "code": false
         }
       }
     }

@@ -3,7 +3,7 @@
     "formatVersion": 1,
     "appVersion": "1.5.0",
     "type": "design",
-    "createdAt": "2026-04-18T23:24:44.496Z",
+    "createdAt": "2026-05-04T18:47:06.247Z",
     "name": "Default Design 5"
   },
   "payload": {
@@ -12,17 +12,26 @@
       "blockOrder": [
         "row:icon",
         "row:title",
-        "row:fqdn",
+        "custom:custom1",
         "row:network",
         "row:config"
-      ]
+      ],
+      "rowOrder": {
+        "icon": "1",
+        "title": "1",
+        "fqdn": "0",
+        "custom1": "1",
+        "network": "1",
+        "config": "1"
+      }
     },
     "customBlocks": [
       {
         "id": "custom1",
-        "kind": "custom-note",
-        "text": "",
+        "kind": "design-note",
+        "text": "<br>",
         "style": {
+          "emoji": "",
           "align": "left",
           "heading": "",
           "bold": false,
@@ -36,48 +45,59 @@
       "theme": "dark",
       "icon": {
         "align": "center",
-        "scale": "100"
+        "scale": "136",
+        "galleryColumns": 4,
+        "gallerySpacing": "s",
+        "colorVariant": "original",
+        "mode": "external",
+        "embedSvg": true,
+        "resizeWithWsrv": false
       },
       "rows": {
         "title": {
+          "emoji": "",
           "align": "center",
-          "heading": "h2",
+          "heading": "h1",
           "bold": false,
           "italic": false,
           "strong": false,
           "code": false
         },
         "fqdn": {
+          "emoji": "",
           "align": "center",
           "heading": "h3",
           "bold": false,
           "italic": false,
           "strong": false,
           "code": false
-        },
-        "network": {
-          "align": "center",
-          "heading": "h3",
-          "bold": false,
-          "italic": false,
-          "strong": false,
-          "code": false
-        },
-        "config": {
-          "align": "center",
-          "heading": "",
-          "bold": false,
-          "italic": true,
-          "strong": true,
-          "code": true
         },
         "custom1": {
+          "emoji": "",
           "align": "left",
           "heading": "",
           "bold": false,
           "italic": false,
           "strong": false,
           "code": false
+        },
+        "network": {
+          "emoji": "",
+          "align": "left",
+          "heading": "h4",
+          "bold": false,
+          "italic": false,
+          "strong": false,
+          "code": false
+        },
+        "config": {
+          "emoji": "",
+          "align": "left",
+          "heading": "",
+          "bold": false,
+          "italic": true,
+          "strong": true,
+          "code": true
         }
       }
     }

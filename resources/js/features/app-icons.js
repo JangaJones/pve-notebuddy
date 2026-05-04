@@ -745,9 +745,8 @@ export function createAppIconsFeature({
   }
 
   function applyPreferredGalleryMode() {
-    const preferredMode = getEffectivePreferredMode();
     if (refs.iconResizeWsrvEl) {
-      refs.iconResizeWsrvEl.checked = preferredMode === "resize";
+      refs.iconResizeWsrvEl.checked = true;
     }
     if (refs.iconEmbedSvgEl) {
       refs.iconEmbedSvgEl.checked = false;

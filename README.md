@@ -15,6 +15,8 @@
  **Use a broad palette of templates for your self-hosted services &**  
  **adjust them to your needs or create notes fully from scratch in a few seconds.**
  
+🚧  Plan for the next weeks: Updating the documentation in smaller increments, a lot of it is still "lorem ipsum". Documentation takes longer than expected. 🚧 
+
 </div>
 
 <div align="center">

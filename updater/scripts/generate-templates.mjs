@@ -32,6 +32,9 @@ const DATASET_CONFIG = [
 
 const DRY_RUN = process.argv.includes("--dry-run");
 const MAX_TEMPLATE_ICON_SVG_CHARS = 4000;
+const SELFHST_CDN_HOST = "cdn.jsdelivr.net";
+const SELFHST_CDN_PATH_PREFIX = "/gh/selfhst/icons";
+const TEMPLATE_BUILD_CONCURRENCY = 12;
 const iconUrlResolutionCache = new Map();
 
 function renderProgress(label, current, total) {
@@ -79,6 +82,22 @@ function splitConfigPaths(configPath) {
 function normalizeUrl(value) {
   const text = ensureString(value);
   return /^https?:\/\//i.test(text) ? text : "";
+}
+
+function isSelfhstCdnLogoUrl(value) {
+  const text = normalizeUrl(value);
+  if (!text) {
+    return false;
+  }
+  try {
+    const parsed = new URL(text);
+    return (
+      parsed.hostname.toLowerCase() === SELFHST_CDN_HOST &&
+      parsed.pathname.toLowerCase().startsWith(SELFHST_CDN_PATH_PREFIX)
+    );
+  } catch {
+    return false;
+  }
 }
 
 function toIndexedTextMap(values, keyPrefix = "URL") {
@@ -392,6 +411,7 @@ async function main() {
     generatedTemplates: 0,
     blacklistedTemplates: 0,
     entriesWithoutIcon: 0,
+    entriesOutsideSelfhstCdn: 0,
     customTemplates: 0,
     indexedTemplates: 0,
     skippedFiles: 0,
@@ -406,9 +426,9 @@ async function main() {
   const slugUseCount = new Map();
   const appVersion = await loadAppVersion();
   const blacklistSet = await loadBlacklistSet();
+  let completedFiles = 0;
 
-  for (let index = 0; index < crawledFiles.length; index += 1) {
-    const file = crawledFiles[index];
+  const tasks = crawledFiles.map(async (file) => {
     const sourcePath = file.relPath.split(path.sep).join("/");
     let parsed;
 
@@ -416,35 +436,25 @@ async function main() {
       const rawText = await fs.readFile(file.fullPath, "utf8");
       parsed = JSON.parse(rawText);
     } catch (error) {
-      report.errors.push({ sourcePath, file: file.relPath, error: error.message });
-      if (shouldRenderProgress(index + 1, crawledFiles.length)) {
-        renderProgress("Generating templates", index + 1, crawledFiles.length);
+      return { kind: "error", sourcePath, file: file.relPath, error: error.message };
+    } finally {
+      completedFiles += 1;
+      if (shouldRenderProgress(completedFiles, crawledFiles.length)) {
+        renderProgress("Generating templates", completedFiles, crawledFiles.length);
       }
-      continue;
     }
 
     if (!looksLikeTemplateJson(parsed)) {
-      report.skippedFiles += 1;
-      if (shouldRenderProgress(index + 1, crawledFiles.length)) {
-        renderProgress("Generating templates", index + 1, crawledFiles.length);
-      }
-      continue;
+      return { kind: "skip" };
     }
     if (isBlacklistedTemplateName(parsed.name, blacklistSet)) {
-      report.blacklistedTemplates += 1;
-      report.skippedFiles += 1;
-      if (shouldRenderProgress(index + 1, crawledFiles.length)) {
-        renderProgress("Generating templates", index + 1, crawledFiles.length);
-      }
-      continue;
+      return { kind: "blacklisted" };
     }
     if (!ensureString(parsed.logo)) {
-      report.entriesWithoutIcon += 1;
-      report.skippedFiles += 1;
-      if (shouldRenderProgress(index + 1, crawledFiles.length)) {
-        renderProgress("Generating templates", index + 1, crawledFiles.length);
-      }
-      continue;
+      return { kind: "missing-logo" };
+    }
+    if (!isSelfhstCdnLogoUrl(parsed.logo)) {
+      return { kind: "non-selfhst-logo" };
     }
 
     const built = await toContentPayload(parsed);
@@ -462,10 +472,53 @@ async function main() {
       await writeJson(outPath, built.template);
     }
 
-    report.generatedTemplates += 1;
-    report.generated.push({ sourcePath, file: `template-search/${outFile}`, name: ensureString(parsed.name) || slug });
-    if (shouldRenderProgress(index + 1, crawledFiles.length)) {
-      renderProgress("Generating templates", index + 1, crawledFiles.length);
+    return {
+      kind: "generated",
+      sourcePath,
+      file: `template-search/${outFile}`,
+      name: ensureString(parsed.name) || slug,
+    };
+  });
+
+  const active = new Set();
+  const results = [];
+  for (const task of tasks) {
+    const tracked = task.finally(() => active.delete(tracked));
+    active.add(tracked);
+    results.push(tracked);
+    if (active.size >= TEMPLATE_BUILD_CONCURRENCY) {
+      await Promise.race(active);
+    }
+  }
+  const settledResults = await Promise.all(results);
+
+  for (const result of settledResults) {
+    if (result.kind === "error") {
+      report.errors.push({ sourcePath: result.sourcePath, file: result.file, error: result.error });
+      continue;
+    }
+    if (result.kind === "generated") {
+      report.generatedTemplates += 1;
+      report.generated.push({ sourcePath: result.sourcePath, file: result.file, name: result.name });
+      continue;
+    }
+    if (result.kind === "blacklisted") {
+      report.blacklistedTemplates += 1;
+      report.skippedFiles += 1;
+      continue;
+    }
+    if (result.kind === "missing-logo") {
+      report.entriesWithoutIcon += 1;
+      report.skippedFiles += 1;
+      continue;
+    }
+    if (result.kind === "non-selfhst-logo") {
+      report.entriesOutsideSelfhstCdn += 1;
+      report.skippedFiles += 1;
+      continue;
+    }
+    if (result.kind === "skip") {
+      report.skippedFiles += 1;
     }
   }
 
@@ -523,6 +576,7 @@ async function main() {
   console.log(`Generated Community-Script Templates: ${report.generatedTemplates}`);
   console.log(`Blacklisted Community-Script Templates: ${report.blacklistedTemplates}`);
   console.log(`Entries without Icon (skipped): ${report.entriesWithoutIcon}`);
+  console.log(`Entries outside selfh.st CDN (skipped): ${report.entriesOutsideSelfhstCdn}`);
   console.log(`Found Custom Templates: ${report.customTemplates}`);
   console.log(`Indexed Templates: ${report.indexedTemplates}`);
   console.log(`Duplicate entries skipped: ${report.duplicateEntries}`);

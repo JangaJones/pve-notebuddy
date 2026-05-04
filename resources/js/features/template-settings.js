@@ -420,6 +420,17 @@ export function createTemplateSettingsFeature({
       }
     }
 
+    // Design loads should never leave gallery mode in non-resize/embed-preferred state.
+    // Gallery only supports WSRV resizing, so force it here regardless of preferred SVG mode.
+    if (String(source || "").trim().toLowerCase() === "design" && getIconMode() === "gallery") {
+      if (refs.iconResizeWsrvEl) {
+        refs.iconResizeWsrvEl.checked = true;
+      }
+      if (refs.iconEmbedSvgEl) {
+        refs.iconEmbedSvgEl.checked = false;
+      }
+    }
+
     await prepareIcon({
       respectPreferredSvgMode: shouldRespectPreferredSvgModeForSource(source),
     });

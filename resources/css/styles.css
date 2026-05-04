@@ -2767,16 +2767,9 @@ body.sidebar-collapsed .sidebar-icon-rail .sidebar-tab.active .sidebar-tab-icon 
 }
 
 .icon-search-copy-btn {
-  width: 100%;
-  box-sizing: border-box;
   min-height: 28px;
   padding: 0.25rem 0.2rem;
   font-size: 0.7rem;
-  line-height: 1;
-}
-
-.icon-search-copy-btn:not(:disabled):hover {
-  transform: none;
 }
 
 .icon-search-empty {

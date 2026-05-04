@@ -3,16 +3,18 @@
     "formatVersion": 1,
     "appVersion": "1.5.0",
     "type": "design",
-    "createdAt": "2026-04-18T23:24:44.441Z",
+    "createdAt": "2026-04-18T23:24:44.496Z",
     "name": "Default Design 1"
   },
   "payload": {
     "schema": "template-document-payload-v1",
     "layout": {
       "blockOrder": [
-        "row:title",
         "row:icon",
-        "row:fqdn"
+        "row:title",
+        "row:fqdn",
+        "row:network",
+        "row:config"
       ]
     },
     "customBlocks": [
@@ -34,7 +36,7 @@
       "theme": "dark",
       "icon": {
         "align": "center",
-        "scale": "160"
+        "scale": "100"
       },
       "rows": {
         "title": {
@@ -47,7 +49,7 @@
         },
         "fqdn": {
           "align": "center",
-          "heading": "h2",
+          "heading": "h3",
           "bold": false,
           "italic": false,
           "strong": false,

@@ -78,6 +78,8 @@
 
 </div>
 
+## Help! How can I use old templates from pre v1.5.0?
+You can use the import feature in the Template Manager. I've wired an legacy importer that detects older .json exports and should take care of compatibility. I haven't encountered any bugs in my testing - if your import does fail, feel free to open up an issue and I will take a look at it.
 
 ## Local Deployment & Template Scripts
 

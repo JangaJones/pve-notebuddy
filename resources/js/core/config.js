@@ -24,6 +24,7 @@ export const DEFAULT_APP_STATE = Object.freeze({
   settings: {
     weservDomain: "",
     svgPreferredMode: "embed",
+    iconSearchThumbnails: "jsdelivr",
   },
   templates: {
     localCatalog: [],

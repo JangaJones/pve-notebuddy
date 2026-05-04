@@ -10,18 +10,22 @@ export function createSidebarFeature({
     const {
       sidebarTabTemplatesEl,
       sidebarTabEmojiEl,
+      sidebarTabIconSearchEl,
       sidebarTabSettingsEl,
       sidebarPanelTemplatesEl,
       sidebarPanelEmojiEl,
+      sidebarPanelIconSearchEl,
       sidebarPanelSettingsEl,
     } = refs;
 
     if (
       !sidebarTabTemplatesEl ||
       !sidebarTabEmojiEl ||
+      !sidebarTabIconSearchEl ||
       !sidebarTabSettingsEl ||
       !sidebarPanelTemplatesEl ||
       !sidebarPanelEmojiEl ||
+      !sidebarPanelIconSearchEl ||
       !sidebarPanelSettingsEl
     ) {
       return;
@@ -29,13 +33,16 @@ export function createSidebarFeature({
     const persist = options.persist !== false;
     const normalizedPanel = normalizeSidebarPanel(panel);
     const showEmoji = normalizedPanel === "emoji";
+    const showIconSearch = normalizedPanel === "icon-search";
     const showSettings = normalizedPanel === "settings";
-    const showTemplates = !showEmoji && !showSettings;
+    const showTemplates = !showEmoji && !showIconSearch && !showSettings;
 
     sidebarTabTemplatesEl.classList.toggle("active", showTemplates);
     sidebarTabTemplatesEl.setAttribute("aria-selected", showTemplates ? "true" : "false");
     sidebarTabEmojiEl.classList.toggle("active", showEmoji);
     sidebarTabEmojiEl.setAttribute("aria-selected", showEmoji ? "true" : "false");
+    sidebarTabIconSearchEl.classList.toggle("active", showIconSearch);
+    sidebarTabIconSearchEl.setAttribute("aria-selected", showIconSearch ? "true" : "false");
     sidebarTabSettingsEl.classList.toggle("active", showSettings);
     sidebarTabSettingsEl.setAttribute("aria-selected", showSettings ? "true" : "false");
 
@@ -43,6 +50,8 @@ export function createSidebarFeature({
     sidebarPanelTemplatesEl.toggleAttribute("hidden", !showTemplates);
     sidebarPanelEmojiEl.classList.toggle("active", showEmoji);
     sidebarPanelEmojiEl.toggleAttribute("hidden", !showEmoji);
+    sidebarPanelIconSearchEl.classList.toggle("active", showIconSearch);
+    sidebarPanelIconSearchEl.toggleAttribute("hidden", !showIconSearch);
     sidebarPanelSettingsEl.classList.toggle("active", showSettings);
     sidebarPanelSettingsEl.toggleAttribute("hidden", !showSettings);
 
@@ -86,17 +95,21 @@ export function createSidebarFeature({
     const {
       sidebarTabTemplatesEl,
       sidebarTabEmojiEl,
+      sidebarTabIconSearchEl,
       sidebarTabSettingsEl,
       sidebarPanelTemplatesEl,
       sidebarPanelEmojiEl,
+      sidebarPanelIconSearchEl,
       sidebarPanelSettingsEl,
     } = refs;
     if (
       !sidebarTabTemplatesEl ||
       !sidebarTabEmojiEl ||
+      !sidebarTabIconSearchEl ||
       !sidebarTabSettingsEl ||
       !sidebarPanelTemplatesEl ||
       !sidebarPanelEmojiEl ||
+      !sidebarPanelIconSearchEl ||
       !sidebarPanelSettingsEl
     ) {
       return;
@@ -111,6 +124,7 @@ export function createSidebarFeature({
 
     sidebarTabTemplatesEl.addEventListener("click", () => openSidebarPanel("templates"));
     sidebarTabEmojiEl.addEventListener("click", () => openSidebarPanel("emoji"));
+    sidebarTabIconSearchEl.addEventListener("click", () => openSidebarPanel("icon-search"));
     sidebarTabSettingsEl.addEventListener("click", () => openSidebarPanel("settings"));
     setSidebarPanel(normalizeSidebarPanel(getState().ui.activeSidebarPanel), { persist: false });
   }

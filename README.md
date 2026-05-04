@@ -41,36 +41,37 @@
 # 🚀 Features
 
 - Clean & lightweight, fully client-side app
-- Direct HTML-Output copy button, ready to paste to PVE Notes
+- Ready to paste Proxmox Guest Notes via Copy-HTML button
 - Preview pane that displays notes just like the PVE Web UI would (also supports dark/light mode)
-- Over 400 templated services (Logo, Website, Default Ports, Default Config Location)
+- Over 500 templated services (Logo, Website, Default Ports, Default Config Location)
 - Directly embed resizable SVGs from local or external sources (fully offline available, no CDN needed, vector quality)
 - Option to resize external images via **[wsrv.nl](https://wsrv.nl/)** (Open-Source, uses Cloudflare as CDN)
+- Icon Search Pane for quick copy-paste of icon links
 - Supports **[selfh.st](https://selfh.st/)** icon links natively, you can switch between their icon variants directly from the UI
-- Fields for thinks like guest name, FQDN, networking & config paths
+- Fields for various information like guest name, FQDN, networking & config paths
 - Custom Note field to use for styling or to input additional information (supports **[Markdown](https://www.markdownguide.org/basic-syntax/)** HTML tags)
 - Alignment, re-order & text styling options for every field, many possible designs
-- Import & export to save your own designs
+- Uses local browser storage for internal Template Manager
 
 # 🗒️ Examples
 
 <div align="center">
 <p>A collection of screenshots from the preview pane</p>
 <p align="middle">
-      <img src="docs/source/assets/1.png" width="49.5%" />
-      <img src="docs/source/assets/2.png" width="49.5%" />
+      <img src="docs/source/assets/1.png" width="49%" />
+      <img src="docs/source/assets/2.png" width="49%" />
 </p>
 <p align="middle">
-      <img src="docs/source/assets/3.png" width="49.5%" />
-      <img src="docs/source/assets/4.png" width="49.5%" />
+      <img src="docs/source/assets/3.png" width="49%" />
+      <img src="docs/source/assets/4.png" width="49%" />
 </p>
 <p align="middle">
-      <img src="docs/source/assets/5.png" width="49.5%" />
-      <img src="docs/source/assets/6.png" width="49.5%" />
+      <img src="docs/source/assets/5.png" width="49%" />
+      <img src="docs/source/assets/6.png" width="49%" />
 </p>
 <p align="middle">
-      <img src="docs/source/assets/7.png" width="49.5%" />
-      <img src="docs/source/assets/8.png" width="49.5%" />
+      <img src="docs/source/assets/7.png" width="49%" />
+      <img src="docs/source/assets/8.png" width="49%" />
 </p>
 
 </div>
@@ -78,7 +79,7 @@
 
 ## Local Deployment & Template Scripts
 
-Please refer to the documentation.
+Please refer to the [documentation](https://jangajones.github.io/pve-notebuddy/docs/).
 
 ## Frequently Asked: API & Automation
 

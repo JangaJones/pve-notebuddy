@@ -806,6 +806,13 @@ export function createTemplateManagerFeature({
   }
 
   function bindLocalTemplateInteractions() {
+    const syncSearchClearButton = () => {
+      if (!refs.localTemplateSearchEl || !refs.localTemplateSearchClearEl) {
+        return;
+      }
+      refs.localTemplateSearchClearEl.disabled = !refs.localTemplateSearchEl.value.trim();
+    };
+
     refs.saveLocalTemplateBtn?.addEventListener("click", async () => {
       await saveCurrentLocalTemplate();
     });
@@ -819,7 +826,21 @@ export function createTemplateManagerFeature({
     refs.localTemplateSearchEl?.addEventListener("input", () => {
       localTemplateSearchQuery = refs.localTemplateSearchEl?.value || "";
       renderLocalTemplateCatalog();
+      syncSearchClearButton();
     });
+
+    refs.localTemplateSearchClearEl?.addEventListener("click", () => {
+      if (!refs.localTemplateSearchEl) {
+        return;
+      }
+      refs.localTemplateSearchEl.value = "";
+      localTemplateSearchQuery = "";
+      renderLocalTemplateCatalog();
+      syncSearchClearButton();
+      refs.localTemplateSearchEl.focus();
+    });
+
+    syncSearchClearButton();
 
     refs.localTemplateListEl?.addEventListener("click", async (event) => {
       const target = event.target;

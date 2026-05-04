@@ -103,12 +103,6 @@
       "tag": "PVE Scripts"
     },
     {
-      "name": "Anytype",
-      "file": "template-search/anytype.json",
-      "source": "template-search/anytype.json",
-      "tag": "PVE Scripts"
-    },
-    {
       "name": "Anytype Server",
       "file": "template-search/anytype-server.json",
       "source": "template-search/anytype-server.json",
@@ -628,6 +622,12 @@
       "name": "Docmost",
       "file": "template-search/docmost.json",
       "source": "template-search/docmost.json",
+      "tag": "PVE Scripts"
+    },
+    {
+      "name": "DocuSeal",
+      "file": "template-search/docuseal.json",
+      "source": "template-search/docuseal.json",
       "tag": "PVE Scripts"
     },
     {

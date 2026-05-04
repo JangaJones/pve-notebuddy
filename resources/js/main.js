@@ -48,6 +48,7 @@ import { createPreviewFeature } from "./features/preview.js";
 import { createTemplateSearchFeature } from "./features/template-search.js";
 import { createAppShellFeature } from "./features/app-shell.js";
 import { createRowEditorFeature } from "./features/row-editor.js";
+import { createIconSearchFeature } from "./features/icon-search.js";
 
 const {
   form,
@@ -89,6 +90,7 @@ const {
     importLocalTemplateBtn,
     importLocalTemplateFileEl,
     localTemplateSearchEl,
+    localTemplateSearchClearEl,
     localTemplateListEl,
     templateNameModalEl,
     templateNameModalTitleEl,
@@ -106,17 +108,20 @@ const {
   sidebarRefs: {
     sidebarTabTemplatesEl,
     sidebarTabEmojiEl,
+    sidebarTabIconSearchEl,
     sidebarTabSettingsEl,
     sidebarToggleBtnEl,
     sidebarToggleIconCloseEl,
     sidebarToggleIconOpenEl,
     sidebarPanelTemplatesEl,
     sidebarPanelEmojiEl,
+    sidebarPanelIconSearchEl,
     sidebarPanelSettingsEl,
   },
   settingsRefs: {
     settingsWeservDomainEl,
     settingsSvgPreferredModeEl,
+    settingsIconSearchThumbnailsEl,
     saveWeservDomainBtnEl,
     deleteWeservDomainBtnEl,
     exportStorageBtnEl,
@@ -133,6 +138,11 @@ const {
     confirmModalCancelBtnEl: settingsConfirmModalCancelBtnEl,
     confirmModalExtraBtnEl: settingsConfirmModalExtraBtnEl,
     confirmModalConfirmBtnEl: settingsConfirmModalConfirmBtnEl,
+  },
+  iconSearchRefs: {
+    iconSearchInputEl,
+    iconSearchClearEl,
+    iconSearchGridEl,
   },
   previewRefs: {
     iconScaleEl,
@@ -197,6 +207,7 @@ let templateSearchFeature = null;
 let appShellFeature = null;
 let githubMetadataService = null;
 let rowEditorFeature = null;
+let iconSearchFeature = null;
 let draftPersistenceEnabled = false;
 let draftPersistTimer = null;
 let lastDraftSnapshotRaw = "";
@@ -468,12 +479,14 @@ function createFeatures() {
     refs: {
       sidebarTabTemplatesEl,
       sidebarTabEmojiEl,
+      sidebarTabIconSearchEl,
       sidebarTabSettingsEl,
       sidebarToggleBtnEl,
       sidebarToggleIconCloseEl,
       sidebarToggleIconOpenEl,
       sidebarPanelTemplatesEl,
       sidebarPanelEmojiEl,
+      sidebarPanelIconSearchEl,
       sidebarPanelSettingsEl,
     },
     closeTemplateSuggest: () => templateSearchFeature?.closeSuggest(),
@@ -538,6 +551,7 @@ function createFeatures() {
     refs: {
       settingsWeservDomainEl,
       settingsSvgPreferredModeEl,
+      settingsIconSearchThumbnailsEl,
       saveWeservDomainBtnEl,
       deleteWeservDomainBtnEl,
       exportStorageBtnEl,
@@ -567,6 +581,15 @@ function createFeatures() {
     onAfterStateApplied: applyStateToRuntime,
     isDemoTemplatesVisible: () => templateManagerFeature?.areDemoTemplatesVisible?.() ?? true,
     onSetDemoTemplatesVisible: (isVisible) => templateManagerFeature?.setDemoTemplatesVisible?.(isVisible),
+  });
+
+  iconSearchFeature = createIconSearchFeature({
+    refs: {
+      iconSearchInputEl,
+      iconSearchClearEl,
+      iconSearchGridEl,
+    },
+    getThumbnailSource: () => settingsFeature?.getIconSearchThumbnailSource?.() || "jsdelivr",
   });
 
   emojiFeature = createEmojiFeature({
@@ -705,6 +728,7 @@ function createFeatures() {
       importLocalTemplateBtn,
       importLocalTemplateFileEl,
       localTemplateSearchEl,
+      localTemplateSearchClearEl,
       localTemplateListEl,
       templateNameModalEl,
       templateNameModalTitleEl,
@@ -743,6 +767,7 @@ async function initFeatureUi() {
   sidebarFeature.initSidebarToggle();
   emojiFeature.initEmojiRail();
   settingsFeature.initSettingsPane(DEFAULT_APP_STATE);
+  await iconSearchFeature.init();
   await templateManagerFeature.initTemplateManager();
   templateSearchFeature.init();
   appShellFeature.initThemeToggle();
@@ -777,12 +802,19 @@ function wireFeatureInteractions() {
   initButtonEl?.addEventListener("click", async () => {
     await applyInitTemplateFromFile();
   });
+  const browseSelfhstLinkEl = document.querySelector("#iconSelfhstWrap a");
+  browseSelfhstLinkEl?.addEventListener("click", (event) => {
+    event.preventDefault();
+    sidebarFeature?.setSidebarCollapsed(false);
+    sidebarFeature?.setSidebarPanel("icon-search");
+  });
   window.addEventListener("beforeunload", persistDraftSnapshotToCache);
   appIconsFeature.initIconInteractions();
 }
 
 function applyInitialRuntime() {
   appIconsFeature.updateIconControls();
+  iconSearchFeature?.refreshThumbnails?.();
   prepareIcon();
 }
 

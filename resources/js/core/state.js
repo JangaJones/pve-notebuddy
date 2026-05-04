@@ -3,7 +3,7 @@ import { isPlainObject } from "./utils.js";
 
 export function normalizeSidebarPanel(value) {
   const raw = String(value || "").trim().toLowerCase();
-  if (raw === "emoji" || raw === "settings") {
+  if (raw === "emoji" || raw === "settings" || raw === "icon-search") {
     return raw;
   }
   return "templates";
@@ -83,6 +83,11 @@ export function normalizeSvgPreferredMode(value) {
   return raw === "resize" ? "resize" : "embed";
 }
 
+export function normalizeIconSearchThumbnailSource(value) {
+  const raw = String(value || "").trim().toLowerCase();
+  return raw === "local" ? "local" : "jsdelivr";
+}
+
 export function normalizePreviewSidebarWidth(value, fallback = 468) {
   const numeric = Number.parseInt(String(value || ""), 10);
   const base = Number.isFinite(numeric) ? numeric : Number.parseInt(String(fallback || ""), 10);
@@ -105,6 +110,7 @@ export function createAppStateStore({
       settings: {
         weservDomain: normalizeWeservDomain(defaultState?.settings?.weservDomain),
         svgPreferredMode: normalizeSvgPreferredMode(defaultState?.settings?.svgPreferredMode),
+        iconSearchThumbnails: normalizeIconSearchThumbnailSource(defaultState?.settings?.iconSearchThumbnails),
       },
       templates: {
         localCatalog: [],
@@ -138,6 +144,7 @@ export function createAppStateStore({
     if (isPlainObject(value.settings)) {
       normalized.settings.weservDomain = normalizeWeservDomain(value.settings.weservDomain);
       normalized.settings.svgPreferredMode = normalizeSvgPreferredMode(value.settings.svgPreferredMode);
+      normalized.settings.iconSearchThumbnails = normalizeIconSearchThumbnailSource(value.settings.iconSearchThumbnails);
     }
     if (isPlainObject(value.templates)) {
       normalized.templates.localCatalog = normalizeLocalTemplateCatalog(value.templates.localCatalog);

@@ -22,6 +22,11 @@
           "icon": "🔗",
           "label": "Documentation",
           "url": "https://jellyfin.org/docs/"
+        },
+        {
+          "icon": "🔗",
+          "label": "GitHub",
+          "url": "https://github.com/jellyfin/jellyfin"
         }
       ],
       "networkEntries": [

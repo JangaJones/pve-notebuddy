@@ -129,6 +129,22 @@
             />
           </button>
           <button
+            id="sidebarTabIconSearch"
+            type="button"
+            class="sidebar-tab"
+            role="tab"
+            aria-selected="false"
+            aria-controls="sidebarPanelIconSearch"
+            title="Icon Search"
+          >
+            <img
+              class="sidebar-tab-icon"
+              src="./resources/icons/image_search_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"
+              alt=""
+              aria-hidden="true"
+            />
+          </button>
+          <button
             id="sidebarTabEmoji"
             type="button"
             class="sidebar-tab"
@@ -216,14 +232,17 @@
                     <button id="importLocalTemplateBtn" type="button" class="panel-action">IMPORT FROM FILE</button>
                   </div>
                   <input id="importLocalTemplateFile" type="file" accept="application/json,.json" class="hidden" />
-                  <input
-                    id="localTemplateSearch"
-                    type="text"
-                    class="local-template-name"
-                    placeholder="Search snapshots..."
-                    autocomplete="off"
-                    spellcheck="false"
-                  />
+                  <div class="template-search sidebar-template-search">
+                    <input
+                      id="localTemplateSearch"
+                      type="text"
+                      class="template-search-input"
+                      placeholder="Search snapshots..."
+                      autocomplete="off"
+                      spellcheck="false"
+                    />
+                    <button id="localTemplateSearchClear" class="template-search-clear" type="button" aria-label="Clear snapshot search"><span class="action-icon action-icon-close" aria-hidden="true"></span><span class="sr-only">Clear snapshot search</span></button>
+                  </div>
                   <div id="localTemplateList" class="local-template-list" aria-live="polite"></div>
                 </div>
               </div>
@@ -249,6 +268,31 @@
                 <div id="emojiRailList" class="emoji-sections"></div>
               </div>
             </div>
+            </div>
+          </section>
+
+          <section id="sidebarPanelIconSearch" class="sidebar-panel sidebar-panel-icon-search" role="tabpanel" aria-label="Icon Search" hidden>
+            <div class="sidebar-panel-head">
+              <strong>Icon Search</strong>
+            </div>
+            <div class="sidebar-panel-body">
+              <div class="icon-search-wrap">
+                <div class="icon-search-powered-by">
+                  powered by <a href="https://selfh.st/icons/" target="_blank" rel="noopener noreferrer">selfh.st</a>
+                </div>
+                <div class="template-search sidebar-template-search">
+                  <input
+                    id="iconSearchInput"
+                    type="text"
+                    class="template-search-input"
+                    placeholder="Search icons..."
+                    autocomplete="off"
+                    spellcheck="false"
+                  />
+                  <button id="iconSearchClear" class="template-search-clear" type="button" aria-label="Clear icon search"><span class="action-icon action-icon-close" aria-hidden="true"></span><span class="sr-only">Clear icon search</span></button>
+                </div>
+                <div id="iconSearchGrid" class="icon-search-grid" aria-live="polite"></div>
+              </div>
             </div>
           </section>
 
@@ -305,6 +349,20 @@
                   <input id="settingsShowDemoTemplates" type="checkbox" />
                   <span>Show demo templates</span>
                 </label>
+              </div>
+
+              <div class="templates-section settings-section">
+                <div class="settings-section-head">
+                  <div class="local-templates-head">Icon Search Thumbnails</div>
+                </div>
+                <div class="settings-field-row">
+                  <label class="settings-domain-input-wrap">
+                    <select id="settingsIconSearchThumbnails" class="local-template-name settings-select">
+                      <option value="jsdelivr">jsDelivr</option>
+                      <option value="local">Local</option>
+                    </select>
+                  </label>
+                </div>
               </div>
 
               <div class="templates-section settings-section">
@@ -455,7 +513,7 @@
                 <span class="info-icon">i</span>
                 <span class="tooltip">Available icon variants on selfh.st will be fetched automatically.</span>
               </span>
-              <a href="https://selfh.st/icons/" target="_blank" rel="noopener noreferrer">Browse selfh.st/icons</a>
+              <a href="#icon-search" target="_self" rel="noopener noreferrer">Browse selfh.st/icons</a>
             </div></span>
             </div>
 

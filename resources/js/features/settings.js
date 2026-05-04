@@ -1,4 +1,4 @@
-import { normalizeSvgPreferredMode, normalizeWeservDomain } from "../core/state.js";
+import { normalizeIconSearchThumbnailSource, normalizeSvgPreferredMode, normalizeWeservDomain } from "../core/state.js";
 
 export function createSettingsFeature({
   refs,
@@ -25,6 +25,10 @@ export function createSettingsFeature({
 
   function getPreferredSvgMode() {
     return normalizeSvgPreferredMode(getState().settings.svgPreferredMode);
+  }
+
+  function getIconSearchThumbnailSource() {
+    return normalizeIconSearchThumbnailSource(getState().settings.iconSearchThumbnails);
   }
 
   function updateWeservResizeUi() {
@@ -62,6 +66,9 @@ export function createSettingsFeature({
     if (refs.settingsSvgPreferredModeEl) {
       refs.settingsSvgPreferredModeEl.value = getPreferredSvgMode();
     }
+    if (refs.settingsIconSearchThumbnailsEl) {
+      refs.settingsIconSearchThumbnailsEl.value = getIconSearchThumbnailSource();
+    }
     if (refs.settingsShowDemoTemplatesEl) {
       refs.settingsShowDemoTemplatesEl.checked = isDemoTemplatesVisible ? Boolean(isDemoTemplatesVisible()) : true;
     }
@@ -90,6 +97,23 @@ export function createSettingsFeature({
     });
     syncSettingsPaneFromState();
     prepareIcon();
+  }
+
+  function saveIconSearchThumbnailSetting() {
+    if (!refs.settingsIconSearchThumbnailsEl) {
+      return;
+    }
+    const next = normalizeIconSearchThumbnailSource(refs.settingsIconSearchThumbnailsEl.value);
+    const current = getIconSearchThumbnailSource();
+    if (next === current) {
+      syncSettingsPaneFromState();
+      return;
+    }
+    patchState((state) => {
+      state.settings.iconSearchThumbnails = next;
+    });
+    syncSettingsPaneFromState();
+    window.location.reload();
   }
 
   function deleteWeservDomainSetting() {
@@ -246,6 +270,9 @@ export function createSettingsFeature({
     if (refs.settingsSvgPreferredModeEl) {
       refs.settingsSvgPreferredModeEl.addEventListener("change", saveSvgPreferredModeSetting);
     }
+    if (refs.settingsIconSearchThumbnailsEl) {
+      refs.settingsIconSearchThumbnailsEl.addEventListener("change", saveIconSearchThumbnailSetting);
+    }
     if (refs.exportStorageBtnEl) {
       refs.exportStorageBtnEl.addEventListener("click", exportAppStateToFile);
     }
@@ -284,6 +311,7 @@ export function createSettingsFeature({
     getConfiguredWeservDomain,
     getWeservBaseUrl,
     getPreferredSvgMode,
+    getIconSearchThumbnailSource,
     syncSettingsPaneFromState,
     initSettingsPane,
   };

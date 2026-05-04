@@ -14,6 +14,7 @@ const MENU_LABELS = new Map([
   ["app-update.mjs", "Update NoteBuddy App from GitHub Release"],
   ["community-scripts.mjs", "Update Templates from Community-Scripts"],
   ["generate-templates.mjs", "Generate Index Files"],
+  ["selfhst.mjs", "Update selfh.st Icons + Sidepanel Index"],
 ]);
 
 function toDisplayName(filePath) {

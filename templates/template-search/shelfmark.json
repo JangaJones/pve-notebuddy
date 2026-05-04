@@ -22,6 +22,11 @@
           "icon": "🔗",
           "label": "Documentation",
           "url": "https://github.com/calibrain/shelfmark/tree/main/docs"
+        },
+        {
+          "icon": "🔗",
+          "label": "GitHub",
+          "url": "https://github.com/calibrain/shelfmark"
         }
       ],
       "networkEntries": [

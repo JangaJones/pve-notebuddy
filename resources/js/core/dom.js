@@ -70,6 +70,10 @@ export function getAppDomRefs() {
       confirmModalCancelBtnEl: document.getElementById("confirmModalCancelBtn"),
       confirmModalExtraBtnEl: document.getElementById("confirmModalExtraBtn"),
       confirmModalConfirmBtnEl: document.getElementById("confirmModalConfirmBtn"),
+      importAlertModalEl: document.getElementById("importAlertModal"),
+      importAlertModalTitleEl: document.getElementById("importAlertModalTitle"),
+      importAlertModalMessageEl: document.getElementById("importAlertModalMessage"),
+      importAlertModalCloseBtnEl: document.getElementById("importAlertModalCloseBtn"),
     },
     sidebarRefs: {
       sidebarTabTemplatesEl: document.getElementById("sidebarTabTemplates"),
@@ -104,6 +108,10 @@ export function getAppDomRefs() {
       confirmModalCancelBtnEl: document.getElementById("confirmModalCancelBtn"),
       confirmModalExtraBtnEl: document.getElementById("confirmModalExtraBtn"),
       confirmModalConfirmBtnEl: document.getElementById("confirmModalConfirmBtn"),
+      importAlertModalEl: document.getElementById("importAlertModal"),
+      importAlertModalTitleEl: document.getElementById("importAlertModalTitle"),
+      importAlertModalMessageEl: document.getElementById("importAlertModalMessage"),
+      importAlertModalCloseBtnEl: document.getElementById("importAlertModalCloseBtn"),
     },
     iconSearchRefs: {
       iconSearchInputEl: document.getElementById("iconSearchInput"),

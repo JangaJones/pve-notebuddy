@@ -550,6 +550,80 @@ export function createTemplateManagerFeature({
     });
   }
 
+  function getImportErrorReason(error) {
+    if (!error) {
+      return "Unknown import error.";
+    }
+    if (error instanceof SyntaxError) {
+      return "Invalid JSON format.";
+    }
+    const message = error instanceof Error ? String(error.message || "").trim() : "";
+    if (!message) {
+      return "Unknown import error.";
+    }
+    if (/exceeds the .* limit/i.test(message)) {
+      return message;
+    }
+    if (/must be/i.test(message) || /unsupported/i.test(message) || /schema/i.test(message)) {
+      return message;
+    }
+    return message;
+  }
+
+  function showImportAlert({ title, message }) {
+    const modalEl = refs.importAlertModalEl;
+    const titleEl = refs.importAlertModalTitleEl;
+    const messageEl = refs.importAlertModalMessageEl;
+    const closeBtnEl = refs.importAlertModalCloseBtnEl;
+
+    if (
+      !(modalEl instanceof HTMLElement) ||
+      !(titleEl instanceof HTMLElement) ||
+      !(messageEl instanceof HTMLElement) ||
+      !(closeBtnEl instanceof HTMLButtonElement)
+    ) {
+      window.alert(`${title}\n\n${message}`);
+      return Promise.resolve();
+    }
+
+    titleEl.textContent = title;
+    messageEl.textContent = message;
+    modalEl.classList.remove("hidden");
+
+    return new Promise((resolve) => {
+      let settled = false;
+      function cleanup() {
+        if (settled) {
+          return;
+        }
+        settled = true;
+        modalEl.classList.add("hidden");
+        closeBtnEl.removeEventListener("click", onClose);
+        modalEl.removeEventListener("click", onBackdropClick);
+        window.removeEventListener("keydown", onWindowKeydown);
+      }
+      function onClose() {
+        cleanup();
+        resolve();
+      }
+      function onBackdropClick(event) {
+        if (event.target === modalEl) {
+          onClose();
+        }
+      }
+      function onWindowKeydown(event) {
+        if (event.key === "Escape") {
+          event.preventDefault();
+          onClose();
+        }
+      }
+      closeBtnEl.addEventListener("click", onClose);
+      modalEl.addEventListener("click", onBackdropClick);
+      window.addEventListener("keydown", onWindowKeydown);
+      window.setTimeout(() => closeBtnEl.focus(), 0);
+    });
+  }
+
   async function saveCurrentLocalTemplate() {
     const baseName = `Snapshot ${localTemplateCatalog.length + 1}`;
     const suggestedName = ensureUniqueLocalTemplateName(baseName);
@@ -670,6 +744,10 @@ export function createTemplateManagerFeature({
       const imported = parseImportedTemplatePayload(parsed, fallbackName);
       const legacyRouted = routeLegacyTemplateImport(imported.settings, { source: "template import" });
       validateSettingsSchema(legacyRouted.settings, "template import");
+      const hasPotentialRemoteCustomImages = Array.isArray(legacyRouted.settings?.fields?.customRows)
+        && legacyRouted.settings.fields.customRows.some((row) =>
+          /<img\b[^>]*\bsrc\s*=\s*["']?\s*https?:\/\//i.test(String(row?.text || ""))
+        );
 
       const suggested = ensureUniqueLocalTemplateName(imported.name);
       const inputName = await promptTemplateName({
@@ -690,8 +768,19 @@ export function createTemplateManagerFeature({
       renderLocalTemplateCatalog();
 
       await applySettings(legacyRouted.settings, { source: "import" });
+      if (hasPotentialRemoteCustomImages) {
+        await showImportAlert({
+          title: "Snapshot import safety notice",
+          message: "Remote custom-note images were detected. For safety, imported remote custom images are blocked until you edit those custom rows.",
+        });
+      }
     } catch (error) {
+      const reason = getImportErrorReason(error);
       console.error(error instanceof Error ? `Template import failed: ${error.message}` : "Template import failed.");
+      await showImportAlert({
+        title: "Error while importing snapshot file",
+        message: reason,
+      });
     } finally {
       if (refs.importLocalTemplateFileEl) {
         refs.importLocalTemplateFileEl.value = "";

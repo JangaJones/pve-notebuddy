@@ -11,6 +11,73 @@ import {
   readTextFile,
 } from "../core/utils.js";
 import { fetchWithPrivacy } from "../services/http-cache.service.js";
+import DOMPurify from "../vendor/purify.es.mjs";
+
+function isSafeSvgReference(value) {
+  const raw = String(value || "").trim();
+  if (!raw) {
+    return false;
+  }
+  return raw.startsWith("#");
+}
+
+function rewriteUnsafeCssUrlReferences(styleValue) {
+  return String(styleValue || "").replace(/url\(([^)]+)\)/gi, (full, capture) => {
+    const inner = String(capture || "").trim().replace(/^['"]|['"]$/g, "");
+    return isSafeSvgReference(inner) ? full : "none";
+  });
+}
+
+function sanitizeSvgMarkup(svgText) {
+  const clean = DOMPurify.sanitize(String(svgText || ""), {
+    USE_PROFILES: { svg: true, svgFilters: true },
+    FORBID_TAGS: ["script", "foreignObject", "iframe", "object", "embed", "audio", "video", "canvas"],
+    FORBID_ATTR: ["srcdoc"],
+    ALLOW_DATA_ATTR: false,
+    ALLOW_ARIA_ATTR: false,
+    KEEP_CONTENT: false,
+  });
+
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(clean, "image/svg+xml");
+  const svg = doc.documentElement;
+  if (!svg || svg.nodeName.toLowerCase() !== "svg") {
+    throw new Error("Not a valid SVG.");
+  }
+
+  for (const el of Array.from(doc.querySelectorAll("*"))) {
+    for (const attr of Array.from(el.attributes)) {
+      const attrName = attr.name.toLowerCase();
+      const attrValue = String(attr.value || "");
+      if (attrName.startsWith("on")) {
+        el.removeAttribute(attr.name);
+        continue;
+      }
+      if (attrName === "href" || attrName === "xlink:href") {
+        if (!isSafeSvgReference(attrValue)) {
+          el.removeAttribute(attr.name);
+        }
+        continue;
+      }
+      if (/url\(/i.test(attrValue) && !/url\(\s*['"]?\s*#/i.test(attrValue)) {
+        el.removeAttribute(attr.name);
+        continue;
+      }
+      if (attrName === "style" && attrValue) {
+        el.setAttribute(attr.name, rewriteUnsafeCssUrlReferences(attrValue));
+      }
+    }
+  }
+
+  for (const rootAttr of Array.from(svg.attributes)) {
+    const rootName = rootAttr.name.toLowerCase();
+    if (rootName.startsWith("on")) {
+      svg.removeAttribute(rootAttr.name);
+    }
+  }
+
+  return new XMLSerializer().serializeToString(doc);
+}
 
 function parsePositiveFloat(value) {
   const numeric = Number.parseFloat(String(value || "").replace(/[^0-9.]/g, ""));
@@ -1092,7 +1159,8 @@ export function createAppIconsFeature({
       }
 
       try {
-        const resized = resizeSvg(uploadSvgText, refs.iconScaleEl.value);
+        const sanitized = sanitizeSvgMarkup(uploadSvgText);
+        const resized = resizeSvg(sanitized, refs.iconScaleEl.value);
         const colorized = transformSvgColors(resized, getIconColorVariant(), svgColorCanvasCtx);
         if (token !== prepareToken) {
           return;
@@ -1154,7 +1222,8 @@ export function createAppIconsFeature({
     setIconStatus("Preparing embedded SVG...");
     try {
       const svgText = await getExternalSvgText(url);
-      const resized = resizeSvg(svgText, refs.iconScaleEl.value);
+      const sanitized = sanitizeSvgMarkup(svgText);
+      const resized = resizeSvg(sanitized, refs.iconScaleEl.value);
       const colorized = transformSvgColors(resized, getIconColorVariant(), svgColorCanvasCtx);
       if (token !== prepareToken) {
         return;

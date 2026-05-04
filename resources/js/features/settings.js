@@ -15,6 +15,102 @@ export function createSettingsFeature({
   isDemoTemplatesVisible,
   onSetDemoTemplatesVisible,
 }) {
+  function validateImportedSettingsSchema(value) {
+    if (!value || typeof value !== "object" || Array.isArray(value)) {
+      throw new Error("Unsupported settings schema. Expected a JSON object.");
+    }
+    const hasKnownTopLevelSection = ["ui", "settings", "templates"].some((key) => key in value);
+    if (!hasKnownTopLevelSection) {
+      throw new Error("Unsupported settings schema. Expected ui/settings/templates sections.");
+    }
+    if (value.ui !== undefined && (typeof value.ui !== "object" || value.ui === null || Array.isArray(value.ui))) {
+      throw new Error("Unsupported settings schema. The 'ui' section must be an object.");
+    }
+    if (
+      value.settings !== undefined &&
+      (typeof value.settings !== "object" || value.settings === null || Array.isArray(value.settings))
+    ) {
+      throw new Error("Unsupported settings schema. The 'settings' section must be an object.");
+    }
+    if (
+      value.templates !== undefined &&
+      (typeof value.templates !== "object" || value.templates === null || Array.isArray(value.templates))
+    ) {
+      throw new Error("Unsupported settings schema. The 'templates' section must be an object.");
+    }
+  }
+
+  function getImportErrorReason(error) {
+    if (!error) {
+      return "Unknown import error.";
+    }
+    if (error instanceof SyntaxError) {
+      return "Invalid JSON format.";
+    }
+    const message = error instanceof Error ? String(error.message || "").trim() : "";
+    if (!message) {
+      return "Unknown import error.";
+    }
+    if (/exceeds the .* limit/i.test(message)) {
+      return message;
+    }
+    return message;
+  }
+
+  function showImportAlert({ title, message }) {
+    const modalEl = refs.importAlertModalEl;
+    const titleEl = refs.importAlertModalTitleEl;
+    const messageEl = refs.importAlertModalMessageEl;
+    const closeBtnEl = refs.importAlertModalCloseBtnEl;
+
+    if (
+      !(modalEl instanceof HTMLElement) ||
+      !(titleEl instanceof HTMLElement) ||
+      !(messageEl instanceof HTMLElement) ||
+      !(closeBtnEl instanceof HTMLButtonElement)
+    ) {
+      window.alert(`${title}\n\n${message}`);
+      return Promise.resolve();
+    }
+
+    titleEl.textContent = title;
+    messageEl.textContent = message;
+    modalEl.classList.remove("hidden");
+
+    return new Promise((resolve) => {
+      let settled = false;
+      function cleanup() {
+        if (settled) {
+          return;
+        }
+        settled = true;
+        modalEl.classList.add("hidden");
+        closeBtnEl.removeEventListener("click", onClose);
+        modalEl.removeEventListener("click", onBackdropClick);
+        window.removeEventListener("keydown", onWindowKeydown);
+      }
+      function onClose() {
+        cleanup();
+        resolve();
+      }
+      function onBackdropClick(event) {
+        if (event.target === modalEl) {
+          onClose();
+        }
+      }
+      function onWindowKeydown(event) {
+        if (event.key === "Escape") {
+          event.preventDefault();
+          onClose();
+        }
+      }
+      closeBtnEl.addEventListener("click", onClose);
+      modalEl.addEventListener("click", onBackdropClick);
+      window.addEventListener("keydown", onWindowKeydown);
+      window.setTimeout(() => closeBtnEl.focus(), 0);
+    });
+  }
+
   function getConfiguredWeservDomain() {
     return normalizeWeservDomain(getState().settings.weservDomain);
   }
@@ -150,10 +246,17 @@ export function createSettingsFeature({
       assertFileSizeWithinLimit(file, maxImportFileBytes, "Storage import file");
       const text = await readTextFile(file);
       assertTextSizeWithinLimit(text, maxImportFileBytes, "Storage import file");
-      replaceState(JSON.parse(text));
+      const parsed = JSON.parse(text);
+      validateImportedSettingsSchema(parsed);
+      replaceState(parsed);
       onAfterStateApplied();
-    } catch {
-      // Ignore invalid import files.
+    } catch (error) {
+      const reason = getImportErrorReason(error);
+      console.error(error instanceof Error ? `Settings import failed: ${error.message}` : "Settings import failed.");
+      await showImportAlert({
+        title: "Error while importing settings file",
+        message: reason,
+      });
     } finally {
       input.value = "";
     }

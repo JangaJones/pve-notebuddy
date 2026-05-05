@@ -25,13 +25,15 @@ jobs:
       - name: Resolve package metadata
         id: meta
         shell: bash
+        env:
+          INPUT_TAG: ${{ inputs.tag }}
         run: |
           set -euo pipefail
 
           if [[ "${GITHUB_EVENT_NAME}" == "release" ]]; then
             TAG="${{ github.event.release.tag_name }}"
           else
-            TAG="${{ inputs.tag }}"
+            TAG="${INPUT_TAG}"
             if [[ -z "$TAG" ]]; then
               TAG="manual-${GITHUB_SHA::7}"
             fi

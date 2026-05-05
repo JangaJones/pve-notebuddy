@@ -20,6 +20,7 @@ const GITHUB_OWNER = "JangaJones";
 const GITHUB_REPO = "pve-notebuddy";
 const RELEASE_API_URL = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/releases/latest`;
 const RELEASE_ASSET_PATTERN = /-selfhosted\.zip$/i;
+const ALLOWED_REDIRECT_HOSTS = new Set(["github.com", "objects.githubusercontent.com"]);
 
 const PROTECTED_NO_DELETE_PATHS = new Set([
   "templates/custom",
@@ -117,19 +118,75 @@ async function prepareTempWorkspace() {
   await fs.mkdir(EXTRACT_DIR, { recursive: true });
 }
 
-async function downloadFile(url, destination) {
-  const response = await fetch(url, {
-    headers: {
-      Accept: "application/octet-stream",
-      "User-Agent": "pve-notebuddy-updater",
-    },
-  });
-
-  if (!response.ok || !response.body) {
-    throw new Error(`Download failed (${response.status} ${response.statusText})`);
+function validateReleaseAssetUrl(rawUrl) {
+  let parsed;
+  try {
+    parsed = new URL(String(rawUrl || "").trim());
+  } catch {
+    throw new Error("Release asset URL is invalid.");
   }
 
-  await pipeline(response.body, createWriteStream(destination));
+  if (parsed.protocol !== "https:") {
+    throw new Error("Release asset URL must use HTTPS.");
+  }
+
+  if (parsed.hostname !== "github.com") {
+    throw new Error(`Release asset URL host is not allowed: ${parsed.hostname}`);
+  }
+
+  if (!parsed.pathname.startsWith(`/${GITHUB_OWNER}/${GITHUB_REPO}/releases/download/`)) {
+    throw new Error("Release asset URL path is not allowed.");
+  }
+
+  return parsed.toString();
+}
+
+function validateFinalDownloadUrl(rawUrl) {
+  let parsed;
+  try {
+    parsed = new URL(String(rawUrl || "").trim());
+  } catch {
+    throw new Error("Final download URL is invalid.");
+  }
+
+  if (parsed.protocol !== "https:" || !ALLOWED_REDIRECT_HOSTS.has(parsed.hostname)) {
+    throw new Error(`Final download URL is not allowed: ${parsed.hostname || "(unknown host)"}`);
+  }
+}
+
+async function downloadFile(url, destination) {
+  const safeUrl = validateReleaseAssetUrl(url);
+  let currentUrl = safeUrl;
+  for (let i = 0; i < 5; i += 1) {
+    const response = await fetch(currentUrl, {
+      redirect: "manual",
+      headers: {
+        Accept: "application/octet-stream",
+        "User-Agent": "pve-notebuddy-updater",
+      },
+    });
+
+    if (response.status >= 300 && response.status < 400) {
+      const location = response.headers.get("location");
+      if (!location) {
+        throw new Error("Download redirect missing Location header.");
+      }
+      const nextUrl = new URL(location, currentUrl).toString();
+      validateFinalDownloadUrl(nextUrl);
+      currentUrl = nextUrl;
+      continue;
+    }
+
+    if (!response.ok || !response.body) {
+      throw new Error(`Download failed (${response.status} ${response.statusText})`);
+    }
+
+    validateFinalDownloadUrl(response.url || currentUrl);
+    await pipeline(response.body, createWriteStream(destination));
+    return;
+  }
+
+  throw new Error("Download failed: too many redirects.");
 }
 
 function runCommand(command, args) {

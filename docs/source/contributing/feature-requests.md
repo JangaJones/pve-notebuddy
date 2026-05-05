@@ -4,7 +4,7 @@ Preferred contribution path is opening an issue directly in the repository.
 
 ## Why Issues First
 
-Issues are better for:
+Issues are best for:
 
 - validating direction early
 - avoiding duplicate work

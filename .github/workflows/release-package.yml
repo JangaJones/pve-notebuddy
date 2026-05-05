@@ -20,7 +20,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Resolve package metadata
         id: meta
@@ -66,7 +66,7 @@ jobs:
 
       - name: Upload package to existing release
         if: github.event_name == 'release'
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           tag_name: ${{ steps.meta.outputs.tag }}
           files: ${{ steps.meta.outputs.archive }}
@@ -74,7 +74,7 @@ jobs:
 
       - name: Upload package as workflow artifact (manual runs)
         if: github.event_name == 'workflow_dispatch'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: ${{ steps.meta.outputs.archive }}
           path: ${{ steps.meta.outputs.archive }}

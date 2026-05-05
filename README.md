@@ -60,20 +60,20 @@
 <div align="center">
 <p>A collection of screenshots from the preview pane</p>
 <p align="middle">
-      <img src="docs/source/assets/1.png" width="49%" />
-      <img src="docs/source/assets/2.png" width="49%" />
+      <img src="docs/source/public/images/1.png" width="49%" />
+      <img src="docs/source/public/images/2.png" width="49%" />
 </p>
 <p align="middle">
-      <img src="docs/source/assets/3.png" width="49%" />
-      <img src="docs/source/assets/4.png" width="49%" />
+      <img src="docs/source/public/images/3.png" width="49%" />
+      <img src="docs/source/public/images/4.png" width="49%" />
 </p>
 <p align="middle">
-      <img src="docs/source/assets/5.png" width="49%" />
-      <img src="docs/source/assets/6.png" width="49%" />
+      <img src="docs/source/public/images/5.png" width="49%" />
+      <img src="docs/source/public/images/6.png" width="49%" />
 </p>
 <p align="middle">
-      <img src="docs/source/assets/7.png" width="49%" />
-      <img src="docs/source/assets/8.png" width="49%" />
+      <img src="docs/source/public/images/7.png" width="49%" />
+      <img src="docs/source/public/images/8.png" width="49%" />
 </p>
 
 </div>

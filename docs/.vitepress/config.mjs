@@ -4,9 +4,9 @@ const docsBase = process.env.DOCS_BASE || '/docs/';
 
 export default defineConfig({
   title: 'Documentation',
-  description: 'PVE NoteBuddy documentation',
+  description: 'PVE NoteBuddy Documentation',
   head: [
-    ['link', { rel: 'icon', type: 'image/svg+xml', href: '../../resources/icons/notebuddy-logo.svg' }]
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: `https://jangajones.github.io/pve-notebuddy/docs/icons/notebuddy-logo.svg` }]
   ],
   srcDir: 'source',
   base: docsBase,
@@ -14,10 +14,10 @@ export default defineConfig({
     search: {
       provider: 'local'
     },
-    logo: '../../resources/icons/notebuddy-logo.svg',
+    logo: '/icons/notebuddy-logo.svg',
     nav: [
       { text: 'Docs', link: '/' },
-      { text: 'PVE NoteBuddy', link: '../../' }
+      { text: 'PVE NoteBuddy', link: 'https://jangajones.github.io/pve-notebuddy/' }
     ],
     sidebar: [
       {
@@ -46,13 +46,13 @@ export default defineConfig({
         collapsed: false,
         items: [
           { text: 'Template Search', link: '/templates/template-search' },
-          { text: 'Template Manager', link: '/templates/template-manager' },
-          { text: 'Designs', link: '/templates/designs' }
+          { text: 'Designs', link: '/templates/designs' },
+          { text: 'Snapshots', link: '/templates/snapshots' }
         ]
       },
       {
         text: 'Configuration',
-        collapsed: true,
+        collapsed: false,
         items: [
           { text: 'Settings', link: '/configuration/settings' },
           { text: 'weserv/images', link: '/configuration/weserv-images' },
@@ -86,7 +86,7 @@ export default defineConfig({
       },
       {
         text: 'Miscellaneous',
-        collapsed: true,
+        collapsed: false,
         items: [
           { text: 'FAQ', link: '/miscellaneous/faq' },
           { text: 'Thanks', link: '/miscellaneous/thanks' }

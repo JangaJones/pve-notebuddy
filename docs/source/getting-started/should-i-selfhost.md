@@ -1,35 +1,35 @@
 # Should I Self-Host?
 
-Use this matrix to decide whether self-hosting PVE NoteBuddy is worth it for your setup.
+What are the benefits of self-hosting? Should you use the GitHub Pages version or setup a local instance of NoteBuddy?
 
 ## Decision Matrix
 
-| Situation | Use Official GitHub Pages | Self-Host |
+| Situation | GitHub Pages | Self-Host |
 | --- | --- | --- |
-| You want fastest start | Yes | No |
-| You are behind strict firewalls or offline segments | No | Yes |
-| You need full control over update timing | Maybe | Yes |
+| **Fast Start & Zero Maintenance** | **Yes** | **No** |
+| You want to serve your own custom templates (e.g. in a company) | Maybe | Yes |
+| Use behind strict firewalls or even offline segments | No | Yes |
 | You need custom reverse proxy/domain policies | No | Yes |
-| You want zero maintenance | Yes | No |
 | You want to bundle app with internal tooling | No | Yes |
 
-## Rule of Thumb
+## My Advice
 
-- Use official GitHub Pages if you just want to use the app.
-- Self-host if you have policy, networking, or compliance requirements.
+- Use official GitHub Pages if you just want to use the app and forget about it.
+- Self-host if you have policy, networking, or compliance requirements or just want to have fun inside your homelab.
 
 ## Operational Tradeoff
 
 Self-hosting gives control, but adds responsibilities:
 
 - patching host OS and web server
-- monitoring service availability
-- validating updates before rollout
-- handling backups and restore of host configuration
+- service availability
+- security is fully in your own hands
 
-## Hybrid Approach
+::: tip Update Scripts
 
-Some users run both:
+I bundled some update scripts with the self-hosted version that allow you to easily:
+- fetch & build the latest templates from the community-scripts database
+- update the selfh.st image search sidepanel with the latest icons
+- update the app itself via the release channel on GitHub
 
-- official site for quick access
-- internal self-hosted mirror for controlled environments
+:::

@@ -46,8 +46,8 @@ export default defineConfig({
         collapsed: false,
         items: [
           { text: 'Template Search', link: '/templates/template-search' },
-          { text: 'Template Manager', link: '/templates/template-manager' },
-          { text: 'Designs', link: '/templates/designs' }
+          { text: 'Designs', link: '/templates/designs' },
+          { text: 'Snapshots', link: '/templates/snapshots' }
         ]
       },
       {

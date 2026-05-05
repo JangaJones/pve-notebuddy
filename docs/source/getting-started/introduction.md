@@ -1,42 +1,41 @@
 # Introduction
 
-PVE NoteBuddy helps you create clean, readable Proxmox VE notes using a visual editor instead of manually writing HTML.
+With PVE NoteBuddy you can use a broad palette of templates for your self-hosted services & adjust them to your needs or create guest notes fully from scratch in a matter of seconds.
 
-## What It Does
-
-Main capabilities:
+## Main Capabilities:
 
 - build note content row-by-row with formatting controls
+- easily resize app-icons embedded into your guest notes
 - generate copy-ready HTML output for Proxmox notes
 - preview how the note will look before copying
 - use a large template catalog for self-hosted services
 - save and load local template designs in the browser
-- manage icon behavior (embed, gallery, upload, resize)
+- the only limit is your imagination (and the 8092 character count in Proxmox VE)
 
-## Core Architecture and Security Model
+## What It Can't Do
 
-PVE NoteBuddy is a static frontend application:
+- It's not an automation tool for writing directly to Proxmox via API.
+- It's not a server-side CMS or separate infrastructure documentation tool.
+- It's not a tool to host your own app-icons for use inside Proxmox
 
-- no backend required
-- no user account system
-- no telemetry pipeline in the app
-- state is stored in browser local storage
+## Core & Security Model
 
-Because it is static and client-side, where you get the files from matters.
+- static frontend javascript application
+- no backend
+- therefore also no user account system
+- no telemetry in the app
+- state, templates, designs & settings are stored in your browsers' local storage
 
-## Security Warning About Forks and Downloads
+
+::: tip Security Note
 
 Be cautious with unofficial forks that advertise pre-packaged downloads. A fork can change JavaScript behavior and still look visually identical.
 
-Recommended practice:
+Use the official project repository and official GitHub Pages deployment. Be careful with third-party forks that offer downloads or modified builds. A malicious fork can inject unsafe code into a static app.
 
-1. Use the official repository.
-2. Use the official GitHub Pages deployment.
-3. If you self-host, deploy from your own clone of the official source.
-4. Review diffs before pulling from any third-party branch.
+Official sources:
 
-## What PVE NoteBuddy Is Not
+- GitHub repository: <https://github.com/JangaJones/pve-notebuddy>
+- Live app: <https://jangajones.github.io/pve-notebuddy/>
 
-- It is not an automation tool for writing directly to Proxmox via API.
-- It is not a server-side CMS.
-- It does not replace your own operational security process.
+:::

@@ -2,7 +2,7 @@
 
 ## Why does the app not work when opening `index.html` directly?
 
-Because template and asset loading needs HTTP(S). Browsers block relevant fetch behavior under `file://`.
+Because modern browsers block fetch behaviour that is required for template and asset loading to work. Instead of opening the `index.html` with `file://`, serve the app on a [static webserver](../selfhosting/index). 
 
 ## Why is copy disabled?
 

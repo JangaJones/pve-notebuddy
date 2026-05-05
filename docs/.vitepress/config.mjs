@@ -4,9 +4,9 @@ const docsBase = process.env.DOCS_BASE || '/docs/';
 
 export default defineConfig({
   title: 'Documentation',
-  description: 'PVE NoteBuddy documentation',
+  description: 'PVE NoteBuddy Documentation',
   head: [
-    ['link', { rel: 'icon', type: 'image/svg+xml', href: '../../resources/icons/notebuddy-logo.svg' }]
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: `${docsBase}icons/notebuddy-logo.svg` }]
   ],
   srcDir: 'source',
   base: docsBase,
@@ -14,7 +14,7 @@ export default defineConfig({
     search: {
       provider: 'local'
     },
-    logo: '../../resources/icons/notebuddy-logo.svg',
+    logo: '/icons/notebuddy-logo.svg',
     nav: [
       { text: 'Docs', link: '/' },
       { text: 'PVE NoteBuddy', link: '../../' }

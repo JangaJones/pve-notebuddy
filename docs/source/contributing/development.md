@@ -21,7 +21,7 @@ npx serve -l 8080
 
 ## Docs Development
 
-Refer to [architecture](/architecture.md) for documentation structure.
+Refer to [architecture](../contributing/architecture) for documentation structure.
 
 ```bash
 cd docs

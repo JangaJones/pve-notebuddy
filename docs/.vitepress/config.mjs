@@ -6,7 +6,7 @@ export default defineConfig({
   title: 'Documentation',
   description: 'PVE NoteBuddy Documentation',
   head: [
-    ['link', { rel: 'icon', type: 'image/svg+xml', href: `${docsBase}icons/notebuddy-logo.svg` }]
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: `https://jangajones.github.io/pve-notebuddy/docs/icons/notebuddy-logo.svg` }]
   ],
   srcDir: 'source',
   base: docsBase,
@@ -17,7 +17,7 @@ export default defineConfig({
     logo: '/icons/notebuddy-logo.svg',
     nav: [
       { text: 'Docs', link: '/' },
-      { text: 'PVE NoteBuddy', link: '../../' }
+      { text: 'PVE NoteBuddy', link: 'https://jangajones.github.io/pve-notebuddy/' }
     ],
     sidebar: [
       {
@@ -52,7 +52,7 @@ export default defineConfig({
       },
       {
         text: 'Configuration',
-        collapsed: true,
+        collapsed: false,
         items: [
           { text: 'Settings', link: '/configuration/settings' },
           { text: 'weserv/images', link: '/configuration/weserv-images' },
@@ -86,7 +86,7 @@ export default defineConfig({
       },
       {
         text: 'Miscellaneous',
-        collapsed: true,
+        collapsed: false,
         items: [
           { text: 'FAQ', link: '/miscellaneous/faq' },
           { text: 'Thanks', link: '/miscellaneous/thanks' }

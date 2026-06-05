@@ -3,6 +3,8 @@
   <h1>PVE NoteBuddy</h1>
   <p><em>Generate pretty Proxmox Guest Notes with a simple web based UI</em></p>
 
+**with Proxmox 9.2.0 and newer, there is additional santization in the widget-renderer, which restricts base64 SVG strings from being rendered. This means that embedding SVGs with NoteBuddy is currently not possible anymore. Resizing with wsrv.nl works as intended.**
+
   <p>
     <a href="https://jangajones.github.io/pve-notebuddy/">
       <img src="https://img.shields.io/badge/🔗_PVE_NoteBuddy-Live_on_Github_Pages-6bceea?style=for-the-badge&labelColor=2d3748" alt="Website" />
